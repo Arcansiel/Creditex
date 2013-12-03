@@ -44,7 +44,7 @@ public class CreditCalculatorTest {
                 .money(application.request())//деньги (осталось от счёта)
                 .percentSum(0)//долг по процентам в сумме (сколько осталось процентов)
                 .product(product)
-                .start(new java.sql.Date(new java.util.Date().getTime()));
+                .start(new java.sql.Date(new Date().getTime()));
 
         PaymentPlanSummary out = new PaymentPlanSummary();
         List<Payment> plan = CreditCalculator.PaymentPlan(credit,out);
