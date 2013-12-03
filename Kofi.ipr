@@ -25,6 +25,7 @@
         <module name="model" />
         <module name="repository" />
         <module name="serivce" />
+        <module name="service" />
         <module name="web" />
       </profile>
     </annotationProcessing>
@@ -176,7 +177,7 @@
       <module fileurl="file://$PROJECT_DIR$/Kofi.iml" filepath="$PROJECT_DIR$/Kofi.iml" />
       <module fileurl="file://$PROJECT_DIR$/model/model.iml" filepath="$PROJECT_DIR$/model/model.iml" />
       <module fileurl="file://$PROJECT_DIR$/repository/repository.iml" filepath="$PROJECT_DIR$/repository/repository.iml" />
-      <module fileurl="file://$PROJECT_DIR$/serivce/serivce.iml" filepath="$PROJECT_DIR$/serivce/serivce.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service/service.iml" filepath="$PROJECT_DIR$/service/service.iml" />
       <module fileurl="file://$PROJECT_DIR$/web/web.iml" filepath="$PROJECT_DIR$/web/web.iml" />
     </modules>
   </component>
@@ -645,6 +646,17 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: org.slf4j:slf4j-api:1.6.6">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.6.6/slf4j-api-1.6.6.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.6.6/slf4j-api-1.6.6-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.6.6/slf4j-api-1.6.6-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: org.slf4j:slf4j-api:1.7.1">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.1/slf4j-api-1.7.1.jar!/" />
@@ -973,6 +985,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/3.2.5.RELEASE/spring-webmvc-3.2.5.RELEASE-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: ru.xpoft.vaadin:spring-vaadin-integration:2.0.2">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/ru/xpoft/vaadin/spring-vaadin-integration/2.0.2/spring-vaadin-integration-2.0.2.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/ru/xpoft/vaadin/spring-vaadin-integration/2.0.2/spring-vaadin-integration-2.0.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/ru/xpoft/vaadin/spring-vaadin-integration/2.0.2/spring-vaadin-integration-2.0.2-sources.jar!/" />
       </SOURCES>
     </library>
   </component>

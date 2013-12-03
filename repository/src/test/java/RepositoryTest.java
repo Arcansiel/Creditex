@@ -2,6 +2,7 @@ import com.mysema.query.types.Predicate;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kofi.creditex.model.OperationType;
 import org.kofi.creditex.repository.OperationTypeRepository;
 import org.kofi.creditex.repository.PaymentRepository;
 import org.slf4j.Logger;
@@ -30,6 +31,9 @@ public class RepositoryTest {
     }
     @Test
     public void Tester(){
+        OperationType type = OperationType.builder().value("This is element").build();
+
+        operationTypeRepository.save(type);
 
     }
 }
