@@ -2,28 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/Class1.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/CreditCalcBase.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/CreditCalcResult.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/CreditCalculator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/service/src/test/java/CreditCalculatorTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/FineType.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/PaymentInfo.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/PaymentPlanSummary.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/PaymentType.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/service/src/test/resources/service-test-context.xml" />
+      <change type="DELETED" beforePath="D:\IdeaProjects\Creditex\service\src\main\java\org\kofi\creditex\creditcalc\Class1.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/CreditCalculator.java" afterPath="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/CreditCalculator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kofi.iws" afterPath="$PROJECT_DIR$/Kofi.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/model.iml" afterPath="$PROJECT_DIR$/model/model.iml" />
-      <change type="MOVED" beforePath="D:\IdeaProjects\Creditex\serivce\src\main\java\org\kofi\creditex\creditcalc\Class1.java" afterPath="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/Class1.java" />
-      <change type="MOVED" beforePath="D:\IdeaProjects\Creditex\serivce\src\main\java\org\kofi\creditex\creditcalc\CreditCalculator.java" afterPath="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/CreditCalculator.java" />
-      <change type="MOVED" beforePath="D:\IdeaProjects\Creditex\serivce\src\main\java\org\kofi\creditex\creditcalc\PaymentPlanSummary.java" afterPath="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/PaymentPlanSummary.java" />
-      <change type="MOVED" beforePath="D:\IdeaProjects\Creditex\serivce\src\main\java\org\kofi\creditex\creditcalc\base\CreditCalcBase.java" afterPath="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/CreditCalcBase.java" />
-      <change type="MOVED" beforePath="D:\IdeaProjects\Creditex\serivce\src\main\java\org\kofi\creditex\creditcalc\base\CreditCalcResult.java" afterPath="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/CreditCalcResult.java" />
-      <change type="MOVED" beforePath="D:\IdeaProjects\Creditex\serivce\src\main\java\org\kofi\creditex\creditcalc\base\FineType.java" afterPath="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/FineType.java" />
-      <change type="MOVED" beforePath="D:\IdeaProjects\Creditex\serivce\src\main\java\org\kofi\creditex\creditcalc\base\PaymentInfo.java" afterPath="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/PaymentInfo.java" />
-      <change type="MOVED" beforePath="D:\IdeaProjects\Creditex\serivce\src\main\java\org\kofi\creditex\creditcalc\base\PaymentType.java" afterPath="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/PaymentType.java" />
-      <change type="MOVED" beforePath="D:\IdeaProjects\Creditex\serivce\src\test\java\CreditCalculatorTest.java" afterPath="$PROJECT_DIR$/service/src/test/java/CreditCalculatorTest.java" />
-      <change type="MOVED" beforePath="D:\IdeaProjects\Creditex\serivce\src\test\resources\service-test-context.xml" afterPath="$PROJECT_DIR$/service/src/test/resources/service-test-context.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/PriorRepayment.java" afterPath="$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/PriorRepayment.java" />
     </list>
     <ignored path="Kofi.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,7 +21,7 @@
     <file path="/Operationtype.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385717184671" ignored="false" />
     <file path="/Operation.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385725461023" ignored="false" />
     <file path="/Passport.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385725722207" ignored="false" />
-    <file path="/PriorRepayment.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1386078154741" ignored="false" />
+    <file path="/PriorRepayment.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1386082558574" ignored="false" />
     <file path="/Payment.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385717919022" ignored="false" />
     <file path="/ProductType.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385733841221" ignored="false" />
     <file path="/SecurityApplication.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385718345963" ignored="false" />
@@ -66,14 +48,14 @@
     <file path="/repo-test-context.xml" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385982050831" ignored="false" />
     <file path="/RepositoryTest.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385793339055" ignored="false" />
     <file path="/*.regexp" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385795048539" ignored="false" />
-    <file path="/Dummy.txt" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1386080295639" ignored="false" />
+    <file path="/Dummy.txt" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1386080529432" ignored="false" />
     <file path="/CreditCalc.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385989597282" ignored="false" />
     <file path="/PaymentType.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385983817617" ignored="false" />
     <file path="/PaymentInfo.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385983902476" ignored="false" />
     <file path="/FineType.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1386077502422" ignored="false" />
     <file path="/CreditCalcResult.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385983975306" ignored="false" />
     <file path="/CreditCalcBase.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1386077567215" ignored="false" />
-    <file path="/CreditCalculator.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1386079553577" ignored="false" />
+    <file path="/CreditCalculator.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1386083514158" ignored="false" />
     <file path="/CreditCalculatorTest.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1386076500711" ignored="false" />
     <file path="/service-test-context.xml" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385993223778" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -141,10 +123,46 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="PriorRepayment.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="CreditCalculator.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/CreditCalculator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="67" column="4" selection-start="2412" selection-end="2412" vertical-scroll-proportion="-0.12230216">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CreditCalculatorTest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/service/src/test/java/CreditCalculatorTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="42" column="49" selection-start="1513" selection-end="1513" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PriorRepayment.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/PriorRepayment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="21" selection-start="541" selection-end="541" vertical-scroll-proportion="0.5079086">
+            <state line="25" column="22" selection-start="590" selection-end="590" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FineType.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/FineType.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="20" selection-start="206" selection-end="206" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CreditCalcBase.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/CreditCalcBase.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="334" column="39" selection-start="11526" selection-end="11540" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -168,7 +186,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/Authorities.java" />
         <option value="$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/UserCredentials.java" />
         <option value="$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/Payment.java" />
         <option value="$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/UserDetails.java" />
@@ -181,9 +198,10 @@
         <option value="$PROJECT_DIR$/serivce/src/test/resources/service-test-context.xml" />
         <option value="$PROJECT_DIR$/serivce/src/main/java/org/kofi/creditex/creditcalc/base/FineType.java" />
         <option value="$PROJECT_DIR$/serivce/src/main/java/org/kofi/creditex/creditcalc/base/CreditCalcBase.java" />
-        <option value="$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/PriorRepayment.java" />
         <option value="$PROJECT_DIR$/serivce/src/test/java/CreditCalculatorTest.java" />
         <option value="$PROJECT_DIR$/serivce/src/main/java/org/kofi/creditex/creditcalc/CreditCalculator.java" />
+        <option value="$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/PriorRepayment.java" />
+        <option value="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/CreditCalculator.java" />
       </list>
     </option>
   </component>
@@ -215,6 +233,82 @@
         <PATH_ELEMENT>
           <option name="myItemId" value="" />
           <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="service" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="service" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Lifecycle" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$LifecycleNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="repository" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="repository" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Lifecycle" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$LifecycleNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="model" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="model" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Lifecycle" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$LifecycleNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="main" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
         </PATH_ELEMENT>
       </PATH>
     </treeState>
@@ -327,6 +421,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Kofi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Creditex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -370,90 +490,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="base" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Kofi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Creditex" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="repository" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Kofi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Creditex" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="repository" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Kofi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Creditex" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="repository" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Kofi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Creditex" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="repository" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -691,7 +727,11 @@
       <created>1386079568321</created>
       <updated>1386079568321</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="commit 2 by Alexey">
+      <created>1386080544072</created>
+      <updated>1386080544072</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -730,6 +770,7 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19090909" sideWeight="0.5678392" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3277311" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.49916247" order="1" side_tool="false" content_ui="tabs" />
@@ -746,7 +787,6 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3277311" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Mongo Runner" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Notes" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3997722" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="LuaJ" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -793,7 +833,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit 1 by Alexey" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit 2 by Alexey" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -808,6 +848,7 @@
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
     <MESSAGE value="commit 1 by Alexey" />
+    <MESSAGE value="commit 2 by Alexey" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -891,13 +932,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/FineType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/Credit.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="17" column="7" selection-start="405" selection-end="405" vertical-scroll-proportion="0.029876977">
@@ -905,9 +939,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/FineType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="20" selection-start="206" selection-end="206" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/PriorRepayment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="21" selection-start="541" selection-end="541" vertical-scroll-proportion="0.5079086">
+        <state line="25" column="22" selection-start="590" selection-end="590" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/test/java/CreditCalculatorTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="49" selection-start="1513" selection-end="1513" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/CreditCalcBase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="334" column="39" selection-start="11526" selection-end="11540" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/CreditCalculator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="67" column="4" selection-start="2412" selection-end="2412" vertical-scroll-proportion="-0.12230216">
           <folding />
         </state>
       </provider>

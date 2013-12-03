@@ -66,17 +66,33 @@ public class CreditCalculator {
 
     //PRIOR REPAYMENT AND FINE CALCULATION
 
-    public static boolean IsAvailablePriorRepayment(Credit credit, Date now){
+    public static FineType ToFineType(String priorRepayment){
         //TODO check values of credit.product().prior()
-        String prior = credit.product().prior().value().toLowerCase();
-
-
-        return false;
+        FineType fineType;
+        String pr = priorRepayment.toLowerCase();
+        if(pr.equals("interest")){
+            fineType = FineType.Interest;
+        }else if(pr.equals("percents")){
+            fineType = FineType.Percents;
+        }else{
+            fineType = FineType.None;
+        }
+        return fineType;
     }
 
+    public static boolean IsAvailablePriorRepayment(Credit credit){
+        //TODO check values of credit.product().prior()
+        String prior = credit.product().prior().value().toLowerCase();
+        if(prior.equals("na")){
+            return false;
+        }else{
+            float debt_limit = credit.sum() * (1f - credit.product().prior().sum());
+            return credit.debt() <= debt_limit;
+        }
+    }
 
-    public static void PriorRepaymentAmount(Credit credit){
-        //List<Payment> payments = credit.payments();
+    /*
+    public static void PriorRepaymentSum(Credit credit){
 
         FineType fine_type;
         double fine_value;
@@ -90,10 +106,10 @@ public class CreditCalculator {
     }
 
 
-    public static void TotalPaymentFine(Credit credit, Date now){
+    public static void TotalFine(Credit credit, Date now){
 
     }
-
+    */
 
 
 
