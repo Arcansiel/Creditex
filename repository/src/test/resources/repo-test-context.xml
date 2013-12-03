@@ -31,6 +31,6 @@
         <property name="driverClassName" value="org.postgresql.Driver"/>
         <property name="url" value="jdbc:postgresql://localhost/kofi"/>
         <property name="username" value="postgres"/>
-        <property name="password" value="afnfkbcn"/>
+        <property name="password" value="admin"/>
     </bean>
 </beans>

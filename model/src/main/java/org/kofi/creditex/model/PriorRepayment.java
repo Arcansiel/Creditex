@@ -20,6 +20,8 @@ public class PriorRepayment {
     private int id;
     @Column(name = "value")
     private String value;
+    @Column(name = "fine")
+    private int fine;
     @OneToMany(mappedBy = "prior")
     private List<Product> products;
 }
