@@ -65,7 +65,7 @@ public class CreditCalculator {
 
 
     //PRIOR REPAYMENT AND FINE CALCULATION
-    /*
+
     public static boolean IsAvailablePriorRepayment(Credit credit, Date now){
         //TODO check values of credit.product().prior()
         String prior = credit.product().prior().value().toLowerCase();
@@ -81,7 +81,7 @@ public class CreditCalculator {
         FineType fine_type;
         double fine_value;
 
-        CreditCalcBase.PriorRepayment(credit.debt(),credit.product().percent(),fine_type,fine_value);
+        //CreditCalcBase.PriorRepayment(credit.debt(),credit.product().percent(),fine_type,fine_value);
 
     }
 
@@ -93,7 +93,7 @@ public class CreditCalculator {
     public static void TotalPaymentFine(Credit credit, Date now){
 
     }
-    */
+
 
 
 

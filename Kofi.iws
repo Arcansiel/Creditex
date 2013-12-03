@@ -2,21 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/serivce/src/main/java/org/kofi/creditex/creditcalc/Class1.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/serivce/src/main/java/org/kofi/creditex/creditcalc/base/CreditCalcBase.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/serivce/src/main/java/org/kofi/creditex/creditcalc/base/CreditCalcResult.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/serivce/src/main/java/org/kofi/creditex/creditcalc/CreditCalculator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/serivce/src/test/java/CreditCalculatorTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/serivce/src/main/java/org/kofi/creditex/creditcalc/base/FineType.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/serivce/src/main/java/org/kofi/creditex/creditcalc/base/PaymentInfo.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/serivce/src/main/java/org/kofi/creditex/creditcalc/PaymentPlanSummary.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/serivce/src/main/java/org/kofi/creditex/creditcalc/base/PaymentType.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/serivce/src/test/resources/service-test-context.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/serivce/src/main/java/org/kofi/creditex/creditcalc/CreditCalculator.java" afterPath="$PROJECT_DIR$/serivce/src/main/java/org/kofi/creditex/creditcalc/CreditCalculator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kofi.iws" afterPath="$PROJECT_DIR$/Kofi.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/PriorRepayment.java" afterPath="$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/PriorRepayment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/model.iml" afterPath="$PROJECT_DIR$/model/model.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/repository/src/test/resources/repo-test-context.xml" afterPath="$PROJECT_DIR$/repository/src/test/resources/repo-test-context.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/repository/repository.iml" afterPath="$PROJECT_DIR$/repository/repository.iml" />
     </list>
     <ignored path="Kofi.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -59,7 +47,7 @@
     <file path="/repo-test-context.xml" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385982050831" ignored="false" />
     <file path="/RepositoryTest.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385793339055" ignored="false" />
     <file path="/*.regexp" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385795048539" ignored="false" />
-    <file path="/Dummy.txt" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1386079317086" ignored="false" />
+    <file path="/Dummy.txt" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1386079558053" ignored="false" />
     <file path="/CreditCalc.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385989597282" ignored="false" />
     <file path="/PaymentType.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385983817617" ignored="false" />
     <file path="/PaymentInfo.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385983902476" ignored="false" />
@@ -137,7 +125,7 @@
       <file leaf-file-name="CreditCalculator.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/serivce/src/main/java/org/kofi/creditex/creditcalc/CreditCalculator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="69" column="14" selection-start="2511" selection-end="2511" vertical-scroll-proportion="0.12230216">
+            <state line="83" column="10" selection-start="2831" selection-end="2831" vertical-scroll-proportion="0.57194245">
               <folding />
             </state>
           </provider>
@@ -817,6 +805,11 @@
       <created>1385562228521</created>
       <updated>1385562228521</updated>
     </task>
+    <task id="LOCAL-00001" summary="commit 1 by Alexey">
+      <created>1386079568321</created>
+      <updated>1386079568321</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -851,7 +844,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19090909" sideWeight="0.5678392" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -859,10 +852,10 @@
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3277311" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.49916247" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14242424" sideWeight="0.67058825" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14242424" sideWeight="0.38319328" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19090909" sideWeight="0.67058825" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19090909" sideWeight="0.38319328" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.61680675" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Mongo Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1093,7 +1086,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/serivce/src/main/java/org/kofi/creditex/creditcalc/CreditCalculator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="14" selection-start="2511" selection-end="2511" vertical-scroll-proportion="0.12230216">
+        <state line="83" column="10" selection-start="2831" selection-end="2831" vertical-scroll-proportion="0.57194245">
           <folding />
         </state>
       </provider>
