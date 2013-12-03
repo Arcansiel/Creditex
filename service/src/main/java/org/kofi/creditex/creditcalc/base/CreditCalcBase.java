@@ -330,7 +330,7 @@ public class CreditCalcBase {
     //year_interest - годовая процентная ставка (в %)
     //fine_type - тип штрафа (на сумму процентов или на процентную ставку)
     //Interest - штраф на процентную ставку, Percents - штраф на сумму процентов, None - без штрафа
-    //fine_value - значение для расчёта штрафа (1 - в %, 2 - доля (1/2 = 0.5))
+    //fine_value - значение для расчёта штрафа (в %)
     //return[0] - полная сумма платежа со штрафом, return[1] - сумма процентов, return[2] - сумма штрафа
     public static long[] PriorRepayment(long debt, double year_interest, FineType fine_type, double fine_value){
         long[] result = new long[3];
@@ -342,7 +342,7 @@ public class CreditCalcBase {
                 break;
             }
             case Percents:{//штраф на сумму процентов
-                result[2] = Math.round(p * fine_value);
+                result[2] = Math.round(p * (fine_value / 100d));
                 break;
             }
             default:{

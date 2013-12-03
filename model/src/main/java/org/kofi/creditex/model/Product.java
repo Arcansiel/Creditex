@@ -32,6 +32,8 @@ public class Product {
     private int debtPercent;
     @Column(name = "prior_repayment_percent")
     private int priorRepaymentPercent;
+    @Column(name = "prior_repayment_debt_limit")
+    private float priorRepaymentDebtLimit;
     @OneToMany(mappedBy = "product")
     private List<Application> applications;
     @OneToMany(mappedBy = "product")

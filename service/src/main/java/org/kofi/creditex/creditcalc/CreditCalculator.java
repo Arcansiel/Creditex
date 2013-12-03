@@ -86,21 +86,20 @@ public class CreditCalculator {
         if(prior.equals("na")){
             return false;
         }else{
-            float debt_limit = credit.sum() * (1f - credit.product().prior().sum());
+            float debt_limit = credit.sum() * credit.product().priorRepaymentDebtLimit();
             return credit.debt() <= debt_limit;
         }
     }
 
-    /*
-    public static void PriorRepaymentSum(Credit credit){
 
-        FineType fine_type;
-        double fine_value;
-
-        //CreditCalcBase.PriorRepayment(credit.debt(),credit.product().percent(),fine_type,fine_value);
-
+    public static int PriorRepaymentSum(Credit credit){
+        FineType fine_type = ToFineType(credit.product().prior().value());
+        double fine_value = credit.product().priorRepaymentPercent();
+        long[] r = CreditCalcBase.PriorRepayment(credit.debt(),credit.product().percent(),fine_type,fine_value);
+        return (int)r[0];
     }
 
+    /*
     public static void PaymentFine(Payment payment, Date now){
 
     }
