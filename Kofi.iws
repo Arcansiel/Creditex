@@ -2,16 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/operations/CreditOperations.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/CreditCalcBase.java" afterPath="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/CreditCalcBase.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/CreditCalculator.java" afterPath="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/CreditCalculator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kofi.iws" afterPath="$PROJECT_DIR$/Kofi.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/PriorRepayment.java" afterPath="$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/PriorRepayment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/Product.java" afterPath="$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/Product.java" />
     </list>
     <ignored path="Kofi.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/fragment.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385649115412" ignored="false" />
-    <file path="/Product.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1386084192052" ignored="false" />
+    <file path="/Product.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1386144565162" ignored="false" />
     <file path="/pom.xml" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385793144523" ignored="false" />
     <file path="/Account.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385722658643" ignored="false" />
     <file path="/Application.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385732992471" ignored="false" />
@@ -49,14 +49,14 @@
     <file path="/repo-test-context.xml" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385982050831" ignored="false" />
     <file path="/RepositoryTest.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385793339055" ignored="false" />
     <file path="/*.regexp" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385795048539" ignored="false" />
-    <file path="/Dummy.txt" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1386085997800" ignored="false" />
+    <file path="/Dummy.txt" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1386143309827" ignored="false" />
     <file path="/CreditCalc.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385989597282" ignored="false" />
     <file path="/PaymentType.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385983817617" ignored="false" />
     <file path="/PaymentInfo.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385983902476" ignored="false" />
     <file path="/FineType.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1386077502422" ignored="false" />
     <file path="/CreditCalcResult.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385983975306" ignored="false" />
-    <file path="/CreditCalcBase.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1386077567215" ignored="false" />
-    <file path="/CreditCalculator.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1386085583097" ignored="false" />
+    <file path="/CreditCalcBase.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1386087687716" ignored="false" />
+    <file path="/CreditCalculator.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1386144836079" ignored="false" />
     <file path="/CreditCalculatorTest.java" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1386076500711" ignored="false" />
     <file path="/service-test-context.xml" changelist="81ba0453-ac50-49f5-bc4e-f1b827f6cc76" time="1385993223778" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -127,7 +127,18 @@
       <file leaf-file-name="CreditCalculator.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/CreditCalculator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="100" column="4" selection-start="3633" selection-end="3633" vertical-scroll-proportion="0.60251796">
+            <state line="122" column="4" selection-start="4245" selection-end="4245" vertical-scroll-proportion="0.81654674">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CreditOperations.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/operations/CreditOperations.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="6" selection-start="78" selection-end="78" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -136,34 +147,7 @@
       <file leaf-file-name="Product.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/Product.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="43" selection-start="1132" selection-end="1132" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PriorRepayment.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/PriorRepayment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="25" selection-start="492" selection-end="492" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProductType.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/ProductType.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="13" selection-start="316" selection-end="316" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FineType.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/FineType.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="20" selection-start="206" selection-end="206" vertical-scroll-proportion="0.0">
+            <state line="37" column="60" selection-start="1153" selection-end="1153" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -172,7 +156,7 @@
       <file leaf-file-name="CreditCalcBase.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/CreditCalcBase.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="344" column="64" selection-start="12045" selection-end="12045" vertical-scroll-proportion="0.0">
+            <state line="362" column="30" selection-start="12598" selection-end="12598" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -196,7 +180,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/UserDetails.java" />
         <option value="$PROJECT_DIR$/repository/src/test/resources/repo-test-context.xml" />
         <option value="$PROJECT_DIR$/serivce/src/main/java/org/kofi/creditex/creditcalc/base/PaymentType.java" />
         <option value="$PROJECT_DIR$/serivce/src/main/java/org/kofi/creditex/creditcalc/base/PaymentInfo.java" />
@@ -209,9 +192,10 @@
         <option value="$PROJECT_DIR$/serivce/src/test/java/CreditCalculatorTest.java" />
         <option value="$PROJECT_DIR$/serivce/src/main/java/org/kofi/creditex/creditcalc/CreditCalculator.java" />
         <option value="$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/PriorRepayment.java" />
-        <option value="$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/Product.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/CreditCalcBase.java" />
+        <option value="$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/Product.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/CreditCalculator.java" />
+        <option value="$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/operations/CreditOperations.java" />
       </list>
     </option>
   </component>
@@ -357,7 +341,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -465,7 +448,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="creditcalc" />
+              <option name="myItemId" value="creditex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="operations" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -495,13 +482,13 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="creditex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="creditcalc" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="base" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -514,32 +501,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="repository" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Kofi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Creditex" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="repository" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -629,6 +590,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -644,12 +606,12 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="MemberChooser.showClasses" value="true" />
     <property name="FullScreen" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="dynamic.classpath" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -700,19 +662,6 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -739,6 +688,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -825,7 +787,11 @@
       <created>1386083674571</created>
       <updated>1386083674571</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="commit 4 by Alexey, &#10;PriorRepayment : rollback to (id,value),&#10;Product: added prior_repayment_debt_limit field&#10;">
+      <created>1386086046978</created>
+      <updated>1386086046978</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -864,14 +830,13 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19090909" sideWeight="0.5678392" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3277311" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.49916247" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14242424" sideWeight="0.67058825" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14242424" sideWeight="0.38319328" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19090909" sideWeight="0.67058825" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19090909" sideWeight="0.38319328" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.61680675" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Mongo Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -881,6 +846,7 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3277311" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Mongo Runner" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Notes" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3997722" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="LuaJ" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -954,6 +920,20 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/FineType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="20" selection-start="206" selection-end="206" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/CreditCalcBase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="362" column="30" selection-start="12598" selection-end="12598" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="uml://JAVA/org.kofi.creditex.model">
       <provider selected="true" editor-type-id="UmlEditorProvider">
         <state>
@@ -973,11 +953,11 @@
             <node x="" y="">org.kofi.creditex.model.QAuthorities</node>
             <node x="" y="">org.kofi.creditex.model.QProduct</node>
             <node x="" y="">org.kofi.creditex.model.OperationType</node>
-            <node x="" y="">org.kofi.creditex.model.QApplication</node>
             <node x="" y="">org.kofi.creditex.model.QVote</node>
+            <node x="" y="">org.kofi.creditex.model.QApplication</node>
             <node x="" y="">org.kofi.creditex.model.UserCredentials</node>
-            <node x="" y="">org.kofi.creditex.model.Credit</node>
             <node x="" y="">org.kofi.creditex.model.PriorRepayment</node>
+            <node x="" y="">org.kofi.creditex.model.Credit</node>
             <node x="" y="">org.kofi.creditex.model.Authorities</node>
             <node x="" y="">org.kofi.creditex.model.QCredit</node>
             <node x="" y="">org.kofi.creditex.model.Operation</node>
@@ -995,13 +975,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/Payment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="28" selection-start="493" selection-end="493" vertical-scroll-proportion="0.41827768">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/repository/src/main/java/org/kofi/creditex/repository/PaymentRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="3" selection-start="213" selection-end="213" vertical-scroll-proportion="0.11950791" />
@@ -1009,28 +982,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/repository/src/test/java/RepositoryTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="0" selection-start="690" selection-end="690" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="16" column="0" selection-start="690" selection-end="690" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/Credit.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="17" column="7" selection-start="405" selection-end="405" vertical-scroll-proportion="0.029876977">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/FineType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="20" selection-start="206" selection-end="206" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/ProductType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="13" selection-start="316" selection-end="316" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1042,27 +999,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/PriorRepayment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="25" selection-start="492" selection-end="492" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/Product.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="43" selection-start="1132" selection-end="1132" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/CreditCalcBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="344" column="64" selection-start="12045" selection-end="12045" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/repository/src/test/resources/repo-test-context.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="17" column="4" selection-start="1038" selection-end="1038" vertical-scroll-proportion="-0.031021899">
@@ -1070,10 +1006,61 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/Payment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="28" selection-start="493" selection-end="493" vertical-scroll-proportion="0.41970804">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/ProductType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="13" selection-start="316" selection-end="316" vertical-scroll-proportion="0.2688928">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/PriorRepayment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="25" selection-start="492" selection-end="492" vertical-scroll-proportion="0.44815466">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/CreditCalcBase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="362" column="30" selection-start="12598" selection-end="12598" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/base/FineType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="20" selection-start="206" selection-end="206" vertical-scroll-proportion="0.17926186">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/src/main/java/org/kofi/creditex/model/Product.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="60" selection-start="1153" selection-end="1153" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/operations/CreditOperations.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="6" selection-start="78" selection-end="78" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/service/src/main/java/org/kofi/creditex/creditcalc/CreditCalculator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="100" column="4" selection-start="3633" selection-end="3633" vertical-scroll-proportion="0.60251796">
-          <folding />
+        <state line="122" column="4" selection-start="4245" selection-end="4245" vertical-scroll-proportion="0.81654674">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

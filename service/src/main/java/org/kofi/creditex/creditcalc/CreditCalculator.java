@@ -1,6 +1,7 @@
 package org.kofi.creditex.creditcalc;
 
 import java.util.*;
+
 import org.kofi.creditex.model.*;
 import org.kofi.creditex.creditcalc.base.*;
 
@@ -99,16 +100,27 @@ public class CreditCalculator {
         return (int)r[0];
     }
 
-    /*
-    public static void PaymentFine(Payment payment, Date now){
 
+    public static int PaymentDelayFine(Payment payment, Date now, float fine){
+        if(now == null){
+            now = new Date();
+        }
+        Date deadline = new Date(payment.end().getTime());
+        long[] r = CreditCalcBase.DelayFine(payment.sum(), deadline, now, fine);
+        return (int)r[1];
     }
 
 
-    public static void TotalFine(Credit credit, Date now){
-
+    public static int TotalDelayFine(Iterable<Payment> payments, Date now, float fine){
+        int fine_sum = 0;
+        for(Payment p:payments){
+            if(!p.closed()){
+                fine_sum += PaymentDelayFine(p, now, fine);
+            }
+        }
+        return fine_sum;
     }
-    */
+
 
 
 

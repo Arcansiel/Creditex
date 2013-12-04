@@ -34,6 +34,8 @@ public class Product {
     private int priorRepaymentPercent;
     @Column(name = "prior_repayment_debt_limit")
     private float priorRepaymentDebtLimit;
+    @Column(name = "payment_delay_fine")
+    private float paymentDelayFine;//пеня за 1 день задержки платежа (в % от сумы платежа)
     @OneToMany(mappedBy = "product")
     private List<Application> applications;
     @OneToMany(mappedBy = "product")

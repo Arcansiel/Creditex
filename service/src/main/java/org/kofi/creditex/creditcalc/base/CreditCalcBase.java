@@ -360,7 +360,7 @@ public class CreditCalcBase {
     //deadline, now - if(now >= deadline -> просрочен)
     //fine_value - размер штрафа за 1 день просрочки в % от суммы платежа
     //return[0] - сумма платежа со штрафом, return[1] - сумма штрафа
-    public static long[] LateFine(long payment, Date deadline, Date now, double fine_value){
+    public static long[] DelayFine(long payment, Date deadline, Date now, double fine_value){
         long[] result = new long[2];
         long d = now.getTime() - deadline.getTime();
         if(d >= 0){
