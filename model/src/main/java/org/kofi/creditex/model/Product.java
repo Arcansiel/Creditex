@@ -29,13 +29,11 @@ public class Product {
     @Column(name = "max_money")
     private int maxMoney;
     @Column(name = "debt_percent")
-    private int debtPercent;
+    private float debtPercent;//fine for 1 day payment delay, %
     @Column(name = "prior_repayment_percent")
-    private int priorRepaymentPercent;
+    private int priorRepaymentPercent;//fine for prior repayment, %
     @Column(name = "prior_repayment_debt_limit")
-    private float priorRepaymentDebtLimit;
-    @Column(name = "payment_delay_fine")
-    private float paymentDelayFine;//пеня за 1 день задержки платежа (в % от сумы платежа)
+    private float priorRepaymentDebtLimit;//debt limit (1..0) to allow prior repayment
     @OneToMany(mappedBy = "product")
     private List<Application> applications;
     @OneToMany(mappedBy = "product")

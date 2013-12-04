@@ -1,15 +1,22 @@
 package org.kofi.creditex.creditcalc;
 
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
 
 import org.kofi.creditex.model.*;
 import org.kofi.creditex.creditcalc.base.*;
 
 public class CreditCalculator {
 
+    public static class PaymentPlanSummary {
+        public int total;//суммарная задолженность
+        public int credit;//задолженность по кредиту
+        public int percents;//задолженность по процентам
+    }
+
     //PAYMENT PLAN CALCULATION
 
-    public static PaymentType ToPaymentType(String productType){
+    private static PaymentType ToPaymentType(String productType){
         PaymentType paymentType;
         String t = productType.toLowerCase();
         if(t.equals("annuity")){
@@ -22,9 +29,9 @@ public class CreditCalculator {
         return paymentType;
     }
 
-    public static List<Payment> PaymentPlan(int percent, String productType, int sum, int duration, Date start, PaymentPlanSummary out){
+    public static List<Payment> PaymentPlan(int percent, String productType, int sum, int duration, java.sql.Date start, PaymentPlanSummary out){
 
-        CreditCalcBase calc = new CreditCalcBase(sum,percent,duration,ToPaymentType(productType),start);
+        CreditCalcBase calc = new CreditCalcBase(sum,percent,duration,ToPaymentType(productType),new java.util.Date(start.getTime()));
 
         CreditCalcResult result = calc.Calculate();
         PaymentInfo[] plan = result.paymentPlan;
@@ -36,7 +43,7 @@ public class CreditCalculator {
             payments.add(
                 Payment.builder().build()
                         .number(p.orderNumber)
-                        .sum((int)p.totalPayment)
+                        .sum((int) p.totalPayment)
                         .start(new java.sql.Date(p.firstDate.getTime()))
                         .end(new java.sql.Date(p.lastDate.getTime()))
                         .closed(false)
@@ -52,11 +59,11 @@ public class CreditCalculator {
         return payments;
     }
 
-    public static List<Payment> PaymentPlan(Product product, int sum, int duration, Date start, PaymentPlanSummary out){
+    public static List<Payment> PaymentPlan(Product product, int sum, int duration, java.sql.Date start, PaymentPlanSummary out){
         return PaymentPlan(product.percent(), product.type().value(), sum, duration, start, out);
     }
 
-    public static List<Payment> PaymentPlan(Application application, Date date, PaymentPlanSummary out){
+    public static List<Payment> PaymentPlan(Application application, java.sql.Date date, PaymentPlanSummary out){
          return PaymentPlan(application.product(), application.request(), application.duration(), date, out);
     }
 
@@ -67,7 +74,7 @@ public class CreditCalculator {
 
     //PRIOR REPAYMENT AND FINE CALCULATION
 
-    public static FineType ToFineType(String priorRepayment){
+    private static FineType ToFineType(String priorRepayment){
         //TODO check values of credit.product().prior()
         FineType fineType;
         String pr = priorRepayment.toLowerCase();
@@ -101,17 +108,14 @@ public class CreditCalculator {
     }
 
 
-    public static int PaymentDelayFine(Payment payment, Date now, float fine){
-        if(now == null){
-            now = new Date();
-        }
-        Date deadline = new Date(payment.end().getTime());
-        long[] r = CreditCalcBase.DelayFine(payment.sum(), deadline, now, fine);
+    public static int PaymentDelayFine(Payment payment, java.sql.Date now, float fine){
+        java.util.Date deadline = new java.util.Date(payment.end().getTime());
+        long[] r = CreditCalcBase.DelayFine(payment.sum(), deadline, new java.util.Date(now.getTime()), fine);
         return (int)r[1];
     }
 
 
-    public static int TotalDelayFine(Iterable<Payment> payments, Date now, float fine){
+    public static int TotalDelayFine(Iterable<Payment> payments, java.sql.Date now, float fine){
         int fine_sum = 0;
         for(Payment p:payments){
             if(!p.closed()){

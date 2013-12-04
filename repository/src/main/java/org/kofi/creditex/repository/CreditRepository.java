@@ -12,4 +12,5 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
  * To change this template use File | Settings | File Templates.
  */
 public interface CreditRepository extends JpaRepository<Credit, Integer>, QueryDslPredicateExecutor<Credit> {
+    public Iterable<Credit> findByUser_credentialsAndDebtGreaterThan(int user_credentials, int debt);
 }
