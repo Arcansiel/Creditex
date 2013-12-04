@@ -2,10 +2,13 @@ package org.kofi.creditex.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NonNull;
 import lombok.experimental.Accessors;
 import lombok.experimental.Builder;
+import lombok.val;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.List;
 
 @Entity
