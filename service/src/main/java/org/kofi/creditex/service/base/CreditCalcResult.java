@@ -1,4 +1,4 @@
-package org.kofi.creditex.creditcalc.base;
+package org.kofi.creditex.service.base;
 
 public class CreditCalcResult {
     public long totalDebt;//суммарная задолженность

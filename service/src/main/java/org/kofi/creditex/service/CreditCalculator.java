@@ -4,7 +4,7 @@
 //import java.util.ArrayList;
 //
 //import org.kofi.creditex.model.*;
-//import org.kofi.creditex.creditcalc.base.*;
+//import org.kofi.creditex.service.base.*;
 //
 //public class CreditCalculator {
 //
