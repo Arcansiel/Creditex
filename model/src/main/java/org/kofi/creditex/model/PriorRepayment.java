@@ -9,5 +9,8 @@ import javax.persistence.*;
 import java.util.List;
 
 public enum PriorRepayment {
-
+    NotAvailable,
+    Available,
+    AvailableFineInterest,
+    AvailableFinePercentSum
 }

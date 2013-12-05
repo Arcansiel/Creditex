@@ -10,5 +10,7 @@ import java.util.List;
 
 
 public enum ProductType {
-
+    Annuity,
+    Percent,
+    Residue
 }

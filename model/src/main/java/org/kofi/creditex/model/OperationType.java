@@ -9,5 +9,6 @@ import javax.persistence.*;
 import java.util.List;
 
 public enum OperationType {
-
+    Withdrawal,
+    Deposit
 }
