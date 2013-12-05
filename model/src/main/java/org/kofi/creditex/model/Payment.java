@@ -12,23 +12,21 @@ import java.sql.Date;
 @Data
 @Builder
 @Accessors(fluent = true)
-@EqualsAndHashCode(of = {"id", "number", "sum", "start", "end", "closed"})
+@EqualsAndHashCode(of = {"id", "number", "requiredPayment", "start", "end", "closed"})
 public class Payment {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @Column(name = "number")
     private int number;
-    @Column(name = "sum")
-    private int sum;
-    @Column(name = "payment_start")
-    private Date start;
-    @Column(name = "payment_end")
-    private Date end;
-    @Column(name = "closed")
-    private Boolean closed;
+    // sum -> requiredPayment
+    private int requiredPayment;
+    // start -> paymentStart
+    private Date paymentStart;
+    // end -> paymentEnd
+    private Date paymentEnd;
+    // closed -> paymentClosed
+    private boolean paymentClosed;
     @ManyToOne
-    @JoinColumn(name = "credit", referencedColumnName = "id", nullable = false)
+    @JoinColumn(referencedColumnName = "id", nullable = false)
     private Credit credit;
 }

@@ -14,18 +14,15 @@ import javax.persistence.*;
 @EqualsAndHashCode(of = {"id","amount"})
 public class Operation {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @Column(name = "amount")
     private int amount;
     @ManyToOne
-    @JoinColumn(name = "credit", referencedColumnName = "id", nullable = false)
+    @JoinColumn(referencedColumnName = "id", nullable = false)
     private Credit credit;
-    @ManyToOne
-    @JoinColumn(name = "type", referencedColumnName = "id", nullable = false)
+    @Enumerated(EnumType.STRING)
     private OperationType type;
     @ManyToOne
-    @JoinColumn(name = "operator", referencedColumnName = "id", nullable = false)
-    private UserCredentials operator;
+    @JoinColumn(referencedColumnName = "id", nullable = false)
+    private User operator;
 }

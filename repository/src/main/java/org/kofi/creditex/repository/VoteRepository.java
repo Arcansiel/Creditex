@@ -4,12 +4,5 @@ import org.kofi.creditex.model.Vote;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 
-/**
- * Created with IntelliJ IDEA.
- * UserCredentials: Constantine
- * Date: 29.11.13
- * Time: 19:26
- * To change this template use File | Settings | File Templates.
- */
 public interface VoteRepository extends JpaRepository<Vote, Integer>, QueryDslPredicateExecutor<Vote> {
 }

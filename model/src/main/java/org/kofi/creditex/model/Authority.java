@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import lombok.experimental.Builder;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,14 +13,14 @@ import java.util.List;
 @Data
 @Builder
 @EqualsAndHashCode(of = {"id", "authority"})
-@Accessors(fluent = true)
-public class Authorities {
+@Accessors
+public class Authority implements GrantedAuthority {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @Column(name = "authority")
+
     private String authority;
-    @OneToMany(mappedBy = "authorities")
-    private List<UserCredentials> userCredentials;
+
+    @OneToMany(mappedBy = "authority")
+    private List<User> userCredentials;
 }

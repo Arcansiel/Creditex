@@ -16,7 +16,7 @@ public class CreditOperations {
 
     //GET INFORMATION
 
-    public Iterable<Credit> getCurrentCredits(UserCredentials user){
+    public Iterable<Credit> getCurrentCredits(User user){
         return creditRepository.findByUser_credentialsAndDebtGreaterThan(user.id(), 0);
     }
 

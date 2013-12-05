@@ -14,17 +14,14 @@ import javax.persistence.*;
 @EqualsAndHashCode(of = {"id", "acceptance", "comment"})
 public class Vote {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @Column(name = "acceptance")
     private boolean acceptance;
-    @Column(name = "comment")
     private String comment;
     @ManyToOne
-    @JoinColumn(name = "application", referencedColumnName = "id", nullable = false)
+    @JoinColumn(referencedColumnName = "id", nullable = false)
     private Application application;
     @ManyToOne
-    @JoinColumn(name = "manager", referencedColumnName = "id", nullable = false)
-    private UserCredentials manager;
+    @JoinColumn(referencedColumnName = "id", nullable = false)
+    private User manager;
 }

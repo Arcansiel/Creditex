@@ -13,30 +13,28 @@ import java.util.List;
 @Data
 @Builder
 @Accessors(fluent = true)
-@EqualsAndHashCode(of = {"id", "start", "duration", "sum", "money", "debt", "percentSum"})
+@EqualsAndHashCode(of = {"id", "start", "duration", "currentMainDebt", "currentMoney", "originalMainDebt", "fine"})
 public class Credit {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @Column(name = "start")
     private Date start;
-    @Column(name = "duration")
     private int duration;
-    @Column(name = "sum")
-    private int sum;
-    @Column(name = "percent_sum")
-    private int percentSum;
-    @Column(name = "money")
-    private int money;
-    @Column(name = "debt")
-    private int debt;
+    // sum -> currentMainDebt
+    private int currentMainDebt;
+    // percentSum -> fine
+    private int fine;
+    // money -> currentMoney
+    private int currentMoney;
+    // debt -> originalMainDebt
+    private int originalMainDebt;
+
     @ManyToOne
-    @JoinColumn(name = "product", referencedColumnName = "id", nullable = false)
+    @JoinColumn(referencedColumnName = "id", nullable = false)
     private Product product;
     @ManyToOne
-    @JoinColumn(name = "user_credentials", referencedColumnName = "id", nullable = false)
-    private UserCredentials userCredentials;
+    @JoinColumn(referencedColumnName = "id", nullable = false)
+    private User user;
     @OneToMany(mappedBy = "credit")
     private List<Payment> payments;
     @OneToMany(mappedBy = "credit")
