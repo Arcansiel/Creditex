@@ -42,4 +42,8 @@ public class Credit {
     private List<Payment> payments;
     @OneToMany(mappedBy = "credit")
     private List<Operation> operations;
+    @OneToMany(mappedBy = "credit")
+    private List<ProlongationApplication> prolongationApplications;
+    @OneToMany(mappedBy = "credit")
+    private List<PriorRepaymentApplication> priorApplications;
 }

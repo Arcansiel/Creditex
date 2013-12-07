@@ -23,7 +23,9 @@ public class User implements org.springframework.security.core.userdetails.UserD
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @Column(nullable = false)
     private String username;
+    @Column(nullable = false)
     private String password;
     private boolean enabled;
     private boolean accountNonExpired;
@@ -34,6 +36,14 @@ public class User implements org.springframework.security.core.userdetails.UserD
     private List<Application> applicationsTo;
     @OneToMany(mappedBy = "accountManager")
     private List<Application> applicationsBy;
+    @OneToMany(mappedBy = "accountManager")
+    private List<PriorRepaymentApplication> priorApplicationsBy;
+    @OneToMany(mappedBy = "client")
+    private List<PriorRepaymentApplication> priorApplicationsTo;
+    @OneToMany(mappedBy = "accountManager")
+    private List<ProlongationApplication> prolongationApplicationsBy;
+    @OneToMany(mappedBy = "client")
+    private List<ProlongationApplication> prolongationApplicationsTo;
     @OneToMany(mappedBy = "user")
     private List<Credit> credits;
     @OneToMany(mappedBy = "operator")

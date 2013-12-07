@@ -14,19 +14,21 @@ import javax.persistence.*;
 @Accessors
 @EqualsAndHashCode(of = {"id", "comment"})
 @ToString(of = {"id", "comment"})
-public class PriorRepaymentApplication {
+public class ProlongationApplication {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    private int duration;
     @Column(nullable = false)
     private String comment;
-    @ManyToOne
-    @JoinColumn
-    private User client;
+
     @ManyToOne
     @JoinColumn
     private User accountManager;
     @ManyToOne
     @JoinColumn
     private Credit credit;
+    @ManyToOne
+    @JoinColumn
+    private User client;
 }
