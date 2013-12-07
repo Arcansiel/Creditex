@@ -12,7 +12,6 @@ import java.sql.Date;
 
 @Entity
 @Data
-@Builder
 @Accessors
 @EqualsAndHashCode(of = {"id","amount"})
 @ToString(of = {"id","amount"})

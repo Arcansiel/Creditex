@@ -32,25 +32,25 @@ public class CreditCalculatorTest {
 
     @Before
     public void setUp() throws Exception {
-        product = Product.builder()
-                .minMoney(500000)
-                .maxMoney(2000000)
-                .minCommittee(Integer.MAX_VALUE)
-                .name("product1")
-                .percent(50)
-                .debtPercent(1)
-                .prior(PriorRepayment.AvailableFineInterest)
-                .priorRepaymentPercent(10)
-                .priorRepaymentDebtLimit(0.5f)
-                .type(ProductType.Annuity)
-                .build();
+        product = new Product();
+        product.setMinMoney(500000);
+        product.setMaxMoney(2000000);
+        product.setMinCommittee(Integer.MAX_VALUE);
+        product.setName("product1");
+        product.setPercent(50);
+        product.setDebtPercent(1);
+        product.setPrior(PriorRepayment.AvailableFineInterest);
+        product.setPriorRepaymentPercent(10);
+        product.setPriorRepaymentDebtLimit(0.5f);
+        product.setType(ProductType.Annuity);
+
         application = new Application();
         application.setDuration(24);
         application.setProduct(product);
         application.setRequest(1000000);
 
-        credit = Credit.builder()
-                .originalMainDebt(application.getRequest())//сумма кредита
+        credit = new Credit()
+                .setPriginalMainDebt(application.getRequest())//сумма кредита
                 .currentMainDebt(application.getRequest())//основной долг (сколько осталось заплатить)
                 .duration(application.getDuration())
                 .currentMoney(application.getRequest())//деньги (осталось от счёта)

@@ -16,7 +16,6 @@ import javax.persistence.*;
  */
 @Entity
 @Data
-@Builder
 @Accessors
 @EqualsAndHashCode(of = {"id", "request", "duration", "acceptance"})
 public class PriorRepaymentApplication {
