@@ -2,6 +2,8 @@ package org.kofi.creditex.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.experimental.Builder;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,9 +13,9 @@ import java.util.List;
 
 @Entity
 @Data
-@Builder
-@EqualsAndHashCode(of = {"id", "authority"})
 @Accessors
+@EqualsAndHashCode(of = {"id", "authority"})
+@ToString(of = {"id", "authority"})
 public class Authority implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
