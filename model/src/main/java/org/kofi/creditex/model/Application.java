@@ -38,9 +38,9 @@ public class Application {
     @JoinColumn(referencedColumnName = "id", nullable = false)
     private User security;
 
-    private Boolean committeeAcceptance;
-    private String committeeComment;
-
+    private int voteAcceptance;
+    private int voteRejection;
+    private boolean votingClosed;
     @OneToMany(mappedBy = "application")
     private List<Vote> votes;
 
