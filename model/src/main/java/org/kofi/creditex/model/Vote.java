@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @Builder
-@Accessors
+@Accessors(chain = true)
 @EqualsAndHashCode(of = {"id", "acceptance", "comment"})
 public class Vote {
     @Id

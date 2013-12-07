@@ -13,7 +13,7 @@ import java.sql.Date;
 @Entity
 @Data
 @Builder
-@Accessors
+@Accessors(chain = true)
 @EqualsAndHashCode(of = {"id","amount"})
 @ToString(of = {"id","amount"})
 public class Operation {

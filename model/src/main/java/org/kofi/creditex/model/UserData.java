@@ -12,7 +12,7 @@ import java.sql.Date;
 
 @Entity
 @Data
-@Accessors
+@Accessors(chain = true)
 @EqualsAndHashCode(exclude = {"user"})
 @ToString(exclude = {"user"})
 public class UserData {

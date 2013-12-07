@@ -15,7 +15,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Accessors
+@Accessors(chain = true)
 @Table(name = "usercredentials")
 @EqualsAndHashCode(of = {"id", "username", "password", "enabled","accountNonExpired","accountNonLocked","credentialsNonExpired"})
 @ToString(of = {"id", "username", "password", "enabled","accountNonExpired","accountNonLocked","credentialsNonExpired"})

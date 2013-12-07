@@ -1,6 +1,9 @@
 package org.kofi.creditex.service;
 
+import org.kofi.creditex.model.Authority;
 import org.kofi.creditex.model.User;
+
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,4 +15,7 @@ import org.kofi.creditex.model.User;
 public interface UserService {
     User GetUserByUsername(String username);
     User GetUserByUserDataValues(String first, String last, String patronymic, String series, int number);
+    String GetHashedPassword(String unHashed, String salt) throws NoSuchAlgorithmException;
+    Authority GetAuthorityByAuthorityName(String authority);
+    void SaveUser(User user);
 }

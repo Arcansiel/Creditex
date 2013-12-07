@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Data
 @Builder
-@Accessors
+@Accessors(chain = true)
 @EqualsAndHashCode(of = {"id", "request", "duration", "acceptance"})
 @ToString(of = {"id", "request", "duration", "acceptance"})
 public class Application {

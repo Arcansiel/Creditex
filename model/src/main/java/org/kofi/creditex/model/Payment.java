@@ -13,7 +13,7 @@ import java.sql.Date;
 @Entity
 @Data
 @Builder
-@Accessors
+@Accessors(chain = true)
 @EqualsAndHashCode(of = {"id", "number", "requiredPayment", "paymentStart", "paymentEnd", "paymentClosed"})
 @ToString(of = {"id", "number", "requiredPayment", "paymentStart", "paymentEnd", "paymentClosed"})
 public class Payment {
@@ -29,6 +29,8 @@ public class Payment {
     private Date paymentEnd;
     // closed -> paymentClosed
     private boolean paymentClosed;
+
+    private boolean paymentExpired;
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", nullable = false)
     private Credit credit;

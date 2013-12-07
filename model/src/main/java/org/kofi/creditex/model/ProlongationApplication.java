@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @Builder
-@Accessors
+@Accessors(chain = true)
 @EqualsAndHashCode(of = {"id", "comment"})
 @ToString(of = {"id", "comment"})
 public class ProlongationApplication {
