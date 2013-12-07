@@ -64,7 +64,7 @@ public class CreditCalcBase {
     }
 
     //коэффициент аннуитента
-    double AnnuityFactor(){
+    public double AnnuityFactor(){
         //double x = Math.pow(1d + interest, creditPeriod);
         //return (interest * x)/(x - 1d);
         double x1 = Math.pow(1d + interest, -creditPeriod);
@@ -72,7 +72,7 @@ public class CreditCalcBase {
     }
 
     //аннуитентный платёж за месяц
-    long AnnuityPayment(){
+    public long AnnuityPayment(){
         return Math.round((double) amount * AnnuityFactor());
     }
 
@@ -229,7 +229,7 @@ public class CreditCalcBase {
     }
 
     //Переплата по кредиту с периодической уплатой процентов
-    long PercentPercentsDebt(){
+    public long PercentPercentsDebt(){
         return Math.round((double)amount * interest * creditPeriod);
     }
 
@@ -376,5 +376,20 @@ public class CreditCalcBase {
         }
         result[0] = payment + result[1];
         return result;
+    }
+
+    //максимальный платёж за месяц
+    public long MaxPayment(){
+        switch (paymentType){
+            case Annuity:{
+                return AnnuityPayment();
+            }
+            case Residue:{
+                return (amount / creditPeriod) + Percents(amount);
+            }
+            default:{
+                return Percents(amount);
+            }
+        }
     }
 }

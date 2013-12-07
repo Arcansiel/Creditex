@@ -121,6 +121,40 @@ public class CreditCalculator {
     }
 
 
+    private static boolean ValidRequiredProduct(Product product,
+                                          int sum_required, int duration, int max_payment){
+        if(sum_required < product.getMinMoney()
+                || sum_required > product.getMaxMoney()){
+            return false;
+        }
 
+        //producr.maxDuration ?
+        //product.minDuration ?
+
+        CreditCalcBase calc = new CreditCalcBase(
+                sum_required,
+                product.getPercent(),
+                duration,
+                ToPaymentType(product.getType()),
+                new java.util.Date());
+
+        long max_p = calc.MaxPayment();
+        if(max_payment < max_p){
+            return false;
+        }
+
+        return true;
+    }
+
+    public static List<Product> RequireProducts(Iterable<Product> products,
+                                                int sum_required, int duration, int max_payment){
+        List<Product> required = new ArrayList<Product>();
+        for(Product p:products){
+            if(ValidRequiredProduct(p, sum_required, duration, max_payment)){
+                required.add(p);
+            }
+        }
+        return required;
+    }
 
 }

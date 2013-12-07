@@ -1,4 +1,5 @@
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kofi.creditex.Dates;
@@ -17,14 +18,17 @@ import org.kofi.creditex.model.*;
 
 import java.util.List;
 
+
 @ContextConfiguration(locations = "classpath:service-test-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional(propagation = Propagation.REQUIRED)
 public class CreditCalculatorTest {
 
+
     private Product product;
     private Application application;
     private Credit credit;
+
 
     @Before
     public void setUp() throws Exception {
@@ -40,11 +44,11 @@ public class CreditCalculatorTest {
                 .priorRepaymentDebtLimit(0.5f)
                 .type(ProductType.Annuity)
                 .build();
-        application = Application.builder()
-                .duration(24)
-                .product(product)
-                .request(1000000)
-                .build();
+        application = new Application();
+        application.setDuration(24);
+        application.setProduct(product);
+        application.setRequest(1000000);
+
         credit = Credit.builder()
                 .originalMainDebt(application.getRequest())//сумма кредита
                 .currentMainDebt(application.getRequest())//основной долг (сколько осталось заплатить)

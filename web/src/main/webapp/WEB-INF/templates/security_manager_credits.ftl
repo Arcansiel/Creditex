@@ -3,7 +3,7 @@
 
 [@creditex.root]
     [@creditex.head "Main page"]
-    [#--удалить уведомить. клиента о просрочке--]
+    [#--удалить--]
     [/@creditex.head]
     [@creditex.body]
 
