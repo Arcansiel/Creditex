@@ -13,7 +13,8 @@ import java.util.List;
 
 @Entity
 @Data
-@Accessors
+@Builder
+@Accessors(chain = true)
 @EqualsAndHashCode(of = {"id", "start", "duration", "currentMainDebt", "currentMoney", "originalMainDebt", "fine"})
 @ToString(of = {"id", "start", "duration", "currentMainDebt", "currentMoney", "originalMainDebt", "fine"})
 public class Credit {
@@ -41,4 +42,8 @@ public class Credit {
     private List<Payment> payments;
     @OneToMany(mappedBy = "credit")
     private List<Operation> operations;
+    @OneToMany(mappedBy = "credit")
+    private List<ProlongationApplication> prolongationApplications;
+    @OneToMany(mappedBy = "credit")
+    private List<PriorRepaymentApplication> priorApplications;
 }

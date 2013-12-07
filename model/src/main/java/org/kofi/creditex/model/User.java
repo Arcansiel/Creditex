@@ -15,7 +15,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Accessors
+@Accessors(chain = true)
 @Table(name = "usercredentials")
 @EqualsAndHashCode(of = {"id", "username", "password", "enabled","accountNonExpired","accountNonLocked","credentialsNonExpired"})
 @ToString(of = {"id", "username", "password", "enabled","accountNonExpired","accountNonLocked","credentialsNonExpired"})
@@ -23,20 +23,30 @@ public class User implements org.springframework.security.core.userdetails.UserD
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @Column(nullable = false)
     private String username;
+    @Column(nullable = false)
     private String password;
     private boolean enabled;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Application> applicationsTo;
-    @OneToMany(mappedBy = "accountManager")
+    @OneToMany(mappedBy = "accountManager", cascade = CascadeType.ALL)
     private List<Application> applicationsBy;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "accountManager", cascade = CascadeType.ALL)
+    private List<PriorRepaymentApplication> priorApplicationsBy;
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    private List<PriorRepaymentApplication> priorApplicationsTo;
+    @OneToMany(mappedBy = "accountManager", cascade = CascadeType.ALL)
+    private List<ProlongationApplication> prolongationApplicationsBy;
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    private List<ProlongationApplication> prolongationApplicationsTo;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Credit> credits;
-    @OneToMany(mappedBy = "operator")
+    @OneToMany(mappedBy = "operator", cascade = CascadeType.ALL)
     private List<Operation> operations;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(referencedColumnName = "id", nullable = false)
@@ -48,9 +58,9 @@ public class User implements org.springframework.security.core.userdetails.UserD
         result.add(authority);
         return result;
     }
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn
     private UserData userData;
-    @OneToMany(mappedBy = "manager")
+    @OneToMany(mappedBy = "manager", cascade = CascadeType.ALL)
     private List<Vote> votes;
 }

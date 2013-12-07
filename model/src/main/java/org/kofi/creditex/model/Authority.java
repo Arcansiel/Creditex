@@ -13,7 +13,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Accessors
+@Accessors(chain = true)
 @EqualsAndHashCode(of = {"id", "authority"})
 @ToString(of = {"id", "authority"})
 public class Authority implements GrantedAuthority {

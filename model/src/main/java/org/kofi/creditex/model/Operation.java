@@ -12,7 +12,8 @@ import java.sql.Date;
 
 @Entity
 @Data
-@Accessors
+@Builder
+@Accessors(chain = true)
 @EqualsAndHashCode(of = {"id","amount"})
 @ToString(of = {"id","amount"})
 public class Operation {

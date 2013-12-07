@@ -2,7 +2,7 @@ package org.kofi.creditex.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.experimental.Builder;
 
@@ -12,17 +12,23 @@ import javax.persistence.*;
 @Data
 @Builder
 @Accessors(chain = true)
-@EqualsAndHashCode(of = {"id", "acceptance", "comment"})
-public class Vote {
+@EqualsAndHashCode(of = {"id", "comment"})
+@ToString(of = {"id", "comment"})
+public class ProlongationApplication {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private boolean acceptance;
+    private int duration;
+    @Column(nullable = false)
     private String comment;
+
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", nullable = false)
-    private Application application;
+    @JoinColumn
+    private User accountManager;
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", nullable = false)
-    private User manager;
+    @JoinColumn
+    private Credit credit;
+    @ManyToOne
+    @JoinColumn
+    private User client;
 }
