@@ -46,6 +46,9 @@
         <property name="password" value="afnfkbcn"/>
     </bean>
 
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+    </bean>
+
     <!--<jdbc:embedded-database id = "dataSource" type="HSQL">-->
     <!--</jdbc:embedded-database>-->
 

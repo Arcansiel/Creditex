@@ -21,7 +21,8 @@
 
     <authentication-manager>
         <authentication-provider user-service-ref="userLoginService">
-
+            <password-encoder ref="passwordEncoder">
+            </password-encoder>
         </authentication-provider>
     </authentication-manager>
 

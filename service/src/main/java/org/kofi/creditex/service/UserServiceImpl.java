@@ -1,10 +1,15 @@
 package org.kofi.creditex.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.kofi.creditex.model.Authority;
 import org.kofi.creditex.model.User;
 import org.kofi.creditex.repository.AuthoritiesRepository;
 import org.kofi.creditex.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,12 +17,15 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 @Service
+@Slf4j
 @Transactional
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private AuthoritiesRepository authoritiesRepository;
+    @Autowired
+    private BCryptPasswordEncoder encoder;
     @Override
     public User GetUserByUsername(String username) {
         return userRepository.findByUsername(username);
@@ -29,18 +37,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String GetHashedPassword(String unHashed, String salt) throws NoSuchAlgorithmException {
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        digest.reset();
-        digest.update(salt.getBytes());
-        byte byteData[] = digest.digest(unHashed.getBytes());
-        StringBuilder hexString = new StringBuilder();
-        for (byte aByteData : byteData) {
-            String hex = Integer.toHexString(0xff & aByteData);
-            if (hex.length() == 1) hexString.append('0');
-            hexString.append(hex);
-        }
-        return hexString.toString();  //To change body of implemented methods use File | Settings | File Templates.
+    public String GetHashedPassword(String unHashed) {
+        String hashed = encoder.encode(unHashed);
+        UserServiceImpl.log.warn("Generated hash: "+hashed);
+        return hashed;
     }
 
     @Override
@@ -50,6 +50,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void SaveUser(User user) {
-        userRepository.save(user);
+        userRepository.saveAndFlush(user);
     }
 }

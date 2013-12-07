@@ -30,23 +30,26 @@
         <property name="packagesToScan" value="org.kofi.creditex.model" />
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                <property name="database" value="HSQL" />
+                <property name="database" value="POSTGRESQL" />
                 <property name="generateDdl" value="true"/>
             </bean>
         </property>
+    </bean>
+
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
     </bean>
 
     <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
-    <jdbc:embedded-database id = "dataSource" type="HSQL">
-    </jdbc:embedded-database>
+    <!--<jdbc:embedded-database id = "dataSource" type="HSQL">-->
+    <!--</jdbc:embedded-database>-->
 
-    <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
-        <!--<property name="driverClassName" value="org.postgresql.Driver"/>-->
-        <!--<property name="url" value="jdbc:postgresql://localhost/kofi"/>-->
-        <!--<property name="username" value="postgres"/>-->
-        <!--<property name="password" value="afnfkbcn"/>-->
-    <!--</bean>-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://localhost/kofi"/>
+        <property name="username" value="postgres"/>
+        <property name="password" value="afnfkbcn"/>
+    </bean>
 </beans>

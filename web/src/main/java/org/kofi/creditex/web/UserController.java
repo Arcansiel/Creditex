@@ -66,6 +66,10 @@ public class UserController {
                 .setWorkPosition(form.getWorkPosition())
                 .setWorkIncome(form.getWorkIncome());
         Authority authority = userService.GetAuthorityByAuthorityName(form.getRole());
+        if(authority!=null)
+            log.info(authority.toString());
+        else
+            log.warn("Crap, it is null! Form Role:"+form.getRole());
         User user = new User();
         user
                 .setAccountNonExpired(true)
@@ -73,7 +77,7 @@ public class UserController {
                 .setCredentialsNonExpired(true)
                 .setEnabled(true)
                 .setUsername(form.getUsername())
-                .setPassword(userService.GetHashedPassword(form.getPassword(),form.getUsername()))
+                .setPassword(userService.GetHashedPassword(form.getPassword()))
                 .setUserData(userData)
                 .setAuthority(authority);
         userService.SaveUser(user);

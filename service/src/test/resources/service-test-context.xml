@@ -41,6 +41,9 @@
     <jdbc:embedded-database id = "dataSource" type="HSQL">
     </jdbc:embedded-database>
 
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+    </bean>
+
     <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
         <!--<property name="driverClassName" value="org.postgresql.Driver"/>-->
         <!--<property name="url" value="jdbc:postgresql://localhost/kofi"/>-->

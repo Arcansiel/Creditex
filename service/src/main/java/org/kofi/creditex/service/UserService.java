@@ -15,7 +15,7 @@ import java.security.NoSuchAlgorithmException;
 public interface UserService {
     User GetUserByUsername(String username);
     User GetUserByUserDataValues(String first, String last, String patronymic, String series, int number);
-    String GetHashedPassword(String unHashed, String salt) throws NoSuchAlgorithmException;
+    String GetHashedPassword(String unHashed);
     Authority GetAuthorityByAuthorityName(String authority);
     void SaveUser(User user);
 }
