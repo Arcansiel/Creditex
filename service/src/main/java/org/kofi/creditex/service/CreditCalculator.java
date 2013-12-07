@@ -123,8 +123,8 @@ public class CreditCalculator {
 
     private static boolean ValidRequiredProduct(Product product,
                                           int sum_required, int duration, int max_payment){
-        if(sum_required < product.minMoney()
-                || sum_required > product.maxMoney()){
+        if(sum_required < product.getMinMoney()
+                || sum_required > product.getMaxMoney()){
             return false;
         }
 
@@ -133,9 +133,9 @@ public class CreditCalculator {
 
         CreditCalcBase calc = new CreditCalcBase(
                 sum_required,
-                product.percent(),
+                product.getPercent(),
                 duration,
-                ToPaymentType(product.type()),
+                ToPaymentType(product.getType()),
                 new java.util.Date());
 
         long max_p = calc.MaxPayment();
