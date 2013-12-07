@@ -22,4 +22,9 @@ public class UserServiceImpl implements UserService {
     public User GetUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+
+    @Override
+    public User GetUserByUserDataValues(String first, String last, String patronymic, String series, int number) {
+        return userRepository.findByUserData_FirstAndUserData_LastAndUserData_PatronymicAndUserData_PassportSeriesAndUserData_PassportNumber(first, last, patronymic, series, number);
+    }
 }

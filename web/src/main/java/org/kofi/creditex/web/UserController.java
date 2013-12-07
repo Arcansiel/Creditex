@@ -1,7 +1,12 @@
 package org.kofi.creditex.web;
 
+import lombok.extern.slf4j.Slf4j;
+import org.kofi.creditex.model.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,9 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
+@Slf4j
 public class UserController {
     @RequestMapping("/change_user_data/")
-    public String ChangeUserData(){
+    public String ChangeUserData(ModelMap model, HttpSession session){
+        User user = (User) session.getAttribute("user_to_change_data");
+        model.put("data", user.getUserData());
+        log.info(model.toString());
         return "change_user_data";
     }
 }

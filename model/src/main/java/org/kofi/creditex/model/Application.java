@@ -3,6 +3,7 @@ package org.kofi.creditex.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.experimental.Builder;
 
@@ -12,8 +13,9 @@ import java.util.List;
 @Entity
 @Data
 @Builder
+@Accessors
 @EqualsAndHashCode(of = {"id", "request", "duration", "acceptance"})
-@Accessors(fluent = true)
+@ToString(of = {"id", "request", "duration", "acceptance"})
 public class Application {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

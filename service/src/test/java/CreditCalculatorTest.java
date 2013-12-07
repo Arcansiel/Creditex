@@ -28,7 +28,7 @@ public class CreditCalculatorTest {
 
     @Before
     public void setUp() throws Exception {
-        product = Product.builder().build()
+        product = Product.builder()
                 .minMoney(500000)
                 .maxMoney(2000000)
                 .minCommittee(Integer.MAX_VALUE)
@@ -38,19 +38,22 @@ public class CreditCalculatorTest {
                 .prior(PriorRepayment.AvailableFineInterest)
                 .priorRepaymentPercent(10)
                 .priorRepaymentDebtLimit(0.5f)
-                .type(ProductType.Annuity);
-        application = Application.builder().build()
+                .type(ProductType.Annuity)
+                .build();
+        application = Application.builder()
                 .duration(24)
                 .product(product)
-                .request(1000000);
-        credit = Credit.builder().build()
-                .originalMainDebt(application.request())//сумма кредита
-                .currentMainDebt(application.request())//основной долг (сколько осталось заплатить)
-                .duration(application.duration())
-                .currentMoney(application.request())//деньги (осталось от счёта)
+                .request(1000000)
+                .build();
+        credit = Credit.builder()
+                .originalMainDebt(application.getRequest())//сумма кредита
+                .currentMainDebt(application.getRequest())//основной долг (сколько осталось заплатить)
+                .duration(application.getDuration())
+                .currentMoney(application.getRequest())//деньги (осталось от счёта)
                 .fine(0)//проценты
                 .product(product)
-                .start(Dates.now(-30*2));
+                .start(Dates.now(-30*2))
+                .build();
     }
 
     @Test
@@ -61,28 +64,28 @@ public class CreditCalculatorTest {
         int[] out = new int[3];
         List<Payment> plan;
 
-        product.type(ProductType.Annuity);
+        product.setType(ProductType.Annuity);
         plan = CreditCalculator.PaymentPlan(credit,out);
 
-        System.out.println(String.format("payment plan for %s",credit.product().type()));
+        System.out.println(String.format("payment plan for %s",credit.getProduct().getType()));
         System.out.println(String.format("%d = %d + %d",out[2],out[0],out[1]));
         for(Payment p:plan){
             System.out.println(p.toString());
         }
 
-        product.type(ProductType.Residue);
+        product.setType(ProductType.Residue);
         plan = CreditCalculator.PaymentPlan(credit,out);
 
-        System.out.println(String.format("payment plan for %s",credit.product().type()));
+        System.out.println(String.format("payment plan for %s",credit.getProduct().getType()));
         System.out.println(String.format("%d = %d + %d",out[2],out[0],out[1]));
         for(Payment p:plan){
             System.out.println(p.toString());
         }
 
-        product.type(ProductType.Percent);
+        product.setType(ProductType.Percent);
         plan = CreditCalculator.PaymentPlan(credit,out);
 
-        System.out.println(String.format("payment plan for %s",credit.product().type()));
+        System.out.println(String.format("payment plan for %s",credit.getProduct().getType()));
         System.out.println(String.format("%d = %d + %d",out[2],out[0],out[1]));
         for(Payment p:plan){
             System.out.println(p.toString());

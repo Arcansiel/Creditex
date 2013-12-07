@@ -30,6 +30,14 @@
     </div>
 </div>
 [#nested]
+<div class="description">
+    <ul class="about">
+        <li><a href="#">О системе</a></li>
+        <li><a href="#">Разработчики</a></li>
+        <li><a href="#">Документация</a></li>
+        <li><a href="#">Служба поддежрки</a></li>
+    </ul>
+</div>
 </body>
 [/#macro]
 

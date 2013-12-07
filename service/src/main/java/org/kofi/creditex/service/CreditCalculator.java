@@ -34,12 +34,13 @@ public class CreditCalculator {
         for(int i = 0; i < n; i++){
             p = plan[i];
             payments.add(
-                    Payment.builder().build()
+                    Payment.builder()
                             .number(p.orderNumber)
                             .requiredPayment((int) p.totalPayment)
                             .paymentStart(new java.sql.Date(p.firstDate.getTime()))
                             .paymentEnd(new java.sql.Date(p.lastDate.getTime()))
                             .paymentClosed(false)
+                            .build()
             );
         }
 
@@ -53,15 +54,15 @@ public class CreditCalculator {
     }
 
     public static List<Payment> PaymentPlan(Product product, int sum, int duration, java.sql.Date start, int[] out){
-        return PaymentPlan(product.percent(), product.type(), sum, duration, start, out);
+        return PaymentPlan(product.getPercent(), product.getType(), sum, duration, start, out);
     }
 
     public static List<Payment> PaymentPlan(Application application, java.sql.Date date, int[] out){
-        return PaymentPlan(application.product(), application.request(), application.duration(), date, out);
+        return PaymentPlan(application.getProduct(), application.getRequest(), application.getDuration(), date, out);
     }
 
     public static List<Payment> PaymentPlan(Credit credit, int[] out){
-        return PaymentPlan(credit.product(), credit.originalMainDebt(), credit.duration(), credit.start(), out);
+        return PaymentPlan(credit.getProduct(), credit.getOriginalMainDebt(), credit.getDuration(), credit.getStart(), out);
     }
 
 
@@ -80,19 +81,19 @@ public class CreditCalculator {
     }
 
     public static boolean IsAvailablePriorRepayment(Credit credit){
-        if(credit.product().prior().equals(PriorRepayment.NotAvailable)){
+        if(credit.getProduct().getPrior().equals(PriorRepayment.NotAvailable)){
             return false;
         }else{
-            float debt_limit = credit.originalMainDebt() * credit.product().priorRepaymentDebtLimit();
-            return credit.currentMainDebt() <= debt_limit;
+            float debt_limit = credit.getOriginalMainDebt() * credit.getProduct().getPriorRepaymentDebtLimit();
+            return credit.getCurrentMainDebt() <= debt_limit;
         }
     }
 
     //return[0] - полная сумма платежа со штрафом, return[1] - сумма процентов, return[2] - сумма штрафа
     public static int[] PriorRepaymentSum(Credit credit){
-        FineType fine_type = ToFineType(credit.product().prior());
-        double fine_value = credit.product().priorRepaymentPercent();
-        long[] r = CreditCalcBase.PriorRepayment(credit.currentMainDebt(),credit.product().percent(),fine_type,fine_value);
+        FineType fine_type = ToFineType(credit.getProduct().getPrior());
+        double fine_value = credit.getProduct().getPriorRepaymentPercent();
+        long[] r = CreditCalcBase.PriorRepayment(credit.getCurrentMainDebt(),credit.getProduct().getPercent(),fine_type,fine_value);
         int[] out = new int[3]; out[0] = (int)r[0]; out[1] = (int)r[1]; out[2] = (int)r[2];
         return out;
     }
@@ -100,8 +101,8 @@ public class CreditCalculator {
     //платёж с учётом пени за задержку
     //return[0] - сумма платежа со штрафом, return[1] - сумма штрафа
     public static int[] PaymentSum(Payment payment, java.sql.Date now, float fine){
-        java.util.Date deadline = new java.util.Date(payment.paymentEnd().getTime());
-        long[] r = CreditCalcBase.DelayFine(payment.requiredPayment(), deadline, new java.util.Date(now.getTime()), fine);
+        java.util.Date deadline = new java.util.Date(payment.getPaymentEnd().getTime());
+        long[] r = CreditCalcBase.DelayFine(payment.getRequiredPayment(), deadline, new java.util.Date(now.getTime()), fine);
         int[] out = new int[2]; out[0] = (int)r[0]; out[1] = (int)r[1];
         return out;
     }
@@ -111,7 +112,7 @@ public class CreditCalculator {
     public static int[] TotalPaymentSum(Iterable<Payment> payments, java.sql.Date now, float fine){
         int[] out = new int[2]; out[0] = 0; out[1] = 0;
         for(Payment p:payments){
-            if(!p.paymentClosed()){
+            if(!p.isPaymentClosed()){
                 int[] r = PaymentSum(p, now, fine);
                 out[0] += r[0]; out[1] += r[1];
             }
