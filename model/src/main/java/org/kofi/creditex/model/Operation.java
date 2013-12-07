@@ -8,6 +8,7 @@ import lombok.experimental.Accessors;
 import lombok.experimental.Builder;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 @Data
@@ -28,4 +29,6 @@ public class Operation {
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", nullable = false)
     private User operator;
+    @Column(nullable = false)
+    private Date operationDate;
 }
