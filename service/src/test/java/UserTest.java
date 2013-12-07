@@ -1,9 +1,6 @@
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kofi.creditex.Dates;
-import org.kofi.creditex.service.CreditCalculator;
-import org.kofi.creditex.service.UserService;
 import org.kofi.creditex.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;

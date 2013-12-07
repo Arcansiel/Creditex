@@ -2,6 +2,7 @@ package org.kofi.creditex.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.Builder;
 
@@ -22,6 +23,8 @@ public class Product {
     private int minCommittee;
     private int minMoney;
     private int maxMoney;
+    private int minDuration;
+    private int maxDuration;
     private float debtPercent;//fine for 1 day payment delay, %
     private int priorRepaymentPercent;//fine for prior repayment, %
     private float priorRepaymentDebtLimit;//debt limit (1..0) to allow prior repayment

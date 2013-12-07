@@ -2,6 +2,7 @@ package org.kofi.creditex.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.Builder;
 
@@ -10,7 +11,6 @@ import java.sql.Date;
 
 @Entity
 @Data
-@Builder
 @Accessors(fluent = true)
 @EqualsAndHashCode(exclude = {"user"})
 public class UserData {

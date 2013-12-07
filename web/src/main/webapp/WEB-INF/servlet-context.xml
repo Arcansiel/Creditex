@@ -28,8 +28,9 @@
         <property name="packagesToScan" value="org.kofi.creditex.model" />
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                <property name="database" value="HSQL" />
-                <property name="generateDdl" value="true"/>
+                <property name="database" value="POSTGRESQL" />
+                <!--Uncomment for database generation-->
+                <!--<property name="generateDdl" value="true"/>-->
             </bean>
         </property>
     </bean>
@@ -38,13 +39,21 @@
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
-    <jdbc:embedded-database id = "dataSource" type="HSQL">
-    </jdbc:embedded-database>
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://localhost/kofi"/>
+        <property name="username" value="postgres"/>
+        <property name="password" value="afnfkbcn"/>
+    </bean>
+
+    <!--<jdbc:embedded-database id = "dataSource" type="HSQL">-->
+    <!--</jdbc:embedded-database>-->
 
 
     <mvc:resources mapping="/css/**" location="WEB-INF/resources/css/"/>
     <mvc:resources mapping="/js/**" location="WEB-INF/resources/js/"/>
     <mvc:resources mapping="/img/**" location="WEB-INF/resources/img/"/>
+    <mvc:resources mapping="/fonts/**" location="WEB-INF/resources/fonts/"/>
     <mvc:annotation-driven/>
 
     <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
