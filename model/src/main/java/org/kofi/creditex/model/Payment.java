@@ -3,6 +3,7 @@ package org.kofi.creditex.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.experimental.Builder;
 
@@ -12,8 +13,9 @@ import java.sql.Date;
 @Entity
 @Data
 @Builder
-@Accessors(fluent = true)
+@Accessors
 @EqualsAndHashCode(of = {"id", "number", "requiredPayment", "paymentStart", "paymentEnd", "paymentClosed"})
+@ToString(of = {"id", "number", "requiredPayment", "paymentStart", "paymentEnd", "paymentClosed"})
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

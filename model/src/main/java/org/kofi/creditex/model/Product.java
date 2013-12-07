@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @Data
 @Builder
-@Accessors(fluent = true)
+@Accessors
 @EqualsAndHashCode(of = {"id", "name", "percent", "minCommittee", "minMoney", "maxMoney", "debtPercent", "priorRepaymentPercent"})
 public class Product {
     @Id

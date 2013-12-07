@@ -11,4 +11,5 @@ import org.kofi.creditex.model.User;
  */
 public interface UserService {
     User GetUserByUsername(String username);
+    User GetUserByUserDataValues(String first, String last, String patronymic, String series, int number);
 }

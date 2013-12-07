@@ -7,9 +7,7 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
-        <!-- HTML start -->
-
-
+        [@creditex.account_manager/]
         <div class="form-action">
             <p class="name">Введите данные клиента</p>
             <form action="" method="post" class="form">
@@ -36,7 +34,6 @@
                 <p class="a-center"><button type="submit" class="button">Обработать</button></p>
             </form>
         </div>
-        <!--[ HTML end -->
     </div>
     [/@creditex.body]
 [/@creditex.root]
