@@ -12,7 +12,6 @@ import java.sql.Date;
 
 @Entity
 @Data
-@Builder
 @Accessors(chain = true)
 @EqualsAndHashCode(of = {"id", "number", "requiredPayment", "paymentStart", "paymentEnd", "paymentClosed"})
 @ToString(of = {"id", "number", "requiredPayment", "paymentStart", "paymentEnd", "paymentClosed"})

@@ -48,16 +48,16 @@ public class CreditCalculatorTest {
         application.setDuration(24);
         application.setProduct(product);
         application.setRequest(1000000);
+        application.setApplicationDate(Dates.now(-70));
 
-        credit = new Credit()
-                .setPriginalMainDebt(application.getRequest())//сумма кредита
-                .currentMainDebt(application.getRequest())//основной долг (сколько осталось заплатить)
-                .duration(application.getDuration())
-                .currentMoney(application.getRequest())//деньги (осталось от счёта)
-                .fine(0)//проценты
-                .product(product)
-                .start(Dates.now(-30*2))
-                .build();
+        credit = new Credit();
+        credit.setOriginalMainDebt(application.getRequest());//сумма кредита
+        credit.setCurrentMainDebt(application.getRequest());//основной долг (сколько осталось заплатить)
+        credit.setDuration(application.getDuration());
+        credit.setCurrentMoney(application.getRequest());//деньги (осталось от счёта)
+        credit.setFine(0);//проценты
+        credit.setProduct(product);
+        credit.setStart(Dates.now(-30*2));
     }
 
     @Test

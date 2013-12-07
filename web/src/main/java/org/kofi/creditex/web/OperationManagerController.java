@@ -76,8 +76,6 @@ public class OperationManagerController {
         if((client = getClient(session)) != null){
             //TODO service: find client operations
             List<Operation> operations = new ArrayList<Operation>();
-            operations.add(Operation.builder().amount(1000000).operationDate(Dates.now(-60)).type(OperationType.Withdrawal).build());
-            operations.add(Operation.builder().amount(10000).operationDate(Dates.now(-30)).type(OperationType.Deposit).build());
             //push operations to model
             model.addAttribute("operations",operations);
         }else{

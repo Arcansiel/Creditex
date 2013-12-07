@@ -33,15 +33,13 @@ public class CreditCalculator {
         PaymentInfo p;
         for(int i = 0; i < n; i++){
             p = plan[i];
-            payments.add(
-                    Payment.builder()
-                            .number(p.orderNumber)
-                            .requiredPayment((int) p.totalPayment)
-                            .paymentStart(new java.sql.Date(p.firstDate.getTime()))
-                            .paymentEnd(new java.sql.Date(p.lastDate.getTime()))
-                            .paymentClosed(false)
-                            .build()
-            );
+            Payment payment = new Payment();
+            payment.setNumber(p.orderNumber);
+            payment.setRequiredPayment((int) p.totalPayment);
+            payment.setPaymentStart(new java.sql.Date(p.firstDate.getTime()));
+            payment.setPaymentEnd(new java.sql.Date(p.lastDate.getTime()));
+            payment.setPaymentClosed(false);
+            payments.add(payment);
         }
 
         if(out != null){
@@ -128,8 +126,10 @@ public class CreditCalculator {
             return false;
         }
 
-        //producr.maxDuration ?
-        //product.minDuration ?
+        if(duration < product.getMinDuration()
+                || duration > product.getMaxDuration()){
+            return false;
+        }
 
         CreditCalcBase calc = new CreditCalcBase(
                 sum_required,

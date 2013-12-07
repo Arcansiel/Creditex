@@ -8,13 +8,14 @@ import lombok.experimental.Accessors;
 import lombok.experimental.Builder;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.List;
 
 @Entity
 @Data
 @Accessors
-@EqualsAndHashCode(of = {"id", "request", "duration", "acceptance"})
-@ToString(of = {"id", "request", "duration", "acceptance"})
+@EqualsAndHashCode(of = {"id", "request", "duration", "acceptance", "applicationDate"})
+@ToString(of = {"id", "request", "duration", "acceptance", "applicationDate"})
 public class Application {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,6 +24,7 @@ public class Application {
     private int request;
     private int duration;
     private Boolean acceptance;
+    private Date applicationDate;
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", nullable = false)
