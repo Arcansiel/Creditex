@@ -3,7 +3,7 @@
 
 [@creditex.root]
     [@creditex.head "Main page"]
-
+    [#--удалить--]
     [/@creditex.head]
     [@creditex.body]
 

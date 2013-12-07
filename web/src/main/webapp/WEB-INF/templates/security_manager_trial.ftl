@@ -3,7 +3,7 @@
 
 [@creditex.root]
     [@creditex.head "Main page"]
-
+    [#--удалить инициир. судеб. разбир-во--]
     [/@creditex.head]
     [@creditex.body]
 

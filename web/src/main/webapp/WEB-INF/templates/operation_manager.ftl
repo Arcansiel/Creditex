@@ -1,12 +1,12 @@
 [#ftl]
 [#import "creditex.ftl" as creditex]
+[#import "spring.ftl" as spring]
 
 [@creditex.root]
     [@creditex.head "Операционист"]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
-
 
         <div class="form-action">
             <p class="name">Введите данные клиента</p>

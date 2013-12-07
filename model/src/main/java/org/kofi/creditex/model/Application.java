@@ -12,7 +12,6 @@ import java.util.List;
 
 @Entity
 @Data
-@Builder
 @Accessors
 @EqualsAndHashCode(of = {"id", "request", "duration", "acceptance"})
 @ToString(of = {"id", "request", "duration", "acceptance"})

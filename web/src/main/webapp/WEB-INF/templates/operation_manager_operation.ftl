@@ -1,5 +1,6 @@
 [#ftl]
 [#import "creditex.ftl" as creditex]
+[#import "spring.ftl" as spring]
 
 [@creditex.root]
     [@creditex.head "Операционист / операция"]
@@ -8,8 +9,8 @@
     <div class="page">
 
     <div class="form-action">
-        <p class="name"><a href="/operation_manager/">Другой клиент</a></p>
-        <p class="name"><a href="/operation_manager_operation_list/">Список операций</a></p>
+        <p class="name"><a href=[@spring.url "/operation_manager/"/]>Другой клиент</a></p>
+        <p class="name"><a href=[@spring.url "/operation_manager_operation_list/"/]>Список операций</a></p>
         <form action="" method="post" class="form">
             <p class="name">Операция</p>
             [#if error??]

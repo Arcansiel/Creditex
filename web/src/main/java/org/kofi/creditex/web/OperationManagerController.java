@@ -1,6 +1,5 @@
 package org.kofi.creditex.web;
 
-import freemarker.template.SimpleHash;
 import lombok.extern.slf4j.Slf4j;
 import org.kofi.creditex.Dates;
 import org.kofi.creditex.model.*;
@@ -38,49 +37,26 @@ public class OperationManagerController {
         }
     }
 
-    @RequestMapping(value = {"/operation_manager/","/operation_manager"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/operation_manager/"}, method = RequestMethod.GET)
     public String MainOperationManager(HttpSession session, Model model){
         return "operation_manager";
     }
 
-    @RequestMapping(value = {"/operation_manager/","/operation_manager"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/operation_manager/"}, method = RequestMethod.POST)
     public String MainOperationManager(HttpSession session, Model model
                                        ,@RequestParam("first")String first
                                        ,@RequestParam("last")String last
                                        ,@RequestParam("patronymic")String patronymic
                                        ,@RequestParam("series")String series
-                                       ,@RequestParam("number")String snumber
+                                       ,@RequestParam("number")Integer number
     ){
         String error = null;
         setClient(session,null);
-        //check request params
-        int number = 0;
-        try{
-            number = Integer.parseInt(snumber);
-        }catch(NumberFormatException e){
-            error = "ERROR MESSAGE: number format: number";
-        }
-        if(error != null){
-            //push error to model
-            model.addAttribute("error",error);
-            return "operation_manager";
-        }
 
         User client = userService.GetUserByUserDataValues(first,last,patronymic,series,number);
         if(client == null){
             error = String.format("NO CLIENT FOUND: %s %s %s %s%d",first,last,patronymic,series,number);
         }
-        /*UserData data = new UserData();
-        data.setFirst(first);
-        data.setLast(last);
-        data.setPatronymic(patronymic);
-        data.setPassportSeries(series);
-        data.setPassportNumber(number);
-        User client = new User();
-        client.setUserData(data);
-        if(!"1".equals(client.getUserData().getFirst())){
-            error = "ERROR MESSAGE: NO CLIENT FOUND (first=1)";
-        }*/
         if(error == null){
             //push client to session
             setClient(session,client);
@@ -93,7 +69,7 @@ public class OperationManagerController {
         }
     }
 
-    @RequestMapping(value = {"/operation_manager_operation_list/","/operation_manager_operation_list"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/operation_manager_operation_list/"}, method = RequestMethod.GET)
     public String OperationManagerOperationList(HttpSession session, Model model){
         //get client from session
         User client = null;
@@ -126,24 +102,12 @@ public class OperationManagerController {
         return "operation_manager_operation";
     }
 
-    @RequestMapping(value = {"/operation_manager_operation/","/operation_manager_operation"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/operation_manager_operation/"}, method = RequestMethod.POST)
     public String OperationManagerOperation(HttpSession session, Model model
             ,@RequestParam("type")OperationType type
-            ,@RequestParam("amount")String samount
+            ,@RequestParam("amount")Integer amount
     ){
         String error = null;
-        //check request params
-        int amount = 0;
-        try{
-            amount = Integer.parseInt(samount);
-        }catch(NumberFormatException e){
-            error = "ERROR MESSAGE: number format: amount";
-        }
-        if(error != null){
-            //push error to model
-            model.addAttribute("error",error);
-            return "operation_manager_operation";
-        }
         //get client from session
         User client = null;
         if((client = getClient(session)) != null){

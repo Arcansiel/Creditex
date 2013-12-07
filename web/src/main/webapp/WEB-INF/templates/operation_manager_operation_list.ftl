@@ -1,5 +1,6 @@
 [#ftl]
 [#import "creditex.ftl" as creditex]
+[#import "spring.ftl" as spring]
 
 [@creditex.root]
     [@creditex.head "Операционист / список операций пользователя"]
@@ -11,8 +12,8 @@
         [#if error??]
             <p>${error?html}</p>
         [/#if]
-        <p class="name"><a href="/operation_manager/">Другой клиент</a></p>
-        <p class="name"><a href="/operation_manager_operation/">Новая операция</a></p>
+        <p class="name"><a href=[@spring.url "/operation_manager/"/]>Другой клиент</a></p>
+        <p class="name"><a href=[@spring.url "/operation_manager_operation/"/]>Новая операция</a></p>
         <p class="name">Все операции пользователя по текущему кредиту</p>
         <table>
             <tr>
