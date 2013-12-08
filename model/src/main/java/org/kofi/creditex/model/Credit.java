@@ -38,7 +38,7 @@ public class Credit {
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", nullable = false)
     private User user;
-    @OneToMany(mappedBy = "credit", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "credit")
     private List<Payment> payments;
     @OneToMany(mappedBy = "credit")
     private List<Operation> operations;

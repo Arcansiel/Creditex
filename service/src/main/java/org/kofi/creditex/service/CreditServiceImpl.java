@@ -15,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Nullable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -43,6 +45,18 @@ public class CreditServiceImpl implements CreditService{
                     .setExpired(booleanTransform.apply(payment.isPaymentExpired()));
         }
     };
+    Function<List<Payment>, List<PaymentTableForm>> paymentListTransform = new Function<List<Payment>, List<PaymentTableForm>>() {
+        @Nullable
+        @Override
+        public List<PaymentTableForm> apply(@Nullable List<Payment> payments) {
+            List<PaymentTableForm> result = new ArrayList<PaymentTableForm>();
+            assert payments != null;
+            for(Payment p:payments){
+                result.add(paymentTransform.apply(p));
+            }
+            return result;  //To change body of implemented methods use File | Settings | File Templates.
+        }
+    };
     Function<Credit, CreditForm> creditTransform = new Function<Credit, CreditForm>() {
         @Nullable
         @Override
@@ -58,7 +72,7 @@ public class CreditServiceImpl implements CreditService{
                     .setOriginalMainDebt(credit.getOriginalMainDebt())
                     .setProductName(credit.getProduct().getName())
                     .setProductId(credit.getProduct().getId())
-                    .setPayments(Lists.transform(credit.getPayments(), paymentTransform));
+                    .setPayments(paymentListTransform.apply(credit.getPayments()));
         }
     };
     @Autowired
