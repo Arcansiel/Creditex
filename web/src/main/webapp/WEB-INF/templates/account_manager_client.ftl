@@ -13,7 +13,13 @@
         <div class="content">
 
             <ul class="nav-menu">
-
+                <li>
+                    <a href="#">Кредиты и кредитные продукты</a>
+                    <ul>
+                        <li><a href="[@spring.url '/account_manager/client/credit/list/'/]">Кредитные продукты</a></li>
+                        <li><a href="[@spring.url '/account_manager/product/list/'/]">Кредиты клиента</a></li>
+                    </ul>
+                </li>
                 <li><a href="#">Создать заявку</a>
                     <ul>
                         <li><a href="[@spring.url '/account_manager/client/credit/add/'/]">На предоставление кредита</a></li>

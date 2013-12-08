@@ -61,7 +61,7 @@
                     <th>Погашен ли платёж</th>
                     <th>Просрочен ли платёж</th>
                 </tr>
-                    [#list payments as payment]
+                    [#list credit.payments as payment]
                         <tr>
                             <td>${payment.number}</td>
                             <td>${payment.payment}</td>

@@ -3,6 +3,7 @@ package org.kofi.creditex.web;
 import org.kofi.creditex.model.User;
 import org.kofi.creditex.service.ApplicationService;
 import org.kofi.creditex.service.CreditService;
+import org.kofi.creditex.service.ProductService;
 import org.kofi.creditex.service.UserService;
 import org.kofi.creditex.web.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ public class AccountManagerController {
     private ApplicationService applicationService;
     @Autowired
     private CreditService creditService;
+    @Autowired
+    private ProductService productService;
     @RequestMapping("/account_manager/")
     public String MainAccountManager(){
         return "account_manager";
@@ -131,10 +134,12 @@ public class AccountManagerController {
     }
     @RequestMapping("/account_manager/client/credit/view/{id}/")
     public String ClientViewCredit(@PathVariable int id, ModelMap model){
-        CreditForm form = creditService.GetCreditFormById(id);
-        model.put("credit", form);
-        model.put("payments",form.getPayments());
+        model.put("credit", creditService.GetCreditFormById(id));
         return "account_manager_credit_view";
     }
-
+    @RequestMapping("/account_manager/product/view/{id}/")
+    public String AccountManagerViewProduct(@PathVariable int id, ModelMap model){
+        model.put("product", productService.GetProductFormById(id));
+        return "account_manager_product_view";
+    }
 }
