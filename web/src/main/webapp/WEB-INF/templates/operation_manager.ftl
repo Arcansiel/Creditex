@@ -12,7 +12,7 @@
             <p class="name">Введите данные клиента</p>
             <form action="" method="post" class="form">
                 [#if error??]
-                <p>${error?html}</p>
+                    <p>${error?html}</p>
                 [/#if]
                 <p>
                     <label for="name_field">Имя</label>
