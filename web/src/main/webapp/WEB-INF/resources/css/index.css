@@ -125,6 +125,7 @@ a.button{
 .form-action .form p{ padding:5px 0; padding-left:20px; width: 500px; margin: 0 auto;} 
 .form-action .form p label{ width: 210px; display: table; float: left;} 
 .form-action .form p input{ }
+.form-action .form p a{ }
 .form-action .form p button{ text-align:center}
 .form-action .form p.sub-name{ font-weight:bold; width:500px; display:table; margin:0 auto; border-bottom:1px solid gray; margin-bottom:5px; margin-top:10px; padding-left: 0;}
 
