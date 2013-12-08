@@ -3,6 +3,7 @@ package org.kofi.creditex.web;
 import lombok.extern.slf4j.Slf4j;
 import org.kofi.creditex.Dates;
 import org.kofi.creditex.model.*;
+import org.kofi.creditex.service.OperatorService;
 import org.kofi.creditex.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -13,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -25,15 +24,28 @@ public class OperationManagerController {
     @Autowired
     UserService userService;
 
-    private User getClient(HttpSession session){
-        return (User)session.getAttribute("operation_manager_client");
-    }
+    @Autowired
+    OperatorService operatorService;
 
-    private void setClient(HttpSession session, User client){
+    private Integer getClient(HttpSession session){
+        return (Integer)session.getAttribute("operation_manager_client");
+    }
+    private void setClient(HttpSession session, Integer client){
         if(client == null){
             session.removeAttribute("operation_manager_client");
         }else{
             session.setAttribute("operation_manager_client",client);
+        }
+    }
+
+    private Integer getCredit(HttpSession session){
+        return (Integer)session.getAttribute("operation_manager_credit");
+    }
+    private void setCredit(HttpSession session, Integer credit){
+        if(credit == null){
+            session.removeAttribute("operation_manager_credit");
+        }else{
+            session.setAttribute("operation_manager_credit",credit);
         }
     }
 
@@ -44,22 +56,35 @@ public class OperationManagerController {
 
     @RequestMapping(value = {"/operation_manager/"}, method = RequestMethod.POST)
     public String MainOperationManager(HttpSession session, Model model
-                                       ,@RequestParam("first")String first
-                                       ,@RequestParam("last")String last
-                                       ,@RequestParam("patronymic")String patronymic
-                                       ,@RequestParam("series")String series
-                                       ,@RequestParam("number")int number
+            ,@RequestParam("first")String first
+            ,@RequestParam("last")String last
+            ,@RequestParam("patronymic")String patronymic
+            ,@RequestParam("series")String series
+            ,@RequestParam("number")int number
     ){
         String error = null;
         setClient(session,null);
+        setCredit(session,null);
 
-        User client = userService.GetUserByUserDataValues(first,last,patronymic,series,number);
-        if(client == null){
+        Integer client = null, credit = null;
+        User clientE = userService.GetUserByUserDataValues(first,last,patronymic,series,number);
+        Credit creditE = null;
+        if(clientE == null){
             error = String.format("NO CLIENT FOUND: %s %s %s %s%d",first,last,patronymic,series,number);
+        }else{
+            client = clientE.getId();
+            creditE = operatorService.CurrentCredit(client);
+            if(creditE == null){
+                //no current credit
+                return "redirect:/operation_manager/?has_current_credit=false";
+            }else{
+                credit = creditE.getId();
+            }
         }
         if(error == null){
-            //push client to session
+            //push data to session
             setClient(session,client);
+            setCredit(session,credit);
             //redirect to list
             return "redirect:/operation_manager/operation/list/";
         }else{
@@ -72,10 +97,10 @@ public class OperationManagerController {
     @RequestMapping(value = {"/operation_manager/operation/list/"}, method = RequestMethod.GET)
     public String OperationManagerOperationList(HttpSession session, Model model){
         //get client from session
-        User client = null;
+        Integer client = null;
         if((client = getClient(session)) != null){
-            //TODO service: find client operations
-            List<Operation> operations = new ArrayList<Operation>();
+            Integer credit = getCredit(session);
+            List<Operation> operations = operatorService.CreditOperations(credit);
             //push operations to model
             model.addAttribute("operations",operations);
         }else{
@@ -88,11 +113,14 @@ public class OperationManagerController {
     @RequestMapping(value = {"/operation_manager/operation/"}, method = RequestMethod.GET)
     public String OperationManagerOperation(HttpSession session, Model model){
         //get client from session
-        User client = null;
+        Integer client = null;
         if((client = getClient(session)) != null){
-            //? push operation types to model
-            //push client info to model
-            model.addAttribute("client",client);
+            Integer credit = getCredit(session);
+            int payment = operatorService.CurrentPayment(credit, Dates.now());
+            //push info to model
+            model.addAttribute("client",operatorService.getUser(client));
+            model.addAttribute("credit",operatorService.getCredit(credit));
+            model.addAttribute("payment",payment);
         }else{
             //push error : client not selected
             model.addAttribute("error","ERROR MESSAGE: client not selected");
@@ -107,12 +135,12 @@ public class OperationManagerController {
     ){
         String error = null;
         //get client from session
-        User client = null;
+        Integer client = null;
         if((client = getClient(session)) != null){
+            Integer credit = getCredit(session);
             OperationManagerController.log.info("Execute operation");
-            //TODO service: execute operation
-            if(type == OperationType.Withdrawal){
-                error = "ERROR MESSAGE: operation error (Withdrawal)";
+            if(operatorService.ExecuteOperation(credit,Dates.now(),type,amount) != 0){
+                error = "ERROR MESSAGE: operation not executed";
             }
         }else{
             error = "ERROR MESSAGE: client not selected";
@@ -122,7 +150,7 @@ public class OperationManagerController {
             model.addAttribute("error",error);
             return "operation_manager_operation";
         }else{
-            return "redirect:/operation_manager/operation/list/";
+            return "redirect:/operation_manager/operation/list/?operation_executed=true";
         }
     }
 
