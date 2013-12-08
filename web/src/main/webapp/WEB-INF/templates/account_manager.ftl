@@ -10,7 +10,7 @@
         [@creditex.account_manager/]
         <div class="form-action">
             <p class="name">Введите данные клиента</p>
-            <form action="" method="post" class="form">
+            <form action="[@spring.url '/account_client/process/'/]" method="post" class="form">
                 <p>
                     <label for="name_field">Имя</label>
                     <input type="text" id="name_field" name="first">

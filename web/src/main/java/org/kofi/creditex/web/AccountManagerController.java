@@ -28,7 +28,7 @@ public class AccountManagerController {
     public String MainAccountManager(){
         return "account_manager";
     }
-    @RequestMapping(value = "/account_manager/")
+    @RequestMapping(value = "/account_manager/process/")
     public String SelectClient(HttpSession session, @ModelAttribute ClientSearchForm form, BindingResult result, ModelMap model){
         if(result.hasErrors()){
             model.put("isError", "Введено неверное значение в поле номера паспорта");
