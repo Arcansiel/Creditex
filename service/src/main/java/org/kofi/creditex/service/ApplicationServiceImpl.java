@@ -2,24 +2,21 @@ package org.kofi.creditex.service;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
-import org.kofi.creditex.model.Application;
-import org.kofi.creditex.model.PriorRepaymentApplication;
-import org.kofi.creditex.model.ProlongationApplication;
-import org.kofi.creditex.repository.ApplicationRepository;
-import org.kofi.creditex.repository.PriorRepaymentApplicationRepository;
-import org.kofi.creditex.repository.ProlongationApplicationRepository;
+import org.kofi.creditex.model.*;
+import org.kofi.creditex.repository.*;
 import org.kofi.creditex.web.model.CreditApplicationForm;
 import org.kofi.creditex.web.model.PriorApplicationForm;
 import org.kofi.creditex.web.model.ProlongationApplicationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Nullable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 @Service
+@Transactional
 public class ApplicationServiceImpl implements ApplicationService {
     DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
     Function<Boolean, String> acceptanceTransformation = new Function<Boolean, String>() {
@@ -117,6 +114,14 @@ public class ApplicationServiceImpl implements ApplicationService {
     private PriorRepaymentApplicationRepository priorRepaymentApplicationRepository;
     @Autowired
     private ProlongationApplicationRepository prolongationApplicationRepository;
+    @Autowired
+    private CreditRepository creditRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private ProductRepository productRepository;
+    @Autowired    
+    private CreditexDateProvider creditexDateProvider;
     @Override
     public List<Application> GetApplicationsByUsername(String username) {
         return applicationRepository.findByClient_Username(username);
@@ -144,5 +149,52 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public List<ProlongationApplicationForm> GetProlongationApplicationFormsByUsername(String username) {
         return Lists.transform(GetProlongationApplicationsByUsername(username), prolongationApplicationTransform);
+    }
+
+    @Override
+    public void RegisterApplicationByFormAndUsernameAndAccountManagerName(CreditApplicationForm form, String username, String accountManagerUsername) {
+        User client = userRepository.findByUsername(username);
+        User accountManager = userRepository.findByUsername(accountManagerUsername);
+        Product product = productRepository.findOne(form.getId());
+        Application application = new Application()
+                .setApplicationDate(creditexDateProvider.getCurrentSqlDate())
+                .setAccountManager(accountManager)
+                .setClient(client)
+                .setDuration(form.getDuration())
+                .setProduct(product)
+                .setRequest(form.getRequestedMoney())
+                .setVotingClosed(false)
+                .setVoteAcceptance(0)
+                .setVoteRejection(0);
+        applicationRepository.save(application);
+    }
+
+    @Override
+    public void RegisterPriorRepaymentApplicationByFormAndUsernameAndAccountManagerName(PriorApplicationForm form, String username, String accountManagerUsername){
+        Credit credit=creditRepository.findByActiveAndOpenAndUserUsername(true, true, username);
+        User client = userRepository.findByUsername(username);
+        User accountManager = userRepository.findByUsername(accountManagerUsername);
+        PriorRepaymentApplication application = new PriorRepaymentApplication()
+                .setClient(client)
+                .setAccountManager(accountManager)
+                .setApplicationDate(creditexDateProvider.getCurrentSqlDate())
+                .setCredit(credit)
+                .setComment(form.getComment());
+        priorRepaymentApplicationRepository.save(application);
+    }
+
+    @Override
+    public void RegisterProlongationApplicationByFormAndUsernameAndAccountManagerName(ProlongationApplicationForm form, String username, String accountManagerUsername){
+        Credit credit=creditRepository.findByActiveAndOpenAndUserUsername(true, true, username);
+        User client = userRepository.findByUsername(username);
+        User accountManager = userRepository.findByUsername(accountManagerUsername);
+        ProlongationApplication application = new ProlongationApplication()
+                .setClient(client)
+                .setAccountManager(accountManager)
+                .setCredit(credit)
+                .setApplicationDate(creditexDateProvider.getCurrentSqlDate())
+                .setDuration(form.getDuration())
+                .setComment(form.getComment());
+        prolongationApplicationRepository.save(application);
     }
 }

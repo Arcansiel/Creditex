@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +56,40 @@ public class AccountManagerController {
     public String ClientShowPriorApplicationForm(){
         return "account_manager_application_prior_edit";
     }
+    @RequestMapping("/account_manager/client/credit/add/process/")
+    public String ClientRegisterCreditApplicationForm(Principal principal,HttpSession session, @ModelAttribute CreditApplicationForm form, BindingResult result){
+        User client = (User)session.getAttribute("client");
+        if (client == null)
+            return "redirect:/account_manager/";
+        if(result.hasErrors()){
+            return "redirect:/account_manager/client/credit/add/";
+        }
+        applicationService.RegisterApplicationByFormAndUsernameAndAccountManagerName(form, client.getUsername(), principal.getName());
+        return "redirect:/account_manager/client/";
+    }
+    @RequestMapping("/account_manager/client/prolongation/add/process/")
+    public String ClientRegisterProlongationApplicationForm(Principal principal,HttpSession session, @ModelAttribute ProlongationApplicationForm form, BindingResult result, ModelMap model){
+        User client = (User)session.getAttribute("client");
+        if (client == null)
+            return "redirect:/account_manager/";
+        if(result.hasErrors()){
+            return "redirect:/account_manager/client/credit/add/";
+        }
+        applicationService.RegisterProlongationApplicationByFormAndUsernameAndAccountManagerName(form, client.getUsername(), principal.getName());
+        return "redirect:/account_manager/client/";
+    }
+    @RequestMapping("/account_manager/client/prior/add/process/")
+    public String ClientRegisterPriorApplicationForm(Principal principal,HttpSession session, @ModelAttribute PriorApplicationForm form, BindingResult result){
+        User client = (User)session.getAttribute("client");
+        if (client == null)
+            return "redirect:/account_manager/";
+        if(result.hasErrors()){
+            return "redirect:/account_manager/client/credit/add/";
+        }
+        applicationService.RegisterPriorRepaymentApplicationByFormAndUsernameAndAccountManagerName(form, client.getUsername(), principal.getName());
+        return "redirect:/account_manager/client/";
+    }
+
     @RequestMapping("/account_manager/client/credit/list/")
     public String ClientShowCreditApplicationList(HttpSession session,ModelMap model){
         User client = (User)session.getAttribute("client");

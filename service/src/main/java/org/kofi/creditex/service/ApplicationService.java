@@ -16,4 +16,7 @@ public interface ApplicationService {
     List<PriorApplicationForm> GetPriorApplicationFormsByUsername(String username);
     List<ProlongationApplication> GetProlongationApplicationsByUsername(String username);
     List<ProlongationApplicationForm> GetProlongationApplicationFormsByUsername(String username);
+    void RegisterApplicationByFormAndUsernameAndAccountManagerName(CreditApplicationForm form, String username, String accountManagerUsername);
+    void RegisterPriorRepaymentApplicationByFormAndUsernameAndAccountManagerName(PriorApplicationForm form, String username, String accountManagerUsername);
+    void RegisterProlongationApplicationByFormAndUsernameAndAccountManagerName(ProlongationApplicationForm form, String username, String accountManagerUsername);
 }

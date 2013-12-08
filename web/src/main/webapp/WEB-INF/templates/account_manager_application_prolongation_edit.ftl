@@ -1,6 +1,6 @@
 [#ftl]
 [#import "creditex.ftl" as creditex]
-
+[#import "spring.ftl" as spring]
 [@creditex.root]
     [@creditex.head "Main page"]
 
@@ -9,7 +9,11 @@
     <div class="page">
         <div class="form-action">
             <p class="name">Введите данные о пролонгации кредита</p>
-            <form action="" method="post" class="form">
+            <form action="[@spring.url '/account_manager/client/prolongation/add/process/'/]" method="post" class="form">
+                [#--<input type="hidden" name="id" value="0"/>--]
+                [#--<input type="hidden" name="date" value=""/>--]
+                [#--<input type="hidden" name="acceptance" value=""/>--]
+                [#--<input type="hidden" name="creditId" value="0"/>--]
                 <p>
                     <label for="duration_field">Срок пролонгации(мес)</label>
                     <input type="text" id="duration_field" name="duration">

@@ -1,5 +1,6 @@
 [#ftl]
 [#import "creditex.ftl" as creditex]
+[#import "spring.ftl" as spring]
 
 [@creditex.root]
     [@creditex.head "Main page"]
@@ -9,7 +10,7 @@
     <div class="page">
         <div class="form-action">
             <p class="name">Введите данные о предварительном возврате кредита</p>
-            <form action="" method="post" class="form">
+            <form action="[@spring.url '/account_manager/client/prior/add/process/'/]" method="post" class="form">
                 <p>
                     <label for="comment_field">Комментарий</label>
                     <input type="text" id="comment_field" name="comment">
