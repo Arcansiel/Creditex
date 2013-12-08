@@ -7,6 +7,7 @@ import lombok.experimental.Accessors;
 import lombok.experimental.Builder;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 @Data
@@ -30,4 +31,7 @@ public class ProlongationApplication {
     @ManyToOne
     @JoinColumn
     private User client;
+    private Boolean acceptance;
+    @Column(nullable = false)
+    private Date applicationDate;
 }

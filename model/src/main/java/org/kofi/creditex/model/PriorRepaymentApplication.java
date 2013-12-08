@@ -7,6 +7,7 @@ import lombok.experimental.Accessors;
 import lombok.experimental.Builder;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 @Data
@@ -28,4 +29,7 @@ public class PriorRepaymentApplication {
     @ManyToOne
     @JoinColumn
     private Credit credit;
+    private Boolean acceptance;
+    @Column(nullable = false)
+    private Date applicationDate;
 }

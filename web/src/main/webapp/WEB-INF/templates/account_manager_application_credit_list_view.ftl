@@ -21,19 +21,19 @@
                     <th>Причина отвержения</th>
                     <th>Просомтреть</th>
                 </tr>
-
-                [#list applications as application]
-                    <tr>
-                        <td><a href="[@spring.url '/account_manager/product/view/'+'${application.productId}'+'/'/]">${application.productName}</a></td>
-                        <td>${application.requestedMoney}</td>
-                        <td>${application.duration}</td>
-                        <td>${application.acceptance}</td>
-                        <td>${application.whoRejected}</td>
-                        <td>${application.whyRejected}</td>
-                        <td><a href="[@spring.url '/account_manager/client/credit/view/'+'${application.id}'+'/'/]">Просомотреть</a> </td>
-
-                    </tr>
-                [/#list]
+                [#if applications??]
+                    [#list applications as application]
+                        <tr>
+                            <td><a href="[@spring.url '/account_manager/product/view/'+'${application.productId}'+'/'/]">${application.productName}</a></td>
+                            <td>${application.requestedMoney}</td>
+                            <td>${application.duration}</td>
+                            <td>${application.acceptance}</td>
+                            <td>${application.whoRejected}</td>
+                            <td>${application.whyRejected}</td>
+                            <td><a href="[@spring.url '/account_manager/client/credit/view/'+'${application.id}'+'/'/]">Просомотреть</a> </td>
+                        </tr>
+                    [/#list]
+                [/#if]
             </table>
         </div>
         <div class="content">

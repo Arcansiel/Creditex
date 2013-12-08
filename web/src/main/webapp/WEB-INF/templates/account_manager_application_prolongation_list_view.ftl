@@ -1,5 +1,7 @@
 [#ftl]
+[#-- @ftlvariable name="applications" type="java.util.List<org.kofi.creditex.web.model.ProlongationApplicationForm>" --]
 [#import "creditex.ftl" as creditex]
+[#import "spring.ftl" as spring]
 
 [@creditex.root]
     [@creditex.head "Main page"]
@@ -8,46 +10,34 @@
     [@creditex.body]
     <div class="page">
         <div class="data-table">
-            <p class="name">Заявки, нуждающиеся в проверке</p>
+            <p class="name">Заявки на кредит</p>
             <table>
                 <tr>
-                    <th class="name">ФИО клиента</th>
-                    <th class="start_date">Поступление заявки</th>
-                    <th class="passport">Серия и номер паспорта</th>
-                    <th class="amount">Запрашиваемая сумма</th>
-                    <th class="duration">Длительность кредитования</th>
-                    <th class="comment">Комментарий</th>
-                    <th class="action"></th>
-                    <th class="submit-button"></th>
+                    <th>Дата подачи</th>
+                    <th>Продолжительность простоя (мес)</th>
+                    <th>Комментарий</th>
+                    <th>Кредит</th>
+                    <th>Принята ли заявка</th>
+                    <th>Просомтреть</th>
                 </tr>
-
-                [#list applications as app]
-                    <tr>
-                        <td class="name"><a href="/security_manager_appliance_check/${app.id}" target="_blank">${app.client.userData.last} ${app.client.userData.first} ${app.client.userData.patronymic}</a></td>
-                        <td class="start_date">FIX IT ! (DATE) !</td>
-                        <td class="passport">${app.client.userData.passportSeries} ${app.client.userData.passportNumber}</td>
-                        <td class="amount">${app.request}</td>
-                        <td class="duration">${app.duration}</td>
-                        <td class="comment"><textarea name="comment" ></textarea></td>
-                        <td class="action">
-                            <p>
-                                <label>
-                                    <input type="radio" name="confirmation" value="1" />
-                                    Утвердить</label>
-                                <br />
-                                <label>
-                                    <input type="radio" name="confirmation" value="0" />
-                                    Отклонить</label>
-                                <br />
-                            </p>
-                        </td>
-                        <td class="submit-button">
-                            <input type="hidden" name="id" value="${app.id}"/>
-                            <button type="submit" class="button">Принять</button>
-                        </td>
-                    </tr>
-                [/#list]
+                [#if applications??]
+                    [#list applications as application]
+                        <tr>
+                            <td>${application.date}</td>
+                            <td>${application.duration}</td>
+                            <td>${application.comment}</td>
+                            <td><a href="[@spring.url '/account_manager/client/credit/view/'+'${application.creditId}'+'/'/]">Кредит</a> </td>
+                            <td>${application.acceptance}</td>
+                        </tr>
+                    [/#list]
+                [/#if]
             </table>
+        </div>
+        <div class="content">
+            <ul class="nav-menu">
+                <li><a href="[@spring.url '/account_manager/client/'/]">Вырнуться назад</a>
+                </li>
+            </ul>
         </div>
     </div>
     [/@creditex.body]
