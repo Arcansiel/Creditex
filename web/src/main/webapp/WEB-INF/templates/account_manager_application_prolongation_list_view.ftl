@@ -10,7 +10,7 @@
     [@creditex.body]
     <div class="page">
         <div class="data-table">
-            <p class="name">Заявки на кредит</p>
+            <p class="name">Заявки на пролонгацию кредита</p>
             <table>
                 <tr>
                     <th>Дата подачи</th>
@@ -18,7 +18,6 @@
                     <th>Комментарий</th>
                     <th>Кредит</th>
                     <th>Принята ли заявка</th>
-                    <th>Просомтреть</th>
                 </tr>
                 [#if applications??]
                     [#list applications as application]

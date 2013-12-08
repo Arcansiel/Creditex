@@ -10,7 +10,7 @@
     [@creditex.body]
     <div class="page">
         <div class="data-table">
-            <p class="name">Заявки на кредит</p>
+            <p class="name">Заявки на досрочное погашение кредита</p>
             <table>
                 <tr>
                     <th>Дата</th>

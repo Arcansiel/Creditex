@@ -1,4 +1,5 @@
 [#ftl]
+[#-- @ftlvariable name="isError" type="String" --]
 [#import "creditex.ftl" as creditex]
 [#import "spring.ftl" as spring]
 

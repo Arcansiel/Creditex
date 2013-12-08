@@ -8,7 +8,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,7 +20,11 @@ public class MainController {
     @Autowired
     private UserService userService;
     @RequestMapping("/")
-    public String MainPage(HttpSession session ){
+    public String MainPage(@RequestParam(required = false) Boolean isError, ModelMap model){
+        if(isError!=null){
+            model.put("isError", "Введены неверные логин или пароль");
+            return "main";
+        }
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ANONYMOUS")))
         {
@@ -36,8 +42,6 @@ public class MainController {
             if (authority.equals("ROLE_OPERATION_MANAGER"))
                 return "redirect:/operation_manager/";
         }
-
-        MainController.log.info("Entering main controller");
         return "main";
     }
     @RequestMapping("/login/")

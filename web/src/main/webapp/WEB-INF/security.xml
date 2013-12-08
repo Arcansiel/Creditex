@@ -11,12 +11,12 @@
 
         <intercept-url pattern="/" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="/client/**" access="ROLE_CLIENT"/>
-        <intercept-url pattern="/account_manager/" access="ROLE_ACCOUNT_MANAGER"/>
+        <intercept-url pattern="/account_manager/**" access="ROLE_ACCOUNT_MANAGER"/>
         <intercept-url pattern="/security_manager/**" access="ROLE_SECURITY_MANAGER"/>
         <intercept-url pattern="/committee_manager/**" access="ROLE_COMMITTEE_MANAGER"/>
         <intercept-url pattern="/department_head/**" access="ROLE_DEPARTMENT_HEAD"/>
         <intercept-url pattern="/operation_manager/**" access="ROLE_OPERATION_MANAGER"/>
-        <form-login login-page="/login/" authentication-failure-url="/login/?error=true"/>
+        <form-login login-page="/" authentication-failure-url="/?isError=true"/>
     </http>
 
     <authentication-manager>

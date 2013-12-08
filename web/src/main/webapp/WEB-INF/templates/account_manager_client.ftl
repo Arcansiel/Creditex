@@ -1,4 +1,5 @@
 [#ftl]
+[#-- @ftlvariable name="isError" type="String" --]
 [#import "creditex.ftl" as creditex]
 [#import "spring.ftl" as spring]
 
@@ -35,6 +36,9 @@
                 </li>
             </ul>
         </div>
+        [#if isError??]
+            <p>${isError}</p>
+        [/#if]
     </div>
     [/@creditex.body]
 [/@creditex.root]
