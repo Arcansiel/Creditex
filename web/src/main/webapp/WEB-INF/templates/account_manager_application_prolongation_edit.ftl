@@ -11,11 +11,11 @@
             <p class="name">Введите данные о пролонгации кредита</p>
             <form action="" method="post" class="form">
                 <p>
-                    <label for="name_field">Срок пролонгации(мес)</label>
+                    <label for="duration_field">Срок пролонгации(мес)</label>
                     <input type="text" id="duration_field" name="duration">
                 </p>
                 <p>
-                    <label for="last_field">Комментарий</label>
+                    <label for="comment_field">Комментарий</label>
                     <input type="text" id="comment_field" name="comment">
                 </p>
                 <p class="a-center"><button type="submit" class="button">Обработать</button></p>

@@ -30,7 +30,8 @@ public class Credit {
     private int currentMoney;
     // debt -> originalMainDebt
     private int originalMainDebt;
-
+    private boolean active;
+    private boolean open;
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", nullable = false)
     private Product product;
