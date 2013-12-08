@@ -8,6 +8,7 @@
     [@creditex.body]
     <div class="page">
         <div class="form-action">
+            <p class="name"><a href=[@spring.url "/security_manager/"/]>Назад на главную страницу</a></p>
             <p class="name">Невозвращённые кредиты</p>
             <table>
                 <tr>
@@ -23,7 +24,6 @@
 
                 [#list credits as c]
                     <tr>
-                        <form name="" method="post" action="">
                             <td class="name">${c.id}</td>
                             <td class="name">${c.product.name?html}</td>
                             <td class="name">${c.user.userData.last?html} ${c.user.userData.first?html} ${c.user.userData.patronymic?html}</td>
@@ -32,7 +32,6 @@
                             <td class="amount">${c.originalMainDebt}</td>
                             <td class="duration">${c.duration}</td>
                             <td class="amount">${c.currentMainDebt}</td>
-                        </form>
                     </tr>
                 [/#list]
             </table>

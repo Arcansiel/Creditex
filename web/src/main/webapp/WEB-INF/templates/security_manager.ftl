@@ -14,13 +14,13 @@
 
                 <li><a href="#">Заявки</a>
                     <ul>
-                        <li><a href="[@spring.url '/security_manager_appliances/'/]">Заявки на рассмотрение службой безопасности</a></li>
+                        <li><a href="[@spring.url '/security_manager/appliances/'/]">Заявки на рассмотрение службой безопасности</a></li>
                     </ul>
                 </li>
                 <li><a href="#">Кредиты</a>
                     <ul>
-                        <li><a href="[@spring.url '/security_manager_credits_expired/'/]">Кредиты с задержкой платежей</a></li>
-                        <li><a href="[@spring.url '/security_manager_credits_unreturned/'/]">Невозвращённые кредиты</a></li>
+                        <li><a href="[@spring.url '/security_manager/credits/expired/'/]">Кредиты с задержкой платежей</a></li>
+                        <li><a href="[@spring.url '/security_manager/credits/unreturned/'/]">Невозвращённые кредиты</a></li>
                     </ul>
                 </li>
             </ul>
