@@ -48,7 +48,7 @@ public class OperationManagerController {
                                        ,@RequestParam("last")String last
                                        ,@RequestParam("patronymic")String patronymic
                                        ,@RequestParam("series")String series
-                                       ,@RequestParam("number")Integer number
+                                       ,@RequestParam("number")int number
     ){
         String error = null;
         setClient(session,null);
@@ -103,7 +103,7 @@ public class OperationManagerController {
     @RequestMapping(value = {"/operation_manager_operation/"}, method = RequestMethod.POST)
     public String OperationManagerOperation(HttpSession session, Model model
             ,@RequestParam("type")OperationType type
-            ,@RequestParam("amount")Integer amount
+            ,@RequestParam("amount")int amount
     ){
         String error = null;
         //get client from session

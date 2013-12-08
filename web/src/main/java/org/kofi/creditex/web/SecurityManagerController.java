@@ -39,29 +39,32 @@ public class SecurityManagerController {
     }
 
     @RequestMapping(value = "/security_manager_appliances/", method = RequestMethod.POST)
-    public String Security5(Model model,
-                            @RequestParam("confirmation")int confirmation){
+    public String Security5(Model model, HttpSession session
+                            ,@RequestParam("id")int id
+                            ,@RequestParam("confirmation")int confirmation
+                            ,@RequestParam("comment")String comment
+    ){
+        User security = null;
+        if(security != null){
+            if(securityService.ConfirmApplication(security.getId(),id,confirmation != 0,comment)){
 
+            }
+        }
         return "redirect:/security_manager_appliances/";
     }
 
     @RequestMapping(value = "/security_manager_credits_expired/", method = RequestMethod.GET)
     public String Security2(Model model){
-
         List<Credit> credits;
-        credits = new ArrayList<Credit>();
-        //TODO
+        credits = securityService.GetExpiredCredits(Dates.now());
         model.addAttribute("credits",credits);
         return "security_manager_credits_expired";
     }
 
     @RequestMapping(value = "/security_manager_credits_unreturned/", method = RequestMethod.GET)
     public String Security3(Model model){
-
         List<Credit> credits;
-        credits = new ArrayList<Credit>();
-
-        //TODO
+        credits = securityService.GetUnreturnedCredits(Dates.now());
         model.addAttribute("credits", credits);
         return "security_manager_credits_unreturned";
     }
@@ -69,9 +72,9 @@ public class SecurityManagerController {
 
 
     @RequestMapping(value = "/security_manager_appliance_check/{id}", method = RequestMethod.GET)
-    public String Security4(Model model,
-                            @PathVariable("id")int id){
-
+    public String Security4(Model model
+                            ,@PathVariable("id")int id){
+        //TODO
         return "security_manager_appliance_check";
     }
 

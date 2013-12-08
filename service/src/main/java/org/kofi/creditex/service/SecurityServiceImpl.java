@@ -24,10 +24,10 @@ public class SecurityServiceImpl implements SecurityService{
     public List<Application> GetSecurityApplications() {
         List<Application> list = new ArrayList<Application>();
         for(Application app:applicationRepository.findAll(
-                QApplication.application.securityAcceptance.isNull() //TODO order by date
+                QApplication.application.securityAcceptance.isNull(),
+                QApplication.application.applicationDate.asc()
         )
                 )
-        //for(Application app:applicationRepository.findBySecurityAcceptanceIsNull())
         {
              list.add(app);
         }
@@ -46,5 +46,11 @@ public class SecurityServiceImpl implements SecurityService{
         List<Credit> list = new ArrayList<Credit>();
         //TODO
         return list;
+    }
+
+    public boolean ConfirmApplication(int security_id, int id, boolean confirmation, String comment){
+        //TODO
+
+        return true;
     }
 }

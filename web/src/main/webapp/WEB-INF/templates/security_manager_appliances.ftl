@@ -24,9 +24,9 @@
             [#list applications as app]
             <tr>
                 <form name="" method="post" action="">
-                    <td class="name"><a href="/security_manager_appliance_check/${app.id}" target="_blank">${app.client.userData.last} ${app.client.userData.first} ${app.client.userData.patronymic}</a></td>
-                    <td class="start_date">FIX IT ! (DATE) !</td>
-                    <td class="passport">${app.client.userData.passportSeries} ${app.client.userData.passportNumber}</td>
+                    <td class="name"><a href="/security_manager_appliance_check/${app.id}" target="_blank">${app.client.userData.last?html} ${app.client.userData.first?html} ${app.client.userData.patronymic?html}</a></td>
+                    <td class="start_date">${app.applicationDate}</td>
+                    <td class="passport">${app.client.userData.passportSeries?html} ${app.client.userData.passportNumber}</td>
                     <td class="amount">${app.request}</td>
                     <td class="duration">${app.duration}</td>
                     <td class="comment"><textarea name="comment" ></textarea></td>
