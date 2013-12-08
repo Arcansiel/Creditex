@@ -61,7 +61,7 @@ public class OperationManagerController {
             //push client to session
             setClient(session,client);
             //redirect to list
-            return "redirect:/operation_manager_operation_list/";
+            return "redirect:/operation_manager/operation/list/";
         }else{
             //push error to model
             model.addAttribute("error",error);
@@ -69,7 +69,7 @@ public class OperationManagerController {
         }
     }
 
-    @RequestMapping(value = {"/operation_manager_operation_list/"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/operation_manager/operation/list/"}, method = RequestMethod.GET)
     public String OperationManagerOperationList(HttpSession session, Model model){
         //get client from session
         User client = null;
@@ -85,7 +85,7 @@ public class OperationManagerController {
         return "operation_manager_operation_list";
     }
 
-    @RequestMapping(value = {"/operation_manager_operation/","/operation_manager_operation"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/operation_manager/operation/"}, method = RequestMethod.GET)
     public String OperationManagerOperation(HttpSession session, Model model){
         //get client from session
         User client = null;
@@ -100,7 +100,7 @@ public class OperationManagerController {
         return "operation_manager_operation";
     }
 
-    @RequestMapping(value = {"/operation_manager_operation/"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/operation_manager/operation/"}, method = RequestMethod.POST)
     public String OperationManagerOperation(HttpSession session, Model model
             ,@RequestParam("type")OperationType type
             ,@RequestParam("amount")int amount
@@ -122,7 +122,7 @@ public class OperationManagerController {
             model.addAttribute("error",error);
             return "operation_manager_operation";
         }else{
-            return "redirect:/operation_manager_operation_list/";
+            return "redirect:/operation_manager/operation/list/";
         }
     }
 

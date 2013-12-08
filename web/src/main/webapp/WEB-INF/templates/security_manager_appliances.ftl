@@ -8,45 +8,28 @@
     [@creditex.body]
     <div class="page">
         <div class="form-action">
+        <p class="name"><a href=[@spring.url "/security_manager/"/]>Назад на главную страницу</a></p>
         <p class="name">Заявки, нуждающиеся в проверке</p>
         <table>
             <tr>
                 <th class="name">ФИО клиента</th>
-                <th class="start_date">Поступление заявки</th>
                 <th class="passport">Серия и номер паспорта</th>
+                <th class="start_date">Поступление заявки</th>
+                <th class="name">Кредитный продукт</th>
                 <th class="amount">Запрашиваемая сумма</th>
                 <th class="duration">Длительность кредитования</th>
-                <th class="comment">Комментарий</th>
-                <th class="action"></th>
-                <th class="submit-button"></th>
+                <th class="submit-button">Проверка</th>
             </tr>
 
             [#list applications as app]
             <tr>
-                <form name="" method="post" action="">
-                    <td class="name"><a href="/security_manager_appliance_check/${app.id}" target="_blank">${app.client.userData.last?html} ${app.client.userData.first?html} ${app.client.userData.patronymic?html}</a></td>
-                    <td class="start_date">${app.applicationDate}</td>
-                    <td class="passport">${app.client.userData.passportSeries?html} ${app.client.userData.passportNumber}</td>
-                    <td class="amount">${app.request}</td>
-                    <td class="duration">${app.duration}</td>
-                    <td class="comment"><textarea name="comment" ></textarea></td>
-                    <td class="action">
-                        <p>
-                            <label>
-                                <input type="radio" name="confirmation" value="1" />
-                                Утвердить</label>
-                            <br />
-                            <label>
-                                <input type="radio" name="confirmation" value="0" />
-                                Отклонить</label>
-                            <br />
-                        </p>
-                    </td>
-                    <td class="submit-button">
-                        <input type="hidden" name="id" value="${app.id}"/>
-                        <button type="submit" class="button">Принять</button>
-                    </td>
-                </form>
+                <td class="name">${app.client.userData.last?html} ${app.client.userData.first?html} ${app.client.userData.patronymic?html}</td>
+                <td class="passport">${app.client.userData.passportSeries?html} ${app.client.userData.passportNumber}</td>
+                <td class="start_date">${app.applicationDate}</td>
+                <td class="name">${app.product.name}</td>
+                <td class="amount">${app.request}</td>
+                <td class="duration">${app.duration}</td>
+                <td><a href=[@spring.url '/security_manager/appliance/check/${app.id?string("0")}'/]>Проверить заявку</a></td>
             </tr>
             [/#list]
          </table>

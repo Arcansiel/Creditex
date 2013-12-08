@@ -10,7 +10,7 @@
 
     <div class="form-action">
         <p class="name"><a href=[@spring.url "/operation_manager/"/]>Другой клиент</a></p>
-        <p class="name"><a href=[@spring.url "/operation_manager_operation_list/"/]>Список операций</a></p>
+        <p class="name"><a href=[@spring.url "/operation_manager/operation/list/"/]>Список операций</a></p>
         <form action="" method="post" class="form">
             <p class="name">Операция</p>
             [#if error??]

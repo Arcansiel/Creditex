@@ -13,7 +13,7 @@
             <p>${error?html}</p>
         [/#if]
         <p class="name"><a href=[@spring.url "/operation_manager/"/]>Другой клиент</a></p>
-        <p class="name"><a href=[@spring.url "/operation_manager_operation/"/]>Новая операция</a></p>
+        <p class="name"><a href=[@spring.url "/operation_manager/operation/"/]>Новая операция</a></p>
         <p class="name">Все операции пользователя по текущему кредиту</p>
         <table>
             <tr>

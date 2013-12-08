@@ -31,37 +31,22 @@ public class SecurityManagerController {
         return "security_manager";
     }
 
-    @RequestMapping(value = "/security_manager_appliances/", method = RequestMethod.GET)
+    @RequestMapping(value = "/security_manager/appliances/", method = RequestMethod.GET)
     public String Security1(Model model){
         List<Application> applications = securityService.GetSecurityApplications();
         model.addAttribute("applications",applications);
         return "security_manager_appliances";
     }
 
-    @RequestMapping(value = "/security_manager_appliances/", method = RequestMethod.POST)
-    public String Security5(Model model, HttpSession session
-                            ,@RequestParam("id")int id
-                            ,@RequestParam("confirmation")int confirmation
-                            ,@RequestParam("comment")String comment
-    ){
-        User security = null;
-        if(security != null){
-            if(securityService.ConfirmApplication(security.getId(),id,confirmation != 0,comment)){
-
-            }
-        }
-        return "redirect:/security_manager_appliances/";
-    }
-
-    @RequestMapping(value = "/security_manager_credits_expired/", method = RequestMethod.GET)
+    @RequestMapping(value = "/security_manager/credits/expired/", method = RequestMethod.GET)
     public String Security2(Model model){
         List<Credit> credits;
         credits = securityService.GetExpiredCredits(Dates.now());
         model.addAttribute("credits",credits);
-        return "security_manager_credits_expired";
+        return "security_manger_credits_expired";
     }
 
-    @RequestMapping(value = "/security_manager_credits_unreturned/", method = RequestMethod.GET)
+    @RequestMapping(value = "/security_manager/credits/unreturned/", method = RequestMethod.GET)
     public String Security3(Model model){
         List<Credit> credits;
         credits = securityService.GetUnreturnedCredits(Dates.now());
@@ -71,42 +56,41 @@ public class SecurityManagerController {
 
 
 
-    @RequestMapping(value = "/security_manager_appliance_check/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/security_manager/appliance/check/{id}", method = RequestMethod.GET)
     public String Security4(Model model
                             ,@PathVariable("id")int id){
-        //TODO
+        Application app = securityService.GetApplication(id);
+        if(app == null){
+            return "redirect:/security_manager/";
+        }
+        model.addAttribute("application",app);
+        List<Credit> credits = securityService.GetCurrentClientCredits(id);
+        model.addAttribute("credits",credits);
+        List<Credit> expired = securityService.GetClientExpiredCredits(id,Dates.now());
+        model.addAttribute("expired",credits);
+        List<Credit> unreturned = securityService.GetClientUnreturnedCredits(id,Dates.now());
+        model.addAttribute("unreturned",unreturned);
+        List<PriorRepaymentApplication> priors = securityService.GetClientPriorRepaymentApplications(id);
+        model.addAttribute("priors",priors);
+        List<ProlongationApplication> prolongations = securityService.GetClientProlongationApplications(id);
+        model.addAttribute("prolongations",prolongations);
         return "security_manager_appliance_check";
     }
 
 
-
-
-
-
-
-
-    @RequestMapping(value = "/security_manager/6", method = RequestMethod.GET)
-    public String Security6(Model model){
-        return "security_manager";
+    @RequestMapping(value = "/security_manager/appliance/confirm/{id}", method = RequestMethod.POST)
+    public String Security6(Model model
+                            ,@PathVariable("id")int id
+                            ,@RequestParam("confirmation")boolean confirmation
+                            ,@RequestParam("comment")String comment
+    ){
+        //TODO
+        //get security from session
+        User security = new User();
+        if(security == null){ return "redirect:/login/"; }
+        securityService.ConfirmApplication(security.getId(),id,confirmation,comment);
+        return "redirect:/security_manager/";
     }
 
-    @RequestMapping(value = "/security_manager/7", method = RequestMethod.GET)
-    public String Security7(Model model){
-        return "security_manager";
-    }
 
-    @RequestMapping(value = "/security_manager/8", method = RequestMethod.GET)
-    public String Security8(Model model){
-        return "security_manager";
-    }
-
-    @RequestMapping(value = "/security_manager/9", method = RequestMethod.GET)
-    public String Security9(Model model){
-        return "security_manager";
-    }
-
-    @RequestMapping(value = "/security_manager/10", method = RequestMethod.GET)
-    public String Security10(Model model){
-        return "security_manager";
-    }
 }
