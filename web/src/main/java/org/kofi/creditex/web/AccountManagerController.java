@@ -5,6 +5,8 @@ import org.kofi.creditex.service.ApplicationService;
 import org.kofi.creditex.service.UserService;
 import org.kofi.creditex.web.model.ClientSearchForm;
 import org.kofi.creditex.web.model.CreditApplicationForm;
+import org.kofi.creditex.web.model.PriorApplicationForm;
+import org.kofi.creditex.web.model.ProlongationApplicationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -56,6 +58,8 @@ public class AccountManagerController {
     @RequestMapping("/account_manager/client/credit/list/")
     public String ClientShowCreditApplicationList(HttpSession session,ModelMap model){
         User client = (User)session.getAttribute("client");
+        if (client == null)
+            return "redirect:/account_manager/";
         List<CreditApplicationForm> applications = applicationService.GetCreditApplicationsInListByUsername (client.getUsername());
         if (applications==null)
             applications = new ArrayList<CreditApplicationForm>();
@@ -63,11 +67,25 @@ public class AccountManagerController {
         return "account_manager_application_credit_list_view";
     }
     @RequestMapping("/account_manager/client/prior/list/")
-    public String ClientShowPriorApplicationList(){
+    public String ClientShowPriorApplicationList(HttpSession session,ModelMap model){
+        User client = (User)session.getAttribute("client");
+        if (client == null)
+            return "redirect:/account_manager/";
+        List<PriorApplicationForm> applications = applicationService.GetPriorApplicationFormsByUsername(client.getUsername());
+        if (applications==null)
+            applications = new ArrayList<PriorApplicationForm>();
+        model.put("applications", applications);
         return "account_manager_application_prior_list_view";
     }
     @RequestMapping("/account_manager/client/prolongation/list/")
-    public String ClientShowProlongationApplicationList(){
+    public String ClientShowProlongationApplicationList(HttpSession session,ModelMap model){
+        User client = (User)session.getAttribute("client");
+        if (client == null)
+            return "redirect:/account_manager/";
+        List<ProlongationApplicationForm> applications = applicationService.GetProlongationApplicationFormsByUsername(client.getUsername());
+        if (applications==null)
+            applications = new ArrayList<ProlongationApplicationForm>();
+        model.put("applications", applications);
         return "account_manager_application_prolongation_list_view";
     }
     @RequestMapping("/account_manager/client/change_data/")

@@ -15,6 +15,7 @@
                 <tr>
                     <th>Кредитный продукт</th>
                     <th>Запрашиваемая сумма</th>
+                    <th>Дата подачи</th>
                     <th>Длительность кредита</th>
                     <th>Принята ли заявка</th>
                     <th>Кем отвергнута</th>
@@ -26,6 +27,7 @@
                         <tr>
                             <td><a href="[@spring.url '/account_manager/product/view/'+'${application.productId}'+'/'/]">${application.productName}</a></td>
                             <td>${application.requestedMoney}</td>
+                            <td>${application.applicationDate}</td>
                             <td>${application.duration}</td>
                             <td>${application.acceptance}</td>
                             <td>${application.whoRejected}</td>
