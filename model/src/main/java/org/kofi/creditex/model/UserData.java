@@ -25,19 +25,11 @@ public class UserData {
     private String last;
     @Column(nullable = false)
     private String patronymic;
-//    private Date birth;
     @OneToOne(mappedBy = "userData")
     private User user;
     @Column(nullable = false)
     private String passportSeries;
     private int passportNumber;
-//    // start -> emissionDate
-//    private Date usageStart;
-//    // end -> outOfUse
-//    private Date outOfUse;
-//    // emission -> emissionOrganisation
-//    private String emissionOrganisation;
-//    private String identification;
     @Column(nullable = false)
     private String workName;
     @Column(nullable = false)

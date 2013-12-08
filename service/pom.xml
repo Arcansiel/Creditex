@@ -17,6 +17,11 @@
             <artifactId>repository</artifactId>
             <version>0.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.kofi.creditex</groupId>
+            <artifactId>web.model</artifactId>
+            <version>0.1</version>
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>

@@ -3,8 +3,12 @@ package org.kofi.creditex.service;
 import lombok.extern.slf4j.Slf4j;
 import org.kofi.creditex.model.Authority;
 import org.kofi.creditex.model.User;
+import org.kofi.creditex.model.UserData;
 import org.kofi.creditex.repository.AuthoritiesRepository;
+import org.kofi.creditex.repository.UserDataRepository;
 import org.kofi.creditex.repository.UserRepository;
+import org.kofi.creditex.web.model.UserChangeDataForm;
+import org.kofi.creditex.web.model.UserRegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,6 +28,9 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private AuthoritiesRepository authoritiesRepository;
+    @Autowired
+    private UserDataRepository userDataRepository;
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     private BCryptPasswordEncoder encoder;
     @Override
@@ -49,7 +56,48 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void RegisterUserByForm(UserRegistrationForm form) {
+        UserData userData = new UserData();
+        userData
+                .setFirst(form.getFirst())
+                .setLast(form.getLast())
+                .setPatronymic(form.getPatronymic())
+                .setPassportSeries(form.getSeries())
+                .setPassportNumber(form.getNumber())
+                .setWorkName(form.getWorkName())
+                .setWorkPosition(form.getWorkPosition())
+                .setWorkIncome(form.getWorkIncome());
+        Authority authority = GetAuthorityByAuthorityName(form.getRole());
+        User user = new User();
+        user
+                .setAccountNonExpired(true)
+                .setAccountNonLocked(true)
+                .setCredentialsNonExpired(true)
+                .setEnabled(true)
+                .setUsername(form.getUsername())
+                .setPassword(GetHashedPassword(form.getPassword()))
+                .setUserData(userData)
+                .setAuthority(authority);
+        SaveUser(user);
+    }
+
+    @Override
     public void SaveUser(User user) {
         userRepository.saveAndFlush(user);
+    }
+
+    @Override
+    public void ChangeUserDataByForm(UserChangeDataForm form) {
+        UserData initialData = userDataRepository.findOne(form.getId());
+        initialData
+                .setFirst(form.getFirst())
+                .setLast(form.getLast())
+                .setPatronymic(form.getPatronymic())
+                .setPassportSeries(form.getPassportSeries())
+                .setPassportNumber(form.getPassportNumber())
+                .setWorkName(form.getWorkName())
+                .setWorkPosition(form.getWorkPosition())
+                .setWorkIncome(form.getWorkIncome());
+        userDataRepository.save(initialData);
     }
 }

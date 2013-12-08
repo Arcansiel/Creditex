@@ -13,51 +13,51 @@
             <p class="name">Введите регистационные данные</p>
             <form action="" method="post" class="form">
                 <p>
-                    <label for="username_field" class="col-sm-10">Логин пользователя</label>
+                    <label for="username_field">Логин пользователя</label>
                     <input type="text" id="username_field" name="username">
                 </p>
                 <p>
-                    <label for="password_field" class="col-sm-10">Пароль</label>
+                    <label for="password_field">Пароль</label>
                     <input type="password" id="password_field" name="password">
                 </p>
                 <p>
-                    <label for="repeatPassword_field" class="col-sm-10">Повторите пароль</label>
+                    <label for="repeatPassword_field">Повторите пароль</label>
                     <input type="password" id="repeatPassword_field" name="repeatPassword">
                 </p>
                 <p>
-                    <label for="name_field" class="col-sm-10">Имя</label>
+                    <label for="name_field">Имя</label>
                     <input type="text" id="name_field" name="first">
                 </p>
                 <p>
-                    <label for="last_field" class="col-sm-10">Фамилия</label>
+                    <label for="last_field">Фамилия</label>
                     <input type="text" id="last_field" name="last">
                 </p>
                 <p>
-                    <label for="patronymic_field" class="col-sm-10">Отчество</label>
+                    <label for="patronymic_field">Отчество</label>
                     <input type="text" id="patronymic_field" name="patronymic">
                 </p>
                 <p>
-                    <label for="series_field" class="col-sm-10">Серия паспорта</label>
+                    <label for="series_field">Серия паспорта</label>
                     <input type="text" id="series_field" name="series">
                 </p>
                 <p>
-                    <label for="number_filed" class="col-sm-10">Номер паспорта</label>
+                    <label for="number_filed">Номер паспорта</label>
                     <input type="text" id="number_filed" name="number">
                 </p>
                 <p>
-                    <label for="workName_field" class="col-sm-10">Место работы</label>
+                    <label for="workName_field">Место работы</label>
                     <input type="text" id="workName_field" name="workName">
                 </p>
                 <p>
-                    <label for="workPosition_field" class="col-sm-10">Занимаемая позиция</label>
+                    <label for="workPosition_field">Занимаемая позиция</label>
                     <input type="text" id="workPosition_field" name="workPosition">
                 </p>
                 <p>
-                    <label for="workIncome_field" class="col-sm-10">Доход</label>
+                    <label for="workIncome_field">Доход</label>
                     <input type="text" id="workIncome_field" name="workIncome">
                 </p>
                 <p>
-                    <label for="role_selector" class="col-sm-10">Выполняемая в системе роль</label>
+                    <label for="role_selector">Выполняемая в системе роль</label>
                     <select name="role" id ="role_selector">
                         <option value="ROLE_CLIENT">Клиент</option>
                         <option value="ROLE_ACCOUNT_MANAGER">Специалист по работе с клиентами</option>

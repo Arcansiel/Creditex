@@ -147,6 +147,28 @@ a.button{
 .form-action table tr.gray td { background:#ccc}
 
 
+/* Table */
+.data-table{ background:#f5f5f5; display:table; width:980px; margin:10px auto; padding:10px}
+.data-table p.name{ text-transform:uppercase; font-weight:bold; padding:10px 0}
+.data-table table{ font-size:12px;}
+.data-table table tr th{ font-weight: bold; background: gray; padding: 5px; color: white;}
+.data-table table tr td{border-top: 1px solid gray; padding:10px 5px;}
+.data-table table tr td a{ color:#333}
+.data-table table tr .name{width: 180px;}
+.data-table table tr .start_date{width: 90px; padding-left: 10px;}
+.data-table table tr .passport{width: 100px;}
+.data-table table tr .amount{width: 150px;}
+.data-table table tr .duration{width: 100px;}
+.data-table table tr .comment{width: 140px;}
+.data-table table tr .comment textarea{width: 180px; height: 50px;}
+.data-table table tr .action{width: 90px;}
+.data-table table tr .submit-button{}
+.data-table table tr .note{ width:30px}
+.data-table table tr td.note{ text-align:center}
+.data-table table tr.green td { background:#89C35C }
+.data-table table tr.gray td { background:#ccc}
+
+
 
 
 /* Consultant.html */

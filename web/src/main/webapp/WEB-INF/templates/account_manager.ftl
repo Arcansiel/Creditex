@@ -12,23 +12,23 @@
             <p class="name">Введите данные клиента</p>
             <form action="" method="post" class="form">
                 <p>
-                    <label for="name_field" class="col-sm-10">Имя</label>
+                    <label for="name_field">Имя</label>
                     <input type="text" id="name_field" name="first">
                 </p>
                 <p>
-                    <label for="last_field" class="col-sm-10">Фамилия</label>
+                    <label for="last_field">Фамилия</label>
                     <input type="text" id="last_field" name="last">
                 </p>
                 <p>
-                    <label for="patronymic_field" class="col-sm-10">Отчество</label>
+                    <label for="patronymic_field">Отчество</label>
                     <input type="text" id="patronymic_field" name="patronymic">
                 </p>
                 <p>
-                    <label for="series_field" class="col-sm-10">Серия паспорта</label>
+                    <label for="series_field">Серия паспорта</label>
                     <input type="text" id="series_field" name="series">
                 </p>
                 <p>
-                    <label for="number_filed" class="col-sm-10">Номер паспорта</label>
+                    <label for="number_filed">Номер паспорта</label>
                     <input type="text" id="number_filed" name="number">
                 </p>
                 <p class="a-center"><button type="submit" class="button">Обработать</button></p>

@@ -24,7 +24,7 @@
                 </select>
             </p>
             <p>
-                <label for="amount_filed" class="col-sm-10">Сумма</label>
+                <label for="amount_filed">Сумма</label>
                 <input type="text" id="amount_filed" name="amount">
             </p>
             <p class="a-center"><button type="submit" class="button">Выполнить операцию</button></p>

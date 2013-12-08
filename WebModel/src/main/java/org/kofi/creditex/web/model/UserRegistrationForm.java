@@ -1,8 +1,10 @@
-package org.kofi.creditex.web;
+package org.kofi.creditex.web.model;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 @Data
+@Accessors(chain = true)
 public class UserRegistrationForm{
     private String username;
     private String password;

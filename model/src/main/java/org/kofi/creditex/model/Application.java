@@ -39,12 +39,13 @@ public class Application {
     private Boolean securityAcceptance;
     private String securityComment;
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JoinColumn(referencedColumnName = "id")
     private User security;
 
     private int voteAcceptance;
     private int voteRejection;
     private boolean votingClosed;
+    private Boolean committeeAcceptance;
     @OneToMany(mappedBy = "application")
     private List<Vote> votes;
 
@@ -52,6 +53,6 @@ public class Application {
     private String headComment;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JoinColumn(referencedColumnName = "id")
     private User head;
 }

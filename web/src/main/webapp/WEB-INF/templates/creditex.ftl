@@ -8,16 +8,18 @@
 </html>
 [/#macro]
 
+[#macro includeBootstrap]
+<link rel="stylesheet" type="text/css" href="[@spring.url '/css/bootstrap.css'/]"/>
+<link rel="stylesheet" type="text/css" href="[@spring.url '/css/bootstrap-theme.css'/]"/>
+<script src="[@spring.url '/js/bootstrap.js'/]"></script>
+<script src="[@spring.url '/js/jquery-2.0.3.js'/]"></script>
+[/#macro]
+
 [#macro head title]
 <head>
     <meta charset="utf-8"/>
     <title>${title}</title>
-    <link rel="stylesheet" type="text/css" href="[@spring.url '/css/bootstrap.css'/]"/>
-    <link rel="stylesheet" type="text/css" href="[@spring.url '/css/bootstrap-theme.css'/]"/>
     <link rel="stylesheet" type="text/css" href="[@spring.url '/css/index.css'/]"/>
-    <script src="[@spring.url '/js/bootstrap.js'/]"></script>
-    <script src="[@spring.url '/js/jquery-2.0.3.js'/]"></script>
-
     [#nested]
 </head>
 [/#macro]
@@ -34,9 +36,13 @@
     <ul class="about">
         <li><a href="#">О системе</a></li>
         <li><a href="#">Разработчики</a></li>
-        <li><a href="#">Документация</a></li>
-        <li><a href="#">Служба поддежрки</a></li>
-    </ul>
+        [@sec.authorize access='isAnonymous()']
+            <li><a href="[@spring.url '/register/'/]">Зарегистрироваться</a></li>
+        [/@sec.authorize]
+        [@sec.authorize access='isAuthenticated()']
+            <li><a href="[@spring.url '/j_spring_security_logout'/]">Выйти</a></li>
+        [/@sec.authorize]
+</ul>
 </div>
 </body>
 [/#macro]
