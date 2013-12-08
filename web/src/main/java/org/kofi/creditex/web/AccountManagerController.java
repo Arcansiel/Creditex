@@ -2,17 +2,16 @@ package org.kofi.creditex.web;
 
 import org.kofi.creditex.model.User;
 import org.kofi.creditex.service.ApplicationService;
+import org.kofi.creditex.service.CreditService;
 import org.kofi.creditex.service.UserService;
-import org.kofi.creditex.web.model.ClientSearchForm;
-import org.kofi.creditex.web.model.CreditApplicationForm;
-import org.kofi.creditex.web.model.PriorApplicationForm;
-import org.kofi.creditex.web.model.ProlongationApplicationForm;
+import org.kofi.creditex.web.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
@@ -27,6 +26,8 @@ public class AccountManagerController {
     private UserService userService;
     @Autowired
     private ApplicationService applicationService;
+    @Autowired
+    private CreditService creditService;
     @RequestMapping("/account_manager/")
     public String MainAccountManager(){
         return "account_manager";
@@ -127,6 +128,13 @@ public class AccountManagerController {
     public String ClientShowChangeClientData(HttpSession session){
         session.setAttribute("user_to_change_data", session.getAttribute("client"));
         return "redirect:/change_user_data/";
+    }
+    @RequestMapping("/account_manager/client/credit/view/{id}/")
+    public String ClientViewCredit(@PathVariable int id, ModelMap model){
+        CreditForm form = creditService.GetCreditFormById(id);
+        model.put("credit", form);
+        model.put("payments",form.getPayments());
+        return "account_manager_credit_view";
     }
 
 }

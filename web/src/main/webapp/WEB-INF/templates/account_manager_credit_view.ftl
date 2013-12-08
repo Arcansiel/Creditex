@@ -46,7 +46,7 @@
                 </p>
                 <p>
                     <label for="number_filed">Кредитный продукт</label>
-                    <a href="[@spring.url '/account_manager/product/view/'+'${credit.productName}'+'/'/]">Перейти</a>
+                    <a href="[@spring.url '/account_manager/product/view/'+'${credit.productId}'+'/'/]">Перейти к ${credit.productName}</a>
                 </p>
             </form>
         </div>
@@ -54,14 +54,14 @@
             <p class="name">Платежи</p>
             <table>
                 <tr>
-                    <th>Дата подачи</th>
-                    <th>Продолжительность простоя (мес)</th>
-                    <th>Комментарий</th>
-                    <th>Кредит</th>
-                    <th>Принята ли заявка</th>
+                    <th>Номер платежа</th>
+                    <th>Сумма платежа</th>
+                    <th>Платёж от</th>
+                    <th>Платёж до</th>
+                    <th>Погашен ли платёж</th>
+                    <th>Просрочен ли платёж</th>
                 </tr>
-                [#if applications??]
-                    [#list credit.payments as payment]
+                    [#list payments as payment]
                         <tr>
                             <td>${payment.number}</td>
                             <td>${payment.payment}</td>
@@ -71,7 +71,6 @@
                             <td>${payment.expired}</td>
                         </tr>
                     [/#list]
-                [/#if]
             </table>
         </div>
         <div class="content">
