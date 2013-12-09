@@ -22,6 +22,8 @@ public class Payment {
     private int number;
     // sum -> requiredPayment
     private int requiredPayment;
+    //requiredPayment = mainDebt + percents
+    private int percents;
     // start -> paymentStart
     private Date paymentStart;
     // end -> paymentEnd

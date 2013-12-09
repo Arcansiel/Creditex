@@ -10,6 +10,6 @@ public interface OperatorService {
     Credit getCredit(int credit_id);
     Credit CurrentCredit(int client_id);
     List<Operation> CreditOperations(int credit_id);
-    int CurrentPayment(int credit_id, Date now);
+    int[] CurrentPayment(int credit_id, Date now);
     int ExecuteOperation(int credit_id, Date now, OperationType type, int amount);
 }

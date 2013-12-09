@@ -116,11 +116,18 @@ public class OperationManagerController {
         Integer client = null;
         if((client = getClient(session)) != null){
             Integer credit = getCredit(session);
-            int payment = operatorService.CurrentPayment(credit, Dates.now());
+            int[] r = operatorService.CurrentPayment(credit, Dates.now());
+            int payment = r[0];
+            int creditpayment = r[0] - r[1] - r[2];
+            int percentspayment = r[2];
+            int finepayment = r[1];
             //push info to model
             model.addAttribute("client",operatorService.getUser(client));
             model.addAttribute("credit",operatorService.getCredit(credit));
             model.addAttribute("payment",payment);
+            model.addAttribute("creditpayment",creditpayment);
+            model.addAttribute("percentspayment",percentspayment);
+            model.addAttribute("finepayment",finepayment);
         }else{
             //push error : client not selected
             model.addAttribute("error","ERROR MESSAGE: client not selected");

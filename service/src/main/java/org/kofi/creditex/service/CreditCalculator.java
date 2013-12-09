@@ -36,6 +36,7 @@ public class CreditCalculator {
             Payment payment = new Payment();
             payment.setNumber(p.orderNumber);
             payment.setRequiredPayment((int) p.totalPayment);
+            payment.setPercents((int)p.percentsPayment);
             payment.setPaymentStart(new java.sql.Date(p.firstDate.getTime()));
             payment.setPaymentEnd(new java.sql.Date(p.lastDate.getTime()));
             payment.setPaymentClosed(false);
@@ -106,13 +107,14 @@ public class CreditCalculator {
     }
 
     //платёж с учётом пени за задержку каждого платежа
-    //return[0] - сумма платежей со штрафом, return[1] - общая сумма штрафа
+    //return[0] - сумма платежей со штрафом, return[1] - общая сумма штрафа, return[2] - общая сумма процентов в платежах
     public static int[] TotalPaymentSum(Iterable<Payment> payments, java.sql.Date now, float fine){
-        int[] out = new int[2]; out[0] = 0; out[1] = 0;
+        int[] out = new int[3]; out[0] = 0; out[1] = 0; out[2] = 0;
         for(Payment p:payments){
             if(!p.isPaymentClosed()){
                 int[] r = PaymentSum(p, now, fine);
                 out[0] += r[0]; out[1] += r[1];
+                out[2] += p.getPercents();
             }
         }
         return out;

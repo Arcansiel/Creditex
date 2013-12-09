@@ -73,13 +73,12 @@ public class OperatorServiceImpl implements OperatorService {
     }
 
     @Override
-    public int CurrentPayment(int credit_id, Date now) {
+    public int[] CurrentPayment(int credit_id, Date now) {
         Credit credit = creditRepository.findOne(credit_id);
         if(credit == null){
-            return -1;
+            return null;
         }
-        int[] r = CreditCalculator.TotalPaymentSum(CurrentPayments(credit,now),now,credit.getProduct().getDebtPercent());
-        return r[0];
+        return CreditCalculator.TotalPaymentSum(CurrentPayments(credit,now),now,credit.getProduct().getDebtPercent());
     }
 
     @Override

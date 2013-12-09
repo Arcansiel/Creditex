@@ -13,22 +13,26 @@
             <p class="name"><a href=[@spring.url "/operation_manager/operation/list/"/]>Список операций</a></p>
 
             <form action="" method="post" class="form">
-                [#if client?? && credit?? && payment??]
                     <table>
                         <tr>
                             <th class="name">Кредитный продукт</th>
                             <th class="amount">Деньги на счёте</th>
                             <th class="amount">Основной долг</th>
                             <th class="amount">Сумма текущих платежей</th>
+                            <th class="amount">Платёж по основному долгу</th>
+                            <th class="amount">Платёж по процентам</th>
+                            <th class="amount">Начисленные пени</th>
                         </tr>
                         <tr>
-                            <td class="name">${credit.product.name?html}</td>
-                            <td class="amount">${credit.currentMoney}</td>
-                            <td class="amount">${credit.originalMainDebt}</td>
-                            <td class="amount">${payment}</td>
+                            <td class="name">[#if credit??]${credit.product.name?html}[/#if]</td>
+                            <td class="amount">[#if credit??]${credit.currentMoney}[/#if]</td>
+                            <td class="amount">[#if credit??]${credit.originalMainDebt}[/#if]</td>
+                            <td class="amount">[#if payment??]${payment}[/#if]</td>
+                            <td class="amount">[#if creditpayment??]${creditpayment}[/#if]</td>
+                            <td class="amount">[#if percentspayment??]${percentspayment}[/#if]</td>
+                            <td class="amount">[#if finepayment??]${finepayment}[/#if]</td>
                         </tr>
                     </table>
-                [/#if]
                 <p class="name">Операция</p>
                 [#if error??]
                     <p>${error?html}</p>
@@ -36,8 +40,8 @@
                 <p>
                     <label>Тип операции</label>
                     <select name="type">
-                        <option value="Deposit">Deposit</option>
-                        <option value="Withdrawal">Withdrawal</option>
+                        <option value="Deposit">Платёж по кредиту</option>
+                        <option value="Withdrawal">Снять деньги со счёта</option>
                     </select>
                 </p>
                 <p>
