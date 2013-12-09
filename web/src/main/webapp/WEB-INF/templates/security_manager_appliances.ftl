@@ -18,7 +18,7 @@
                 <th class="name">Кредитный продукт</th>
                 <th class="amount">Запрашиваемая сумма</th>
                 <th class="duration">Длительность кредитования</th>
-                <th class="submit-button">Проверка</th>
+                <th class="submit-button" colspan="2">Проверка заявки</th>
             </tr>
 
             [#list applications as app]
@@ -29,7 +29,8 @@
                 <td class="name">${app.product.name}</td>
                 <td class="amount">${app.request}</td>
                 <td class="duration">${app.duration}</td>
-                <td><a href=[@spring.url '/security_manager/appliance/check/${app.id?string("0")}'/]>Проверить заявку</a></td>
+                <td><a href=[@spring.url '/security_manager/appliance/check/${app.id?string("0")}'/]>По внутренним базам</a></td>
+                <td><a href=[@spring.url '/security_manager/appliance/check/outer/${app.id?string("0")}'/]>По внешним базам</a></td>
             </tr>
             [/#list]
          </table>

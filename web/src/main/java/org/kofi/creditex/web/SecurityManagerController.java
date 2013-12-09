@@ -77,6 +77,17 @@ public class SecurityManagerController {
         return "security_manager_appliance_check";
     }
 
+    @RequestMapping(value = "/security_manager/appliance/check/outer/{id}", method = RequestMethod.GET)
+    public String Security5(Model model
+            ,@PathVariable("id")int id){
+        Application app = securityService.GetApplication(id);
+        if(app == null){
+            return "redirect:/security_manager/";
+        }
+        model.addAttribute("application",app);
+        model.addAttribute("result","Информация из внешних источников о клиенте, подавшем заявку на кредит");
+        return "security_manager_appliance_check_outer";
+    }
 
     @RequestMapping(value = "/security_manager/appliance/confirm/{id}", method = RequestMethod.POST)
     public String Security6(Model model
@@ -85,12 +96,13 @@ public class SecurityManagerController {
                             ,@RequestParam("comment")String comment
     ){
         //TODO
-        //get security from session
+        //get security ID from session
         User security = new User();
         if(security == null){ return "redirect:/login/"; }
         securityService.ConfirmApplication(security.getId(),id,confirmation,comment);
         return "redirect:/security_manager/";
     }
+
 
 
 }

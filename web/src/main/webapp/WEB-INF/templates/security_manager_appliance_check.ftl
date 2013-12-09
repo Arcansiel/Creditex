@@ -10,6 +10,8 @@
          <div class="form-action">
              <p class="name"><a href=[@spring.url "/security_manager/"/]>Назад на главную страницу</a></p>
              <p class="name"><a href=[@spring.url "/security_manager/appliances/"/]>Назад к списку заявок</a></p>
+        [#if application??]
+             <p class="name"><a href=[@spring.url '/security_manager/appliance/check/outer/${application.id?string("0")}'/]>Проверка по внешним базам</a></p>
 
              <p class="name">Заявка на кредит</p>
              <table>
@@ -21,7 +23,6 @@
                      <th class="amount">Запрашиваемая сумма</th>
                      <th class="duration">Длительность кредитования</th>
                  </tr>
-
                  <tr>
                      <td class="name">${application.client.userData.last?html} ${application.client.userData.first?html} ${application.client.userData.patronymic?html}</td>
                      <td class="passport">${application.client.userData.passportSeries?html} ${application.client.userData.passportNumber}</td>
@@ -51,7 +52,8 @@
                      </td>
                  </table>
              </form>
-
+        [/#if]
+        [#if credits??]
              <p class="name">Текущие кредиты клиента</p>
              <table>
                  <tr>
@@ -73,6 +75,8 @@
                  </tr>
                  [/#list]
              </table>
+        [/#if]
+        [#if expired??]
              <p class="name">Просроченные кредиты клиента</p>
              <table>
                  <tr>
@@ -94,6 +98,8 @@
                      </tr>
                  [/#list]
              </table>
+        [/#if]
+        [#if unreturned??]
              <p class="name">Невозвращённые кредиты клиента</p>
              <table>
                  <tr>
@@ -115,6 +121,8 @@
                      </tr>
                  [/#list]
              </table>
+        [/#if]
+        [#if priors??]
              <p class="name">Завки клиента на досрочное погашение</p>
              <table>
                  <tr>
@@ -132,6 +140,8 @@
                  </tr>
                 [/#list]
              </table>
+        [/#if]
+        [#if prolongations??]
              <p class="name">Завки клиента на пролонгацию</p>
              <table>
                  <tr>
@@ -151,6 +161,7 @@
                      </tr>
                  [/#list]
              </table>
+        [/#if]
          </div>
     </div>
     [/@creditex.body]
