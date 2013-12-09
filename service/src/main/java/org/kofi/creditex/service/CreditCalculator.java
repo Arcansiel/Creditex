@@ -1,6 +1,5 @@
 package org.kofi.creditex.service;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -32,13 +31,13 @@ public class CreditCalculator {
         int n = plan.length;
         List<Payment> payments = new ArrayList<Payment>(n);
         PaymentInfo p;
-        for (PaymentInfo aPlan : plan) {
-            p = aPlan;
+        for(int i = 0; i < n; i++){
+            p = plan[i];
             Payment payment = new Payment();
             payment.setNumber(p.orderNumber);
             payment.setRequiredPayment((int) p.totalPayment);
-            payment.setPaymentStart(new Date(p.firstDate.getTime()));
-            payment.setPaymentEnd(new Date(p.lastDate.getTime()));
+            payment.setPaymentStart(new java.sql.Date(p.firstDate.getTime()));
+            payment.setPaymentEnd(new java.sql.Date(p.lastDate.getTime()));
             payment.setPaymentClosed(false);
             payments.add(payment);
         }
