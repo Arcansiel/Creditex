@@ -40,11 +40,7 @@
                             <td>${product.finePercent}</td>
                             <td>${product.priorRepayment}</td>
                             <td>${product.priorRepaymentPercent}</td>
-                            <td><a href="">Просмотреть</a> </td>
-
-                            <td>${application.comment}</td>
-                            <td><a href="[@spring.url '/account_manager/client/credit/view/'+'${application.creditId}'+'/'/]">Посмотреть</a></td>
-                            <td>${application.acceptance}</td>
+                            <td><a href="[@spring.url '/account_manager/product/view/'+'${product.id}'+'/'/]">Просмотреть</a> </td>
                         </tr>
                     [/#list]
                 [/#if]
