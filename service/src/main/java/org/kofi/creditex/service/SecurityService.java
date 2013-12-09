@@ -9,7 +9,7 @@ public interface SecurityService {
     List<Application> GetSecurityApplications();
     List<Credit> GetExpiredCredits(Date now);
     List<Credit> GetUnreturnedCredits(Date now);
-    boolean ConfirmApplication(int security_id, int application_id, boolean confirmation, String comment);
+    boolean ConfirmApplication(String security_name, int application_id, boolean confirmation, String comment);
     Application GetApplication(int id);
     List<Credit> GetCurrentClientCredits(int client_id);
     List<Credit> GetClientExpiredCredits(int client_id, Date now);

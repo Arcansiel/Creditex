@@ -12,6 +12,7 @@
         <p class="name">Заявки, нуждающиеся в проверке</p>
         <table>
             <tr>
+                <th class="name">ID заявки</th>
                 <th class="name">ФИО клиента</th>
                 <th class="passport">Серия и номер паспорта</th>
                 <th class="start_date">Поступление заявки</th>
@@ -23,6 +24,7 @@
 
             [#list applications as app]
             <tr>
+                <td class="name">${app.id?string("0")}</td>
                 <td class="name">${app.client.userData.last?html} ${app.client.userData.first?html} ${app.client.userData.patronymic?html}</td>
                 <td class="passport">${app.client.userData.passportSeries?html} ${app.client.userData.passportNumber}</td>
                 <td class="start_date">${app.applicationDate}</td>

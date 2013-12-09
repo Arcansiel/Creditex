@@ -21,11 +21,13 @@ public class SecurityServiceImpl implements SecurityService{
     CreditRepository creditRepository;
 
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
 
-    //@Autowired PriorRepaymentApplicationRepository priorRepaymentApplicationRepository;
+    @Autowired
+    PriorRepaymentApplicationRepository priorRepaymentApplicationRepository;
 
-    //@Autowired ProlongationApplicationRepository prolongationApplicationRepository;
+    @Autowired
+    ProlongationApplicationRepository prolongationApplicationRepository;
 
     @Override
     public List<Application> GetSecurityApplications() {
@@ -58,8 +60,8 @@ public class SecurityServiceImpl implements SecurityService{
     }
 
     @Override
-    public boolean ConfirmApplication(int security_id, int application_id, boolean acceptance, String comment){
-        User security = userRepository.findOne(security_id);
+    public boolean ConfirmApplication(String security_name, int application_id, boolean acceptance, String comment){
+        User security = userService.GetUserByUsername(security_name);
         if(security == null){ return false; }
         Application application = applicationRepository.findOne(application_id);
         if(application == null || application.getSecurityAcceptance() != null){
@@ -68,10 +70,7 @@ public class SecurityServiceImpl implements SecurityService{
         application.setSecurityAcceptance(acceptance);
         application.setSecurityComment(comment);
         application.setSecurity(security);
-        //TODO
-        //it will change data in database
-        //applicationRepository.save(application);
-
+        applicationRepository.save(application);
         return true;
     }
 
@@ -83,12 +82,9 @@ public class SecurityServiceImpl implements SecurityService{
     @Override
     public List<Credit> GetCurrentClientCredits(int client_id) {
         List<Credit> list = new ArrayList<Credit>();
-        User client = userRepository.findOne(client_id);
-        if(client == null){
-            return list;
-        }
+        //TODO ? use 'active' field to search
         for(Credit c:creditRepository.findAll(
-                QCredit.credit.user.eq(client).and(QCredit.credit.currentMainDebt.gt(0)),
+                QCredit.credit.user.id.eq(client_id).and(QCredit.credit.currentMainDebt.gt(0)),
                 QCredit.credit.start.desc()
         )){
             list.add(c);
@@ -99,10 +95,6 @@ public class SecurityServiceImpl implements SecurityService{
     @Override
     public List<Credit> GetClientExpiredCredits(int client_id, Date now) {
         List<Credit> list= new ArrayList<Credit>();
-        User client = userRepository.findOne(client_id);
-        if(client == null){
-            return list;
-        }
         //TODO
 
         return list;
@@ -111,10 +103,6 @@ public class SecurityServiceImpl implements SecurityService{
     @Override
     public List<Credit> GetClientUnreturnedCredits(int client_id, Date now) {
         List<Credit> list= new ArrayList<Credit>();
-        User client = userRepository.findOne(client_id);
-        if(client == null){
-            return list;
-        }
         //TODO
 
         return list;
@@ -123,26 +111,22 @@ public class SecurityServiceImpl implements SecurityService{
     @Override
     public List<PriorRepaymentApplication> GetClientPriorRepaymentApplications(int client_id) {
         List<PriorRepaymentApplication> list= new ArrayList<PriorRepaymentApplication>();
-        User client = userRepository.findOne(client_id);
-        if(client == null){
-            return list;
+        for(PriorRepaymentApplication a:priorRepaymentApplicationRepository.findAll(
+                QPriorRepaymentApplication.priorRepaymentApplication.client.id.eq(client_id)
+        )){
+             list.add(a);
         }
-        //TODO
-        //QPriorRepaymentApplication.priorRepaymentApplication.client.eq(client)
-
         return list;
     }
 
     @Override
     public List<ProlongationApplication> GetClientProlongationApplications(int client_id) {
         List<ProlongationApplication> list = new ArrayList<ProlongationApplication>();
-        User client = userRepository.findOne(client_id);
-        if(client == null){
-            return list;
+        for(ProlongationApplication a:prolongationApplicationRepository.findAll(
+                QProlongationApplication.prolongationApplication.client.id.eq(client_id)
+        )){
+            list.add(a);
         }
-        //TODO
-        //QProlongationApplication.prolongationApplication.client.eq(client)
-
         return list;
     }
 }

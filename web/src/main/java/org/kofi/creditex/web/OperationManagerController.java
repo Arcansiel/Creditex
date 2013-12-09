@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -66,25 +67,25 @@ public class OperationManagerController {
         setClient(session,null);
         setCredit(session,null);
 
-        Integer client = null, credit = null;
-        User clientE = userService.GetUserByUserDataValues(first,last,patronymic,series,number);
-        Credit creditE = null;
-        if(clientE == null){
+        Integer client_id = null, credit_id = null;
+        User client = userService.GetUserByUserDataValues(first,last,patronymic,series,number);
+        Credit credit = null;
+        if(client == null){
             error = String.format("NO CLIENT FOUND: %s %s %s %s%d",first,last,patronymic,series,number);
         }else{
-            client = clientE.getId();
-            creditE = operatorService.CurrentCredit(client);
-            if(creditE == null){
+            client_id = client.getId();
+            credit = operatorService.CurrentCredit(client_id);
+            if(credit == null){
                 //no current credit
                 return "redirect:/operation_manager/?has_current_credit=false";
             }else{
-                credit = creditE.getId();
+                credit_id = credit.getId();
             }
         }
         if(error == null){
             //push data to session
-            setClient(session,client);
-            setCredit(session,credit);
+            setClient(session,client_id);
+            setCredit(session,credit_id);
             //redirect to list
             return "redirect:/operation_manager/operation/list/";
         }else{
@@ -122,7 +123,6 @@ public class OperationManagerController {
             int percentspayment = r[2];
             int finepayment = r[1];
             //push info to model
-            model.addAttribute("client",operatorService.getUser(client));
             model.addAttribute("credit",operatorService.getCredit(credit));
             model.addAttribute("payment",payment);
             model.addAttribute("creditpayment",creditpayment);
@@ -136,7 +136,7 @@ public class OperationManagerController {
     }
 
     @RequestMapping(value = {"/operation_manager/operation/"}, method = RequestMethod.POST)
-    public String OperationManagerOperation(HttpSession session, Model model
+    public String OperationManagerOperation(HttpSession session, Model model, Principal principal
             ,@RequestParam("type")OperationType type
             ,@RequestParam("amount")int amount
     ){
@@ -146,7 +146,7 @@ public class OperationManagerController {
         if((client = getClient(session)) != null){
             Integer credit = getCredit(session);
             OperationManagerController.log.info("Execute operation");
-            if(operatorService.ExecuteOperation(credit,Dates.now(),type,amount) != 0){
+            if(operatorService.ExecuteOperation(principal.getName(),credit,Dates.now(),type,amount) != 0){
                 error = "ERROR MESSAGE: operation not executed";
             }
         }else{

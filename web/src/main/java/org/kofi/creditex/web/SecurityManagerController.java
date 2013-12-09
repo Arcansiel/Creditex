@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,16 +91,12 @@ public class SecurityManagerController {
     }
 
     @RequestMapping(value = "/security_manager/appliance/confirm/{id}", method = RequestMethod.POST)
-    public String Security6(Model model
+    public String Security6(Model model, Principal principal
                             ,@PathVariable("id")int id
                             ,@RequestParam("confirmation")boolean confirmation
                             ,@RequestParam("comment")String comment
     ){
-        //TODO
-        //get security ID from session
-        User security = new User();
-        if(security == null){ return "redirect:/login/"; }
-        securityService.ConfirmApplication(security.getId(),id,confirmation,comment);
+        securityService.ConfirmApplication(principal.getName(),id,confirmation,comment);
         return "redirect:/security_manager/";
     }
 

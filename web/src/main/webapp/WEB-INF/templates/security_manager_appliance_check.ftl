@@ -16,6 +16,7 @@
              <p class="name">Заявка на кредит</p>
              <table>
                  <tr>
+                     <th class="name">ID заявки</th>
                      <th class="name">ФИО клиента</th>
                      <th class="passport">Серия и номер паспорта</th>
                      <th class="start_date">Поступление заявки</th>
@@ -24,6 +25,7 @@
                      <th class="duration">Длительность кредитования</th>
                  </tr>
                  <tr>
+                     <td class="name">${application.id?string("0")}</td>
                      <td class="name">${application.client.userData.last?html} ${application.client.userData.first?html} ${application.client.userData.patronymic?html}</td>
                      <td class="passport">${application.client.userData.passportSeries?html} ${application.client.userData.passportNumber}</td>
                      <td class="start_date">${application.applicationDate}</td>
@@ -63,6 +65,7 @@
                      <th class="duration">Длительность</th>
                      <th class="amount">Сумма кредита</th>
                      <th class="amount">Основной долг</th>
+                     <th class="name">Active</th>
                  </tr>
                  [#list credits as credit]
                  <tr>
@@ -72,6 +75,7 @@
                      <td class="duration">${credit.duration}</td>
                      <td class="amount">${credit.originalMainDebt}</td>
                      <td class="amount">${credit.currentMainDebt}</td>
+                     <td class="name">${credit.active?c}</td>
                  </tr>
                  [/#list]
              </table>

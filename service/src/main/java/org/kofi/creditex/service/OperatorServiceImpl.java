@@ -24,12 +24,7 @@ public class OperatorServiceImpl implements OperatorService {
     PaymentRepository paymentRepository;
 
     @Autowired
-    UserRepository userRepository;
-
-    @Override
-    public User getUser(int user_id) {
-        return userRepository.findOne(user_id);
-    }
+    UserService userService;
 
     @Override
     public Credit getCredit(int credit_id) {
@@ -38,12 +33,9 @@ public class OperatorServiceImpl implements OperatorService {
 
     @Override
     public Credit CurrentCredit(int client_id) {
-        User client = userRepository.findOne(client_id);
-        if(client == null){
-            return null;
-        }
+        //TODO use 'active' field
         Credit credit = creditRepository.findOne(
-                QCredit.credit.user.eq(client).and(QCredit.credit.currentMainDebt.gt(0))
+                QCredit.credit.user.id.eq(client_id).and(QCredit.credit.currentMainDebt.gt(0))
         );
         return credit;
     }
@@ -51,12 +43,8 @@ public class OperatorServiceImpl implements OperatorService {
     @Override
     public List<Operation> CreditOperations(int credit_id) {
         List<Operation> list = new ArrayList<Operation>();
-        Credit credit = creditRepository.findOne(credit_id);
-        if(credit == null){
-            return list;
-        }
         for(Operation op:operationRepository.findAll(
-             QOperation.operation.credit.eq(credit)
+             QOperation.operation.credit.id.eq(credit_id)
                 ,QOperation.operation.operationDate.desc()
         )){
             list.add(op);
@@ -64,9 +52,9 @@ public class OperatorServiceImpl implements OperatorService {
         return list;
     }
 
-    private Iterable<Payment> CurrentPayments(Credit credit, Date now){
+    private Iterable<Payment> CurrentPayments(int credit_id, Date now){
         return paymentRepository.findAll(
-                QPayment.payment.credit.eq(credit)
+                QPayment.payment.credit.id.eq(credit_id)
                 .and(QPayment.payment.paymentClosed.eq(false))
                 .and(QPayment.payment.paymentStart.lt(now))
         );
@@ -78,17 +66,22 @@ public class OperatorServiceImpl implements OperatorService {
         if(credit == null){
             return null;
         }
-        return CreditCalculator.TotalPaymentSum(CurrentPayments(credit,now),now,credit.getProduct().getDebtPercent());
+        return CreditCalculator.TotalPaymentSum(CurrentPayments(credit_id,now),now,credit.getProduct().getDebtPercent());
     }
 
     @Override
-    public int ExecuteOperation(int credit_id, Date now, OperationType type, int amount) {
+    public int ExecuteOperation(String operator_name, int credit_id, Date now, OperationType type, int amount) {
+        User operator = userService.GetUserByUsername(operator_name);
+        if(operator == null){
+            return -1;
+        }
         Credit credit = creditRepository.findOne(credit_id);
         if(credit == null){
-            return -1;
+            return -2;
         }
         //TODO
         //operation execution logic
-        return -1;
+
+        return -3;
     }
 }
