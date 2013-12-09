@@ -9,4 +9,5 @@ import java.util.List;
 public interface CreditRepository extends JpaRepository<Credit, Integer>, QueryDslPredicateExecutor<Credit> {
     List<Credit> findByUserUsername(String username);
     Credit findByActiveAndOpenAndUserUsername(boolean active,boolean open, String username);
+    List<Credit> findByActiveAndOpenAndMainFineGreaterThan(boolean active, boolean open, int minMainFine);
 }

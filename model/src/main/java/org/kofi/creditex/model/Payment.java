@@ -30,6 +30,7 @@ public class Payment {
     private boolean paymentClosed;
 
     private boolean paymentExpired;
+    private boolean paymentExpiredProcessed;
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", nullable = false)
     private Credit credit;

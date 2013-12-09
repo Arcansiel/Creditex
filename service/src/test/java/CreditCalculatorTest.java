@@ -55,7 +55,7 @@ public class CreditCalculatorTest {
         credit.setCurrentMainDebt(application.getRequest());//основной долг (сколько осталось заплатить)
         credit.setDuration(application.getDuration());
         credit.setCurrentMoney(application.getRequest());//деньги (осталось от счёта)
-        credit.setFine(0);//проценты
+        credit.setCurrentPercentDebt(0);//проценты
         credit.setProduct(product);
         credit.setStart(Dates.now(-30*2));
     }

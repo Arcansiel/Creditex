@@ -67,7 +67,7 @@ public class CreditServiceImpl implements CreditService{
                     .setStart(df.format(credit.getStart()))
                     .setDuration(credit.getDuration())
                     .setCurrentMainDebt(credit.getCurrentMainDebt())
-                    .setFine(credit.getFine())
+                    .setFine(credit.getMainFine())
                     .setCurrentMoney(credit.getCurrentMoney())
                     .setOriginalMainDebt(credit.getOriginalMainDebt())
                     .setProductName(credit.getProduct().getName())

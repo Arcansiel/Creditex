@@ -14,6 +14,7 @@ public class ProductServiceImpl implements ProductService{
         @Override
         public ProductForm apply(@Nullable Product product) {
             assert product!=null;
+            // TODO create implementation
 //            return new ProductForm()
 //                    .setId()
             return null;  //To change body of implemented methods use File | Settings | File Templates.
