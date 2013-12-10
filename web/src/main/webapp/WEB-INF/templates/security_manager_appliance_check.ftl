@@ -80,10 +80,10 @@
                      <td class="start_date">${credit.endDate}</td>
                      <td class="amount">${credit.originalMainDebt}</td>
                      <td class="amount">${credit.currentMainDebt}</td>
-                     <th class="amount">${credit.currentPercentDebt}</th>
-                     <th class="amount">${credit.mainFine}</th>
-                     <th class="amount">${credit.percentFine}</th>
-                     <th class="name">${credit.running?c}</th>
+                     <td class="amount">${credit.currentPercentDebt}</td>
+                     <td class="amount">${credit.mainFine}</td>
+                     <td class="amount">${credit.percentFine}</td>
+                     <td class="name">${credit.running?c}</td>
                  </tr>
                  [/#list]
              </table>
@@ -113,10 +113,10 @@
                          <td class="start_date">${credit.endDate}</td>
                          <td class="amount">${credit.originalMainDebt}</td>
                          <td class="amount">${credit.currentMainDebt}</td>
-                         <th class="amount">${credit.currentPercentDebt}</th>
-                         <th class="amount">${credit.mainFine}</th>
-                         <th class="amount">${credit.percentFine}</th>
-                         <th class="amount">${credit.running?c}</th>
+                         <td class="amount">${credit.currentPercentDebt}</td>
+                         <td class="amount">${credit.mainFine}</td>
+                         <td class="amount">${credit.percentFine}</td>
+                         <td class="amount">${credit.running?c}</td>
                      </tr>
                  [/#list]
              </table>
@@ -146,10 +146,10 @@
                          <td class="start_date">${credit.endDate}</td>
                          <td class="amount">${credit.originalMainDebt}</td>
                          <td class="amount">${credit.currentMainDebt}</td>
-                         <th class="amount">${credit.currentPercentDebt}</th>
-                         <th class="amount">${credit.mainFine}</th>
-                         <th class="amount">${credit.percentFine}</th>
-                         <th class="amount">${credit.running?c}</th>
+                         <td class="amount">${credit.currentPercentDebt}</td>
+                         <td class="amount">${credit.mainFine}</td>
+                         <td class="amount">${credit.percentFine}</td>
+                         <td class="amount">${credit.running?c}</td>
                      </tr>
                  [/#list]
              </table>
@@ -179,7 +179,7 @@
                  <tr>
                      <th class="start_date">Дата</th>
                      <th class="name">ID кредита</th>
-                     <td class="duration">Длительность пролонгации</td>
+                     <th class="duration">Длительность пролонгации</th>
                      <th class="name">Удовлетворена</th>
                      <th class="comment">Комментарий</th>
                  </tr>

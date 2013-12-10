@@ -149,27 +149,27 @@ public class OperatorServiceImpl implements OperatorService {
 
         if(type.equals(OperationType.Deposit)){
             //OperationType.Deposit
-            Payment current = CurrentPayment(credit_id, now);
-            if(current == null){
-                int payment_sum = credit.getMainFine();
-                if(payment_sum > 0){
-                    int sum = payment_sum + credit.getPercentFine();
-                    if(sum == amount){
-                        //оплата просроченных платежей (I)
-                        ExecutePaymentExpired(credit);
-                    }else{
-                        return -3;//sum != amount
-                    }
+            int payment_sum;
+            if((payment_sum = credit.getMainFine()) > 0){
+                int sum = payment_sum + credit.getPercentFine();
+                if(sum == amount){
+                    //оплата просроченных платежей (I)
+                    ExecutePaymentExpired(credit);
                 }else{
-                    return 1;//no operations available
+                    return -3;//sum != amount
                 }
             }else{
-                int need = current.getRequiredPayment();
-                if(need == amount){
-                    //оплата текущего платежа (II)
-                    ExecutePaymentCurrent(credit, current);
+                Payment current = CurrentPayment(credit_id, now);
+                if(current != null){
+                    int need = current.getRequiredPayment();
+                    if(need == amount){
+                        //оплата текущего платежа (II)
+                        ExecutePaymentCurrent(credit, current);
+                    }else{
+                        return -4;//need != amount
+                    }
                 }else{
-                    return -4;//need != amount
+                    return 1;//no payments available now
                 }
             }
         }else{

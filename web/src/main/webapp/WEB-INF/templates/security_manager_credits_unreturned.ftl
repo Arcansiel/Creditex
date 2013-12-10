@@ -38,10 +38,10 @@
                         <td class="amount">${c.originalMainDebt}</td>
                         <td class="duration">${c.duration}</td>
                         <td class="amount">${c.currentMainDebt}</td>
-                        <th class="amount">${c.currentPercentDebt}</th>
-                        <th class="amount">${c.mainFine}</th>
-                        <th class="amount">${c.percentFine}</th>
-                        <th class="name">${c.running?c}</th>
+                        <td class="amount">${c.currentPercentDebt}</td>
+                        <td class="amount">${c.mainFine}</td>
+                        <td class="amount">${c.percentFine}</td>
+                        <td class="name">${c.running?c}</td>
                     </tr>
                 [/#list]
             </table>
