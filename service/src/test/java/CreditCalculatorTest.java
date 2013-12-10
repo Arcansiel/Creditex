@@ -41,7 +41,6 @@ public class CreditCalculatorTest {
         product.setDebtPercent(1);
         product.setPrior(PriorRepayment.AvailableFineInterest);
         product.setPriorRepaymentPercent(10);
-        product.setPriorRepaymentDebtLimit(0.5f);
         product.setType(ProductType.Annuity);
 
         application = new Application();
