@@ -57,7 +57,7 @@ public class CreditCalculatorTest {
         credit.setCurrentMoney(application.getRequest());//деньги (осталось от счёта)
         credit.setCurrentPercentDebt(0);//проценты
         credit.setProduct(product);
-        credit.setStart(Dates.now(-30*2));
+        credit.setCreditStart(Dates.now(-30*2));
     }
 
     @Test

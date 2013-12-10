@@ -61,7 +61,7 @@ public class CreditCalculator {
     }
 
     public static List<Payment> PaymentPlan(Credit credit, int[] out){
-        return PaymentPlan(credit.getProduct(), credit.getOriginalMainDebt(), credit.getDuration(), credit.getStart(), out);
+        return PaymentPlan(credit.getProduct(), credit.getOriginalMainDebt(), credit.getDuration(), credit.getCreditStart(), out);
     }
 
     private static boolean ValidRequiredProduct(Product product,
