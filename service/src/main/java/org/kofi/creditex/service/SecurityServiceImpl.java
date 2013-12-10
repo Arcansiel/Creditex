@@ -65,7 +65,7 @@ public class SecurityServiceImpl implements SecurityService{
         Date now = dateProvider.getCurrentSqlDate();
         List<Credit> list = new ArrayList<Credit>();
         for(Credit c: creditRepository.findAll(
-            QCredit.credit.end.lt(now)
+            QCredit.credit.endDate.lt(now)
                 .and(QCredit.credit.originalMainDebt.gt(0))
                 ,QCredit.credit.start.desc()
         )){
@@ -126,7 +126,7 @@ public class SecurityServiceImpl implements SecurityService{
         List<Credit> list = new ArrayList<Credit>();
         for(Credit c: creditRepository.findAll(
                 QCredit.credit.user.id.eq(client_id)
-                .and(QCredit.credit.end.lt(now))
+                .and(QCredit.credit.endDate.lt(now))
                 .and(QCredit.credit.originalMainDebt.gt(0))
                 ,QCredit.credit.start.desc()
         )){
