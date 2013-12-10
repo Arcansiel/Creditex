@@ -42,7 +42,7 @@ public class SecurityManagerController {
     @RequestMapping(value = "/security_manager/credits/expired/", method = RequestMethod.GET)
     public String Security2(Model model){
         List<Credit> credits;
-        credits = securityService.GetExpiredCredits(Dates.now());
+        credits = securityService.GetExpiredCredits();
         model.addAttribute("credits",credits);
         return "security_manger_credits_expired";
     }
@@ -50,7 +50,7 @@ public class SecurityManagerController {
     @RequestMapping(value = "/security_manager/credits/unreturned/", method = RequestMethod.GET)
     public String Security3(Model model){
         List<Credit> credits;
-        credits = securityService.GetUnreturnedCredits(Dates.now());
+        credits = securityService.GetUnreturnedCredits();
         model.addAttribute("credits", credits);
         return "security_manager_credits_unreturned";
     }
@@ -67,9 +67,9 @@ public class SecurityManagerController {
         model.addAttribute("application",app);
         List<Credit> credits = securityService.GetCurrentClientCredits(id);
         model.addAttribute("credits",credits);
-        List<Credit> expired = securityService.GetClientExpiredCredits(id,Dates.now());
+        List<Credit> expired = securityService.GetClientExpiredCredits(id);
         model.addAttribute("expired",credits);
-        List<Credit> unreturned = securityService.GetClientUnreturnedCredits(id,Dates.now());
+        List<Credit> unreturned = securityService.GetClientUnreturnedCredits(id);
         model.addAttribute("unreturned",unreturned);
         List<PriorRepaymentApplication> priors = securityService.GetClientPriorRepaymentApplications(id);
         model.addAttribute("priors",priors);

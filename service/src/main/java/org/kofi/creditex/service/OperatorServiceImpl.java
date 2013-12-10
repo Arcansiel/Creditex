@@ -26,6 +26,9 @@ public class OperatorServiceImpl implements OperatorService {
     @Autowired
     UserService userService;
 
+    @Autowired
+    CreditexDateProvider dateProvider;
+
     @Override
     public Credit getCredit(int credit_id) {
         return creditRepository.findOne(credit_id);
@@ -33,11 +36,21 @@ public class OperatorServiceImpl implements OperatorService {
 
     @Override
     public Credit CurrentCredit(int client_id) {
-        //TODO use 'active' field
         Credit credit = creditRepository.findOne(
-                QCredit.credit.user.id.eq(client_id).and(QCredit.credit.currentMainDebt.gt(0))
+                QCredit.credit.user.id.eq(client_id).and(QCredit.credit.open.isTrue())
         );
         return credit;
+    }
+
+    @Override
+    public Payment CurrentPayment(int credit_id) {
+        Date now = dateProvider.getCurrentSqlDate();
+        return paymentRepository.findOne(
+                QPayment.payment.credit.id.eq(credit_id)
+                .and(QPayment.payment.paymentClosed.isFalse())
+                .and(QPayment.payment.paymentStart.loe(now))
+                .and(QPayment.payment.paymentEnd.gt(now))
+        );
     }
 
     @Override
@@ -52,25 +65,24 @@ public class OperatorServiceImpl implements OperatorService {
         return list;
     }
 
-    private Iterable<Payment> CurrentPayments(int credit_id, Date now){
-        return paymentRepository.findAll(
+    @Override
+    public List<Payment> NearestPayments(int credit_id){
+        Date now = dateProvider.getCurrentSqlDate();
+        List<Payment> list = new ArrayList<Payment>();
+        for(Payment p:paymentRepository.findAll(
                 QPayment.payment.credit.id.eq(credit_id)
                 .and(QPayment.payment.paymentClosed.eq(false))
                 .and(QPayment.payment.paymentStart.lt(now))
-        );
-    }
-
-    @Override
-    public int[] CurrentPayment(int credit_id, Date now) {
-        Credit credit = creditRepository.findOne(credit_id);
-        if(credit == null){
-            return null;
+                ,QPayment.payment.paymentStart.asc()
+        )){
+            list.add(p);
         }
-        return CreditCalculator.TotalPaymentSum(CurrentPayments(credit_id,now),now,credit.getProduct().getDebtPercent());
+        return list;
     }
 
     @Override
-    public int ExecuteOperation(String operator_name, int credit_id, Date now, OperationType type, int amount) {
+    public int ExecuteOperation(String operator_name, int credit_id, OperationType type, int amount) {
+        Date now = dateProvider.getCurrentSqlDate();
         User operator = userService.GetUserByUsername(operator_name);
         if(operator == null){
             return -1;

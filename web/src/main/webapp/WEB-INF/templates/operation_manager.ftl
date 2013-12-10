@@ -9,11 +9,11 @@
     <div class="page">
 
         <div class="form-action">
+            [#if error??]
+                <p>${error?html}</p>
+            [/#if]
             <p class="name">Введите данные клиента</p>
             <form action="" method="post" class="form">
-                [#if error??]
-                    <p>${error?html}</p>
-                [/#if]
                 <p>
                     <label for="name_field">Имя</label>
                     <input type="text" id="name_field" name="first">

@@ -29,6 +29,9 @@ public class SecurityServiceImpl implements SecurityService{
     @Autowired
     ProlongationApplicationRepository prolongationApplicationRepository;
 
+    @Autowired
+    CreditexDateProvider dateProvider;
+
     @Override
     public List<Application> GetSecurityApplications() {
         List<Application> list = new ArrayList<Application>();
@@ -44,7 +47,7 @@ public class SecurityServiceImpl implements SecurityService{
     }
 
     @Override
-    public List<Credit> GetExpiredCredits(Date now) {
+    public List<Credit> GetExpiredCredits() {
         List<Credit> list = new ArrayList<Credit>();
         //TODO
 
@@ -52,7 +55,7 @@ public class SecurityServiceImpl implements SecurityService{
     }
 
     @Override
-    public List<Credit> GetUnreturnedCredits(Date now) {
+    public List<Credit> GetUnreturnedCredits() {
         List<Credit> list = new ArrayList<Credit>();
         //TODO
 
@@ -93,7 +96,7 @@ public class SecurityServiceImpl implements SecurityService{
     }
 
     @Override
-    public List<Credit> GetClientExpiredCredits(int client_id, Date now) {
+    public List<Credit> GetClientExpiredCredits(int client_id) {
         List<Credit> list= new ArrayList<Credit>();
         //TODO
 
@@ -101,7 +104,7 @@ public class SecurityServiceImpl implements SecurityService{
     }
 
     @Override
-    public List<Credit> GetClientUnreturnedCredits(int client_id, Date now) {
+    public List<Credit> GetClientUnreturnedCredits(int client_id) {
         List<Credit> list= new ArrayList<Credit>();
         //TODO
 

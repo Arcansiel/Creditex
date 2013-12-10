@@ -14,7 +14,34 @@
             [/#if]
             <p class="name"><a href=[@spring.url "/operation_manager/"/]>Другой клиент</a></p>
             <p class="name"><a href=[@spring.url "/operation_manager/operation/"/]>Новая операция</a></p>
-            <p class="name">Все операции пользователя по текущему кредиту</p>
+            <p class="name">Ближайшие платежи по текущему кредиту</p>
+            <table>
+                <tr>
+                    <th class="name">Номер платежа</th>
+                    <th class="start_date">крайняя дата</th>
+                    <th class="amount">Сумма платежа</th>
+                    <th class="amount">Сумма по основному долгу</th>
+                    <th class="amount">Сумма по процентам</th>
+                    <th class="name">Просрочен</th>
+                </tr>
+
+                [#if payments??]
+                    [#list payments as payment]
+                        <tr>
+                            <td class="name">${payment.number?html}</td>
+                            <td class="start_date">${payment.paymentEnd?html}</td>
+                            <td class="amount">${payment.requiredPayment?html}</td>
+                            <td class="amount">${(payment.requiredPayment - payment.percents)?html}</td>
+                            <td class="amount">${payment.percents?html}</td>
+                            <td class="name">${payment.expired?c}</td>
+                        </tr>
+                    [/#list]
+                [#else]
+                    <tr><td colspan="6">Данные отсутствуют</td></tr>
+                [/#if]
+            </table>
+
+            <p class="name">Все операции по текущему кредиту</p>
             <table>
                 <tr>
                     <th class="start_date">Дата операции</th>
