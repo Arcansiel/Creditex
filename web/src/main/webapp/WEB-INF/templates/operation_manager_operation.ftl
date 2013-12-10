@@ -51,6 +51,7 @@
                     <th class="name">Кредитный продукт</th>
                     <th class="amount">Деньги на счёте</th>
                     <th class="amount">Основной долг</th>
+                    <th class="amount">Процентный долг</th>
 
                     [#if expired?? && expired]
                         <th class="amount">Сумма просроченных платежей</th>
@@ -65,6 +66,7 @@
                     <td class="name">${credit.product.name?html}</td>
                     <td class="amount">${credit.currentMoney}</td>
                     <td class="amount">${credit.originalMainDebt}</td>
+                    <td class="amount">${credit.currentPercentDebt}</td>
 
                     [#if expired?? && expired]
                         <td class="amount">${credit.mainFine}</td>

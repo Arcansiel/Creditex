@@ -21,7 +21,7 @@
                     <th class="amount">Сумма кредита</th>
                     <th class="duration">Длительность кредитования</th>
                     <th class="amount">Основной долг</th>
-                    <th class="amount">Проценты</th>
+                    <th class="amount">Процентный долг</th>
                     <th class="amount">Долг по платежам</th>
                     <th class="amount">Пеня</th>
                     <th class="name">Активный кредит</th>

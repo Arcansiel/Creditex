@@ -66,7 +66,7 @@
                      <th class="start_date">Конец кредитования</th>
                      <th class="amount">Сумма кредита</th>
                      <th class="amount">Основной долг</th>
-                     <th class="amount">Проценты</th>
+                     <th class="amount">Процентный долг</th>
                      <th class="amount">Долг по платежам</th>
                      <th class="amount">Пеня</th>
                      <th class="name">Активный кредит</th>
@@ -99,7 +99,7 @@
                      <th class="start_date">Конец кредитования</th>
                      <th class="amount">Сумма кредита</th>
                      <th class="amount">Основной долг</th>
-                     <th class="amount">Проценты</th>
+                     <th class="amount">Процентный долг</th>
                      <th class="amount">Долг по платежам</th>
                      <th class="amount">Пеня</th>
                      <th class="name">Активный кредит</th>
@@ -132,7 +132,7 @@
                      <th class="start_date">Конец кредитования</th>
                      <th class="amount">Сумма кредита</th>
                      <th class="amount">Основной долг</th>
-                     <th class="amount">Проценты</th>
+                     <th class="amount">Процентный долг</th>
                      <th class="amount">Долг по платежам</th>
                      <th class="amount">Пеня</th>
                      <th class="name">Активный кредит</th>
