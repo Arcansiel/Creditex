@@ -99,7 +99,7 @@ public class OperationManagerController {
                 model.addAttribute("payment",payment);
             }
             model.addAttribute("credit",credit);
-            model.addAttribute("expired",credit.getMainFine() == 0);
+            model.addAttribute("expired",credit.getMainFine() > 0);
             return "operation_manager_operation";
         }else{
             //push error : credit not selected

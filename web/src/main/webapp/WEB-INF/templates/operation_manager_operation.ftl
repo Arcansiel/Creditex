@@ -20,7 +20,7 @@
                 <table>
                     <tr>
                         <th class="name">Номер платежа</th>
-                        <th class="start_date">крайняя дата</th>
+                        <th class="start_date">Крайняя дата</th>
                         <th class="amount">Сумма платежа</th>
                         <th class="amount">Сумма по основному долгу</th>
                         <th class="amount">Сумма по процентам</th>
