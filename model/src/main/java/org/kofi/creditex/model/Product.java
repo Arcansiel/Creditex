@@ -18,6 +18,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
+    private boolean active;
     private int percent;
     private int minCommittee;
     private int minMoney;

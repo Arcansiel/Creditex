@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface PaymentRepository extends JpaRepository<Payment, Integer>, QueryDslPredicateExecutor<Payment> {
     List<Payment> findByCredit_Id(int id);
-    List<Payment> findByCredit_ActiveAndCredit_OpenAndPaymentClosedAndPaymentEndLessThan(boolean activeCredit, boolean openCredit,boolean closedPayment, Date dateNow);
-    List<Payment> findByCredit_ActiveAndCredit_OpenAndPaymentExpiredAndPaymentExpiredProcessed(boolean creditActive, boolean creditOpen, boolean paymentExpired, boolean paymentExpiredProcessed);
+    List<Payment> findByCredit_RunningAndPaymentClosedAndPaymentEndLessThan(boolean creditRunning,boolean closedPayment, Date dateNow);
+    List<Payment> findByCredit_RunningAndPaymentExpiredAndPaymentExpiredProcessed(boolean creditRunning, boolean paymentExpired, boolean paymentExpiredProcessed);
 }

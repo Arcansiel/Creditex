@@ -22,7 +22,7 @@ public class NewDayServiceImpl implements NewDayService {
 
     @Override
     public void MarkExpired(){
-        List<Payment> expiredPayments = paymentRepository.findByCredit_ActiveAndCredit_OpenAndPaymentClosedAndPaymentEndLessThan(true,true,false,date);
+        List<Payment> expiredPayments = paymentRepository.findByCredit_RunningAndPaymentClosedAndPaymentEndLessThan(true,false,date);
         for (Payment payment:expiredPayments){
             payment.setPaymentExpired(true);
         }
@@ -31,7 +31,7 @@ public class NewDayServiceImpl implements NewDayService {
 
     @Override
     public void AddMainFine(){
-        List<Payment> expiredPayments = paymentRepository.findByCredit_ActiveAndCredit_OpenAndPaymentExpiredAndPaymentExpiredProcessed(true,true,true,false);
+        List<Payment> expiredPayments = paymentRepository.findByCredit_RunningAndPaymentExpiredAndPaymentExpiredProcessed(true,true,false);
         for (Payment payment: expiredPayments){
             int newPayment = payment.getCredit().getMainFine()+payment.getRequiredPayment();
             payment.getCredit().setMainFine(newPayment);
@@ -42,7 +42,7 @@ public class NewDayServiceImpl implements NewDayService {
 
     @Override
     public void AddPercentFine() {
-        List<Credit> credits = creditRepository.findByActiveAndOpenAndMainFineGreaterThan(true, true, 0);
+        List<Credit> credits = creditRepository.findByRunningAndMainFineGreaterThan(true, 0);
         for (Credit credit :credits){
             int newFine = (int)Math.round(credit.getMainFine()*(credit.getProduct().getDebtPercent()*1.0)/100);
             credit.setPercentFine(credit.getPercentFine()+newFine);
