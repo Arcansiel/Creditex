@@ -14,14 +14,14 @@ import java.util.List;
 @Entity
 @Data
 @Accessors(chain = true)
-@EqualsAndHashCode(of = {"id", "start", "end", "duration", "currentMainDebt", "currentMoney", "originalMainDebt", "currentPercentDebt"})
-@ToString(of = {"id", "start", "end", "duration", "currentMainDebt", "currentMoney", "originalMainDebt", "currentPercentDebt"})
+@EqualsAndHashCode(of = {"id", "start", "endDate", "duration", "currentMainDebt", "currentMoney", "originalMainDebt", "currentPercentDebt"})
+@ToString(of = {"id", "start", "endDate", "duration", "currentMainDebt", "currentMoney", "originalMainDebt", "currentPercentDebt"})
 public class Credit {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private Date start;
-    private Date end;
+    private Date endDate;
     private int duration;
     // sum -> currentMainDebt
     private int currentMainDebt;

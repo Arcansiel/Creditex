@@ -34,7 +34,7 @@
                         <td class="name">${c.user.userData.last?html} ${c.user.userData.first?html} ${c.user.userData.patronymic?html}</td>
                         <td class="passport">${c.user.userData.passportSeries?html} ${c.user.userData.passportNumber}</td>
                         <td class="start_date">${c.start}</td>
-                        <td class="start_date">${c.end}</td>
+                        <td class="start_date">${c.endDate}</td>
                         <td class="amount">${c.originalMainDebt}</td>
                         <td class="duration">${c.duration}</td>
                         <td class="amount">${c.currentMainDebt}</td>

@@ -77,7 +77,7 @@
                      <td class="name">${credit.product.name?html}</td>
                      <td class="start_date">${credit.start}</td>
                      <td class="duration">${credit.duration}</td>
-                     <td class="start_date">${credit.end}</td>
+                     <td class="start_date">${credit.endDate}</td>
                      <td class="amount">${credit.originalMainDebt}</td>
                      <td class="amount">${credit.currentMainDebt}</td>
                      <th class="amount">${credit.currentPercentDebt}</th>
@@ -110,7 +110,7 @@
                          <td class="name">${credit.product.name?html}</td>
                          <td class="start_date">${credit.start}</td>
                          <td class="duration">${credit.duration}</td>
-                         <td class="start_date">${credit.end}</td>
+                         <td class="start_date">${credit.endDate}</td>
                          <td class="amount">${credit.originalMainDebt}</td>
                          <td class="amount">${credit.currentMainDebt}</td>
                          <th class="amount">${credit.currentPercentDebt}</th>
@@ -143,7 +143,7 @@
                          <td class="name">${credit.product.name?html}</td>
                          <td class="start_date">${credit.start}</td>
                          <td class="duration">${credit.duration}</td>
-                         <td class="start_date">${credit.end}</td>
+                         <td class="start_date">${credit.endDate}</td>
                          <td class="amount">${credit.originalMainDebt}</td>
                          <td class="amount">${credit.currentMainDebt}</td>
                          <th class="amount">${credit.currentPercentDebt}</th>
