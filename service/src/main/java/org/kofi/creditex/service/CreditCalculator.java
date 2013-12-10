@@ -36,6 +36,7 @@ public class CreditCalculator {
             Payment payment = new Payment();
             payment.setNumber(p.orderNumber);
             payment.setRequiredPayment((int) p.totalPayment);
+            payment.setPercents((int) p.percentsPayment);
             payment.setPaymentStart(new java.sql.Date(p.firstDate.getTime()));
             payment.setPaymentEnd(new java.sql.Date(p.lastDate.getTime()));
             payment.setPaymentClosed(false);

@@ -48,6 +48,7 @@ public class SecurityServiceImpl implements SecurityService{
     }
 
     @Override
+    //текущие кредиты с просроченными платежами
     public List<Credit> GetExpiredCredits() {
         List<Credit> list = new ArrayList<Credit>();
         for(Credit c:creditRepository.findAll(
@@ -63,8 +64,13 @@ public class SecurityServiceImpl implements SecurityService{
     public List<Credit> GetUnreturnedCredits() {
         Date now = dateProvider.getCurrentSqlDate();
         List<Credit> list = new ArrayList<Credit>();
-        //TODO
-
+        for(Credit c: creditRepository.findAll(
+            QCredit.credit.end.lt(now)
+                .and(QCredit.credit.originalMainDebt.gt(0))
+                ,QCredit.credit.start.desc()
+        )){
+             list.add(c);
+        }
         return list;
     }
 
@@ -101,10 +107,12 @@ public class SecurityServiceImpl implements SecurityService{
     }
 
     @Override
+    //все кредиты клиента с хотябы одним просроченным платежом
     public List<Credit> GetClientExpiredCredits(int client_id) {
         List<Credit> list = new ArrayList<Credit>();
         for(Credit c:creditRepository.findAll(
-                QCredit.credit.user.id.eq(client_id).and(QCredit.credit.mainFine.gt(0)),
+                QCredit.credit.user.id.eq(client_id)
+                        .and(QCredit.credit.payments.any().paymentExpired.isTrue()),
                 QCredit.credit.start.desc()
         )){
             list.add(c);
@@ -115,9 +123,15 @@ public class SecurityServiceImpl implements SecurityService{
     @Override
     public List<Credit> GetClientUnreturnedCredits(int client_id) {
         Date now = dateProvider.getCurrentSqlDate();
-        List<Credit> list= new ArrayList<Credit>();
-        //TODO
-
+        List<Credit> list = new ArrayList<Credit>();
+        for(Credit c: creditRepository.findAll(
+                QCredit.credit.user.id.eq(client_id)
+                .and(QCredit.credit.end.lt(now))
+                .and(QCredit.credit.originalMainDebt.gt(0))
+                ,QCredit.credit.start.desc()
+        )){
+            list.add(c);
+        }
         return list;
     }
 
@@ -125,7 +139,8 @@ public class SecurityServiceImpl implements SecurityService{
     public List<PriorRepaymentApplication> GetClientPriorRepaymentApplications(int client_id) {
         List<PriorRepaymentApplication> list= new ArrayList<PriorRepaymentApplication>();
         for(PriorRepaymentApplication a:priorRepaymentApplicationRepository.findAll(
-                QPriorRepaymentApplication.priorRepaymentApplication.client.id.eq(client_id)
+                QPriorRepaymentApplication.priorRepaymentApplication.client.id.eq(client_id),
+                QPriorRepaymentApplication.priorRepaymentApplication.applicationDate.desc()
         )){
              list.add(a);
         }
@@ -136,7 +151,8 @@ public class SecurityServiceImpl implements SecurityService{
     public List<ProlongationApplication> GetClientProlongationApplications(int client_id) {
         List<ProlongationApplication> list = new ArrayList<ProlongationApplication>();
         for(ProlongationApplication a:prolongationApplicationRepository.findAll(
-                QProlongationApplication.prolongationApplication.client.id.eq(client_id)
+                QProlongationApplication.prolongationApplication.client.id.eq(client_id),
+                QProlongationApplication.prolongationApplication.applicationDate.desc()
         )){
             list.add(a);
         }
