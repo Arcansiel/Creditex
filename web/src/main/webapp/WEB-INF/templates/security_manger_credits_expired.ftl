@@ -33,8 +33,8 @@
                         <td class="name">${c.product.name?html}</td>
                         <td class="name">${c.user.userData.last?html} ${c.user.userData.first?html} ${c.user.userData.patronymic?html}</td>
                         <td class="passport">${c.user.userData.passportSeries?html} ${c.user.userData.passportNumber}</td>
-                        <td class="start_date">${c.start}</td>
-                        <td class="start_date">${c.endDate}</td>
+                        <td class="start_date">${c.creditStart}</td>
+                        <td class="start_date">${c.creditEnd}</td>
                         <td class="amount">${c.originalMainDebt}</td>
                         <td class="duration">${c.duration}</td>
                         <td class="amount">${c.currentMainDebt}</td>

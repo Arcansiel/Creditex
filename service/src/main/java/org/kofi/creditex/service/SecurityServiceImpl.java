@@ -53,7 +53,7 @@ public class SecurityServiceImpl implements SecurityService{
         List<Credit> list = new ArrayList<Credit>();
         for(Credit c:creditRepository.findAll(
                 QCredit.credit.mainFine.gt(0),
-                QCredit.credit.start.desc()
+                QCredit.credit.creditStart.desc()
         )){
              list.add(c);
         }
@@ -65,9 +65,9 @@ public class SecurityServiceImpl implements SecurityService{
         Date now = dateProvider.getCurrentSqlDate();
         List<Credit> list = new ArrayList<Credit>();
         for(Credit c: creditRepository.findAll(
-            QCredit.credit.endDate.lt(now)
+            QCredit.credit.creditEnd.lt(now)
                 .and(QCredit.credit.originalMainDebt.gt(0))
-                ,QCredit.credit.start.desc()
+                ,QCredit.credit.creditStart.desc()
         )){
              list.add(c);
         }
@@ -99,7 +99,7 @@ public class SecurityServiceImpl implements SecurityService{
         List<Credit> list = new ArrayList<Credit>();
         for(Credit c:creditRepository.findAll(
                 QCredit.credit.user.id.eq(client_id).and(QCredit.credit.running.isTrue()),
-                QCredit.credit.start.desc()
+                QCredit.credit.creditStart.desc()
         )){
             list.add(c);
         }
@@ -113,7 +113,7 @@ public class SecurityServiceImpl implements SecurityService{
         for(Credit c:creditRepository.findAll(
                 QCredit.credit.user.id.eq(client_id)
                         .and(QCredit.credit.payments.any().paymentExpired.isTrue()),
-                QCredit.credit.start.desc()
+                QCredit.credit.creditStart.desc()
         )){
             list.add(c);
         }
@@ -126,9 +126,9 @@ public class SecurityServiceImpl implements SecurityService{
         List<Credit> list = new ArrayList<Credit>();
         for(Credit c: creditRepository.findAll(
                 QCredit.credit.user.id.eq(client_id)
-                .and(QCredit.credit.endDate.lt(now))
+                .and(QCredit.credit.creditEnd.lt(now))
                 .and(QCredit.credit.originalMainDebt.gt(0))
-                ,QCredit.credit.start.desc()
+                ,QCredit.credit.creditStart.desc()
         )){
             list.add(c);
         }

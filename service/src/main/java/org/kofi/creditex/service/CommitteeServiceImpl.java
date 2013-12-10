@@ -114,7 +114,7 @@ public class CommitteeServiceImpl implements CommitteeService {
         List<Credit> list = new ArrayList<Credit>();
         for(Credit c:creditRepository.findAll(
                 QCredit.credit.user.id.eq(client_id),
-                QCredit.credit.start.desc()
+                QCredit.credit.creditStart.desc()
         )){
             list.add(c);
         }

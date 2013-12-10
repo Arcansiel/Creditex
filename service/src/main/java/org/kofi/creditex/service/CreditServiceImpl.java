@@ -84,7 +84,7 @@ public class CreditServiceImpl implements CreditService{
             assert credit != null;
             return new CreditForm()
                     .setId(credit.getId())
-                    .setStart(df.format(credit.getStart()))
+                    .setStart(df.format(credit.getCreditStart()))
                     .setDuration(credit.getDuration())
                     .setCurrentMainDebt(credit.getCurrentMainDebt())
                     .setFine(credit.getMainFine())
