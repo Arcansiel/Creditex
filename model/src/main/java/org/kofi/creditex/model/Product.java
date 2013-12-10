@@ -66,13 +66,24 @@ public class Product {
      * <p>100 процентам соответствует 1000, 0 - 0</p>
      */
     private int priorRepaymentPercent;//fine for prior repayment, %
-    private float priorRepaymentDebtLimit;//debt limit (1..0) to allow prior repayment
+    /**
+     * Ссылка на на заявки на данный кредитный продукт {@link Application}
+     */
     @OneToMany(mappedBy = "product")
     private List<Application> applications;
+    /**
+     * Сссылка на кредиты данного кредитного продукта {@link Credit}
+     */
     @OneToMany(mappedBy = "product")
     private List<Credit> credits;
+    /**
+     * Возможно ли предварительное возвращение кредита {@link PriorRepayment}
+     */
     @Enumerated(EnumType.STRING)
     private PriorRepayment prior;
+    /**
+     * Тип кредита {@link ProductType}
+     */
     @Enumerated(EnumType.STRING)
     private ProductType type;
 }
