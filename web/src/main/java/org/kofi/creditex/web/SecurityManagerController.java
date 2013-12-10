@@ -1,10 +1,9 @@
 package org.kofi.creditex.web;
 
-import lombok.extern.slf4j.Slf4j;
-import org.kofi.creditex.Dates;
+
+
 import org.kofi.creditex.model.*;
 import org.kofi.creditex.service.SecurityService;
-import org.kofi.creditex.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -14,10 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpSession;
 import java.security.Principal;
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -64,16 +60,17 @@ public class SecurityManagerController {
         if(app == null){
             return "redirect:/security_manager/";
         }
+        int client_id = app.getClient().getId();
         model.addAttribute("application",app);
-        List<Credit> credits = securityService.GetCurrentClientCredits(id);
+        List<Credit> credits = securityService.GetCurrentClientCredits(client_id);
         model.addAttribute("credits",credits);
-        List<Credit> expired = securityService.GetClientExpiredCredits(id);
-        model.addAttribute("expired",credits);
-        List<Credit> unreturned = securityService.GetClientUnreturnedCredits(id);
+        List<Credit> expired = securityService.GetClientExpiredCredits(client_id);
+        model.addAttribute("expired",expired);
+        List<Credit> unreturned = securityService.GetClientUnreturnedCredits(client_id);
         model.addAttribute("unreturned",unreturned);
-        List<PriorRepaymentApplication> priors = securityService.GetClientPriorRepaymentApplications(id);
+        List<PriorRepaymentApplication> priors = securityService.GetClientPriorRepaymentApplications(client_id);
         model.addAttribute("priors",priors);
-        List<ProlongationApplication> prolongations = securityService.GetClientProlongationApplications(id);
+        List<ProlongationApplication> prolongations = securityService.GetClientProlongationApplications(client_id);
         model.addAttribute("prolongations",prolongations);
         return "security_manager_appliance_check";
     }
@@ -91,7 +88,7 @@ public class SecurityManagerController {
     }
 
     @RequestMapping(value = "/security_manager/appliance/confirm/{id}", method = RequestMethod.POST)
-    public String Security6(Model model, Principal principal
+    public String Security6(Principal principal
                             ,@PathVariable("id")int id
                             ,@RequestParam("confirmation")boolean confirmation
                             ,@RequestParam("comment")String comment

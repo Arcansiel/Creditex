@@ -65,7 +65,10 @@
                      <th class="duration">Длительность</th>
                      <th class="amount">Сумма кредита</th>
                      <th class="amount">Основной долг</th>
-                     <th class="name">Active</th>
+                     <th class="amount">Проценты</th>
+                     <th class="amount">Долг по платежам</th>
+                     <th class="amount">Пеня</th>
+                     <th class="name">Активный кредит</th>
                  </tr>
                  [#list credits as credit]
                  <tr>
@@ -75,7 +78,10 @@
                      <td class="duration">${credit.duration}</td>
                      <td class="amount">${credit.originalMainDebt}</td>
                      <td class="amount">${credit.currentMainDebt}</td>
-                     <td class="name">${credit.active?c}</td>
+                     <th class="amount">${credit.currentPercentDebt}</th>
+                     <th class="amount">${credit.mainFine}</th>
+                     <th class="amount">${credit.percentFine}</th>
+                     <th class="name">${credit.running?c}</th>
                  </tr>
                  [/#list]
              </table>
@@ -90,6 +96,10 @@
                      <th class="duration">Длительность</th>
                      <th class="amount">Сумма кредита</th>
                      <th class="amount">Основной долг</th>
+                     <th class="amount">Проценты</th>
+                     <th class="amount">Долг по платежам</th>
+                     <th class="amount">Пеня</th>
+                     <th class="name">Активный кредит</th>
                  </tr>
                  [#list expired as credit]
                      <tr>
@@ -99,6 +109,10 @@
                          <td class="duration">${credit.duration}</td>
                          <td class="amount">${credit.originalMainDebt}</td>
                          <td class="amount">${credit.currentMainDebt}</td>
+                         <th class="amount">${credit.currentPercentDebt}</th>
+                         <th class="amount">${credit.mainFine}</th>
+                         <th class="amount">${credit.percentFine}</th>
+                         <th class="amount">${credit.running?c}</th>
                      </tr>
                  [/#list]
              </table>
@@ -113,6 +127,10 @@
                      <th class="duration">Длительность</th>
                      <th class="amount">Сумма кредита</th>
                      <th class="amount">Основной долг</th>
+                     <th class="amount">Проценты</th>
+                     <th class="amount">Долг по платежам</th>
+                     <th class="amount">Пеня</th>
+                     <th class="name">Активный кредит</th>
                  </tr>
                  [#list unreturned as credit]
                      <tr>
@@ -122,6 +140,10 @@
                          <td class="duration">${credit.duration}</td>
                          <td class="amount">${credit.originalMainDebt}</td>
                          <td class="amount">${credit.currentMainDebt}</td>
+                         <th class="amount">${credit.currentPercentDebt}</th>
+                         <th class="amount">${credit.mainFine}</th>
+                         <th class="amount">${credit.percentFine}</th>
+                         <th class="amount">${credit.running?c}</th>
                      </tr>
                  [/#list]
              </table>
@@ -137,9 +159,9 @@
                  </tr>
                 [#list priors as prior]
                  <tr>
-                     <td class="start_date"> - ? - </td>
+                     <td class="start_date">${prior.applicationDate}</td>
                      <td class="name">${prior.credit.id}</td>
-                     <td class="name"> - ? - </td>
+                     <td class="name">${prior.acceptance?c}</td>
                      <td class="comment">${prior.comment?html}</td>
                  </tr>
                 [/#list]
@@ -157,10 +179,10 @@
                  </tr>
                  [#list prolongations as prolongation]
                      <tr>
-                         <td class="start_date"> - ? - </td>
+                         <td class="start_date">${prolongation.applicationDate}</td>
                          <td class="name">${prolongation.credit.id}</td>
                          <td class="duration">${prolongation.duration}</td>
-                         <td class="name"> - ? - </td>
+                         <td class="name">${prolongation.acceptance}</td>
                          <td class="comment">${prolongation.comment?html}</td>
                      </tr>
                  [/#list]

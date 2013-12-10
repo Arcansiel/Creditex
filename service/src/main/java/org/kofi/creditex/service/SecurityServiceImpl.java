@@ -1,9 +1,10 @@
 package org.kofi.creditex.service;
 
 import org.kofi.creditex.model.*;
+
+import java.sql.Date;
 import java.util.List;
 import java.util.ArrayList;
-import java.sql.Date;
 import org.kofi.creditex.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,13 +50,18 @@ public class SecurityServiceImpl implements SecurityService{
     @Override
     public List<Credit> GetExpiredCredits() {
         List<Credit> list = new ArrayList<Credit>();
-        //TODO
-
+        for(Credit c:creditRepository.findAll(
+                QCredit.credit.mainFine.gt(0),
+                QCredit.credit.start.desc()
+        )){
+             list.add(c);
+        }
         return list;
     }
 
     @Override
     public List<Credit> GetUnreturnedCredits() {
+        Date now = dateProvider.getCurrentSqlDate();
         List<Credit> list = new ArrayList<Credit>();
         //TODO
 
@@ -85,9 +91,8 @@ public class SecurityServiceImpl implements SecurityService{
     @Override
     public List<Credit> GetCurrentClientCredits(int client_id) {
         List<Credit> list = new ArrayList<Credit>();
-        //TODO ? use 'active' field to search
         for(Credit c:creditRepository.findAll(
-                QCredit.credit.user.id.eq(client_id).and(QCredit.credit.currentMainDebt.gt(0)),
+                QCredit.credit.user.id.eq(client_id).and(QCredit.credit.running.isTrue()),
                 QCredit.credit.start.desc()
         )){
             list.add(c);
@@ -97,14 +102,19 @@ public class SecurityServiceImpl implements SecurityService{
 
     @Override
     public List<Credit> GetClientExpiredCredits(int client_id) {
-        List<Credit> list= new ArrayList<Credit>();
-        //TODO
-
+        List<Credit> list = new ArrayList<Credit>();
+        for(Credit c:creditRepository.findAll(
+                QCredit.credit.user.id.eq(client_id).and(QCredit.credit.mainFine.gt(0)),
+                QCredit.credit.start.desc()
+        )){
+            list.add(c);
+        }
         return list;
     }
 
     @Override
     public List<Credit> GetClientUnreturnedCredits(int client_id) {
+        Date now = dateProvider.getCurrentSqlDate();
         List<Credit> list= new ArrayList<Credit>();
         //TODO
 

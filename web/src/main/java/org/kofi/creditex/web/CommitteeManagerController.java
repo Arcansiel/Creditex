@@ -1,11 +1,9 @@
 package org.kofi.creditex.web;
 
-import lombok.extern.slf4j.Slf4j;
-import org.kofi.creditex.Dates;
+
 import org.kofi.creditex.model.*;
 import org.kofi.creditex.service.CommitteeService;
 import org.kofi.creditex.service.SecurityService;
-import org.kofi.creditex.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -15,10 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpSession;
 import java.security.Principal;
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -80,23 +75,16 @@ public class CommitteeManagerController {
     }
 
     @RequestMapping(value = "/committee_manager/appliance/vote/{id}", method = RequestMethod.POST)
-    public String Committee4(Model model, Principal principal,
+    public String Committee4(Principal principal,
                              @PathVariable("id")int id,
                              @RequestParam("acceptance")boolean acceptance,
                              @RequestParam("comment")String comment){
         int err;
-        if((err = committeeService.Vote(principal.getName(),id,acceptance,comment)) == 0){
-            return "redirect:/committee_manager/";
+        if((err = committeeService.Vote(principal.getName(),id,acceptance,comment)) != 0){
+            return "redirect:/committee_manager/?error=code_"+err;
         }else{
-            return "redirect:/committee_manager/?error_code="+err;
+            return "redirect:/committee_manager/";
         }
     }
-
-    /*
-    @RequestMapping(value = "/committee_manager/5", method = RequestMethod.GET)
-    public String Committee5(Model model){
-        return "committee_manager";
-    }
-    */
 
 }
