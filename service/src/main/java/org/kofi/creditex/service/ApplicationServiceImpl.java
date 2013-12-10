@@ -171,7 +171,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public void RegisterPriorRepaymentApplicationByFormAndUsernameAndAccountManagerName(PriorApplicationForm form, String username, String accountManagerUsername){
-        Credit credit=creditRepository.findByActiveAndOpenAndUserUsername(true, true, username);
+        Credit credit=creditRepository.findByRunningAndUserUsername(true, username);
         User client = userRepository.findByUsername(username);
         User accountManager = userRepository.findByUsername(accountManagerUsername);
         PriorRepaymentApplication application = new PriorRepaymentApplication()
@@ -185,7 +185,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public void RegisterProlongationApplicationByFormAndUsernameAndAccountManagerName(ProlongationApplicationForm form, String username, String accountManagerUsername){
-        Credit credit=creditRepository.findByActiveAndOpenAndUserUsername(true, true, username);
+        Credit credit=creditRepository.findByRunningAndUserUsername(true, username);
         User client = userRepository.findByUsername(username);
         User accountManager = userRepository.findByUsername(accountManagerUsername);
         ProlongationApplication application = new ProlongationApplication()

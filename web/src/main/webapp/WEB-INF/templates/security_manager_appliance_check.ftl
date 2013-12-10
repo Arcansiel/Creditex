@@ -63,9 +63,13 @@
                      <th class="name">Продукт</th>
                      <th class="start_date">Начало кредитования</th>
                      <th class="duration">Длительность</th>
+                     <th class="start_date">Конец кредитования</th>
                      <th class="amount">Сумма кредита</th>
                      <th class="amount">Основной долг</th>
-                     <th class="name">Active</th>
+                     <th class="amount">Процентный долг</th>
+                     <th class="amount">Долг по платежам</th>
+                     <th class="amount">Пеня</th>
+                     <th class="name">Активный кредит</th>
                  </tr>
                  [#list credits as credit]
                  <tr>
@@ -73,9 +77,13 @@
                      <td class="name">${credit.product.name?html}</td>
                      <td class="start_date">${credit.start}</td>
                      <td class="duration">${credit.duration}</td>
+                     <td class="start_date">${credit.endDate}</td>
                      <td class="amount">${credit.originalMainDebt}</td>
                      <td class="amount">${credit.currentMainDebt}</td>
-                     <td class="name">${credit.active?c}</td>
+                     <td class="amount">${credit.currentPercentDebt}</td>
+                     <td class="amount">${credit.mainFine}</td>
+                     <td class="amount">${credit.percentFine}</td>
+                     <td class="name">${credit.running?c}</td>
                  </tr>
                  [/#list]
              </table>
@@ -88,8 +96,13 @@
                      <th class="name">Продукт</th>
                      <th class="start_date">Начало кредитования</th>
                      <th class="duration">Длительность</th>
+                     <th class="start_date">Конец кредитования</th>
                      <th class="amount">Сумма кредита</th>
                      <th class="amount">Основной долг</th>
+                     <th class="amount">Процентный долг</th>
+                     <th class="amount">Долг по платежам</th>
+                     <th class="amount">Пеня</th>
+                     <th class="name">Активный кредит</th>
                  </tr>
                  [#list expired as credit]
                      <tr>
@@ -97,8 +110,13 @@
                          <td class="name">${credit.product.name?html}</td>
                          <td class="start_date">${credit.start}</td>
                          <td class="duration">${credit.duration}</td>
+                         <td class="start_date">${credit.endDate}</td>
                          <td class="amount">${credit.originalMainDebt}</td>
                          <td class="amount">${credit.currentMainDebt}</td>
+                         <td class="amount">${credit.currentPercentDebt}</td>
+                         <td class="amount">${credit.mainFine}</td>
+                         <td class="amount">${credit.percentFine}</td>
+                         <td class="amount">${credit.running?c}</td>
                      </tr>
                  [/#list]
              </table>
@@ -111,8 +129,13 @@
                      <th class="name">Продукт</th>
                      <th class="start_date">Начало кредитования</th>
                      <th class="duration">Длительность</th>
+                     <th class="start_date">Конец кредитования</th>
                      <th class="amount">Сумма кредита</th>
                      <th class="amount">Основной долг</th>
+                     <th class="amount">Процентный долг</th>
+                     <th class="amount">Долг по платежам</th>
+                     <th class="amount">Пеня</th>
+                     <th class="name">Активный кредит</th>
                  </tr>
                  [#list unreturned as credit]
                      <tr>
@@ -120,8 +143,13 @@
                          <td class="name">${credit.product.name?html}</td>
                          <td class="start_date">${credit.start}</td>
                          <td class="duration">${credit.duration}</td>
+                         <td class="start_date">${credit.endDate}</td>
                          <td class="amount">${credit.originalMainDebt}</td>
                          <td class="amount">${credit.currentMainDebt}</td>
+                         <td class="amount">${credit.currentPercentDebt}</td>
+                         <td class="amount">${credit.mainFine}</td>
+                         <td class="amount">${credit.percentFine}</td>
+                         <td class="amount">${credit.running?c}</td>
                      </tr>
                  [/#list]
              </table>
@@ -137,9 +165,9 @@
                  </tr>
                 [#list priors as prior]
                  <tr>
-                     <td class="start_date"> - ? - </td>
+                     <td class="start_date">${prior.applicationDate}</td>
                      <td class="name">${prior.credit.id}</td>
-                     <td class="name"> - ? - </td>
+                     <td class="name">${prior.acceptance?c}</td>
                      <td class="comment">${prior.comment?html}</td>
                  </tr>
                 [/#list]
@@ -151,16 +179,16 @@
                  <tr>
                      <th class="start_date">Дата</th>
                      <th class="name">ID кредита</th>
-                     <td class="duration">Длительность пролонгации</td>
+                     <th class="duration">Длительность пролонгации</th>
                      <th class="name">Удовлетворена</th>
                      <th class="comment">Комментарий</th>
                  </tr>
                  [#list prolongations as prolongation]
                      <tr>
-                         <td class="start_date"> - ? - </td>
+                         <td class="start_date">${prolongation.applicationDate}</td>
                          <td class="name">${prolongation.credit.id}</td>
                          <td class="duration">${prolongation.duration}</td>
-                         <td class="name"> - ? - </td>
+                         <td class="name">${prolongation.acceptance}</td>
                          <td class="comment">${prolongation.comment?html}</td>
                      </tr>
                  [/#list]

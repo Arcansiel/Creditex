@@ -9,34 +9,77 @@
     <div class="page">
 
         <div class="form-action">
+            [#if error??]
+                <p>${error?html}</p>
+            [/#if]
             <p class="name"><a href=[@spring.url "/operation_manager/"/]>Другой клиент</a></p>
             <p class="name"><a href=[@spring.url "/operation_manager/operation/list/"/]>Список операций</a></p>
 
+            [#if payment??]
+                <p class="name">Текущий платёж</p>
+                <table>
+                    <tr>
+                        <th class="name">Номер платежа</th>
+                        <th class="start_date">Крайняя дата</th>
+                        <th class="amount">Сумма платежа</th>
+                        <th class="amount">Сумма по основному долгу</th>
+                        <th class="amount">Сумма по процентам</th>
+                        <th class="name">Просрочен</th>
+                    </tr>
+                    <tr>
+                        <td class="name">${payment.number?html}</td>
+                        <td class="start_date">${payment.paymentEnd?html}</td>
+                        <td class="amount">${payment.requiredPayment?html}</td>
+                        <td class="amount">${(payment.requiredPayment - payment.percents)?html}</td>
+                        <td class="amount">${payment.percents?html}</td>
+                        <td class="name">${payment.expired?c}</td>
+                    </tr>
+                </table>
+            [#else]
+                <p class="name">Текущий платёж отсутствует</p>
+            [/#if]
+
+
+        [#if expired?? && expired]
+            <p class="name">Текущий кредит (имеются задолженности)</p>
+        [#else]
+            <p class="name">Текущий кредит</p>
+        [/#if]
+            <table>
+                <tr>
+                    <th class="name">ID кредита</th>
+                    <th class="name">Кредитный продукт</th>
+                    <th class="amount">Деньги на счёте</th>
+                    <th class="amount">Основной долг</th>
+                    <th class="amount">Процентный долг</th>
+
+                    [#if expired?? && expired]
+                        <th class="amount">Сумма просроченных платежей</th>
+                        <th class="amount">Начисленные пени</th>
+                        <th class="amount">Текущая задолженность по платежам</th>
+                    [#else]
+                        <th class="name">Задолженности по платежам</th>
+                    [/#if]
+                </tr>
+                <tr>
+                    <td class="name">${credit.id?html}</td>
+                    <td class="name">${credit.product.name?html}</td>
+                    <td class="amount">${credit.currentMoney}</td>
+                    <td class="amount">${credit.originalMainDebt}</td>
+                    <td class="amount">${credit.currentPercentDebt}</td>
+
+                    [#if expired?? && expired]
+                        <td class="amount">${credit.mainFine}</td>
+                        <td class="amount">${credit.percentFine}</td>
+                        <td class="amount">${credit.mainFine + credit.percentFine}</td>
+                    [#else]
+                        <td class="name">Нет задолженностей</td>
+                    [/#if]
+                </tr>
+            </table>
+
             <form action="" method="post" class="form">
-                    <table>
-                        <tr>
-                            <th class="name">Кредитный продукт</th>
-                            <th class="amount">Деньги на счёте</th>
-                            <th class="amount">Основной долг</th>
-                            <th class="amount">Сумма текущих платежей</th>
-                            <th class="amount">Платёж по основному долгу</th>
-                            <th class="amount">Платёж по процентам</th>
-                            <th class="amount">Начисленные пени</th>
-                        </tr>
-                        <tr>
-                            <td class="name">[#if credit??]${credit.product.name?html}[/#if]</td>
-                            <td class="amount">[#if credit??]${credit.currentMoney}[/#if]</td>
-                            <td class="amount">[#if credit??]${credit.originalMainDebt}[/#if]</td>
-                            <td class="amount">[#if payment??]${payment}[/#if]</td>
-                            <td class="amount">[#if creditpayment??]${creditpayment}[/#if]</td>
-                            <td class="amount">[#if percentspayment??]${percentspayment}[/#if]</td>
-                            <td class="amount">[#if finepayment??]${finepayment}[/#if]</td>
-                        </tr>
-                    </table>
                 <p class="name">Операция</p>
-                [#if error??]
-                    <p>${error?html}</p>
-                [/#if]
                 <p>
                     <label>Тип операции</label>
                     <select name="type">
