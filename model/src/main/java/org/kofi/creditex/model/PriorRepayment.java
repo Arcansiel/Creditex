@@ -1,16 +1,23 @@
 package org.kofi.creditex.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
-import lombok.experimental.Builder;
-
-import javax.persistence.*;
-import java.util.List;
-
+/**
+ * Возможно ли предварительное возвращение кредита
+ */
 public enum PriorRepayment {
+    /**
+     * Невозможно
+     */
     NotAvailable,
+    /**
+     * Возможно без штрафа
+     */
     Available,
+    /**
+     * Возможно с увеличением процентной в качестве штрафа
+     */
     AvailableFineInterest,
+    /**
+     * Возможно с штрафом на оставшуюся невыплаченную дополнительную сумму долга
+     */
     AvailableFinePercentSum
 }
