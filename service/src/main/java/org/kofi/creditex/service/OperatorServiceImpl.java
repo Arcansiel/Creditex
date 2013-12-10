@@ -109,7 +109,7 @@ public class OperatorServiceImpl implements OperatorService {
         credit.setMainFine(0);
         credit.setPercentFine(0);
         credit.setCurrentMainDebt(credit.getCurrentMainDebt() - mainDebt);
-        credit.setCurrentPercentDebt(credit.getCurrentPercentDebt() + percents);
+        credit.setCurrentPercentDebt(credit.getCurrentPercentDebt() - percents);
         creditRepository.save(credit);
     }
 
@@ -118,7 +118,7 @@ public class OperatorServiceImpl implements OperatorService {
         current.setPaymentClosed(true);
         paymentRepository.save(current);
         credit.setCurrentMainDebt(credit.getCurrentMainDebt() - (current.getRequiredPayment() - current.getPercents()));
-        credit.setCurrentPercentDebt(credit.getCurrentPercentDebt() + current.getPercents());
+        credit.setCurrentPercentDebt(credit.getCurrentPercentDebt() - current.getPercents());
         creditRepository.save(credit);
     }
 

@@ -330,6 +330,22 @@ public class CreditCalcBase {
         return r;
     }
 
+    //максимальный платёж за месяц
+    public long MaxPayment(){
+        switch (paymentType){
+            case Annuity:{
+                return AnnuityPayment();
+            }
+            case Residue:{
+                return (amount / creditPeriod) + Percents(amount);
+            }
+            default:{
+                return Percents(amount);
+            }
+        }
+    }
+
+    /*
     //Досрочное погашение кредита
     //debt - задолженность по кредиту
     //year_interest - годовая процентная ставка (в %)
@@ -377,19 +393,5 @@ public class CreditCalcBase {
         result[0] = payment + result[1];
         return result;
     }
-
-    //максимальный платёж за месяц
-    public long MaxPayment(){
-        switch (paymentType){
-            case Annuity:{
-                return AnnuityPayment();
-            }
-            case Residue:{
-                return (amount / creditPeriod) + Percents(amount);
-            }
-            default:{
-                return Percents(amount);
-            }
-        }
-    }
+    */
 }

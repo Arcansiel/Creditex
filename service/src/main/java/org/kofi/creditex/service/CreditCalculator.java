@@ -65,8 +65,7 @@ public class CreditCalculator {
     }
 
 
-    //PRIOR REPAYMENT AND DELAY FINE CALCULATION
-
+    /*
     private static FineType ToFineType(PriorRepayment priorRepayment){
         FineType fineType;
         if(priorRepayment.equals(PriorRepayment.AvailableFineInterest)){
@@ -118,7 +117,7 @@ public class CreditCalculator {
         }
         return out;
     }
-
+    */
 
     private static boolean ValidRequiredProduct(Product product,
                                           int sum_required, int duration, int max_payment){
