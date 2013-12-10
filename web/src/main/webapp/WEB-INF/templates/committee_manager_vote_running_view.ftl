@@ -93,6 +93,7 @@
                         <th class="name">Продукт</th>
                         <th class="start_date">Начало кредитования</th>
                         <th class="duration">Длительность</th>
+                        <th class="start_date">Конец кредитования</th>
                         <th class="amount">Сумма кредита</th>
                         <th class="amount">Основной долг</th>
                         <th class="amount">Проценты</th>
@@ -106,6 +107,7 @@
                             <td class="name">${credit.product.name?html}</td>
                             <td class="start_date">${credit.start}</td>
                             <td class="duration">${credit.duration}</td>
+                            <td class="start_date">${credit.end}</td>
                             <td class="amount">${credit.originalMainDebt}</td>
                             <td class="amount">${credit.currentMainDebt}</td>
                             <th class="amount">${credit.currentPercentDebt}</th>
