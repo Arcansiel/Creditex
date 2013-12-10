@@ -37,7 +37,7 @@ public class OperatorServiceImpl implements OperatorService {
     @Override
     public Credit CurrentCredit(int client_id) {
         Credit credit = creditRepository.findOne(
-                QCredit.credit.user.id.eq(client_id).and(QCredit.credit.open.isTrue())
+                QCredit.credit.user.id.eq(client_id).and(QCredit.credit.running.isTrue())
         );
         return credit;
     }
