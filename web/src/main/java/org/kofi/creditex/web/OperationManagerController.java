@@ -44,7 +44,7 @@ public class OperationManagerController {
     }
 
     @RequestMapping(value = {"/operation_manager/"}, method = RequestMethod.POST)
-    public String MainOperationManager(HttpSession session, Model model
+    public String MainOperationManager(HttpSession session
             ,@RequestParam("first")String first
             ,@RequestParam("last")String last
             ,@RequestParam("patronymic")String patronymic
@@ -52,7 +52,6 @@ public class OperationManagerController {
             ,@RequestParam("number")int number
     ){
         setCredit(session,null);
-        Integer credit_id = null;
         User client = userService.GetUserByUserDataValues(first,last,patronymic,series,number);
         Credit credit;
         if(client == null){
@@ -63,7 +62,7 @@ public class OperationManagerController {
                 //no current credit
                 return "redirect:/operation_manager/?error=no current credit found";
             }else{
-                credit_id = credit.getId();
+                Integer credit_id = credit.getId();
                 setCredit(session,credit_id);
                 return "redirect:/operation_manager/operation/list/";
             }
@@ -109,7 +108,7 @@ public class OperationManagerController {
     }
 
     @RequestMapping(value = {"/operation_manager/operation/"}, method = RequestMethod.POST)
-    public String OperationManagerOperation(HttpSession session, Model model, Principal principal
+    public String OperationManagerOperation(HttpSession session, Principal principal
             ,@RequestParam("type")OperationType type
             ,@RequestParam("amount")int amount
     ){
