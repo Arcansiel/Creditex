@@ -2,19 +2,51 @@ package org.kofi.creditex.service.base;
 
 import java.util.*;
 
+/**
+ * Класс, реализующий логику расчётов кредитного калькулятора
+ * <p>Применяется для построения планов платежей по кредитам</p>
+ */
 public class CreditCalcBase {
-    public long amount;//сумма кредита
-    public double interest;//ставка за месяц (не в %, а безразмерная величина)
-    public int creditPeriod;//период кредитования в месяцах
-    public PaymentType paymentType;//Аннуитентный, По факт. остатку, Единовременный...
-    public Date creditDate;//дата выдачи кредита
+    /**
+     *Сумма кредита
+     */
+    public long amount;
 
-    //задать годовую процентную ставку (в процентах)
+    /**
+     *Ставка кредитования за 1 месяц (от 0 до 1 : 0 = 0% , 1 = 100%)
+     */
+    public double interest;
+
+    /**
+     *Срок кредитования в месяцах
+     */
+    public int creditPeriod;
+
+    /**
+     *Тип погашения кредита  {@link PaymentType}
+     */
+    public PaymentType paymentType;
+
+    /**
+     *Дата выдачи кредита
+     */
+    public Date creditDate;
+
+    /**
+     * Установить годовую процентную ставку
+     * @param yearInterestPercents Годовая процентная ставка
+     * @return Значение месячной ставки (0..1)
+     */
     public double SetYearInterestPercents(double yearInterestPercents){
         return interest = yearInterestPercents / 1200d;// (i_year / 12) / 100
     }
 
-    public Date setDateOnly(Date date){
+    /**
+     * Установить поле creditDate с обнулением часов, минут, секунд, миллисекунд
+     * @param date Дата для установки
+     * @return creditDate
+     */
+    private Date setDateOnly(Date date){
         Calendar c = Calendar.getInstance();
         c.setTime(date);
         c.set(Calendar.HOUR, 0);
@@ -24,6 +56,14 @@ public class CreditCalcBase {
         return creditDate = c.getTime();
     }
 
+    /**
+     * Параметризованный конструктор класса
+     * @param amount Сумма кредита
+     * @param yearInterestPercents Годовая процентная ставка
+     * @param creditPeriod Срок кредитования в месяцах
+     * @param paymentType Тип погашения кредита {@link PaymentType}
+     * @param creditDate Дата выдачи кредита
+     */
     public CreditCalcBase(long amount,
                           double yearInterestPercents, int creditPeriod,
                           PaymentType paymentType, Date creditDate){
@@ -34,18 +74,34 @@ public class CreditCalcBase {
         setDateOnly(creditDate);
     }
 
+    /**
+     * Конструктор без параметров
+     */
     public CreditCalcBase(){
         setDateOnly(new Date());
     }
 
-    Calendar GetInitialCalendar(){
+    /**
+     * Создать объект класса Calendar на основе значения поля creditDate {@link Calendar}
+     * @return Объект класса Calendar {@link Calendar}
+     *
+     */
+    private Calendar GetInitialCalendar(){
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(creditDate);
         calendar.add(Calendar.DAY_OF_MONTH, +1);
         return calendar;
     }
 
-    boolean SetDatesAndIncrementCalendar(PaymentInfo p, Calendar calendar, int day_of_month, boolean date_correction){
+    /**
+     * Установка дат платежа
+     * @param p платёж для установки дат
+     * @param calendar календарь для получения дат
+     * @param day_of_month оригинальный день месяца
+     * @param date_correction установить последний день месяца
+     * @return date_correction следующей итерации
+     */
+    private boolean SetDatesAndIncrementCalendar(PaymentInfo p, Calendar calendar, int day_of_month, boolean date_correction){
         if(date_correction){
             calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
         }else{
@@ -63,7 +119,10 @@ public class CreditCalcBase {
         return date_correction;
     }
 
-    //коэффициент аннуитента
+    /**
+     * Коэффициент аннуитета
+     * @return Коэффициент аннуитета
+     */
     public double AnnuityFactor(){
         //double x = Math.pow(1d + interest, creditPeriod);
         //return (interest * x)/(x - 1d);
@@ -71,28 +130,45 @@ public class CreditCalcBase {
         return interest / (1d - x1);
     }
 
-    //аннуитентный платёж за месяц
+    /**
+     * аннуитетный платёж за месяц
+     * @return аннуитетный платёж за месяц
+     */
     public long AnnuityPayment(){
         return Math.round((double) amount * AnnuityFactor());
     }
 
-    //размер процентов платежа при заданной сумме долга по кредиту
-    long Percents(long creditDebt){
+    /**
+     * размер процентов платежа при заданной сумме долга по кредиту
+     * @param creditDebt текущий основной долг
+     * @return размер процентов
+     */
+    private long Percents(long creditDebt){
         return Math.round((double)creditDebt * (interest));
     }
 
-    //Суммарная задолженность по аннуитентному кредиту
-    long AnnuityTotalDebt(long annuityPayment){
+    /**
+     * Суммарная задолженность по аннуитетному кредиту
+     * @param annuityPayment размер аннуитетного платежа
+     * @return Суммарная задолженность по аннуитетному кредиту
+     */
+    private long AnnuityTotalDebt(long annuityPayment){
          return annuityPayment * creditPeriod;
     }
 
-    //Суммарная задолженность по аннуитентному кредиту
+    /**
+     * Суммарная задолженность по аннуитентному кредиту
+     * @return Суммарная задолженность по аннуитентному кредиту
+     */
     public long AnnuityTotalDebt(){
         return AnnuityTotalDebt(AnnuityPayment());
     }
 
-    //план аннуитентного погашения кредита
-    PaymentInfo[] AnnuityPaymentPlan(){
+    /**
+     * план аннуитетного погашения кредита {@link PaymentType}
+     * @return план аннуитетного погашения кредита в виде массива платежей {@link PaymentInfo}
+     */
+    private PaymentInfo[] AnnuityPaymentPlan(){
         long payment = AnnuityPayment();//сумма одного платежа
 
         long initialTotalDebt = AnnuityTotalDebt(payment);//суммарная задолженность
@@ -151,8 +227,11 @@ public class CreditCalcBase {
     }
 
 
-
-    //план дифференцированного погашения кредита
+    /**
+     * план аннуитетного погашения кредита {@link PaymentType}
+     * @param out_debt out_debt[0] = долг+проценты, out_debt[1] = проценты
+     * @return план аннуитетного погашения кредита в виде массива платежей {@link PaymentInfo}
+     */
     PaymentInfo[] ResiduePaymentPlan(long[] out_debt){
 
         long creditPayment = Math.round((double) amount / creditPeriod);
@@ -228,17 +307,26 @@ public class CreditCalcBase {
         return plan;
     }
 
-    //Переплата по кредиту с периодической уплатой процентов
+    /**
+     * Переплата по кредиту с периодической уплатой процентов
+     * @return проценты по кредиту с периодической уплатой процентов
+     */
     public long PercentPercentsDebt(){
         return Math.round((double)amount * interest * creditPeriod);
     }
 
-    //Суммарная задолженность по кредиту с периодической уплатой процентов
+    /**
+     * Суммарная задолженность по кредиту с периодической уплатой процентов
+     * @return Суммарная задолженность по кредиту с периодической уплатой процентов
+     */
     public long PercentTotalDebt(){
         return amount + PercentPercentsDebt();
     }
 
-    //план единовременного погашения кредита с периодической уплатой процентов
+    /**
+     * план единовременного погашения кредита с периодической уплатой процентов {@link PaymentType}
+     * @return план единовременного погашения кредита с периодической уплатой процентов в виде массива платежей {@link PaymentInfo}
+     */
     PaymentInfo[] PercentPaymentPlan(){
         long percentsPayment = Percents(amount);//сумма одного платежа
 
@@ -297,6 +385,10 @@ public class CreditCalcBase {
         return plan;
     }
 
+    /**
+     * Построить план платежей и расчитать сумму проценты
+     * @return план платежей и размер процентов {@link CreditCalcResult}
+     */
     public CreditCalcResult Calculate()
     {
         CreditCalcResult r = new CreditCalcResult();
@@ -330,7 +422,10 @@ public class CreditCalcBase {
         return r;
     }
 
-    //максимальный платёж за месяц
+    /**
+     * максимальный платёж за месяц по данному кредиту
+     * @return максимальный платёж за месяц по данному кредиту
+     */
     public long MaxPayment(){
         switch (paymentType){
             case Annuity:{

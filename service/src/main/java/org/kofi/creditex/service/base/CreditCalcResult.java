@@ -1,11 +1,34 @@
 package org.kofi.creditex.service.base;
 
+/**
+ * Класс для получения результата работы кредитного калькулятора\
+ * {@link CreditCalcBase}
+ */
 public class CreditCalcResult {
-    public long totalDebt;//суммарная задолженность
-    public long creditDebt;//задолженность по сумме кредита
-    public long percentsDebt;//задолженность по процентам
-    public PaymentInfo[] paymentPlan;//план погашения кредита
+    /**
+     * основной долг + проценты
+     * (totalDebt = creditDebt + percentsDebt)
+     */
+    public long totalDebt;
 
+    /**
+     *основной долг
+     */
+    public long creditDebt;
+
+    /**
+     *сумма процентов по кредиту
+     */
+    public long percentsDebt;
+
+    /**
+     *план платежей по кредиту{@link PaymentInfo}
+     */
+    public PaymentInfo[] paymentPlan;
+
+    /**
+     * @return строка со значениями полей (без paymentPlan)
+     */
     public String toString()
     {
         return

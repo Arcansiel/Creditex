@@ -6,10 +6,24 @@ import java.util.ArrayList;
 import org.kofi.creditex.model.*;
 import org.kofi.creditex.service.base.*;
 
+/**
+ * Класс, реализующий логику кредитного калькулятора
+ * <p>Работа осуществляется с объектами классов модели<p/>
+ * {@link Product}
+ * {@link PaymentType}
+ * {@link Payment}
+ * {@link Application}
+ * {@link Credit}
+ */
 public class CreditCalculator {
 
     //PAYMENT PLAN CALCULATION
 
+    /**
+     * Конвертирует значение {@link ProductType} в значение {@link PaymentType}
+     * @param productType {@link ProductType}
+     * @return {@link PaymentType}
+     */
     private static PaymentType ToPaymentType(ProductType productType){
         PaymentType paymentType;
         if(productType.equals(ProductType.Annuity)){
@@ -22,6 +36,16 @@ public class CreditCalculator {
         return paymentType;
     }
 
+    /**
+     * Строит план платежей по заданным параметрам кредита
+     * @param percent годовая процентная ставка
+     * @param productType тип погашения кредита {@link ProductType}
+     * @param sum сумма кредита
+     * @param duration длительность кредитования в месяцах
+     * @param start дата выдачи кредита
+     * @param out [0] - основной долг (=sum), [1] - проценты, [2] - общий долг (основной долг + проценты)
+     * @return План платежей в виде списка {@link Payment}
+     */
     public static List<Payment> PaymentPlan(int percent, ProductType productType, int sum, int duration, java.sql.Date start, int[] out){
 
         CreditCalcBase calc = new CreditCalcBase(sum,percent,duration,ToPaymentType(productType),new java.util.Date(start.getTime()));
@@ -52,18 +76,49 @@ public class CreditCalculator {
         return payments;
     }
 
+    /**
+     * Строит план платежей по заданным параметрам кредита
+     * @param product кредитный продукт (содержит постоянные параметры кредита) {@link Product}
+     * @param sum сумма кредита
+     * @param duration длительность кредитования в месяцах
+     * @param start дата выдачи кредита
+     * @param out [0] - основной долг (=sum), [1] - проценты, [2] - общий долг (основной долг + проценты)
+     * @return План платежей в виде списка {@link Payment}
+     */
     public static List<Payment> PaymentPlan(Product product, int sum, int duration, java.sql.Date start, int[] out){
         return PaymentPlan(product.getPercent(), product.getType(), sum, duration, start, out);
     }
 
-    public static List<Payment> PaymentPlan(Application application, java.sql.Date date, int[] out){
-        return PaymentPlan(application.getProduct(), application.getRequest(), application.getDuration(), date, out);
+    /**
+     * Строит план платежей по заданным параметрам кредита
+     * @param application заявка на кредит, содержащая все необходимые для расчёта параметры {@link Application}
+     * @param start дата выдачи кредита
+     * @param out [0] - основной долг (=sum), [1] - проценты, [2] - общий долг (основной долг + проценты)
+     * @return План платежей в виде списка {@link Payment}
+     */
+    public static List<Payment> PaymentPlan(Application application, java.sql.Date start, int[] out){
+        return PaymentPlan(application.getProduct(), application.getRequest(), application.getDuration(), start, out);
     }
 
+    /**
+     * Строит план платежей по заданным параметрам кредита
+     * @param credit {@link Credit} содержащий все необходимые для расчёта параметры
+     * @param out [0] - основной долг (=sum), [1] - проценты, [2] - общий долг (основной долг + проценты)
+     * @return План платежей в виде списка {@link Payment}
+     */
     public static List<Payment> PaymentPlan(Credit credit, int[] out){
         return PaymentPlan(credit.getProduct(), credit.getOriginalMainDebt(), credit.getDuration(), credit.getCreditStart(), out);
     }
 
+
+    /**
+     * Проверка кредитного продукта на соответствие заданным параметрам
+     * @param product кредитный продукт для проверки {@link Product}
+     * @param sum_required требуемая сумма кредита
+     * @param duration длительность кредитования
+     * @param max_payment максимально возможный месячный платёж
+     * @return true - продукт подходит, false - продукт не подходит
+     */
     private static boolean ValidRequiredProduct(Product product,
                                           int sum_required, int duration, int max_payment){
         if(sum_required < product.getMinMoney()
@@ -91,6 +146,15 @@ public class CreditCalculator {
         return true;
     }
 
+
+    /**
+     * Подбор кредитных продуктов для выбора подходящих по заданным условиям
+     * @param products исходный набор кредитных продуктов {@link Product}
+     * @param sum_required требуемая сумма кредита
+     * @param duration длительность кредитования
+     * @param max_payment максимально возможный месячный платёж
+     * @return Список подходящих по параметрам кредитных продуктов
+     */
     public static List<Product> RequireProducts(Iterable<Product> products,
                                                 int sum_required, int duration, int max_payment){
         List<Product> required = new ArrayList<Product>();
