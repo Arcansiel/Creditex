@@ -14,8 +14,8 @@ import java.util.List;
 @Entity
 @Data
 @Accessors(chain = true)
-@EqualsAndHashCode(of = {"id", "start", "duration", "currentMainDebt", "currentMoney", "originalMainDebt", "currentPercentDebt"})
-@ToString(of = {"id", "start", "duration", "currentMainDebt", "currentMoney", "originalMainDebt", "currentPercentDebt"})
+@EqualsAndHashCode(of = {"id", "start", "end", "duration", "currentMainDebt", "currentMoney", "originalMainDebt", "currentPercentDebt"})
+@ToString(of = {"id", "start", "end", "duration", "currentMainDebt", "currentMoney", "originalMainDebt", "currentPercentDebt"})
 public class Credit {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
