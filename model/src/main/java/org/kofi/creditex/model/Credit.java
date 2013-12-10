@@ -32,8 +32,7 @@ public class Credit {
     private int mainFine;
     private int percentFine;
     private int originalMainDebt;
-    private boolean active;
-    private boolean open;
+    private boolean running;
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", nullable = false)
     private Product product;
