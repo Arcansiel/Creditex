@@ -21,6 +21,7 @@ public class Credit {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private Date start;
+    private Date end;
     private int duration;
     // sum -> currentMainDebt
     private int currentMainDebt;
