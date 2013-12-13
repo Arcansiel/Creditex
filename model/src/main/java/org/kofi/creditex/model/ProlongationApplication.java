@@ -7,31 +7,66 @@ import lombok.experimental.Accessors;
 import lombok.experimental.Builder;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.sql.Date;
 
+/**
+ * Заявка на пролонгацию кредита
+ */
 @Entity
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(of = {"id", "comment"})
 @ToString(of = {"id", "comment"})
 public class ProlongationApplication {
+    /**
+     * ID
+     */
     @Id
+    @Min(0)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    private int duration;
+    private long id;
+    /**
+     * Длительность продления кредита
+     */
+    @Min(0)
+    private long duration;
+    /**
+     * Комментарий клиента о причине пролонгации
+     */
+    @Size(max = 4000)
     @Column(nullable = false)
     private String comment;
-
+    /**
+     * Ссылка на специалиста по работе с клиентами
+     */
     @ManyToOne
     @JoinColumn
     private User accountManager;
+    /**
+     * Ccskrf yf rhtlbn
+     */
     @ManyToOne
     @JoinColumn
     private Credit credit;
+    /**
+     * Ссылка на клиента
+     */
     @ManyToOne
     @JoinColumn
     private User client;
+    /**
+     * Принятие заявки
+     */
     private Boolean acceptance;
+    /**
+     * Обработана ли заявка
+     */
+    private boolean processed;
+    /**
+     * Дата подачи заявки
+     */
     @Column(nullable = false)
     private Date applicationDate;
 }

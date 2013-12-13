@@ -9,6 +9,8 @@ import lombok.experimental.Builder;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -27,16 +29,19 @@ public class User implements org.springframework.security.core.userdetails.UserD
      * ID пользователя
      */
     @Id
+    @Min(0)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
     /**
      * Имя пользователя
      */
+    @Size(max = 46, min = 8)
     @Column(nullable = false, unique = true)
     private String username;
     /**
      * Пароль пользователя
      */
+    @Size(min = 8, max = 46)
     @Column(nullable = false)
     private String password;
     /**

@@ -8,6 +8,8 @@ import lombok.experimental.Accessors;
 import lombok.experimental.Builder;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.util.List;
 
@@ -24,16 +26,19 @@ public class Application {
      * ID заявки на кредит
      */
     @Id
+    @Min(0)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
     /**
      * Требуемые деньги
      */
-    private int request;
+    @Min(0)
+    private long request;
     /**
      * Продолжительность кредита
      */
-    private int duration;
+    @Min(0)
+    private long duration;
     /**
      * Принята ли заявка
      * <p>Если принята - true</p>
@@ -41,6 +46,10 @@ public class Application {
      * <p>Если отвергнута - false</p>
      */
     private Boolean acceptance;
+    /**
+     * Обработана ли заявка
+     */
+    private boolean processed;
     /**
      * Дата подачи заявки
      */
@@ -73,6 +82,7 @@ public class Application {
     /**
      * Комментарий специалиста службы безопасности
      */
+    @Size(max = 4000)
     private String securityComment;
     /**
      * Ссылка на специалиста службы безопасности {@link User}
@@ -83,11 +93,13 @@ public class Application {
     /**
      * Количество голосов за принятие заявки кредитным комитетом
      */
-    private int voteAcceptance;
+    @Min(0)
+    private long voteAcceptance;
     /**
      * Количество голосов против принятия заявки кредитным комитетом
      */
-    private int voteRejection;
+    @Min(0)
+    private long voteRejection;
     /**
      * Закрыто ли голосование кредитным комитетом
      */
@@ -114,6 +126,7 @@ public class Application {
     /**
      * Комментарий кредитного отдела
      */
+    @Size(max = 4000)
     private String headComment;
     /**
      * Ссылка на главу кредитного отдела {@link User}

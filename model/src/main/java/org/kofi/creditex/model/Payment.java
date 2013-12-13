@@ -8,6 +8,7 @@ import lombok.experimental.Accessors;
 import lombok.experimental.Builder;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.sql.Date;
 
 /**
@@ -23,21 +24,25 @@ public class Payment {
      * ID платежа
      */
     @Id
+    @Min(0)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
     /**
      * Номер платежа
      */
-    private int number;
+    @Min(0)
+    private long number;
     /**
      * Требуемая сумма платежа
      */
-    private int requiredPayment;
+    @Min(0)
+    private long requiredPayment;
     /**
      * Сколько дополнительного долга в сумме платежа (в руб)
      */
     //requiredPayment = mainDebt + percents
-    private int percents;
+    @Min(0)
+    private long percents;
     /**
      * Дата начала интервала платежа
      */

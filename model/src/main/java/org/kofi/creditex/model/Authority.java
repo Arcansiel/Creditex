@@ -9,6 +9,8 @@ import lombok.experimental.Builder;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -24,11 +26,13 @@ public class Authority implements GrantedAuthority {
      * ID роли пользователя
      */
     @Id
+    @Min(0)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
     /**
      * Текстовое представление роли
      */
+    @Size(max = 46)
     private String authority;
     /**
      * Все пользователи с данной ролью {@link User}

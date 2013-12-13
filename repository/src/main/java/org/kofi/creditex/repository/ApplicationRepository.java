@@ -6,6 +6,6 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 
 import java.util.List;
 
-public interface ApplicationRepository extends JpaRepository<Application, Integer>, QueryDslPredicateExecutor<Application> {
+public interface ApplicationRepository extends JpaRepository<Application, Long>, QueryDslPredicateExecutor<Application> {
     List<Application> findByClient_Username(String username);
 }

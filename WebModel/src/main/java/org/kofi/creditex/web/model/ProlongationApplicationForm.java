@@ -7,10 +7,10 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public class ProlongationApplicationForm {
-    private int id;
+    private long id;
     private String date;
-    private int duration;
+    private long duration;
     private String comment;
-    private int creditId;
+    private long creditId;
     private String acceptance;
 }

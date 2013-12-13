@@ -7,6 +7,8 @@ import lombok.experimental.Accessors;
 import lombok.experimental.Builder;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -21,11 +23,14 @@ public class Product {
      * ID кредитного продукта
      */
     @Id
+    @Min(0)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
     /**
      * Название кредитного продукта
      */
+    @Size(max = 48)
+    @Column(nullable = false, unique = true)
     private String name;
     /**
      * Активен ли кредитный продукт (можно ли по нему создавать новые кредиты)
@@ -35,37 +40,45 @@ public class Product {
     /**
      * Процентная ставка по кредитному продукту
      */
-    private int percent;
+    @Min(0)
+    private float percent;
     /**
      * Минимальная сумма для рассмотрения заявки на данный кредитный продукт кредитным комитетом
      */
-    private int minCommittee;
+    @Min(0)
+    private long minCommittee;
     /**
      * Минимальная сумма основного долга, с которой предоставляется данный кредитный продукт
      */
-    private int minMoney;
+    @Min(0)
+    private long minMoney;
     /**
      * Максимальная сумма основного долга, до которого предоставляется данный кредитный продукт
      */
-    private int maxMoney;
+    @Min(0)
+    private long maxMoney;
     /**
      * Минимальная длительность, с которой возможно предоставление кредитного продукта
      */
-    private int minDuration;
+    @Min(0)
+    private long minDuration;
     /**
      * Максимальная длительность, на которую предоставляется кредитный продукт
      */
-    private int maxDuration;
+    @Min(0)
+    private long maxDuration;
     /**
      * Процент пени за день просрочки платежа
-     * <p>100 процентам соответствует 1000, 0 - 0</p>
+     * <p>100 процентам соответствует 100, 0 - 0</p>
      */
+    @Min(0)
     private float debtPercent;//fine for 1 day payment delay, %
     /**
      * Процент штрафа за предварительный возврат
-     * <p>100 процентам соответствует 1000, 0 - 0</p>
+     * <p>100 процентам соответствует 100, 0 - 0</p>
      */
-    private int priorRepaymentPercent;//fine for prior repayment, %
+    @Min(0)
+    private float priorRepaymentPercent;//fine for prior repayment, %
     /**
      * Ссылка на на заявки на данный кредитный продукт {@link Application}
      */

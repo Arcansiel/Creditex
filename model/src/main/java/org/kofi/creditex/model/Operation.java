@@ -8,6 +8,7 @@ import lombok.experimental.Accessors;
 import lombok.experimental.Builder;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.sql.Date;
 
 /**
@@ -23,12 +24,14 @@ public class Operation {
      * ID операции
      */
     @Id
+    @Min(0)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
     /**
      * Количество денег, участвующих в операции
      */
-    private int amount;
+    @Min(0)
+    private long amount;
     /**
      * Ссылка на кредит {@link Credit}
      */

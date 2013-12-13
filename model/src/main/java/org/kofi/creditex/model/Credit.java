@@ -8,6 +8,7 @@ import lombok.experimental.Accessors;
 import lombok.experimental.Builder;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.sql.Date;
 import java.util.List;
 
@@ -24,8 +25,9 @@ public class Credit {
      * ID кредита
      */
     @Id
+    @Min(0)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
     /**
      * Дата начала кредита
      */
@@ -33,7 +35,8 @@ public class Credit {
     /**
      * Продолжительность кредита в месяцах
      */
-    private int duration;
+    @Min(0)
+    private long duration;
     /**
      * Дата завершения кредита
      */
@@ -41,32 +44,42 @@ public class Credit {
     /**
      * Текущий основной долг кредита
      */
-    private int currentMainDebt;
+    @Min(0)
+    private long currentMainDebt;
     /**
      * Текущий процентный долг (сколько осталось выплатить сверх основного долга)
      */
-    private int currentPercentDebt;
+    @Min(0)
+    private long currentPercentDebt;
     /**
      * Текущие деньги на счету
      * <p>Изначально равны {@link #originalMainDebt}</p>
      */
-    private int currentMoney;
+    @Min(0)
+    private long currentMoney;
     /**
      * Сумма всех просроченных платежей
      */
-    private int mainFine;
+    @Min(0)
+    private long mainFine;
     /**
      * Пеня по всем просроченным платежам
      */
-    private int percentFine;
+    @Min(0)
+    private long percentFine;
     /**
      * Первичный основной долг (сколько пользователь взял у банка)
      */
-    private int originalMainDebt;
+    @Min(0)
+    private long originalMainDebt;
     /**
      * Активен ли кредит в данный момент
      */
     private boolean running;
+    /**
+     * Просрочен ли кредит
+     */
+    private boolean expired;
     /**
      * Ссылка на кредитный продукт {@link Product}
      */

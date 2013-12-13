@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User GetUserByUserDataValues(String first, String last, String patronymic, String series, int number) {
+    public User GetUserByUserDataValues(String first, String last, String patronymic, String series, long number) {
         return userRepository.findByUserData_FirstAndUserData_LastAndUserData_PatronymicAndUserData_PassportSeriesAndUserData_PassportNumber(first, last, patronymic, series, number);
     }
 

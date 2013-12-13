@@ -4,5 +4,5 @@ import org.kofi.creditex.model.Vote;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 
-public interface VoteRepository extends JpaRepository<Vote, Integer>, QueryDslPredicateExecutor<Vote> {
+public interface VoteRepository extends JpaRepository<Vote, Long>, QueryDslPredicateExecutor<Vote> {
 }

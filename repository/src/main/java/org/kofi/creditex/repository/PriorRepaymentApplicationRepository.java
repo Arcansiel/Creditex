@@ -6,6 +6,6 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 
 import java.util.List;
 
-public interface PriorRepaymentApplicationRepository extends JpaRepository<PriorRepaymentApplication, Integer>, QueryDslPredicateExecutor<PriorRepaymentApplication> {
+public interface PriorRepaymentApplicationRepository extends JpaRepository<PriorRepaymentApplication, Long>, QueryDslPredicateExecutor<PriorRepaymentApplication> {
     List<PriorRepaymentApplication> findByClient_Username(String username);
 }

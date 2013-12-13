@@ -2,11 +2,12 @@ package org.kofi.creditex.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.Builder;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 /**
  * Голос члена кредитного комитета
@@ -20,8 +21,9 @@ public class Vote {
      * ID голоса
      */
     @Id
+    @Min(0)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
     /**
      * Голос за или против
      * <p>true-за</p>
@@ -31,6 +33,7 @@ public class Vote {
     /**
      * Комментарий члена кредитного комитета
      */
+    @Size(max = 4000)
     private String comment;
     /**
      * Заявка, за которую происходит голосование {@link Application}

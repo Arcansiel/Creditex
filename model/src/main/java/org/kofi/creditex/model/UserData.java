@@ -7,7 +7,11 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.experimental.Builder;
 
+import javax.annotation.RegEx;
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.sql.Date;
 
 /**
@@ -23,21 +27,25 @@ public class UserData {
      * ID данных пользователя
      */
     @Id
+    @Min(0)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
     /**
      * Имя
      */
+    @Size(max = 46)
     @Column(nullable = false)
     private String first;
     /**
      * Фамилия
      */
+    @Size(max = 46)
     @Column(nullable = false)
     private String last;
     /**
      * Отчество
      */
+    @Size(max = 46)
     @Column(nullable = false)
     private String patronymic;
     /**
@@ -48,6 +56,8 @@ public class UserData {
     /**
      * Серия паспорта
      */
+    @Size(max = 2, min = 2)
+    @Pattern(regexp = "\\w+")
     @Column(nullable = false)
     private String passportSeries;
     /**
@@ -57,15 +67,18 @@ public class UserData {
     /**
      * Место работы
      */
+    @Size(max = 46)
     @Column(nullable = false)
     private String workName;
     /**
      * Занимаемая позиция
      */
+    @Size(max = 46)
     @Column(nullable = false)
     private String workPosition;
     /**
      * Доход
      */
-    private int workIncome;
+    @Min(0)
+    private long workIncome;
 }

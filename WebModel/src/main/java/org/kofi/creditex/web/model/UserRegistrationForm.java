@@ -16,6 +16,6 @@ public class UserRegistrationForm{
     private int number;
     private String workName;
     private String workPosition;
-    private int workIncome;
+    private long workIncome;
     private String role;
 }
