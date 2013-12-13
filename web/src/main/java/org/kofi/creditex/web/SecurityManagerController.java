@@ -60,7 +60,7 @@ public class SecurityManagerController {
         if(app == null){
             return "redirect:/security_manager/";
         }
-        int client_id = app.getClient().getId();
+        long client_id = app.getClient().getId();
         model.addAttribute("application",app);
         List<Credit> credits = securityService.GetCurrentClientCredits(client_id);
         model.addAttribute("credits",credits);
@@ -77,7 +77,7 @@ public class SecurityManagerController {
 
     @RequestMapping(value = "/security_manager/appliance/check/outer/{id}", method = RequestMethod.GET)
     public String Security5(Model model
-            ,@PathVariable("id")int id){
+            ,@PathVariable("id")long id){
         Application app = securityService.GetApplication(id);
         if(app == null){
             return "redirect:/security_manager/";
@@ -89,7 +89,7 @@ public class SecurityManagerController {
 
     @RequestMapping(value = "/security_manager/appliance/confirm/{id}", method = RequestMethod.POST)
     public String Security6(Principal principal
-                            ,@PathVariable("id")int id
+                            ,@PathVariable("id")long id
                             ,@RequestParam("confirmation")boolean confirmation
                             ,@RequestParam("comment")String comment
     ){

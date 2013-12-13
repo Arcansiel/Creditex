@@ -9,7 +9,7 @@ import java.security.NoSuchAlgorithmException;
 
 public interface UserService {
     User GetUserByUsername(String username);
-    User GetUserByUserDataValues(String first, String last, String patronymic, String series, long number);
+    User GetUserByUserDataValues(String first, String last, String patronymic, String series, int number);
     String GetHashedPassword(String unHashed);
     Authority GetAuthorityByAuthorityName(String authority);
     void RegisterUserByForm(UserRegistrationForm form);

@@ -10,5 +10,5 @@ public class ClientSearchForm {
     private String last;
     private String patronymic;
     private String series;
-    private long number;
+    private int number;
 }

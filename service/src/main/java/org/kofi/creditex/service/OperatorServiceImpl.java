@@ -30,18 +30,18 @@ public class OperatorServiceImpl implements OperatorService {
     CreditexDateProvider dateProvider;
 
     @Override
-    public Credit getCredit(int credit_id) {
+    public Credit getCredit(long credit_id) {
         return creditRepository.findOne(credit_id);
     }
 
     @Override
-    public Credit CurrentCredit(int client_id) {
+    public Credit CurrentCredit(long client_id) {
         return creditRepository.findOne(
                 QCredit.credit.user.id.eq(client_id).and(QCredit.credit.running.isTrue())
         );
     }
 
-    private Payment CurrentPayment(int credit_id, Date now){
+    private Payment CurrentPayment(long credit_id, Date now){
         return paymentRepository.findOne(
                 QPayment.payment.credit.id.eq(credit_id)
                         .and(QPayment.payment.paymentClosed.isFalse())
@@ -51,12 +51,12 @@ public class OperatorServiceImpl implements OperatorService {
     }
 
     @Override
-    public Payment CurrentPayment(int credit_id) {
+    public Payment CurrentPayment(long credit_id) {
         return CurrentPayment(credit_id,dateProvider.getCurrentSqlDate());
     }
 
     @Override
-    public List<Operation> CreditOperations(int credit_id) {
+    public List<Operation> CreditOperations(long credit_id) {
         List<Operation> list = new ArrayList<Operation>();
         for(Operation op:operationRepository.findAll(
              QOperation.operation.credit.id.eq(credit_id)
@@ -68,7 +68,7 @@ public class OperatorServiceImpl implements OperatorService {
     }
 
     @Override
-    public List<Payment> NearestPayments(int credit_id){
+    public List<Payment> NearestPayments(long credit_id){
         Date now = dateProvider.getCurrentSqlDate();
         List<Payment> list = new ArrayList<Payment>();
         for(Payment p:paymentRepository.findAll(
@@ -82,7 +82,7 @@ public class OperatorServiceImpl implements OperatorService {
         return list;
     }
 
-    private List<Payment> ExpiredPayments(int credit_id){
+    private List<Payment> ExpiredPayments(long credit_id){
         List<Payment> list = new ArrayList<Payment>();
         for(Payment p:paymentRepository.findAll(
                 QPayment.payment.credit.id.eq(credit_id)
@@ -122,9 +122,9 @@ public class OperatorServiceImpl implements OperatorService {
         creditRepository.save(credit);
     }
 
-    private boolean ExecuteWithdrawal(Credit credit, int amount){
+    private boolean ExecuteWithdrawal(Credit credit, long amount){
         //OperationType.Withdrawal (III)
-        int money = credit.getCurrentMoney();
+        long money = credit.getCurrentMoney();
         if(money >= amount){
             money -= amount;
             credit.setCurrentMoney(money);
@@ -136,7 +136,7 @@ public class OperatorServiceImpl implements OperatorService {
     }
 
     @Override
-    public int ExecuteOperation(String operator_name, int credit_id, OperationType type, int amount) {
+    public int ExecuteOperation(String operator_name, long credit_id, OperationType type, long amount) {
         Date now = dateProvider.getCurrentSqlDate();
         User operator = userService.GetUserByUsername(operator_name);
         if(operator == null){
@@ -149,9 +149,9 @@ public class OperatorServiceImpl implements OperatorService {
 
         if(type.equals(OperationType.Deposit)){
             //OperationType.Deposit
-            int payment_sum;
+            long payment_sum;
             if((payment_sum = credit.getMainFine()) > 0){
-                int sum = payment_sum + credit.getPercentFine();
+                long sum = payment_sum + credit.getPercentFine();
                 if(sum == amount){
                     //оплата просроченных платежей (I)
                     ExecutePaymentExpired(credit);
@@ -161,7 +161,7 @@ public class OperatorServiceImpl implements OperatorService {
             }else{
                 Payment current = CurrentPayment(credit_id, now);
                 if(current != null){
-                    int need = current.getRequiredPayment();
+                    long need = current.getRequiredPayment();
                     if(need == amount){
                         //оплата текущего платежа (II)
                         ExecutePaymentCurrent(credit, current);

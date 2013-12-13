@@ -64,7 +64,7 @@ public class CreditCalculatorTest {
 
         System.out.println("----------PaymentPlanTest----------");
 
-        int[] out = new int[3];
+        long[] out = new long[3];
         List<Payment> plan;
 
         product.setType(ProductType.Annuity);

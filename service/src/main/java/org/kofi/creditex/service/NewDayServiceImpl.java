@@ -33,7 +33,7 @@ public class NewDayServiceImpl implements NewDayService {
     public void AddMainFine(){
         List<Payment> expiredPayments = paymentRepository.findByCredit_RunningAndPaymentExpiredAndPaymentExpiredProcessed(true,true,false);
         for (Payment payment: expiredPayments){
-            int newPayment = payment.getCredit().getMainFine()+payment.getRequiredPayment();
+            long newPayment = payment.getCredit().getMainFine()+payment.getRequiredPayment();
             payment.getCredit().setMainFine(newPayment);
             payment.setPaymentExpiredProcessed(true);
         }

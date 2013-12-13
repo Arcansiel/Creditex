@@ -27,12 +27,12 @@ public class CommitteeServiceImpl implements CommitteeService {
     UserService userService;
 
     @Override
-    public Application GetApplication(int application_id) {
+    public Application GetApplication(long application_id) {
         return applicationRepository.findOne(application_id);
     }
 
     @Override
-    public List<Vote> GetApplicationVotes(int application_id) {
+    public List<Vote> GetApplicationVotes(long application_id) {
         List<Vote> list = new ArrayList<Vote>();
         for(Vote v:voteRepository.findAll(
                 QVote.vote.application.id.eq(application_id)
@@ -55,14 +55,14 @@ public class CommitteeServiceImpl implements CommitteeService {
         return list;
     }
 
-    private Vote GetVote(int committee_id, int application_id){
+    private Vote GetVote(long committee_id, long application_id){
         return voteRepository.findOne(
                 QVote.vote.application.id.eq(application_id).and(QVote.vote.manager.id.eq(committee_id))
         );
     }
 
     @Override
-    public int Vote(String committee_name, int application_id, boolean acceptance, String comment) {
+    public int Vote(String committee_name, long application_id, boolean acceptance, String comment) {
         Application a = applicationRepository.findOne(application_id);
         if(a != null){
             if(a.isVotingClosed()){
@@ -110,7 +110,7 @@ public class CommitteeServiceImpl implements CommitteeService {
     }
 
     @Override
-    public List<Credit> GetClientCredits(int client_id) {
+    public List<Credit> GetClientCredits(long client_id) {
         List<Credit> list = new ArrayList<Credit>();
         for(Credit c:creditRepository.findAll(
                 QCredit.credit.user.id.eq(client_id),
@@ -121,7 +121,7 @@ public class CommitteeServiceImpl implements CommitteeService {
         return list;
     }
 
-    public List<Application> GetCommitteeVotingCheckedApplications(int committee_id, boolean voting, boolean checked){
+    public List<Application> GetCommitteeVotingCheckedApplications(long committee_id, boolean voting, boolean checked){
         List<Application> list = new ArrayList<Application>();
         for(Application a:applicationRepository.findAll(
                 QApplication.application.securityAcceptance.isTrue()

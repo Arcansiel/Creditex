@@ -41,7 +41,6 @@ public class User implements org.springframework.security.core.userdetails.UserD
     /**
      * Пароль пользователя
      */
-    @Size(min = 8, max = 46)
     @Column(nullable = false)
     private String password;
     /**

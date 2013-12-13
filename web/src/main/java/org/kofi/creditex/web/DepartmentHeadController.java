@@ -48,7 +48,7 @@ public class DepartmentHeadController {
 
     @RequestMapping(value = "/department_head/appliance/{id}", method = RequestMethod.GET)
     public String DepartmentHeadApplianceView(Model model,
-                                  @PathVariable("id")int id){
+                                  @PathVariable("id")long id){
         Application application = departmentHeadService.GetApplicationById(id);
         if(application != null){
             List<Vote> votes = departmentHeadService.GetApplicationVotes(id);
@@ -63,7 +63,7 @@ public class DepartmentHeadController {
 
     @RequestMapping(value = "/department_head/appliance/{id}/set_head_approved/", method = RequestMethod.POST)
     public String DepartmentHeadA(Model model, Principal principal,
-                                  @PathVariable("id")int id,
+                                  @PathVariable("id")long id,
                                   @RequestParam("acceptance")boolean acceptance,
                                   @RequestParam("comment")String comment){
         int err;
@@ -98,7 +98,7 @@ public class DepartmentHeadController {
 
     @RequestMapping(value = "/department_head/product/{id}/set_active/{active}", method = {RequestMethod.GET, RequestMethod.POST})
     public String DepartmentHead7(
-            @PathVariable("id")int id,
+            @PathVariable("id")long id,
             @PathVariable("active")boolean active){
         if(productService.SetProductIsActive(id, active)){
             return "redirect:/department_head/?product_state_changed=true";
@@ -115,7 +115,7 @@ public class DepartmentHeadController {
 
     @RequestMapping(value = "/department_head/prolongation/{id}", method = RequestMethod.GET)
     public String DepartmentHead6(Model model,
-                                  @PathVariable("id")int id){
+                                  @PathVariable("id")long id){
         ProlongationApplication prolongation = departmentHeadService.GetProlongation(id);
         if(prolongation != null){
             model.addAttribute("prolongation",prolongation);
@@ -127,7 +127,7 @@ public class DepartmentHeadController {
 
     @RequestMapping(value = "/department_head/prolongation/{id}/set_head_approved/", method = RequestMethod.POST)
     public String DepartmentHeadProlongationApprove(Model model,
-                                  @PathVariable("id")int id,
+                                  @PathVariable("id")long id,
                                   @RequestParam("confirmation")boolean confirmation){
         int err;
         if((err = departmentHeadService.SetProlongationApproved(id,confirmation)) != 0){

@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.sql.Date;
 
 public interface OperatorService {
-    Credit getCredit(int credit_id);
-    Credit CurrentCredit(int client_id);
-    Payment CurrentPayment(int credit_id);
-    List<Operation> CreditOperations(int credit_id);
-    List<Payment> NearestPayments(int credit_id);
-    int ExecuteOperation(String operator_name, int credit_id, OperationType type, int amount);
+    Credit getCredit(long credit_id);
+    Credit CurrentCredit(long client_id);
+    Payment CurrentPayment(long credit_id);
+    List<Operation> CreditOperations(long credit_id);
+    List<Payment> NearestPayments(long credit_id);
+    int ExecuteOperation(String operator_name, long credit_id, OperationType type, long amount);
 }

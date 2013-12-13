@@ -75,7 +75,7 @@ public class SecurityServiceImpl implements SecurityService{
     }
 
     @Override
-    public boolean ConfirmApplication(String security_name, int application_id, boolean acceptance, String comment){
+    public boolean ConfirmApplication(String security_name, long application_id, boolean acceptance, String comment){
         User security = userService.GetUserByUsername(security_name);
         if(security == null){ return false; }
         Application application = applicationRepository.findOne(application_id);
@@ -90,12 +90,12 @@ public class SecurityServiceImpl implements SecurityService{
     }
 
     @Override
-    public Application GetApplication(int id){
+    public Application GetApplication(long id){
         return applicationRepository.findOne(id);
     }
 
     @Override
-    public List<Credit> GetCurrentClientCredits(int client_id) {
+    public List<Credit> GetCurrentClientCredits(long client_id) {
         List<Credit> list = new ArrayList<Credit>();
         for(Credit c:creditRepository.findAll(
                 QCredit.credit.user.id.eq(client_id).and(QCredit.credit.running.isTrue()),
@@ -108,7 +108,7 @@ public class SecurityServiceImpl implements SecurityService{
 
     @Override
     //все кредиты клиента с хотябы одним просроченным платежом
-    public List<Credit> GetClientExpiredCredits(int client_id) {
+    public List<Credit> GetClientExpiredCredits(long client_id) {
         List<Credit> list = new ArrayList<Credit>();
         for(Credit c:creditRepository.findAll(
                 QCredit.credit.user.id.eq(client_id)
@@ -121,7 +121,7 @@ public class SecurityServiceImpl implements SecurityService{
     }
 
     @Override
-    public List<Credit> GetClientUnreturnedCredits(int client_id) {
+    public List<Credit> GetClientUnreturnedCredits(long client_id) {
         Date now = dateProvider.getCurrentSqlDate();
         List<Credit> list = new ArrayList<Credit>();
         for(Credit c: creditRepository.findAll(
@@ -136,7 +136,7 @@ public class SecurityServiceImpl implements SecurityService{
     }
 
     @Override
-    public List<PriorRepaymentApplication> GetClientPriorRepaymentApplications(int client_id) {
+    public List<PriorRepaymentApplication> GetClientPriorRepaymentApplications(long client_id) {
         List<PriorRepaymentApplication> list= new ArrayList<PriorRepaymentApplication>();
         for(PriorRepaymentApplication a:priorRepaymentApplicationRepository.findAll(
                 QPriorRepaymentApplication.priorRepaymentApplication.client.id.eq(client_id),
@@ -148,7 +148,7 @@ public class SecurityServiceImpl implements SecurityService{
     }
 
     @Override
-    public List<ProlongationApplication> GetClientProlongationApplications(int client_id) {
+    public List<ProlongationApplication> GetClientProlongationApplications(long client_id) {
         List<ProlongationApplication> list = new ArrayList<ProlongationApplication>();
         for(ProlongationApplication a:prolongationApplicationRepository.findAll(
                 QProlongationApplication.prolongationApplication.client.id.eq(client_id),

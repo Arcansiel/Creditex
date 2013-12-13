@@ -27,10 +27,10 @@ public class OperationManagerController {
     @Autowired
     OperatorService operatorService;
 
-    private Integer getCredit(HttpSession session){
-        return (Integer)session.getAttribute("operation_manager_credit");
+    private Long getCredit(HttpSession session){
+        return (Long)session.getAttribute("operation_manager_credit");
     }
-    private void setCredit(HttpSession session, Integer credit){
+    private void setCredit(HttpSession session, Long credit){
         if(credit == null){
             session.removeAttribute("operation_manager_credit");
         }else{
@@ -62,7 +62,7 @@ public class OperationManagerController {
                 //no current credit
                 return "redirect:/operation_manager/?error=no current credit found";
             }else{
-                Integer credit_id = credit.getId();
+                Long credit_id = credit.getId();
                 setCredit(session,credit_id);
                 return "redirect:/operation_manager/operation/list/";
             }
@@ -72,7 +72,7 @@ public class OperationManagerController {
     @RequestMapping(value = {"/operation_manager/operation/list/"}, method = RequestMethod.GET)
     public String OperationManagerOperationList(HttpSession session, Model model){
         //get credit from session
-        Integer credit_id;
+        Long credit_id;
         if((credit_id = getCredit(session)) != null){
             List<Operation> operations = operatorService.CreditOperations(credit_id);
             List<Payment> payments = operatorService.NearestPayments(credit_id);
@@ -90,7 +90,7 @@ public class OperationManagerController {
     @RequestMapping(value = {"/operation_manager/operation/"}, method = RequestMethod.GET)
     public String OperationManagerOperation(HttpSession session, Model model){
         //get credit from session
-        Integer credit_id;
+        Long credit_id;
         if((credit_id = getCredit(session)) != null){
             Credit credit = operatorService.getCredit(credit_id);
             Payment payment = operatorService.CurrentPayment(credit_id);
@@ -110,10 +110,10 @@ public class OperationManagerController {
     @RequestMapping(value = {"/operation_manager/operation/"}, method = RequestMethod.POST)
     public String OperationManagerOperation(HttpSession session, Principal principal
             ,@RequestParam("type")OperationType type
-            ,@RequestParam("amount")int amount
+            ,@RequestParam("amount")long amount
     ){
         //get credit from session
-        Integer credit_id;
+        Long credit_id;
         if((credit_id = getCredit(session)) != null){
             int err;
             if((err=operatorService.ExecuteOperation(principal.getName(),credit_id,type,amount)) != 0){

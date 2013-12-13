@@ -167,7 +167,7 @@
                  <tr>
                      <td class="start_date">${prior.applicationDate}</td>
                      <td class="name">${prior.credit.id}</td>
-                     <td class="name">${prior.acceptance?c}</td>
+                     <td class="name">[#if (prior.acceptance)??]${prior.acceptance?c}[/#if]</td>
                      <td class="comment">${prior.comment?html}</td>
                  </tr>
                 [/#list]
@@ -188,7 +188,7 @@
                          <td class="start_date">${prolongation.applicationDate}</td>
                          <td class="name">${prolongation.credit.id}</td>
                          <td class="duration">${prolongation.duration}</td>
-                         <td class="name">${prolongation.acceptance}</td>
+                         <td class="name">[#if (prolongation.acceptance)??]${prolongation.acceptance?c}[/#if]</td>
                          <td class="comment">${prolongation.comment?html}</td>
                      </tr>
                  [/#list]

@@ -47,7 +47,7 @@ public class CommitteeManagerController {
 
     @RequestMapping(value = "/committee_manager/appliance/{id}", method = RequestMethod.GET)
     public String Committee3(Model model,
-                             @PathVariable("id")int id){
+                             @PathVariable("id")long id){
         Application application = committeeService.GetApplication(id);
         if(application == null){
             return "redirect:/committee_manager/?error=no_application";
@@ -60,7 +60,7 @@ public class CommitteeManagerController {
         if(application.isVotingClosed()){
             return "committee_manager_vote_finished_view";
         }else{
-            int client_id = application.getClient().getId();
+            long client_id = application.getClient().getId();
             List<Credit> credits = committeeService.GetClientCredits(client_id);
             model.addAttribute("credits",credits);
             List<PriorRepaymentApplication> priors =
@@ -76,7 +76,7 @@ public class CommitteeManagerController {
 
     @RequestMapping(value = "/committee_manager/appliance/vote/{id}", method = RequestMethod.POST)
     public String Committee4(Principal principal,
-                             @PathVariable("id")int id,
+                             @PathVariable("id")long id,
                              @RequestParam("acceptance")boolean acceptance,
                              @RequestParam("comment")String comment){
         int err;

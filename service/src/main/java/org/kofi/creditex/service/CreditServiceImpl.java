@@ -104,7 +104,7 @@ public class CreditServiceImpl implements CreditService{
      * @return Кредит
      */
     @Override
-    public Credit GetCreditById(int id) {
+    public Credit GetCreditById(long id) {
         return creditRepository.findOne(id);
     }
 
@@ -114,7 +114,7 @@ public class CreditServiceImpl implements CreditService{
      * @return Форма кредита
      */
     @Override
-    public CreditForm GetCreditFormById(int id) {
+    public CreditForm GetCreditFormById(long id) {
         return creditTransform.apply(GetCreditById(id));
     }
 }

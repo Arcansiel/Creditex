@@ -46,9 +46,9 @@ public class CreditCalculator {
      * @param out [0] - основной долг (=sum), [1] - проценты, [2] - общий долг (основной долг + проценты)
      * @return План платежей в виде списка {@link Payment}
      */
-    public static List<Payment> PaymentPlan(int percent, ProductType productType, int sum, int duration, java.sql.Date start, int[] out){
+    public static List<Payment> PaymentPlan(float percent, ProductType productType, long sum, long duration, java.sql.Date start, long[] out){
 
-        CreditCalcBase calc = new CreditCalcBase(sum,percent,duration,ToPaymentType(productType),new java.util.Date(start.getTime()));
+        CreditCalcBase calc = new CreditCalcBase(sum,percent,(int)duration,ToPaymentType(productType),new java.util.Date(start.getTime()));
 
         CreditCalcResult result = calc.Calculate();
         PaymentInfo[] plan = result.paymentPlan;
@@ -59,8 +59,8 @@ public class CreditCalculator {
             p = plan[i];
             Payment payment = new Payment();
             payment.setNumber(p.orderNumber);
-            payment.setRequiredPayment((int) p.totalPayment);
-            payment.setPercents((int) p.percentsPayment);
+            payment.setRequiredPayment(p.totalPayment);
+            payment.setPercents(p.percentsPayment);
             payment.setPaymentStart(new java.sql.Date(p.firstDate.getTime()));
             payment.setPaymentEnd(new java.sql.Date(p.lastDate.getTime()));
             payment.setPaymentClosed(false);
@@ -68,9 +68,9 @@ public class CreditCalculator {
         }
 
         if(out != null){
-            out[0] = (int)result.creditDebt;
-            out[1] = (int)result.percentsDebt;
-            out[2] = (int)result.totalDebt;
+            out[0] = result.creditDebt;
+            out[1] = result.percentsDebt;
+            out[2] = result.totalDebt;
         }
 
         return payments;
@@ -85,7 +85,7 @@ public class CreditCalculator {
      * @param out [0] - основной долг (=sum), [1] - проценты, [2] - общий долг (основной долг + проценты)
      * @return План платежей в виде списка {@link Payment}
      */
-    public static List<Payment> PaymentPlan(Product product, int sum, int duration, java.sql.Date start, int[] out){
+    public static List<Payment> PaymentPlan(Product product, long sum, long duration, java.sql.Date start, long[] out){
         return PaymentPlan(product.getPercent(), product.getType(), sum, duration, start, out);
     }
 
@@ -96,7 +96,7 @@ public class CreditCalculator {
      * @param out [0] - основной долг (=sum), [1] - проценты, [2] - общий долг (основной долг + проценты)
      * @return План платежей в виде списка {@link Payment}
      */
-    public static List<Payment> PaymentPlan(Application application, java.sql.Date start, int[] out){
+    public static List<Payment> PaymentPlan(Application application, java.sql.Date start, long[] out){
         return PaymentPlan(application.getProduct(), application.getRequest(), application.getDuration(), start, out);
     }
 
@@ -106,7 +106,7 @@ public class CreditCalculator {
      * @param out [0] - основной долг (=sum), [1] - проценты, [2] - общий долг (основной долг + проценты)
      * @return План платежей в виде списка {@link Payment}
      */
-    public static List<Payment> PaymentPlan(Credit credit, int[] out){
+    public static List<Payment> PaymentPlan(Credit credit, long[] out){
         return PaymentPlan(credit.getProduct(), credit.getOriginalMainDebt(), credit.getDuration(), credit.getCreditStart(), out);
     }
 
@@ -120,7 +120,7 @@ public class CreditCalculator {
      * @return true - продукт подходит, false - продукт не подходит
      */
     private static boolean ValidRequiredProduct(Product product,
-                                          int sum_required, int duration, int max_payment){
+                                                long sum_required, long duration, long max_payment){
         if(sum_required < product.getMinMoney()
                 || sum_required > product.getMaxMoney()){
             return false;
@@ -134,7 +134,7 @@ public class CreditCalculator {
         CreditCalcBase calc = new CreditCalcBase(
                 sum_required,
                 product.getPercent(),
-                duration,
+                (int)duration,
                 ToPaymentType(product.getType()),
                 new java.util.Date());
 
@@ -156,7 +156,7 @@ public class CreditCalculator {
      * @return Список подходящих по параметрам кредитных продуктов
      */
     public static List<Product> RequireProducts(Iterable<Product> products,
-                                                int sum_required, int duration, int max_payment){
+                                                long sum_required, long duration, long max_payment){
         List<Product> required = new ArrayList<Product>();
         for(Product p:products){
             if(ValidRequiredProduct(p, sum_required, duration, max_payment)){
