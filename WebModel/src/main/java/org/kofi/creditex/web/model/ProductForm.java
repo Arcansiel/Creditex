@@ -6,7 +6,7 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public class ProductForm {
-    private int id;
+    private long id;
     private String name;
     private boolean active;
     private String type;

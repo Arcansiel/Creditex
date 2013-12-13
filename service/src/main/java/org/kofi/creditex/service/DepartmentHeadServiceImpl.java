@@ -56,12 +56,12 @@ public class DepartmentHeadServiceImpl implements DepartmentHeadService {
     }
 
     @Override
-    public Application GetApplicationById(int id) {
+    public Application GetApplicationById(long id) {
         return applicationRepository.findOne(id);
     }
 
     @Override
-    public List<Vote> GetApplicationVotes(int application_id) {
+    public List<Vote> GetApplicationVotes(long application_id) {
         List<Vote> list = new ArrayList<Vote>();
         for(Vote v:voteRepository.findAll(
                 QVote.vote.application.id.eq(application_id)
@@ -72,7 +72,7 @@ public class DepartmentHeadServiceImpl implements DepartmentHeadService {
     }
 
     @Override
-    public int SetApplicationHeadApproved(int application_id, String head_username, boolean acceptance, String comment) {
+    public int SetApplicationHeadApproved(long application_id, String head_username, boolean acceptance, String comment) {
         Application application = applicationRepository.findOne(application_id);
         if(application == null){ return -1; }//no app
         User head = userService.GetUserByUsername(head_username);
@@ -98,12 +98,12 @@ public class DepartmentHeadServiceImpl implements DepartmentHeadService {
     }
 
     @Override
-    public ProlongationApplication GetProlongation(int id) {
+    public ProlongationApplication GetProlongation(long id) {
         return prolongationRepository.findOne(id);
     }
 
     @Override
-    public int SetProlongationApproved(int prolongation_id, boolean acceptance) {
+    public int SetProlongationApproved(long prolongation_id, boolean acceptance) {
         ProlongationApplication p = prolongationRepository.findOne(prolongation_id);
         if(p == null){ return -1; }//no app
         p.setAcceptance(acceptance);

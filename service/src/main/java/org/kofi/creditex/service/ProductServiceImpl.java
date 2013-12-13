@@ -69,12 +69,12 @@ public class ProductServiceImpl implements ProductService{
     };
 
     @Override
-    public Product GetProductById(int id) {
+    public Product GetProductById(long id) {
         return productRepository.findOne(id);
     }
 
     @Override
-    public ProductForm GetProductFormById(int id) {
+    public ProductForm GetProductFormById(long id) {
         return productTransform.apply(GetProductById(id));
     }
 
@@ -117,7 +117,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public boolean SetProductIsActive(int id, boolean active) {
+    public boolean SetProductIsActive(long id, boolean active) {
         Product product = productRepository.findOne(id);
         boolean r;
         if(r = (product != null)){
