@@ -41,6 +41,9 @@
                         <td class="comment">[#if application.securityComment??]${application.securityComment?html}[/#if]</td>
                     </tr>
                 </table>
+
+                [#if application.committeeAcceptance?? && application.committeeAcceptance]
+                [#-- show form only for committee accepted applications --]
                 <form method="post" action=[@spring.url '/department_head/appliance/${application.id?string("0")}/set_head_approved/'/]>
                     <table>
                         <td class="comment"><textarea name="comment" ></textarea></td>
@@ -61,7 +64,7 @@
                         </td>
                     </table>
                 </form>
-
+                [/#if]
 
                 [#if votes??]
                     <p class="name">Голоса членов комитета</p>

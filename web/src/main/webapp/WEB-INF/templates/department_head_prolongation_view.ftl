@@ -31,7 +31,9 @@
                     <td class="comment">${prolongation.comment?html}</td>
                 </tr>
             </table>
-            <form method="post" action=[@spring.url '/department_head/prolongation/${application.id?string("0")}/set_head_approved/'/]>
+
+            [#if !prolongation.acceptance??]
+            <form method="post" action=[@spring.url '/department_head/prolongation/${prolongation.id?string("0")}/set_head_approved/'/]>
                 <table>
                     <td class="comment"><textarea name="comment" ></textarea></td>
                     <td class="action">
@@ -51,6 +53,7 @@
                     </td>
                 </table>
             </form>
+            [/#if]
 
             [#if prolongation.credit??]
                 <p class="name">Состояние кредита</p>
