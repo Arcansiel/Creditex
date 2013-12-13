@@ -2,15 +2,15 @@
 [#import "creditex.ftl" as creditex]
 
 [@creditex.root]
-    [@creditex.head "Отклонённые комитетом заявки на кредит"]
+    [@creditex.head "Рассматриваемые комитетом заявки на кредит"]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
         <div class="form-action">
             <p class="name"><a href=[@spring.url "/department_head/"/]>Назад на главную страницу</a></p>
+            <p class="name"><a href=[@spring.url "/department_head/appliances/committee_rejected/"/]>Список заявок, отклонённых комитетом</a></p>
             <p class="name"><a href=[@spring.url "/department_head/appliances/committee_approved/"/]>Список заявок, одобренных комитетом</a></p>
-            <p class="name"><a href=[@spring.url "/department_head/appliances/committee_vote/"/]>Список заявок с открытым голосованием</a></p>
-            <p class="name">Заявки, отклонённые кредитным комитетом</p>
+            <p class="name">Заявки с открытым голосованием</p>
             <table>
                 <tr>
                     <th class="name">ID заявки</th>

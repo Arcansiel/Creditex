@@ -6,16 +6,17 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public class ProductForm {
-    private long id;
+    private int id;
     private String name;
+    private boolean active;
     private String type;
-    private long percent;
+    private float percent;
     private long minCommittee;
     private long minMoney;
     private long maxMoney;
     private long minDuration;
     private long maxDuration;
-    private long finePercent;
+    private float finePercent;
     private String priorRepayment;
-    private long priorRepaymentPercent;
+    private float priorRepaymentPercent;
 }

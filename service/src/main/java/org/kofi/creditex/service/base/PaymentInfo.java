@@ -2,26 +2,75 @@ package org.kofi.creditex.service.base;
 
 import java.util.Date;
 
-//информация одного платежа по кредиту
+/**
+ * информация об одном платеже по кредиту
+ */
 public class PaymentInfo {
-    public int orderNumber;//порядковый номер платежа
 
-    public Date firstDate;//начало платежа (первый день, когда платёж можно осуществить)
-    public Date lastDate;//до этого дня можно осуществить платёж без штрафных санкций
+    /**
+     *порядковый номер платежа (1..)
+     */
+    public int orderNumber;
 
-    public long totalPayment;//общая сумма платежа
-    public long creditPayment;//оплата по кредиту
-    public long percentsPayment;//оплата процентов
+    /**
+     *начало платежа (первый день, когда платёж можно осуществить)
+     */
+    public Date firstDate;
 
-    public long totalDebt;//общий долг (после текущего платежа)
-    public long creditDebt;//долг по кредиту (после текущего платежа)
-    public long percentsDebt;//долг по процентам (после текущего платежа)
+    /**
+     *до этого дня можно осуществить платёж без штрафных санкций
+     */
+    public Date lastDate;
 
-    public long totalPaid;//всего уплачено (вместе с текущим платежом)
-    public long creditPaid;//всего уплачено по кредиту (вместе с текущим платежом)
-    public long percentsPaid;//всего уплачено процентов (вместе с текущим платежом)
+    /**
+     *общая сумма платежа (долг+проценты)
+     */
+    public long totalPayment;
 
+    /**
+     *оплата по основному долгу
+     */
+    public long creditPayment;
 
+    /**
+     *оплата по процентам
+     */
+    public long percentsPayment;
+
+    /**
+     *общий долг (основной долг + проценты)(после текущего платежа)
+     */
+    public long totalDebt;
+
+    /**
+     *основной долг (после текущего платежа)
+     */
+    public long creditDebt;
+
+    /**
+     *задолженность по процентам (после текущего платежа)
+     */
+    public long percentsDebt;
+
+    /**
+     *всего уплачено (долг+проценты)(вместе с текущим платежом)
+     */
+    public long totalPaid;
+
+    /**
+     *всего уплачено по основному долгу (вместе с текущим платежом)
+     */
+    public long creditPaid;
+
+    /**
+     *всего уплачено процентов (вместе с текущим платежом)
+     */
+    public long percentsPaid;
+
+    /**
+     * строка со значениями полей объекта
+     * @return строка со значениями полей объекта
+     */
     public String toString()
     {
          java.text.SimpleDateFormat f = new java.text.SimpleDateFormat("EE dd MMM yyyy");
