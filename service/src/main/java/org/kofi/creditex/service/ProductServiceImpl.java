@@ -9,12 +9,14 @@ import org.kofi.creditex.repository.ProductRepository;
 import org.kofi.creditex.web.model.ProductForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class ProductServiceImpl implements ProductService{
 
     @Autowired
