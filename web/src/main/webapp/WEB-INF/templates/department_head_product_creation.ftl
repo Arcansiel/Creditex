@@ -7,6 +7,7 @@
     [@creditex.body]
     <div class="page">
         <div class="form-action">
+            <p class="name"><a href=[@spring.url "/department_head/"/]>Назад на главную страницу</a></p>
             <p class="name">Данные нового кредитного продукта</p>
             <form action="" method="post" class="form">
                 <p>
