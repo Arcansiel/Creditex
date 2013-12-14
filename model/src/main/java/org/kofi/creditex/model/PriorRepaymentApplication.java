@@ -54,7 +54,8 @@ public class PriorRepaymentApplication {
     /**
      * Принята ли заявка
      */
-    private Boolean acceptance;
+    @Enumerated(EnumType.STRING)
+    private Acceptance acceptance;
     /**
      * Обработана ли заявка
      */

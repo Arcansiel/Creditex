@@ -45,7 +45,8 @@ public class Application {
      * <p>Если в рассмотрении - Null</p>
      * <p>Если отвергнута - false</p>
      */
-    private Boolean acceptance;
+    @Enumerated(EnumType.STRING)
+    private Acceptance acceptance;
     /**
      * Обработана ли заявка
      */
@@ -78,7 +79,8 @@ public class Application {
      * <p>Если в рассмотрении - Null</p>
      * <p>Если отвергнута - false</p>
      */
-    private Boolean securityAcceptance;
+    @Enumerated(EnumType.STRING)
+    private Acceptance securityAcceptance;
     /**
      * Комментарий специалиста службы безопасности
      */
@@ -110,7 +112,8 @@ public class Application {
      * <p>Если в рассмотрении - Null</p>
      * <p>Если отвергнута - false</p>
      */
-    private Boolean committeeAcceptance;
+    @Enumerated(EnumType.STRING)
+    private Acceptance committeeAcceptance;
     /**
      * Список всех голосов {@link Vote}
      */
@@ -122,7 +125,8 @@ public class Application {
      * <p>Если в рассмотрении - Null</p>
      * <p>Если отвергнута - false</p>
      */
-    private Boolean headAcceptance;
+    @Enumerated(EnumType.STRING)
+    private Acceptance headAcceptance;
     /**
      * Комментарий кредитного отдела
      */

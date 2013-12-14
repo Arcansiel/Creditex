@@ -45,7 +45,7 @@ public class ProlongationApplication {
     @JoinColumn
     private User accountManager;
     /**
-     * Ccskrf yf rhtlbn
+     * Ссылка на кредит по заявке
      */
     @ManyToOne
     @JoinColumn
@@ -59,7 +59,8 @@ public class ProlongationApplication {
     /**
      * Принятие заявки
      */
-    private Boolean acceptance;
+    @Enumerated(EnumType.STRING)
+    private Acceptance acceptance;
     /**
      * Обработана ли заявка
      */
