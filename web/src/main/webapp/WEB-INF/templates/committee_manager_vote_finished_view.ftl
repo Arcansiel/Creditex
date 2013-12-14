@@ -38,8 +38,8 @@
                             <td class="amount">${application.request}</td>
                             <td class="duration">${application.duration}</td>
                             <td class="amount">${application.voteAcceptance?string("0")} / ${application.voteRejection?string("0")}</td>
-                            <td class="name">[#if application.committeeAcceptance??]${application.committeeAcceptance?c}[/#if]</td>
-                            <td class="name">[#if application.headAcceptance??]${application.headAcceptance?c}[/#if]</td>
+                            <td class="name">[#if application.committeeAcceptance??]${application.committeeAcceptance?html}[/#if]</td>
+                            <td class="name">[#if application.headAcceptance??]${application.headAcceptance?html}[/#if]</td>
                             <td class="comment">[#if application.headComment??]${application.headComment?html}[/#if]</td>
                         </tr>
                 </table>

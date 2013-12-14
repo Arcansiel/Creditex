@@ -37,7 +37,7 @@ public class DepartmentHeadServiceImpl implements DepartmentHeadService {
                 QApplication.application.request.goe(QApplication.application.product.minCommittee)//нужно одобрение
                         .and(QApplication.application.securityAcceptance.eq(Acceptance.Accepted))//одобрена службой безопасности
                         .and(QApplication.application.committeeAcceptance.eq(eApp))//одобрение комитета
-                        .and(QApplication.application.headAcceptance.isNull()),//не проверена главой отдела
+                        .and(QApplication.application.headAcceptance.eq(Acceptance.InProcess)),//не проверена главой отдела
                 QApplication.application.applicationDate.asc()
         )){
             list.add(a);
@@ -97,7 +97,7 @@ public class DepartmentHeadServiceImpl implements DepartmentHeadService {
     public List<ProlongationApplication> GetUncheckedProlongations() {
         List<ProlongationApplication> list = new ArrayList<ProlongationApplication>();
         for(ProlongationApplication p:prolongationRepository.findAll(
-              QProlongationApplication.prolongationApplication.acceptance.isNull(),
+              QProlongationApplication.prolongationApplication.acceptance.eq(Acceptance.InProcess),
                 QProlongationApplication.prolongationApplication.applicationDate.asc()
         )){
              list.add(p);

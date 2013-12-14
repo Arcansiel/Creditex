@@ -37,7 +37,7 @@ public class SecurityServiceImpl implements SecurityService{
     public List<Application> GetSecurityApplications() {
         List<Application> list = new ArrayList<Application>();
         for(Application app:applicationRepository.findAll(
-                QApplication.application.securityAcceptance.isNull(),
+                QApplication.application.securityAcceptance.eq(Acceptance.InProcess),
                 QApplication.application.applicationDate.asc()
         )
                 )

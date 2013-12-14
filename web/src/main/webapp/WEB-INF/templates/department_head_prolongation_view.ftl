@@ -32,7 +32,7 @@
                 </tr>
             </table>
 
-            [#if !prolongation.acceptance??]
+            [#if prolongation.acceptance?? && prolongation.acceptance.name() == "InProcess"]
             <form method="post" action=[@spring.url '/department_head/prolongation/${prolongation.id?string("0")}/set_head_approved/'/]>
                 <table>
                     <td class="comment"><textarea name="comment" ></textarea></td>

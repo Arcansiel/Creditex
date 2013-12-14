@@ -37,8 +37,8 @@
                         <td class="amount">${app.request}</td>
                         <td class="duration">${app.duration}</td>
                         <td class="amount">${app.voteAcceptance?string("0")} / ${app.voteRejection?string("0")}</td>
-                        <td class="name">[#if app.committeeAcceptance??]${app.committeeAcceptance?c}[/#if]</td>
-                        <td class="name">[#if app.headAcceptance??]${app.headAcceptance?c}[/#if]</td>
+                        <td class="name">[#if app.committeeAcceptance??]${app.committeeAcceptance?html}[/#if]</td>
+                        <td class="name">[#if app.headAcceptance??]${app.headAcceptance?html}[/#if]</td>
                         <td class="comment">[#if app.headComment??]${app.headComment?html}[/#if]</td>
                         <td><a href=[@spring.url '/committee_manager/appliance/${app.id?string("0")}'/]>Открыть заявку</a></td>
                     </tr>
