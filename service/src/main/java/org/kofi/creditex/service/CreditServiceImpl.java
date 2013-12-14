@@ -32,4 +32,9 @@ public class CreditServiceImpl implements CreditService{
     public Credit GetCreditById(long id) {
         return creditRepository.findOne(id);
     }
+
+    @Override
+    public List<Credit> findByUsername(String username) {
+        return creditRepository.findByUserUsername(username);
+    }
 }

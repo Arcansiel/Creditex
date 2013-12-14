@@ -1,5 +1,7 @@
 [#ftl]
+[#-- @ftlvariable name="products" type="java.util.List<org.kofi.creditex.model.Product>" --]
 [#import "creditex.ftl" as creditex]
+[#import "spring.ftl" as spring]
 
 [@creditex.root]
     [@creditex.head "Main page"]
@@ -9,27 +11,28 @@
     <div class="page">
         <div class="form-action">
             <p class="name">Введите данные клиента</p>
-            <form action="" method="post" class="form">
+            <form action="[@spring.url '/account_manager/client/credit/add/process/'/]" method="post" class="form">
                 <p>
-                    <label for="name_field">Имя</label>
-                    <input type="text" id="name_field" name="first">
+                    <label for="requestedMoney">Деньги</label>
+                    <input type="text" id="requestedMoney" name="request">
                 </p>
                 <p>
-                    <label for="last_field">Фамилия</label>
-                    <input type="text" id="last_field" name="last">
+                    <label for="duration">Длительность</label>
+                    <input type="text" id="duration" name="duration">
                 </p>
                 <p>
-                    <label for="patronymic_field">Отчество</label>
-                    <input type="text" id="patronymic_field" name="patronymic">
+                    <label for="product">Продукт</label>
+                    <select id="product" name="productId">
+                        [#if products??]
+                            [#list products as product]
+                            <option value="${product.id}">${product.name}</option>
+                            [/#list]
+                        [/#if]
+                    </select>
                 </p>
-                <p>
-                    <label for="series_field">Серия паспорта</label>
-                    <input type="text" id="series_field" name="series">
-                </p>
-                <p>
-                    <label for="number_filed">Номер паспорта</label>
-                    <input type="text" id="number_filed" name="number">
-                </p>
+                [#if isError??]
+                <p>There was error in data</p>
+                [/#if]
                 <p class="a-center"><button type="submit" class="button">Обработать</button></p>
             </form>
         </div>

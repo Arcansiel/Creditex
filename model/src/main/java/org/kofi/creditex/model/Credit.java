@@ -86,6 +86,9 @@ public class Credit {
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", nullable = false)
     private Product product;
+    @OneToOne
+    @JoinColumn
+    private Application creditApplication;
     /**
      * Ссылка на клента банка {@link User}
      */

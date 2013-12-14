@@ -16,20 +16,26 @@
                 <li>
                     <a href="#">Кредиты и кредитные продукты</a>
                     <ul>
-                        <li><a href="[@spring.url '/account_manager/client/credit/list/'/]">Кредитные продукты</a></li>
-                        <li><a href="[@spring.url '/account_manager/product/list/'/]">Кредиты клиента</a></li>
+                        <li><a href="[@spring.url '/account_manager/product/list/'/]">Кредитные продукты</a></li>
+                        <li><a href="[@spring.url '/account_manager/client/credit/list/'/]">Кредиты клиента</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Создать заявку</a>
+                <li><a href="#">Заявки</a>
                     <ul>
-                        <li><a href="[@spring.url '/account_manager/client/credit/add/'/]">На предоставление кредита</a></li>
-                        <li><a href="[@spring.url '/account_manager/client/prior/add/'/]">На предварительное погашение кредита</a></li>
-                        <li><a href="[@spring.url '/account_manager/client/prolongation/add/'/]">На пролонгацию кредита кредита</a></li>
+                        <li><a href="[@spring.url '/account_manager/client/credit/application/add/'/]">Создать заявку на предоставление кредита</a></li>
+                        <li><a href="[@spring.url '/account_manager/client/credit/application/view/'/]">Проверить статус заявки на предоставление кредита</a> </li>
+                        <li><a href="[@spring.url ''/]">Оформить кредит по заявке</a> </li>
+                        <li><a href="[@spring.url '/account_manager/client/prior/add/'/]">Создать заявку на предварительное погашение кредита</a></li>
+                        <li><a href="[@spring.url '/account_manager/client/prior/view/'/]">Проверить заявку на предварительное погашение кредита</a> </li>
+                        <li><a href="[@spring.url ''/]">Оформить предварительное погашение кредита</a> </li>
+                        <li><a href="[@spring.url '/account_manager/client/prolongation/add/'/]">Создать заявку на пролонгацию кредита кредита</a></li>
+                        <li><a href="[@spring.url '/account_manager/client/prolongation/view/'/]">Проверить заявку на пролонгацию кредита</a> </li>
+                        <li><a href="[@spring.url ''/]">Оформить пролонгацию кредита</a> </li>
                     </ul>
                 </li>
                 <li><a href="#">Просмотр заявок</a>
                     <ul>
-                        <li><a href="[@spring.url '/account_manager/client/credit/list/'/]">На предоставление кредита</a></li>
+                        <li><a href="[@spring.url '/account_manager/client/credit/application/list/'/]">На предоставление кредита</a></li>
                         <li><a href="[@spring.url '/account_manager/client/prior/list/'/]">На предварительное погашение кредита</a></li>
                         <li><a href="[@spring.url '/account_manager/client/prolongation/list/'/]">На пролонгацию кредита кредита</a></li>
                     </ul>

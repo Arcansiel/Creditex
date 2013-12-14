@@ -32,22 +32,22 @@
                             <td>${application.duration}</td>
                             [#assign whoRejected=""/]
                             [#assign whyRejected=""/]
-                            [#if application.securityAcceptance= Acceptance.Rejected]
+                            [#if application.securityAcceptance= "Rejected"]
                                 [#assign whoRejected="Специалист службы безопасности"/]
                                 [#assign whyRejected=application.securityComment/]
                             [/#if]
-                            [#if application.committeeAcceptance=Acceptance.Rejected]
+                            [#if application.committeeAcceptance="Rejected"]
                                 [#assign whoRejected="Кредитный комитет"/]
                                 [#assign whyRejected=application.voteAcceptance+"/"+application.voteRejection/]
                             [/#if]
-                            [#if application.headAcceptance = Acceptance.Rejected]
+                            [#if application.headAcceptance = "Rejected"]
                                 [#assign whoRejected="Глава кредитного отдела"/]
                                 [#assign whyRejected=application.headComment/]
                             [/#if]
                             <td>${application.acceptance}</td>
                             <td>${whoRejected}</td>
                             <td>${whyRejected}</td>
-                            <td><a href="[@spring.url '/account_manager/client/credit/view/'+'${application.id}'+'/'/]">Просомотреть</a> </td>
+                            <td>[#if application.credit??]<a href="[@spring.url '/account_manager/client/credit/view/'+'${application.credit.id}'+'/'/]">Просомотреть</a>[/#if] </td>
                         </tr>
                     [/#list]
                 [/#if]

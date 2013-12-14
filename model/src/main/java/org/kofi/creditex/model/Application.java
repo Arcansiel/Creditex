@@ -138,4 +138,6 @@ public class Application {
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private User head;
+    @OneToOne(mappedBy = "creditApplication", fetch = FetchType.EAGER)
+    private Credit credit;
 }

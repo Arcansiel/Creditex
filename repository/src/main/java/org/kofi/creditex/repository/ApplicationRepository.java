@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface ApplicationRepository extends JpaRepository<Application, Long>, QueryDslPredicateExecutor<Application> {
     List<Application> findByClient_Username(String username);
+    Application findByClientUsernameAndProcessed(String username, boolean processed);
 }

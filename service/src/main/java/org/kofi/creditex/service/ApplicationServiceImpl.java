@@ -4,6 +4,7 @@ import org.kofi.creditex.model.*;
 import org.kofi.creditex.repository.*;
 import org.kofi.creditex.web.model.CreditApplicationForm;
 
+import org.kofi.creditex.web.model.CreditApplicationRegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,17 +44,17 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public void RegisterApplicationByFormAndUsernameAndAccountManagerName(CreditApplicationForm form, String username, String accountManagerUsername) {
+    public void RegisterApplicationByFormAndUsernameAndAccountManagerName(CreditApplicationRegistrationForm form, String username, String accountManagerUsername) {
         User client = userRepository.findByUsername(username);
         User accountManager = userRepository.findByUsername(accountManagerUsername);
-        Product product = productRepository.findOne(form.getId());
+        Product product = productRepository.findOne(form.getProductId());
         Application application = new Application()
                 .setApplicationDate(creditexDateProvider.getCurrentSqlDate())
                 .setAccountManager(accountManager)
                 .setClient(client)
                 .setDuration(form.getDuration())
                 .setProduct(product)
-                .setRequest(form.getRequestedMoney())
+                .setRequest(form.getRequest())
                 .setVotingClosed(false)
                 .setVoteAcceptance(0)
                 .setVoteRejection(0);
@@ -87,5 +88,20 @@ public class ApplicationServiceImpl implements ApplicationService {
                 .setDuration(form.getDuration())
                 .setComment(form.getComment());
         prolongationApplicationRepository.save(application);
+    }
+
+    @Override
+    public Application GetUnprocessedApplicationByUsername(String username) {
+        return applicationRepository.findByClientUsernameAndProcessed(username, false);
+    }
+
+    @Override
+    public PriorRepaymentApplication GetUnprocessedPriorRepaymentApplicationByUsername(String username) {
+        return priorRepaymentApplicationRepository.findByClientUsernameAndProcessed(username,false);
+    }
+
+    @Override
+    public ProlongationApplication GetUnprocessedProlongationApplicationByUsername(String username) {
+        return prolongationApplicationRepository.findByClientUsernameAndProcessed(username,false);
     }
 }

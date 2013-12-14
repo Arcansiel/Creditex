@@ -26,7 +26,7 @@
                     <th>Процент штрафа за предварительный возврат</th>
                     <th>Просмотреть</th>
                 </tr>
-                [#if applications??]
+                [#if products??]
                     [#list products as product]
                         <tr>
                             <td>${product.name}</td>

@@ -15,55 +15,60 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
-        <div class="form-action">
-            <p class="name">Данные о кредитном продукте</p>
-            <form action="" method="post" class="form">
-                <input type="hidden" value="${product.id}" name="id">
-                <p>
-                    <label for="product.name">Название кредитного продукта</label>
-                    <input type="text" id="product.name" name="product.name" value="${product.name}">
-                </p>
-                <p>
-                    <label for="product.type">Тип кредитного продукта</label>
-                    <input type="text" id="product.type" name="product.type" value="${product.type}">
-                </p>
-                <p>
-                    <label for="product.percent">Годовой процент кредитной ставки</label>
-                    <input type="text" id="product.percent" name="product.percent" value="${product.percent}">
-                </p>
-                <p>
-                    <label for="product.minCommittee">Минимальная сумма для рассмотрения кредитным комитетом</label>
-                    <input type="text" id="product.minCommittee" name="product.minCommittee" value="${product.minCommittee}">
-                </p>
-                <p>
-                    <label for="product.minMoney">минимальная сумма кредита</label>
-                    <input type="text" id="product.minMoney" name="product.minMoney" value="${product.minMoney}">
-                </p>
-                <p>
-                    <label for="product.maxMoney">Максимальная сумма кредита</label>
-                    <input type="text" id="product.maxMoney" name="product.maxMoney" value="${product.maxMoney}">
-                </p>
-                <p>
-                    <label for="product.minDuration">Минимальная длительность кредита</label>
-                    <input type="text" id="product.minDuration" name="product.minDuration" value="${product.minDuration}">
-                </p>
-                <p>
-                    <label for="product.maxDuration">Максимальная длительность кредита</label>
-                    <input type="text" id="product.maxDuration" name="product.maxDuration" value="${product.maxDuration}">
-                </p>
-                <p>
-                    <label for="product.finePercent">Процент за день просрочки платежа</label>
-                    <input type="text" id="product.finePercent" name="product.finePercent" value="${product.debtPercent}">
-                </p>
-                <p>
-                    <label for="product.priorRepayment">Возможность предварительного возврата кредита</label>
-                    <input type="text" id="product.priorRepayment" name="product.priorRepayment" value="${product.prior}">
-                </p>
-                <p>
-                    <label for="product.priorRepaymentPercent">Штраф за предварительный возврат кредита</label>
-                    <input type="text" id="product.priorRepaymentPercent" name="product.priorRepaymentPercent" value="${product.priorRepaymentPercent}">
-                </p>
-            </form>
+        <div class="data-table">
+            <p class="name">Данные по кредиту</p>
+            <table>
+                [#if product??]
+                    <tr>
+                        <th>Параметр</th>
+                        <th>Данные кредита</th>
+                    </tr>
+                    <tr>
+                        <td>Название кредитного продукта</td>
+                        <td>${product.name}</td>
+                    </tr>
+                    <tr>
+                        <td>Тип кредитного продукта</td>
+                        <td>${product.type}</td>
+                    </tr>
+                    <tr>
+                        <td>Годовой процент кредитной ставки</td>
+                        <td>${product.percent}</td>
+                    </tr>
+                    <tr>
+                        <td>Минимальная сумма для рассмотрения кредитным комитетом</td>
+                        <td>${product.minCommittee}</td>
+                    </tr>
+                    <tr>
+                        <td>Минимальная сумма кредита</td>
+                        <td>${product.minMoney}</td>
+                    </tr>
+                    <tr>
+                        <td>Максимальная сумма кредита</td>
+                        <td>${product.maxMoney}</td>
+                    </tr>
+                    <tr>
+                        <td>Минимальная длительность кредита</td>
+                        <td>${product.minDuration}</td>
+                    </tr>
+                    <tr>
+                        <td>Максимальная длительность кредита</td>
+                        <td>${product.maxDuration}</td>
+                    </tr>
+                    <tr>
+                        <td>Процент за день просрочки платежа</td>
+                        <td>${product.debtPercent}</td>
+                    </tr>
+                    <tr>
+                        <td>Возможность предварительного возврата кредита</td>
+                        <td>${product.prior}</td>
+                    </tr>
+                    <tr>
+                        <td>Штраф за предварительный возврат кредита</td>
+                        <td>${product.priorRepaymentPercent}</td>
+                    </tr>
+                [/#if]
+            </table>
         </div>
         <div class="content">
             <ul class="nav-menu">

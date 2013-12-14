@@ -9,4 +9,5 @@ public interface ProductService {
     List<Product> GetProductsByActive(boolean active);
     int CreateProductByForm(Product productForm);
     boolean SetProductIsActive(long id, boolean active);
+
 }
