@@ -55,17 +55,27 @@ public class OperationManagerController {
         User client = userService.GetUserByUserDataValues(first,last,patronymic,series,number);
         Credit credit;
         if(client == null){
-            return "redirect:/operation_manager/?error=no client found";
+            return "redirect:/operation_manager/?error=no_client_found";
         }else{
             credit = operatorService.CurrentCredit(client.getId());
             if(credit == null){
                 //no current credit
-                return "redirect:/operation_manager/?error=no current credit found";
+                return "redirect:/operation_manager/?error=no_current_credit_found";
             }else{
                 Long credit_id = credit.getId();
                 setCredit(session,credit_id);
                 return "redirect:/operation_manager/operation/list/";
             }
+        }
+    }
+
+    private void AddPriorRepaymentToModel(long credit_id, Model model){
+        long[] prior_values = new long[2];
+        PriorRepaymentApplication prior = operatorService.CurrentPriorRepayment(credit_id, prior_values);
+        if(prior != null && prior_values[0] >= 0){
+            model.addAttribute("prior",prior);
+            model.addAttribute("priorAmount",prior_values[0]);
+            model.addAttribute("priorFine",prior_values[1]);
         }
     }
 
@@ -79,10 +89,11 @@ public class OperationManagerController {
             //push to model
             model.addAttribute("operations",operations);
             model.addAttribute("payments",payments);
+            AddPriorRepaymentToModel(credit_id, model);
             return "operation_manager_operation_list";
         }else{
             //push error : credit not selected
-            return "redirect:/operation_manager/?error=credit not selected";
+            return "redirect:/operation_manager/?error=credit_not_selected";
         }
 
     }
@@ -99,10 +110,11 @@ public class OperationManagerController {
             }
             model.addAttribute("credit",credit);
             model.addAttribute("expired",credit.getMainFine() > 0);
+            AddPriorRepaymentToModel(credit_id, model);
             return "operation_manager_operation";
         }else{
             //push error : credit not selected
-            return "redirect:/operation_manager/?error=credit not selected";
+            return "redirect:/operation_manager/?error=credit_not_selected";
         }
 
     }
@@ -117,10 +129,14 @@ public class OperationManagerController {
         if((credit_id = getCredit(session)) != null){
             int err;
             if((err=operatorService.ExecuteOperation(principal.getName(),credit_id,type,amount)) != 0){
-                return "redirect:/operation_manager/operation/?error=operation not executed "+err;
+                if(err < 0){
+                    return "redirect:/operation_manager/operation/?error=operation_not_executed_code_"+err;
+                }else{
+                    return "redirect:/operation_manager/operation/?no_operations_available=true";
+                }
             }
         }else{
-            return "redirect:/operation_manager/?error=credit not selected";
+            return "redirect:/operation_manager/?error=credit_not_selected";
         }
         return "redirect:/operation_manager/operation/?operation_executed=true";
     }

@@ -29,6 +29,9 @@ public class OperatorServiceImpl implements OperatorService {
     @Autowired
     CreditexDateProvider dateProvider;
 
+    @Autowired
+    PriorRepaymentApplicationRepository priorRepository;
+
     @Override
     public Credit getCredit(long credit_id) {
         return creditRepository.findOne(credit_id);
@@ -53,6 +56,32 @@ public class OperatorServiceImpl implements OperatorService {
     @Override
     public Payment CurrentPayment(long credit_id) {
         return CurrentPayment(credit_id,dateProvider.getCurrentSqlDate());
+    }
+
+    private PriorRepaymentApplication CurrentPrior(long credit_id){
+        return priorRepository.findOne(
+                QPriorRepaymentApplication.priorRepaymentApplication.credit.id.eq(credit_id)
+                .and(QPriorRepaymentApplication.priorRepaymentApplication.processed.isFalse())
+                .and(QPriorRepaymentApplication.priorRepaymentApplication.acceptance.isTrue())
+        );
+    }
+
+    //amount[0] - debt + fine, amount[1] - fine
+    @Override
+    public PriorRepaymentApplication CurrentPriorRepayment(long credit_id, long[] amount) {
+        PriorRepaymentApplication prior = CurrentPrior(credit_id);
+        if(prior != null && amount != null && amount.length > 0){
+            long[] x = PriorRepaymentAmount(prior.getCredit());
+            if(x != null){
+                amount[0] = x[0];//debt + fine
+                if(amount.length > 1){
+                    amount[1] = x[1];//fine
+                }
+            }else{
+                amount[0] = -1;//prior repayment not available
+            }
+        }
+        return prior;
     }
 
     @Override
@@ -95,35 +124,99 @@ public class OperatorServiceImpl implements OperatorService {
         return list;
     }
 
-    private void ExecutePaymentExpired(Credit credit){
+    private boolean ExecutePaymentExpired(Credit credit, long amount){
         //оплата просроченных платежей (I)
-        List<Payment> expired = ExpiredPayments(credit.getId());
-        int mainDebt = 0;
-        int percents = 0;
-        for(Payment p:expired){
-            percents += p.getPercents();
-            mainDebt += (p.getRequiredPayment() - p.getPercents());
-            p.setPaymentClosed(true);
+        long sum = credit.getMainFine() + credit.getPercentFine();
+        if(sum == amount){
+            List<Payment> expired = ExpiredPayments(credit.getId());
+            long mainDebt = 0;
+            long percents = 0;
+            for(Payment p:expired){
+                percents += p.getPercents();
+                mainDebt += (p.getRequiredPayment() - p.getPercents());
+                p.setPaymentClosed(true);
+            }
+            paymentRepository.save(expired);
+            credit.setMainFine(0);
+            credit.setPercentFine(0);
+            credit.setCurrentMainDebt(credit.getCurrentMainDebt() - mainDebt);
+            credit.setCurrentPercentDebt(credit.getCurrentPercentDebt() - percents);
+            if(credit.getCurrentMainDebt() <= 0){
+                credit.setRunning(false);//close credit
+            }
+            creditRepository.save(credit);
+            return true;
+        }else{
+            return false;
         }
-        paymentRepository.save(expired);
-        credit.setMainFine(0);
-        credit.setPercentFine(0);
-        credit.setCurrentMainDebt(credit.getCurrentMainDebt() - mainDebt);
-        credit.setCurrentPercentDebt(credit.getCurrentPercentDebt() - percents);
-        creditRepository.save(credit);
     }
 
-    private void ExecutePaymentCurrent(Credit credit, Payment current){
-        //оплата текущего платежа (II)
-        current.setPaymentClosed(true);
-        paymentRepository.save(current);
-        credit.setCurrentMainDebt(credit.getCurrentMainDebt() - (current.getRequiredPayment() - current.getPercents()));
-        credit.setCurrentPercentDebt(credit.getCurrentPercentDebt() - current.getPercents());
-        creditRepository.save(credit);
+    //[0] = debt + fine, [1] - fine
+    private long[] PriorRepaymentAmount(Credit credit){
+        long amount, fine;
+        switch(credit.getProduct().getPrior()){
+            case AvailableFinePercentSum:
+                fine = Math.round(
+                        (double)credit.getCurrentPercentDebt()
+                                * (credit.getProduct().getPriorRepaymentPercent() / 100)
+                ) ;
+                amount = credit.getCurrentMainDebt() + fine;
+                break;
+            case AvailableFineInterest:
+                fine = Math.round(
+                        (double)credit.getCurrentMainDebt()
+                                * ((credit.getProduct().getPercent() + credit.getProduct().getPriorRepaymentPercent()) / 1200)
+                );
+                amount = credit.getCurrentMainDebt() + fine;
+                break;
+            case Available:
+                fine = 0;
+                amount = credit.getCurrentMainDebt();
+                break;
+            default:
+                return null;
+        }
+        return new long[]{ amount, fine };
+    }
+
+    private boolean ExecutePriorRepayment(Credit credit, PriorRepaymentApplication prior, long amount){
+        //досрочное погашение кредита (II)
+        long[] x = PriorRepaymentAmount(credit);
+        if(x == null){
+            return false;//prior repayment not available
+        }
+        if(x[0] == amount){
+            prior.setProcessed(true);
+            credit.setCurrentMainDebt(0);
+            credit.setRunning(false);//close credit
+            credit.setCurrentPercentDebt(credit.getCurrentPercentDebt() - x[1]);
+            priorRepository.save(prior);
+            creditRepository.save(credit);
+            return true;
+        }else{
+            return false;//sum != amount
+        }
+    }
+
+    private boolean ExecutePaymentCurrent(Credit credit, Payment current, long amount){
+        //оплата текущего платежа (III)
+        if(current.getRequiredPayment() == amount){
+            current.setPaymentClosed(true);
+            credit.setCurrentMainDebt(credit.getCurrentMainDebt() - (current.getRequiredPayment() - current.getPercents()));
+            credit.setCurrentPercentDebt(credit.getCurrentPercentDebt() - current.getPercents());
+            if(credit.getCurrentMainDebt() <= 0){
+                credit.setRunning(false);//close credit
+            }
+            paymentRepository.save(current);
+            creditRepository.save(credit);
+            return true;
+        }else{
+            return false;
+        }
     }
 
     private boolean ExecuteWithdrawal(Credit credit, long amount){
-        //OperationType.Withdrawal (III)
+        //OperationType.Withdrawal (IV)
         long money = credit.getCurrentMoney();
         if(money >= amount){
             money -= amount;
@@ -140,40 +233,41 @@ public class OperatorServiceImpl implements OperatorService {
         Date now = dateProvider.getCurrentSqlDate();
         User operator = userService.GetUserByUsername(operator_name);
         if(operator == null){
-            return -1;
+            return -1;//no operator
         }
         Credit credit = creditRepository.findOne(credit_id);
         if(credit == null){
-            return -2;
+            return -2;//no credit
         }
 
         if(type.equals(OperationType.Deposit)){
             //OperationType.Deposit
-            long payment_sum;
-            if((payment_sum = credit.getMainFine()) > 0){
-                long sum = payment_sum + credit.getPercentFine();
-                if(sum == amount){
-                    //оплата просроченных платежей (I)
-                    ExecutePaymentExpired(credit);
-                }else{
+            if(credit.getMainFine() > 0){
+                //оплата просроченных платежей (I) в первую очередь
+                if(!ExecutePaymentExpired(credit, amount)){
                     return -3;//sum != amount
                 }
             }else{
-                Payment current = CurrentPayment(credit_id, now);
-                if(current != null){
-                    long need = current.getRequiredPayment();
-                    if(need == amount){
-                        //оплата текущего платежа (II)
-                        ExecutePaymentCurrent(credit, current);
-                    }else{
-                        return -4;//need != amount
+                PriorRepaymentApplication prior = CurrentPrior(credit_id);
+                if(prior != null){
+                    //досрочное погашение кредита (II)
+                    if(!ExecutePriorRepayment(credit, prior, amount)){
+                        return -4;//sum != amount
                     }
                 }else{
-                    return 1;//no payments available now
+                    Payment current = CurrentPayment(credit_id, now);
+                    if(current != null){
+                        //оплата текущего платежа (III)
+                        if(!ExecutePaymentCurrent(credit, current, amount)){
+                            return -5;//sum != amount
+                        }
+                    }else{
+                        return 1;//no payments available now
+                    }
                 }
             }
         }else{
-            //OperationType.Withdrawal (III)
+            //OperationType.Withdrawal (IV)
             if(!ExecuteWithdrawal(credit, amount)){
                 return -5;//money < amount
             }
@@ -187,6 +281,6 @@ public class OperatorServiceImpl implements OperatorService {
         operation.setOperationDate(now);
         operationRepository.save(operation);
 
-        return 0;
+        return 0;//operation executed
     }
 }

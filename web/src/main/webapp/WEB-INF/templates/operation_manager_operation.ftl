@@ -14,8 +14,27 @@
             [/#if]
             <p class="name"><a href=[@spring.url "/operation_manager/"/]>Другой клиент</a></p>
             <p class="name"><a href=[@spring.url "/operation_manager/operation/list/"/]>Список операций</a></p>
-
-            [#if payment??]
+            [#if prior??]
+                <p class="name">Досрочное погашение кредита</p>
+                <table>
+                    <tr>
+                        <th class="name">ID заявки</th>
+                        <th class="start_date">Дата подачи заявки</th>
+                        <th class="name">Тип досрочного погашения</th>
+                        <th class="amount">Процент штрафа</th>
+                        <th class="amount">Сумма к оплате</th>
+                        <th class="amount">Штраф</th>
+                    </tr>
+                    <tr>
+                        <td class="name">${prior.id?string("0")}</td>
+                        <td class="start_date">${prior.applicationDate?html}</td>
+                        <td class="name">${prior.credit.product.prior?html}</td>
+                        <td class="amount">${prior.credit.product.priorRepaymentPercent}</td>
+                        <td class="amount">[#if priorAmount??]${priorAmount}[/#if]</td>
+                        <td class="amount">[#if priorFine??]${priorFine}[/#if]</td>
+                    </tr>
+                </table>
+            [#elseif payment??]
                 <p class="name">Текущий платёж</p>
                 <table>
                     <tr>
@@ -32,7 +51,7 @@
                         <td class="amount">${payment.requiredPayment?html}</td>
                         <td class="amount">${(payment.requiredPayment - payment.percents)?html}</td>
                         <td class="amount">${payment.percents?html}</td>
-                        <td class="name">${payment.expired?c}</td>
+                        <td class="name">${payment.paymentExpired?c}</td>
                     </tr>
                 </table>
             [#else]
@@ -49,6 +68,7 @@
                 <tr>
                     <th class="name">ID кредита</th>
                     <th class="name">Кредитный продукт</th>
+                    <th class="amount">Сумма кредита</th>
                     <th class="amount">Деньги на счёте</th>
                     <th class="amount">Основной долг</th>
                     <th class="amount">Процентный долг</th>
@@ -64,8 +84,9 @@
                 <tr>
                     <td class="name">${credit.id?html}</td>
                     <td class="name">${credit.product.name?html}</td>
-                    <td class="amount">${credit.currentMoney}</td>
                     <td class="amount">${credit.originalMainDebt}</td>
+                    <td class="amount">${credit.currentMoney}</td>
+                    <td class="amount">${credit.currentMainDebt}</td>
                     <td class="amount">${credit.currentPercentDebt}</td>
 
                     [#if expired?? && expired]
