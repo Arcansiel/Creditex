@@ -33,13 +33,39 @@
                             <td class="amount">${payment.requiredPayment?html}</td>
                             <td class="amount">${(payment.requiredPayment - payment.percents)?html}</td>
                             <td class="amount">${payment.percents?html}</td>
-                            <td class="name">${payment.expired?c}</td>
+                            <td class="name">${payment.paymentExpired?c}</td>
                         </tr>
                     [/#list]
                 [#else]
                     <tr><td colspan="6">Данные отсутствуют</td></tr>
                 [/#if]
             </table>
+
+            [#if prior??]
+                <p class="name">Досрочное погашение кредита</p>
+                <table>
+                    <tr>
+                        <th class="name">ID заявки</th>
+                        <th class="start_date">Дата подачи заявки</th>
+                        <th class="name">Тип досрочного погашения</th>
+                        <th class="amount">Процент штрафа</th>
+                        <th class="amount">Штраф</th>
+                        <th class="amount">Сумма к оплате</th>
+                        <th class="amount">Основной долг</th>
+                        <th class="amount">Текущий долг по процентам</th>
+                    </tr>
+                    <tr>
+                        <td class="name">${prior.id?string("0")}</td>
+                        <td class="start_date">${prior.applicationDate?html}</td>
+                        <td class="name">${prior.credit.product.prior?html}</td>
+                        <td class="amount">${prior.credit.product.priorRepaymentPercent}</td>
+                        <td class="amount">[#if priorFine??]${priorFine}[/#if]</td>
+                        <td class="amount">[#if priorAmount??]${priorAmount}[/#if]</td>
+                        <td class="amount">${prior.credit.currentMainDebt}</td>
+                        <td class="amount">${prior.credit.currentPercentDebt}</td>
+                    </tr>
+                </table>
+            [/#if]
 
             <p class="name">Все операции по текущему кредиту</p>
             <table>
