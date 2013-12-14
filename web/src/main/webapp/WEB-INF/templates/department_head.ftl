@@ -15,6 +15,7 @@
                     <ul>
                         <li><a href="[@spring.url '/department_head/appliances/committee_approved/'/]">Одобренные кредитным комитетом</a></li>
                         <li><a href="[@spring.url '/department_head/appliances/committee_rejected/'/]">Отклонённые кредитным комитетом</a></li>
+                        <li><a href="[@spring.url '/department_head/appliances/committee_vote/'/]">С открытым голосованием</a></li>
                     </ul>
                 </li>
                 <li><a href="#">Кредитные продукты</a>

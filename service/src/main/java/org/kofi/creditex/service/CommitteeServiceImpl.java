@@ -71,9 +71,12 @@ public class CommitteeServiceImpl implements CommitteeService {
         }else{
             return -2;//no application
         }
+        if(!a.getAcceptance().equals(Acceptance.InProcess)){
+            return -3;//not in progress
+        }
         User u = userService.GetUserByUsername(committee_name);
         if(u == null){
-            return -3;//no committee manager
+            return -4;//no committee manager
         }
         Vote v = GetVote(u.getId(), application_id);
         if(v == null){
