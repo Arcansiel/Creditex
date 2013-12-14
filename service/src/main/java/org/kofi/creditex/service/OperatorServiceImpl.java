@@ -230,14 +230,17 @@ public class OperatorServiceImpl implements OperatorService {
 
     @Override
     public int ExecuteOperation(String operator_name, long credit_id, OperationType type, long amount) {
+        if(amount <= 0){
+            return -10;//amount <= 0
+        }
         Date now = dateProvider.getCurrentSqlDate();
         User operator = userService.GetUserByUsername(operator_name);
         if(operator == null){
-            return -1;//no operator
+            return -20;//no operator
         }
         Credit credit = creditRepository.findOne(credit_id);
         if(credit == null){
-            return -2;//no credit
+            return -30;//no credit
         }
 
         if(type.equals(OperationType.Deposit)){
@@ -245,21 +248,21 @@ public class OperatorServiceImpl implements OperatorService {
             if(credit.getMainFine() > 0){
                 //оплата просроченных платежей (I) в первую очередь
                 if(!ExecutePaymentExpired(credit, amount)){
-                    return -3;//sum != amount
+                    return -1;//sum != amount
                 }
             }else{
                 PriorRepaymentApplication prior = CurrentPrior(credit_id);
                 if(prior != null){
                     //досрочное погашение кредита (II)
                     if(!ExecutePriorRepayment(credit, prior, amount)){
-                        return -4;//sum != amount
+                        return -2;//sum != amount
                     }
                 }else{
                     Payment current = CurrentPayment(credit_id, now);
                     if(current != null){
                         //оплата текущего платежа (III)
                         if(!ExecutePaymentCurrent(credit, current, amount)){
-                            return -5;//sum != amount
+                            return -3;//sum != amount
                         }
                     }else{
                         return 1;//no payments available now
@@ -269,7 +272,7 @@ public class OperatorServiceImpl implements OperatorService {
         }else{
             //OperationType.Withdrawal (IV)
             if(!ExecuteWithdrawal(credit, amount)){
-                return -5;//money < amount
+                return -4;//money < amount
             }
         }
 
