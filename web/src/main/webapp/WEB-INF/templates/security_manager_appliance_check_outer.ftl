@@ -40,11 +40,11 @@
                         <td class="action">
                             <p>
                                 <label>
-                                    <input type="radio" name="confirmation" value="true" />
+                                    <input type="radio" name="acceptance" value="true" />
                                     Утвердить</label>
                                 <br />
                                 <label>
-                                    <input type="radio" name="confirmation" value="false" checked/>
+                                    <input type="radio" name="acceptance" value="false" checked/>
                                     Отклонить</label>
                                 <br />
                             </p>

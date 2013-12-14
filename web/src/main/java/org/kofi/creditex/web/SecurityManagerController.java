@@ -4,15 +4,15 @@ package org.kofi.creditex.web;
 
 import org.kofi.creditex.model.*;
 import org.kofi.creditex.service.SecurityService;
+import org.kofi.creditex.web.model.ConfirmationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
@@ -52,13 +52,12 @@ public class SecurityManagerController {
     }
 
 
-
     @RequestMapping(value = "/security_manager/appliance/check/{id}", method = RequestMethod.GET)
     public String Security4(Model model
-                            ,@PathVariable("id")int id){
+                            ,@PathVariable("id")long id){
         Application app = securityService.GetApplication(id);
         if(app == null){
-            return "redirect:/security_manager/";
+            return "redirect:/security_manager/?error=no_application&info="+id;
         }
         long client_id = app.getClient().getId();
         model.addAttribute("application",app);
@@ -80,7 +79,7 @@ public class SecurityManagerController {
             ,@PathVariable("id")long id){
         Application app = securityService.GetApplication(id);
         if(app == null){
-            return "redirect:/security_manager/";
+            return "redirect:/security_manager/?error=no_application&info="+id;
         }
         model.addAttribute("application",app);
         model.addAttribute("result","Информация из внешних источников о клиенте, подавшем заявку на кредит");
@@ -90,11 +89,16 @@ public class SecurityManagerController {
     @RequestMapping(value = "/security_manager/appliance/confirm/{id}", method = RequestMethod.POST)
     public String Security6(Principal principal
                             ,@PathVariable("id")long id
-                            ,@RequestParam("confirmation")boolean confirmation
-                            ,@RequestParam("comment")String comment
+                            ,@Valid @ModelAttribute ConfirmationForm form, BindingResult bindingResult
     ){
-        securityService.ConfirmApplication(principal.getName(),id,confirmation,comment);
-        return "redirect:/security_manager/";
+        if(bindingResult.hasErrors()){
+            return "redirect:/security_manager/?error=invalid_input_data";
+        }
+        if(securityService.ConfirmApplication(principal.getName(),id,form.isAcceptance(),form.getComment())){
+            return "redirect:/security_manager/?info=confirmation_completed";
+        }else{
+            return "redirect:/security_manager/?error=confirmation_failed";
+        }
     }
 
 
