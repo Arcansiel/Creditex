@@ -65,6 +65,10 @@ public class SecurityManagerController {
         model.addAttribute("credits",credits);
         List<Credit> expired = securityService.GetClientExpiredCredits(client_id);
         model.addAttribute("expired",expired);
+        long payments_count = securityService.GetClientPaymentsCount(client_id);
+        long expired_payments_count = securityService.GetClientExpiredPaymentsCount(client_id);
+        model.addAttribute("payments_count", payments_count);
+        model.addAttribute("expired_payments_count", expired_payments_count);
         List<Credit> unreturned = securityService.GetClientUnreturnedCredits(client_id);
         model.addAttribute("unreturned",unreturned);
         List<PriorRepaymentApplication> priors = securityService.GetClientPriorRepaymentApplications(client_id);
@@ -94,10 +98,11 @@ public class SecurityManagerController {
         if(bindingResult.hasErrors()){
             return "redirect:/security_manager/?error=invalid_input_data";
         }
-        if(securityService.ConfirmApplication(principal.getName(),id,form.isAcceptance(),form.getComment())){
+        int err;
+        if((err = securityService.ConfirmApplication(principal.getName(),id,form.isAcceptance(),form.getComment())) == 0){
             return "redirect:/security_manager/?info=confirmation_completed";
         }else{
-            return "redirect:/security_manager/?error=confirmation_failed";
+            return "redirect:/security_manager/?error=confirmation_failed&info="+err;
         }
     }
 

@@ -40,11 +40,11 @@
                      <td class="action">
                          <p>
                              <label>
-                                 <input type="radio" name="acceptance" value="true" />
+                                 <input type="radio" name="confirmation" value="true" />
                                  Утвердить</label>
                              <br />
                              <label>
-                                 <input type="radio" name="acceptance" value="false" checked/>
+                                 <input type="radio" name="confirmation" value="false" checked/>
                                  Отклонить</label>
                              <br />
                          </p>
@@ -88,8 +88,23 @@
                  [/#list]
              </table>
         [/#if]
+
+        [#if payments_count?? && expired_payments_count??]
+        <p class="name">Просроченные платежи клиента</p>
+        <table>
+            <tr>
+                <th class="amount">Количество просроченных платежей</th>
+                <th class="amount">Общее количество платежей</th>
+            </tr>
+            <tr>
+                <td class="amount">${expired_payments_count}</td>
+                <td class="amount">${payments_count}</td>
+            </tr>
+        </table>
+        [/#if]
+
         [#if expired??]
-             <p class="name">Просроченные кредиты клиента</p>
+             <p class="name">Кредиты клиента с просроченными платежами</p>
              <table>
                  <tr>
                      <th class="name">ID</th>
