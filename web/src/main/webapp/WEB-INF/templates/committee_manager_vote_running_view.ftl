@@ -119,6 +119,20 @@
                 </table>
             [/#if]
 
+            [#if payments_count?? && expired_payments_count??]
+                <p class="name">Просроченные платежи клиента</p>
+                <table>
+                    <tr>
+                        <th class="amount">Количество просроченных платежей</th>
+                        <th class="amount">Общее количество платежей</th>
+                    </tr>
+                    <tr>
+                        <td class="amount">${expired_payments_count}</td>
+                        <td class="amount">${payments_count}</td>
+                    </tr>
+                </table>
+            [/#if]
+
             [#if priors??]
                 <p class="name">Завки клиента на досрочное погашение</p>
                 <table>
