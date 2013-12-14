@@ -55,11 +55,11 @@
                 </p>
                 <p>
                     <label for="product.finePercent">Процент за день просрочки платежа</label>
-                    <input type="text" id="product.finePercent" name="finePercent" value="">
+                    <input type="text" id="product.finePercent" name="debtPercent" value="">
                 </p>
                 <p>
                     <label for="product.priorRepayment">Возможность предварительного возврата кредита</label>
-                    <select id="product.priorRepayment" name="priorRepayment">
+                    <select id="product.priorRepayment" name="prior">
                         <option value="NotAvailable">Невозможно</option>
                         <option value="Available">Возможно без штрафа</option>
                         <option value="AvailableFineInterest">Возможно со штрафом на процентную ставку</option>

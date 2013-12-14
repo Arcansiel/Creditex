@@ -32,18 +32,18 @@
                 </tr>
             </table>
 
-            [#if !prolongation.acceptance??]
+            [#if prolongation.acceptance?? && prolongation.acceptance.name() == "InProcess"]
             <form method="post" action=[@spring.url '/department_head/prolongation/${prolongation.id?string("0")}/set_head_approved/'/]>
                 <table>
                     <td class="comment"><textarea name="comment" ></textarea></td>
                     <td class="action">
                         <p>
                             <label>
-                                <input type="radio" name="confirmation" value="true" />
+                                <input type="radio" name="acceptance" value="true" />
                                 Утвердить</label>
                             <br />
                             <label>
-                                <input type="radio" name="confirmation" value="false" checked/>
+                                <input type="radio" name="acceptance" value="false" checked/>
                                 Отклонить</label>
                             <br />
                         </p>

@@ -30,15 +30,15 @@
                     <tr>
                         <td class="name">${product.id?string("0")}</td>
                         <td class="name">${product.name?html}</td>
-                        <td class="amount">${product.percent}</td>
+                        <td class="amount">${product.percent?string("0.####")}</td>
                         <td class="name">${product.type}</td>
                         <td class="amount">${product.minMoney}</td>
                         <td class="amount">${product.maxMoney}</td>
                         <td class="amount">${product.minCommittee}</td>
                         <td class="duration">${product.minDuration}</td>
                         <td class="duration">${product.maxDuration}</td>
-                        <td class="amount">${product.finePercent}</td>
-                        <td class="name">${product.priorRepayment}</td>
+                        <td class="amount">${product.debtPercent?string("0.####")}</td>
+                        <td class="name">${product.prior}</td>
                         <td class="amount">${product.priorRepaymentPercent}</td>
                         <td><a href=[@spring.url '/department_head/product/${product.id?string("0")}/set_active/false'/]>Деактивировать</a></td>
                     </tr>
@@ -67,15 +67,15 @@
                     <tr>
                         <td class="name">${product.id?string("0")}</td>
                         <td class="name">${product.name?html}</td>
-                        <td class="amount">${product.percent}</td>
+                        <td class="amount">${product.percent?string("0.####")}</td>
                         <td class="name">${product.type}</td>
                         <td class="amount">${product.minMoney}</td>
                         <td class="amount">${product.maxMoney}</td>
                         <td class="amount">${product.minCommittee}</td>
                         <td class="duration">${product.minDuration}</td>
                         <td class="duration">${product.maxDuration}</td>
-                        <td class="amount">${product.finePercent}</td>
-                        <td class="name">${product.priorRepayment}</td>
+                        <td class="amount">${product.debtPercent?string("0.####")}</td>
+                        <td class="name">${product.prior}</td>
                         <td class="amount">${product.priorRepaymentPercent}</td>
                         <td><a href=[@spring.url '/department_head/product/${product.id?string("0")}/set_active/true'/]>Активировать</a></td>
                     </tr>

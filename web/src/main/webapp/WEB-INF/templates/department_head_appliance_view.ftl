@@ -12,8 +12,19 @@
             <p class="name"><a href=[@spring.url "/department_head/appliances/committee_approved/"/]>Список заявок, одобренных комитетом</a></p>
             <p class="name"><a href=[@spring.url "/department_head/appliances/committee_vote/"/]>Список заявок с открытым голосованием</a></p>
             [#if application??]
-
-                <p class="name">Заявка на кредит</p>
+                [#if application.committeeAcceptance??]
+                    [#if application.committeeAcceptance.name() == "Accepted"]
+                        <p class="name">Заявка на кредит, принятая комитетом</p>
+                    [#elseif application.committeeAcceptance.name() == "Rejected"]
+                        <p class="name">Заявка на кредит, отклонённая комитетом</p>
+                    [#elseif application.committeeAcceptance.name() == "InProcess"]
+                        <p class="name">Заявка на кредит, голосование комитета открыто</p>
+                    [#else]
+                        <p class="name">Заявка на кредит</p>
+                    [/#if]
+                [#else]
+                    <p class="name">Заявка на кредит</p>
+                [/#if]
                 <table>
                     <tr>
                         <th class="name">ID заявки</th>
@@ -42,7 +53,7 @@
                     </tr>
                 </table>
 
-                [#if application.committeeAcceptance?? && application.committeeAcceptance]
+                [#if application.committeeAcceptance?? && application.committeeAcceptance.name() == "Accepted"]
                 [#-- show form only for committee accepted applications --]
                 <form method="post" action=[@spring.url '/department_head/appliance/${application.id?string("0")}/set_head_approved/'/]>
                     <table>

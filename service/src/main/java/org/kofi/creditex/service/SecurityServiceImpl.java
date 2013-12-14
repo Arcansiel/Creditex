@@ -22,6 +22,9 @@ public class SecurityServiceImpl implements SecurityService{
     CreditRepository creditRepository;
 
     @Autowired
+    PaymentRepository paymentRepository;
+
+    @Autowired
     UserService userService;
 
     @Autowired
@@ -37,7 +40,7 @@ public class SecurityServiceImpl implements SecurityService{
     public List<Application> GetSecurityApplications() {
         List<Application> list = new ArrayList<Application>();
         for(Application app:applicationRepository.findAll(
-                QApplication.application.securityAcceptance.isNull(),
+                QApplication.application.securityAcceptance.eq(Acceptance.InProcess),
                 QApplication.application.applicationDate.asc()
         )
                 )
@@ -45,6 +48,10 @@ public class SecurityServiceImpl implements SecurityService{
              list.add(app);
         }
         return list;
+    }
+
+    private  void f(){
+
     }
 
     @Override
@@ -66,7 +73,7 @@ public class SecurityServiceImpl implements SecurityService{
         List<Credit> list = new ArrayList<Credit>();
         for(Credit c: creditRepository.findAll(
             QCredit.credit.creditEnd.lt(now)
-                .and(QCredit.credit.originalMainDebt.gt(0))
+                .and(QCredit.credit.currentMainDebt.gt(0))
                 ,QCredit.credit.creditStart.desc()
         )){
              list.add(c);
@@ -75,22 +82,28 @@ public class SecurityServiceImpl implements SecurityService{
     }
 
     @Override
-    public boolean ConfirmApplication(String security_name, long application_id, boolean acceptance, String comment){
-        Acceptance eApp;
-        if (acceptance)
-            eApp = Acceptance.Accepted;
-        else eApp = Acceptance.Rejected;
-        User security = userService.GetUserByUsername(security_name);
-        if(security == null){ return false; }
-        Application application = applicationRepository.findOne(application_id);
-        if(application == null || application.getSecurityAcceptance() != null){
-            return false;
+    public int ConfirmApplication(String security_name, long application_id, boolean acceptance, String comment){
+        Acceptance acceptance_value;
+        if (acceptance){
+            acceptance_value = Acceptance.Accepted;
+        }else{
+            acceptance_value = Acceptance.Rejected;
         }
-        application.setSecurityAcceptance(eApp);
+        User security = userService.GetUserByUsername(security_name);
+        if(security == null){ return -1; }
+        Application application = applicationRepository.findOne(application_id);
+        if(application == null || !application.getSecurityAcceptance().equals(Acceptance.InProcess)){
+            return -2;
+        }
+        application.setSecurityAcceptance(acceptance_value);
         application.setSecurityComment(comment);
         application.setSecurity(security);
+        if(application.getRequest() < application.getProduct().getMinCommittee()){
+             //no committee voting
+            application.setAcceptance(acceptance_value);
+        }
         applicationRepository.save(application);
-        return true;
+        return 0;
     }
 
     @Override
@@ -122,6 +135,22 @@ public class SecurityServiceImpl implements SecurityService{
             list.add(c);
         }
         return list;
+    }
+
+    @Override
+    public long GetClientPaymentsCount(long client_id) {
+        return paymentRepository.count(
+                QPayment.payment.credit.user.id.eq(client_id)
+                .and(QPayment.payment.paymentClosed.isTrue())
+        );
+    }
+
+    @Override
+    public long GetClientExpiredPaymentsCount(long client_id) {
+        return paymentRepository.count(
+                QPayment.payment.credit.user.id.eq(client_id)
+                        .and(QPayment.payment.paymentExpired.isTrue())
+        );
     }
 
     @Override

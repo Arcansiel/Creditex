@@ -66,14 +66,17 @@ public class CommitteeServiceImpl implements CommitteeService {
         Application a = applicationRepository.findOne(application_id);
         if(a != null){
             if(a.isVotingClosed()){
-                return -1;
+                return -1;//voting closed
             }
         }else{
-            return -2;
+            return -2;//no application
+        }
+        if(!a.getAcceptance().equals(Acceptance.InProcess)){
+            return -3;//not in progress
         }
         User u = userService.GetUserByUsername(committee_name);
         if(u == null){
-            return -3;
+            return -4;//no committee manager
         }
         Vote v = GetVote(u.getId(), application_id);
         if(v == null){
@@ -105,6 +108,8 @@ public class CommitteeServiceImpl implements CommitteeService {
             voteRepository.save(v);
             applicationRepository.save(a);
         }
+
+        //TODO count votes and close voting
 
         return 0;
     }

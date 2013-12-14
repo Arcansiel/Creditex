@@ -3,12 +3,15 @@ package org.kofi.creditex.web;
 import org.kofi.creditex.model.*;
 import org.kofi.creditex.service.DepartmentHeadService;
 import org.kofi.creditex.service.ProductService;
+import org.kofi.creditex.web.model.ConfirmationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
@@ -55,7 +58,7 @@ public class DepartmentHeadController {
             model.addAttribute("votes",votes);
             return "department_head_appliance_view";
         }else{
-            return "redirect:/department_head/?error=no_such_application";
+            return "redirect:/department_head/?error=no_application&info="+id;
         }
 
     }
@@ -63,13 +66,16 @@ public class DepartmentHeadController {
     @RequestMapping(value = "/department_head/appliance/{id}/set_head_approved/", method = RequestMethod.POST)
     public String DepartmentHeadA(Model model, Principal principal,
                                   @PathVariable("id")long id,
-                                  @RequestParam("acceptance")boolean acceptance,
-                                  @RequestParam("comment")String comment){
-        int err;
-        if((err = departmentHeadService.SetApplicationHeadApproved(id,principal.getName(),acceptance,comment)) != 0){
-            return "redirect:/department_head/?error=code_"+err;
+                                  @Valid @ModelAttribute ConfirmationForm form, BindingResult bindingResult
+    ){
+        if(bindingResult.hasErrors()){
+            return "redirect:/department_head/?error=invalid_input_data";
         }
-        return "redirect:/department_head/?application_approved="+acceptance;
+        int err;
+        if((err = departmentHeadService.SetApplicationHeadApproved(id,principal.getName(),form.isAcceptance(),form.getComment())) != 0){
+            return "redirect:/department_head/?error=head_acceptance_filed&info="+err;
+        }
+        return "redirect:/department_head/?application_approved="+form.isAcceptance();
     }
 
     @RequestMapping(value = "/department_head/product/list/", method = RequestMethod.GET)
@@ -126,13 +132,17 @@ public class DepartmentHeadController {
 
     @RequestMapping(value = "/department_head/prolongation/{id}/set_head_approved/", method = RequestMethod.POST)
     public String DepartmentHeadProlongationApprove(Model model,
-                                  @PathVariable("id")long id,
-                                  @RequestParam("confirmation")boolean confirmation){
-        int err;
-        if((err = departmentHeadService.SetProlongationApproved(id,confirmation)) != 0){
-            return "redirect:/department_head/?error=code_"+err;
+                                  @PathVariable("id")long id
+                                  ,@Valid @ModelAttribute ConfirmationForm form, BindingResult bindingResult
+    ){
+        if(bindingResult.hasErrors()){
+            return "redirect:/department_head/?error=invalid_input_data";
         }
-        return "redirect:/department_head/?prolongation_application_approved="+confirmation;
+        int err;
+        if((err = departmentHeadService.SetProlongationApproved(id,form.isAcceptance())) != 0){
+            return "redirect:/department_head/?error=prolongation_acceptance_filed&info="+err;
+        }
+        return "redirect:/department_head/?prolongation_application_approved="+form.isAcceptance();
     }
 
     /*

@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
@@ -45,17 +47,21 @@ public class OperationManagerController {
     }
 
     @RequestMapping(value = {"/operation_manager/"}, method = RequestMethod.POST)
-    public String MainOperationManager(HttpSession session ,@ModelAttribute UserData form){
+    public String MainOperationManager(HttpSession session
+            ,@Valid @ModelAttribute UserData form, BindingResult bindingResult
+            ){
         setCredit(session,null);
+        if(bindingResult.hasErrors()){
+            return "redirect:/operation_manager/?error=invalid_input_data";
+        }
         User client = userService.GetUserByUserDataValues(form);
-        Credit credit;
         if(client == null){
-            return "redirect:/operation_manager/?error=no_client_found";
+            return "redirect:/operation_manager/?error=no_client";
         }else{
-            credit = operatorService.CurrentCredit(client.getId());
+            Credit credit = operatorService.CurrentCredit(client.getId());
             if(credit == null){
                 //no current credit
-                return "redirect:/operation_manager/?error=no_current_credit_found";
+                return "redirect:/operation_manager/?error=no_current_credit";
             }else{
                 Long credit_id = credit.getId();
                 setCredit(session,credit_id);
@@ -104,7 +110,7 @@ public class OperationManagerController {
                 model.addAttribute("payment",payment);
             }
             model.addAttribute("credit",credit);
-            model.addAttribute("expired",credit.getMainFine() > 0);
+            model.addAttribute("expired", credit.getMainFine() > 0);
             AddPriorRepaymentToModel(credit_id, model);
             return "operation_manager_operation";
         }else{
@@ -116,24 +122,26 @@ public class OperationManagerController {
 
     @RequestMapping(value = {"/operation_manager/operation/"}, method = RequestMethod.POST)
     public String OperationManagerOperation(HttpSession session, Principal principal
-            ,@RequestParam("type")OperationType type
-            ,@RequestParam("amount")long amount
+            ,@Valid @ModelAttribute Operation form, BindingResult bindingResult
     ){
+        if(bindingResult.hasErrors()){
+            return "redirect:/operation_manager/operation/?error=invalid_input_data";
+        }
         //get credit from session
         Long credit_id;
         if((credit_id = getCredit(session)) != null){
             int err;
-            if((err=operatorService.ExecuteOperation(principal.getName(),credit_id,type,amount)) != 0){
+            if((err=operatorService.ExecuteOperation(principal.getName(),credit_id,form.getType(),form.getAmount())) != 0){
                 if(err < 0){
-                    return "redirect:/operation_manager/operation/?error=operation_not_executed_code_"+err;
+                    return "redirect:/operation_manager/operation/?error=operation_not_executed&info="+err;
                 }else{
-                    return "redirect:/operation_manager/operation/?no_operations_available=true";
+                    return "redirect:/operation_manager/operation/?info=no_operations_available";
                 }
             }
         }else{
             return "redirect:/operation_manager/?error=credit_not_selected";
         }
-        return "redirect:/operation_manager/operation/?operation_executed=true";
+        return "redirect:/operation_manager/operation/?info=operation_executed";
     }
 
 }

@@ -88,8 +88,23 @@
                  [/#list]
              </table>
         [/#if]
+
+        [#if payments_count?? && expired_payments_count??]
+        <p class="name">Просроченные платежи клиента</p>
+        <table>
+            <tr>
+                <th class="amount">Количество просроченных платежей</th>
+                <th class="amount">Общее количество платежей</th>
+            </tr>
+            <tr>
+                <td class="amount">${expired_payments_count}</td>
+                <td class="amount">${payments_count}</td>
+            </tr>
+        </table>
+        [/#if]
+
         [#if expired??]
-             <p class="name">Просроченные кредиты клиента</p>
+             <p class="name">Кредиты клиента с просроченными платежами</p>
              <table>
                  <tr>
                      <th class="name">ID</th>
@@ -167,7 +182,7 @@
                  <tr>
                      <td class="start_date">${prior.applicationDate}</td>
                      <td class="name">${prior.credit.id}</td>
-                     <td class="name">[#if (prior.acceptance)??]${prior.acceptance?c}[/#if]</td>
+                     <td class="name">[#if (prior.acceptance)??]${prior.acceptance?html}[/#if]</td>
                      <td class="comment">${prior.comment?html}</td>
                  </tr>
                 [/#list]
@@ -188,7 +203,7 @@
                          <td class="start_date">${prolongation.applicationDate}</td>
                          <td class="name">${prolongation.credit.id}</td>
                          <td class="duration">${prolongation.duration}</td>
-                         <td class="name">[#if (prolongation.acceptance)??]${prolongation.acceptance?c}[/#if]</td>
+                         <td class="name">[#if (prolongation.acceptance)??]${prolongation.acceptance?html}[/#if]</td>
                          <td class="comment">${prolongation.comment?html}</td>
                      </tr>
                  [/#list]

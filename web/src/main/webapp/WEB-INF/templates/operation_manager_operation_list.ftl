@@ -58,7 +58,7 @@
                         <td class="name">${prior.id?string("0")}</td>
                         <td class="start_date">${prior.applicationDate?html}</td>
                         <td class="name">${prior.credit.product.prior?html}</td>
-                        <td class="amount">${prior.credit.product.priorRepaymentPercent}</td>
+                        <td class="amount">${prior.credit.product.priorRepaymentPercent?string("0.####")}</td>
                         <td class="amount">[#if priorFine??]${priorFine}[/#if]</td>
                         <td class="amount">[#if priorAmount??]${priorAmount}[/#if]</td>
                         <td class="amount">${prior.credit.currentMainDebt}</td>
