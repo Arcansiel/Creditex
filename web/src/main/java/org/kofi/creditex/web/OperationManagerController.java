@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class OperationManagerController {
 
     @RequestMapping(value = {"/operation_manager/"}, method = RequestMethod.POST)
     public String MainOperationManager(HttpSession session
-            ,@ModelAttribute UserData form, BindingResult bindingResult
+            ,@Valid @ModelAttribute UserData form, BindingResult bindingResult
             ){
         setCredit(session,null);
         if(bindingResult.hasErrors()){
@@ -121,7 +122,7 @@ public class OperationManagerController {
 
     @RequestMapping(value = {"/operation_manager/operation/"}, method = RequestMethod.POST)
     public String OperationManagerOperation(HttpSession session, Principal principal
-            ,@ModelAttribute Operation form, BindingResult bindingResult
+            ,@Valid @ModelAttribute Operation form, BindingResult bindingResult
     ){
         if(bindingResult.hasErrors()){
             return "redirect:/operation_manager/operation/?error=invalid_input_data";
