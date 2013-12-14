@@ -62,7 +62,7 @@ public class OperatorServiceImpl implements OperatorService {
         return priorRepository.findOne(
                 QPriorRepaymentApplication.priorRepaymentApplication.credit.id.eq(credit_id)
                 .and(QPriorRepaymentApplication.priorRepaymentApplication.processed.isFalse())
-                .and(QPriorRepaymentApplication.priorRepaymentApplication.acceptance.isTrue())
+                .and(QPriorRepaymentApplication.priorRepaymentApplication.acceptance.eq(Acceptance.Accepted))
         );
     }
 
