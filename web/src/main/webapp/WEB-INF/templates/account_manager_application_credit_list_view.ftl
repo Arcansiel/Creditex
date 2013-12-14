@@ -32,33 +32,19 @@
                             <td>${application.duration}</td>
                             [#assign whoRejected=""/]
                             [#assign whyRejected=""/]
-                            [#switch application.acceptance]
-                                [#case "Accepted"]
-                                    [#assign acceptance="Принята"/]
-                                [#break ]
-                                [#case "Rejected"]
-                                    [#assign acceptance="Отвергнута"/]
-                                    [#if application.securityAcceptance= Acceptance.Rejected]
-                                        [#assign whoRejected="Специалист службы безопасности"/]
-                                        [#assign whyRejected=application.securityComment/]
-                                    [/#if]
-                                    [#if application.committeeAcceptance=Acceptance.Rejected]
-                                        [#assign whoRejected="Кредитный комитет"/]
-                                        [#assign whyRejected=application.voteAcceptance+"/"+application.voteRejection/]
-                                    [/#if]
-                                    [#if application.headAcceptance = Acceptance.Rejected]
-                                        [#assign whoRejected="Глава кредитного отдела"/]
-                                        [#assign whyRejected=application.headComment/]
-                                    [/#if]
-                                [#break]
-                                [#case "InProcess"]
-                                    [#assign acceptance="В обработке"/]
-                                [#break]
-                                [#default]
-                                    [#assign acceptance=""/]
-                                [#break]
-                            [/#switch]
-                            <td>${acceptance}</td>
+                            [#if application.securityAcceptance= Acceptance.Rejected]
+                                [#assign whoRejected="Специалист службы безопасности"/]
+                                [#assign whyRejected=application.securityComment/]
+                            [/#if]
+                            [#if application.committeeAcceptance=Acceptance.Rejected]
+                                [#assign whoRejected="Кредитный комитет"/]
+                                [#assign whyRejected=application.voteAcceptance+"/"+application.voteRejection/]
+                            [/#if]
+                            [#if application.headAcceptance = Acceptance.Rejected]
+                                [#assign whoRejected="Глава кредитного отдела"/]
+                                [#assign whyRejected=application.headComment/]
+                            [/#if]
+                            <td>${application.acceptance}</td>
                             <td>${whoRejected}</td>
                             <td>${whyRejected}</td>
                             <td><a href="[@spring.url '/account_manager/client/credit/view/'+'${application.id}'+'/'/]">Просомотреть</a> </td>
@@ -69,7 +55,7 @@
         </div>
         <div class="content">
             <ul class="nav-menu">
-                <li><a href="[@spring.url '/account_manager/client/'/]">Вырнуться назад</a>
+                <li><a href="[@spring.url '/account_manager/client/'/]">Вернуться назад</a>
                 </li>
             </ul>
         </div>

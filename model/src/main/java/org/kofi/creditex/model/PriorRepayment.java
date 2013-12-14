@@ -7,17 +7,29 @@ public enum PriorRepayment {
     /**
      * Невозможно
      */
-    NotAvailable,
+    NotAvailable("Недоступно"),
     /**
      * Возможно без штрафа
      */
-    Available,
+    Available("Доступно"),
     /**
      * Возможно с увеличением процентной в качестве штрафа
      */
-    AvailableFineInterest,
+    AvailableFineInterest("Доступно со штрафом в виде прибавки к процентной ставке"),
     /**
      * Возможно с штрафом на оставшуюся невыплаченную дополнительную сумму долга
      */
-    AvailableFinePercentSum
+    AvailableFinePercentSum("Доступно со штрафом в виде выплаты части оставшегося процентного долга");
+
+    private final String text;
+
+    private PriorRepayment(final String text){
+        this.text = text;
+    }
+
+
+    @Override
+    public String toString() {
+        return text;
+    }
 }

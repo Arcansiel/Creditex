@@ -24,19 +24,7 @@
                             <td>${application.applicationDate?string("dd/MM/yyyy")}</td>
                             <td>${application.comment}</td>
                             <td><a href="[@spring.url '/account_manager/client/credit/view/'+'${application.credit.id}'+'/'/]">Посмотреть</a></td>
-                            [#assign acceptance=""/]
-                            [#switch application.acceptance]
-                                [#case "Accepted"]
-                                    [#assign acceptance="Принята"/]
-                                [#break ]
-                                [#case "Rejected"]
-                                    [#assign acceptance="Отвергнута"/]
-                                [#break ]
-                                [#case "InProcess"]
-                                    [#assign acceptance="В рассмотрении"/]
-                                [#break ]
-                            [/#switch]
-                            <td>${acceptance}</td>
+                            <td>${application.acceptance}</td>
                         </tr>
                     [/#list]
                 [/#if]
