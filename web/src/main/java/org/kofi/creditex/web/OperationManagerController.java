@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,15 +45,9 @@ public class OperationManagerController {
     }
 
     @RequestMapping(value = {"/operation_manager/"}, method = RequestMethod.POST)
-    public String MainOperationManager(HttpSession session
-            ,@RequestParam("first")String first
-            ,@RequestParam("last")String last
-            ,@RequestParam("patronymic")String patronymic
-            ,@RequestParam("series")String series
-            ,@RequestParam("number")int number
-    ){
+    public String MainOperationManager(HttpSession session ,@ModelAttribute UserData form){
         setCredit(session,null);
-        User client = userService.GetUserByUserDataValues(first,last,patronymic,series,number);
+        User client = userService.GetUserByUserDataValues(form);
         Credit credit;
         if(client == null){
             return "redirect:/operation_manager/?error=no client found";

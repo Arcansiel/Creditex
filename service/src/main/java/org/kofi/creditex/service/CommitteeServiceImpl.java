@@ -45,7 +45,7 @@ public class CommitteeServiceImpl implements CommitteeService {
     public List<Application> GetVotingApplications(boolean voting){
         List<Application> list = new ArrayList<Application>();
         for(Application a:applicationRepository.findAll(
-                QApplication.application.securityAcceptance.isTrue()
+                QApplication.application.securityAcceptance.eq(Acceptance.Accepted)
                         .and(QApplication.application.votingClosed.ne(voting))
                         .and(QApplication.application.request.goe(QApplication.application.product.minCommittee))
                 , QApplication.application.applicationDate.desc()
@@ -124,7 +124,7 @@ public class CommitteeServiceImpl implements CommitteeService {
     public List<Application> GetCommitteeVotingCheckedApplications(long committee_id, boolean voting, boolean checked){
         List<Application> list = new ArrayList<Application>();
         for(Application a:applicationRepository.findAll(
-                QApplication.application.securityAcceptance.isTrue()
+                QApplication.application.securityAcceptance.eq(Acceptance.Accepted)
                         .and(QApplication.application.votingClosed.ne(voting))
                         .and(QApplication.application.request.goe(QApplication.application.product.minCommittee))
                 , QApplication.application.applicationDate.desc()

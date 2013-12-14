@@ -1,5 +1,6 @@
 [#ftl]
-[#-- @ftlvariable name="applications" type="java.util.List<org.kofi.creditex.web.model.CreditApplicationForm>" --]
+[#-- @ftlvariable name="Acceptance" type="org.kofi.creditex.model.Acceptance" --]
+[#-- @ftlvariable name="applications" type="java.util.List<org.kofi.creditex.model.Application>" --]
 [#import "creditex.ftl" as creditex]
 [#import "spring.ftl" as spring]
 
@@ -25,13 +26,41 @@
                 [#if applications??]
                     [#list applications as application]
                         <tr>
-                            <td><a href="[@spring.url '/account_manager/product/view/'+'${application.productId}'+'/'/]">${application.productName}</a></td>
-                            <td>${application.requestedMoney}</td>
+                            <td><a href="[@spring.url '/account_manager/product/view/'+'${application.product.id}'+'/'/]">${application.product.name}</a></td>
+                            <td>${application.request}</td>
                             <td>${application.applicationDate}</td>
                             <td>${application.duration}</td>
-                            <td>${application.acceptance}</td>
-                            <td>${application.whoRejected}</td>
-                            <td>${application.whyRejected}</td>
+                            [#assign whoRejected=""/]
+                            [#assign whyRejected=""/]
+                            [#switch application.acceptance]
+                                [#case "Accepted"]
+                                    [#assign acceptance="Принята"/]
+                                [#break ]
+                                [#case "Rejected"]
+                                    [#assign acceptance="Отвергнута"/]
+                                    [#if application.securityAcceptance= Acceptance.Rejected]
+                                        [#assign whoRejected="Специалист службы безопасности"/]
+                                        [#assign whyRejected=application.securityComment/]
+                                    [/#if]
+                                    [#if application.committeeAcceptance=Acceptance.Rejected]
+                                        [#assign whoRejected="Кредитный комитет"/]
+                                        [#assign whyRejected=application.voteAcceptance+"/"+application.voteRejection/]
+                                    [/#if]
+                                    [#if application.headAcceptance = Acceptance.Rejected]
+                                        [#assign whoRejected="Глава кредитного отдела"/]
+                                        [#assign whyRejected=application.headComment/]
+                                    [/#if]
+                                [#break]
+                                [#case "InProcess"]
+                                    [#assign acceptance="В обработке"/]
+                                [#break]
+                                [#default]
+                                    [#assign acceptance=""/]
+                                [#break]
+                            [/#switch]
+                            <td>${acceptance}</td>
+                            <td>${whoRejected}</td>
+                            <td>${whyRejected}</td>
                             <td><a href="[@spring.url '/account_manager/client/credit/view/'+'${application.id}'+'/'/]">Просомотреть</a> </td>
                         </tr>
                     [/#list]

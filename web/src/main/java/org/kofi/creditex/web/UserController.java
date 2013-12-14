@@ -1,11 +1,9 @@
 package org.kofi.creditex.web;
 
 import lombok.extern.slf4j.Slf4j;
-import org.kofi.creditex.model.Authority;
 import org.kofi.creditex.model.User;
 import org.kofi.creditex.model.UserData;
 import org.kofi.creditex.service.UserService;
-import org.kofi.creditex.web.model.UserChangeDataForm;
 import org.kofi.creditex.web.model.UserRegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.security.NoSuchAlgorithmException;
 
 @Controller
@@ -33,7 +32,7 @@ public class UserController {
         return "change_user_data";
     }
     @RequestMapping("/change_user_data/process/")
-    public String ChangeUserData(HttpSession session,@ModelAttribute UserChangeDataForm form, BindingResult result, ModelMap model){
+    public String ChangeUserData(HttpSession session,@ModelAttribute UserData form, BindingResult result, ModelMap model){
         if(result.hasErrors()){
             User user = (User) session.getAttribute("user_to_change_data");
             if(user==null)
@@ -53,7 +52,7 @@ public class UserController {
         return "registration";
     }
     @RequestMapping(value = "/register/", method = RequestMethod.POST)
-    public String RegisterNewUser(ModelMap model,@ModelAttribute UserRegistrationForm form, BindingResult bindingResult) throws NoSuchAlgorithmException {
+    public String RegisterNewUser(ModelMap model,@Valid @ModelAttribute UserRegistrationForm form, BindingResult bindingResult) throws NoSuchAlgorithmException {
         String errorName="isError";
         String errorBinding = "Введено недопустимое значение в одно из числовых полей";
         String errorPassword = "Значения паролей не совпадают";

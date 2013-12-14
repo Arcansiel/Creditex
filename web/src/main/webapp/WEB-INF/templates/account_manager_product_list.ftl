@@ -1,5 +1,5 @@
 [#ftl]
-[#-- @ftlvariable name="products" type="java.util.List<org.kofi.creditex.web.model.ProductForm>" --]
+[#-- @ftlvariable name="products" type="java.util.List<org.kofi.creditex.model.Product>" --]
 [#import "creditex.ftl" as creditex]
 [#import "spring.ftl" as spring]
 
@@ -37,8 +37,8 @@
                             <td>${product.minDuration}</td>
                             <td>${product.maxDuration}</td>
                             <td>${product.minCommittee}</td>
-                            <td>${product.finePercent}</td>
-                            <td>${product.priorRepayment}</td>
+                            <td>${product.debtPercent}</td>
+                            <td>${product.prior}</td>
                             <td>${product.priorRepaymentPercent}</td>
                             <td><a href="[@spring.url '/account_manager/product/view/'+'${product.id}'+'/'/]">Просмотреть</a> </td>
                         </tr>

@@ -1,5 +1,5 @@
 [#ftl]
-[#-- @ftlvariable name="product" type="org.kofi.creditex.web.model.ProductForm" --]
+[#-- @ftlvariable name="product" type="org.kofi.creditex.model.Product" --]
 [#import "creditex.ftl" as creditex]
 
 [@creditex.root]
@@ -53,11 +53,11 @@
                 </p>
                 <p>
                     <label for="product.finePercent">Процент за день просрочки платежа</label>
-                    <input type="text" id="product.finePercent" name="product.finePercent" value="${product.finePercent}">
+                    <input type="text" id="product.finePercent" name="product.finePercent" value="${product.debtPercent}">
                 </p>
                 <p>
                     <label for="product.priorRepayment">Возможность предварительного возврата кредита</label>
-                    <input type="text" id="product.priorRepayment" name="product.priorRepayment" value="${product.priorRepayment}">
+                    <input type="text" id="product.priorRepayment" name="product.priorRepayment" value="${product.prior}">
                 </p>
                 <p>
                     <label for="product.priorRepaymentPercent">Штраф за предварительный возврат кредита</label>

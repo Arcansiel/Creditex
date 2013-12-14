@@ -7,18 +7,11 @@ import org.kofi.creditex.model.UserData;
 import org.kofi.creditex.repository.AuthoritiesRepository;
 import org.kofi.creditex.repository.UserDataRepository;
 import org.kofi.creditex.repository.UserRepository;
-import org.kofi.creditex.web.model.UserChangeDataForm;
 import org.kofi.creditex.web.model.UserRegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 @Service
 @Slf4j
@@ -39,8 +32,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User GetUserByUserDataValues(String first, String last, String patronymic, String series, int number) {
-        return userRepository.findByUserData_FirstAndUserData_LastAndUserData_PatronymicAndUserData_PassportSeriesAndUserData_PassportNumber(first, last, patronymic, series, number);
+    public User GetUserByUserDataValues(UserData data) {
+        return userRepository.findByUserData_FirstAndUserData_LastAndUserData_PatronymicAndUserData_PassportSeriesAndUserData_PassportNumber(data.getFirst(), data.getLast(), data.getPatronymic(), data.getPassportSeries(), data.getPassportNumber());
     }
 
     @Override
@@ -87,17 +80,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void ChangeUserDataByForm(UserChangeDataForm form) {
-        UserData initialData = userDataRepository.findOne(form.getId());
-        initialData
-                .setFirst(form.getFirst())
-                .setLast(form.getLast())
-                .setPatronymic(form.getPatronymic())
-                .setPassportSeries(form.getPassportSeries())
-                .setPassportNumber(form.getPassportNumber())
-                .setWorkName(form.getWorkName())
-                .setWorkPosition(form.getWorkPosition())
-                .setWorkIncome(form.getWorkIncome());
-        userDataRepository.save(initialData);
+    public void ChangeUserDataByForm(UserData form) {
+        userDataRepository.save(form);
     }
 }

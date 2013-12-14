@@ -3,7 +3,6 @@ package org.kofi.creditex.web;
 import org.kofi.creditex.model.*;
 import org.kofi.creditex.service.DepartmentHeadService;
 import org.kofi.creditex.service.ProductService;
-import org.kofi.creditex.web.model.ProductForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -75,8 +74,8 @@ public class DepartmentHeadController {
 
     @RequestMapping(value = "/department_head/product/list/", method = RequestMethod.GET)
     public String DepartmentHead3(Model model){
-        model.addAttribute("activated",productService.GetProductFormsByActive(true));
-        model.addAttribute("deactivated",productService.GetProductFormsByActive(false));
+        model.addAttribute("activated",productService.GetProductsByActive(true));
+        model.addAttribute("deactivated",productService.GetProductsByActive(false));
         return "department_head_product_list";
     }
 
@@ -87,7 +86,7 @@ public class DepartmentHeadController {
 
     @RequestMapping(value = "/department_head/product/create/", method = RequestMethod.POST)
     public String DepartmentHead41(
-                                  @ModelAttribute ProductForm productForm){
+                                  @ModelAttribute Product productForm){
         if(productService.CreateProductByForm(productForm) == 0){
             return "redirect:/department_head/?product_created=true";
         }else{

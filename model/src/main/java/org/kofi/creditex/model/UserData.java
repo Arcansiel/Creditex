@@ -63,6 +63,7 @@ public class UserData {
     /**
      * Номер паспорта
      */
+    @Min(0)
     private int passportNumber;
     /**
      * Место работы

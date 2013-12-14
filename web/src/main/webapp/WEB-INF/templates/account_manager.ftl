@@ -25,11 +25,11 @@
                 </p>
                 <p>
                     <label for="series_field">Серия паспорта</label>
-                    <input type="text" id="series_field" name="series">
+                    <input type="text" id="series_field" name="passportSeries">
                 </p>
                 <p>
                     <label for="number_filed">Номер паспорта</label>
-                    <input type="text" id="number_filed" name="number">
+                    <input type="text" id="number_filed" name="passportNumber">
                 </p>
                 <p class="a-center"><button type="submit" class="button">Обработать</button></p>
             </form>

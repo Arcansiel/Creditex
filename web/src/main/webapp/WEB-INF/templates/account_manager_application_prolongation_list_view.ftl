@@ -1,5 +1,5 @@
 [#ftl]
-[#-- @ftlvariable name="applications" type="java.util.List<org.kofi.creditex.web.model.ProlongationApplicationForm>" --]
+[#-- @ftlvariable name="applications" type="java.util.List<org.kofi.creditex.model.ProlongationApplication>" --]
 [#import "creditex.ftl" as creditex]
 [#import "spring.ftl" as spring]
 
@@ -22,11 +22,23 @@
                 [#if applications??]
                     [#list applications as application]
                         <tr>
-                            <td>${application.date}</td>
+                            <td>${application.applicationDate}</td>
                             <td>${application.duration}</td>
                             <td>${application.comment}</td>
-                            <td><a href="[@spring.url '/account_manager/client/credit/view/'+'${application.creditId}'+'/'/]">Кредит</a> </td>
-                            <td>${application.acceptance}</td>
+                            <td><a href="[@spring.url '/account_manager/client/credit/view/'+'${application.credit.id}'+'/'/]">Кредит</a> </td>
+                            [#assign acceptance=""/]
+                            [#switch application.acceptance]
+                                [#case "Accepted"]
+                                    [#assign acceptance="Принята"/]
+                                    [#break ]
+                                [#case "Rejected"]
+                                    [#assign acceptance="Отвергнута"/]
+                                    [#break ]
+                                [#case "InProcess"]
+                                    [#assign acceptance="В рассмотрении"/]
+                                    [#break ]
+                            [/#switch]
+                            <td>${acceptance}</td>
                         </tr>
                     [/#list]
                 [/#if]

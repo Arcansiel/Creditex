@@ -76,13 +76,17 @@ public class SecurityServiceImpl implements SecurityService{
 
     @Override
     public boolean ConfirmApplication(String security_name, long application_id, boolean acceptance, String comment){
+        Acceptance eApp;
+        if (acceptance)
+            eApp = Acceptance.Accepted;
+        else eApp = Acceptance.Rejected;
         User security = userService.GetUserByUsername(security_name);
         if(security == null){ return false; }
         Application application = applicationRepository.findOne(application_id);
         if(application == null || application.getSecurityAcceptance() != null){
             return false;
         }
-        application.setSecurityAcceptance(acceptance);
+        application.setSecurityAcceptance(eApp);
         application.setSecurityComment(comment);
         application.setSecurity(security);
         applicationRepository.save(application);

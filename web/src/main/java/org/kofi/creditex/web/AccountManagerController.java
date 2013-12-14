@@ -1,11 +1,13 @@
 package org.kofi.creditex.web;
 
-import org.kofi.creditex.model.User;
+import org.kofi.creditex.model.*;
 import org.kofi.creditex.service.ApplicationService;
 import org.kofi.creditex.service.CreditService;
 import org.kofi.creditex.service.ProductService;
 import org.kofi.creditex.service.UserService;
 import org.kofi.creditex.web.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,7 @@ import java.util.List;
 @Controller
 @Secured("ROLE_ACCOUNT_MANAGER")
 public class AccountManagerController {
+    Logger log = LoggerFactory.getLogger(AccountManagerController.class);
     @Autowired
     private UserService userService;
     @Autowired
@@ -36,12 +39,13 @@ public class AccountManagerController {
         return "account_manager";
     }
     @RequestMapping(value = "/account_manager/process/")
-    public String SelectClient(HttpSession session, @ModelAttribute ClientSearchForm form, BindingResult result, ModelMap model){
+    public String SelectClient(HttpSession session, @ModelAttribute UserData form, BindingResult result, ModelMap model){
         if(result.hasErrors()){
             model.put("isError", "Введено неверное значение в поле номера паспорта");
             return "account_manager";
         }
-        session.setAttribute("client", userService.GetUserByUserDataValues(form.getFirst(), form.getLast(), form.getPatronymic(), form.getSeries(), form.getNumber()));
+        log.warn("Form values:"+form.toString());
+        session.setAttribute("client", userService.GetUserByUserDataValues(form));
         return "redirect:/account_manager/client/";
     }
     @RequestMapping("/account_manager/client/")
@@ -72,7 +76,7 @@ public class AccountManagerController {
         return "redirect:/account_manager/client/";
     }
     @RequestMapping("/account_manager/client/prolongation/add/process/")
-    public String ClientRegisterProlongationApplicationForm(Principal principal,HttpSession session, @ModelAttribute ProlongationApplicationForm form, BindingResult result, ModelMap model){
+    public String ClientRegisterProlongationApplicationForm(Principal principal,HttpSession session, @ModelAttribute ProlongationApplication form, BindingResult result, ModelMap model){
         User client = (User)session.getAttribute("client");
         if (client == null)
             return "redirect:/account_manager/";
@@ -83,7 +87,7 @@ public class AccountManagerController {
         return "redirect:/account_manager/client/";
     }
     @RequestMapping("/account_manager/client/prior/add/process/")
-    public String ClientRegisterPriorApplicationForm(Principal principal,HttpSession session, @ModelAttribute PriorApplicationForm form, BindingResult result){
+    public String ClientRegisterPriorApplicationForm(Principal principal,HttpSession session, @ModelAttribute PriorRepaymentApplication form, BindingResult result){
         User client = (User)session.getAttribute("client");
         if (client == null)
             return "redirect:/account_manager/";
@@ -99,9 +103,9 @@ public class AccountManagerController {
         User client = (User)session.getAttribute("client");
         if (client == null)
             return "redirect:/account_manager/";
-        List<CreditApplicationForm> applications = applicationService.GetCreditApplicationsInListByUsername (client.getUsername());
+        List<Application> applications = applicationService.GetApplicationsByUsername (client.getUsername());
         if (applications==null)
-            applications = new ArrayList<CreditApplicationForm>();
+            applications = new ArrayList<Application>();
         model.put("applications", applications);
         return "account_manager_application_credit_list_view";
     }
@@ -110,9 +114,9 @@ public class AccountManagerController {
         User client = (User)session.getAttribute("client");
         if (client == null)
             return "redirect:/account_manager/";
-        List<PriorApplicationForm> applications = applicationService.GetPriorApplicationFormsByUsername(client.getUsername());
+        List<PriorRepaymentApplication> applications = applicationService.GetPriorRepaymentApplicationsByUsername(client.getUsername());
         if (applications==null)
-            applications = new ArrayList<PriorApplicationForm>();
+            applications = new ArrayList<PriorRepaymentApplication>();
         model.put("applications", applications);
         return "account_manager_application_prior_list_view";
     }
@@ -121,9 +125,9 @@ public class AccountManagerController {
         User client = (User)session.getAttribute("client");
         if (client == null)
             return "redirect:/account_manager/";
-        List<ProlongationApplicationForm> applications = applicationService.GetProlongationApplicationFormsByUsername(client.getUsername());
+        List<ProlongationApplication> applications = applicationService.GetProlongationApplicationsByUsername(client.getUsername());
         if (applications==null)
-            applications = new ArrayList<ProlongationApplicationForm>();
+            applications = new ArrayList<ProlongationApplication>();
         model.put("applications", applications);
         return "account_manager_application_prolongation_list_view";
     }
@@ -134,12 +138,12 @@ public class AccountManagerController {
     }
     @RequestMapping("/account_manager/client/credit/view/{id}/")
     public String ClientViewCredit(@PathVariable int id, ModelMap model){
-        model.put("credit", creditService.GetCreditFormById(id));
+        model.put("credit", creditService.GetCreditById(id));
         return "account_manager_credit_view";
     }
     @RequestMapping("/account_manager/product/view/{id}/")
-    public String AccountManagerViewProduct(@PathVariable int id, ModelMap model){
-        model.put("product", productService.GetProductFormById(id));
+    public String AccountManagerViewProduct(@PathVariable long id, ModelMap model){
+        model.put("product", productService.GetProductById(id));
         return "account_manager_product_view";
     }
 }

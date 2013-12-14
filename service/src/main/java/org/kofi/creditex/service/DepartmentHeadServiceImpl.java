@@ -28,11 +28,15 @@ public class DepartmentHeadServiceImpl implements DepartmentHeadService {
 
     @Override
     public List<Application> GetCommitteeApprovedUncheckedApplications(boolean approved) {
+        Acceptance eApp;
+        if (approved)
+            eApp = Acceptance.Accepted;
+        else eApp = Acceptance.Rejected;
         List<Application> list = new ArrayList<Application>();
         for(Application a:applicationRepository.findAll(
                 QApplication.application.request.goe(QApplication.application.product.minCommittee)//нужно одобрение
-                        .and(QApplication.application.securityAcceptance.isTrue())//одобрена службой безопасности
-                        .and(QApplication.application.committeeAcceptance.eq(approved))//одобрение комитета
+                        .and(QApplication.application.securityAcceptance.eq(Acceptance.Accepted))//одобрена службой безопасности
+                        .and(QApplication.application.committeeAcceptance.eq(eApp))//одобрение комитета
                         .and(QApplication.application.headAcceptance.isNull()),//не проверена главой отдела
                 QApplication.application.applicationDate.asc()
         )){
@@ -46,7 +50,7 @@ public class DepartmentHeadServiceImpl implements DepartmentHeadService {
         List<Application> list = new ArrayList<Application>();
         for(Application a:applicationRepository.findAll(
                 QApplication.application.request.goe(QApplication.application.product.minCommittee)//нужно одобрение
-                .and(QApplication.application.securityAcceptance.isTrue())//одобрена службой безопасности
+                .and(QApplication.application.securityAcceptance.eq(Acceptance.Accepted))//одобрена службой безопасности
                 .and(QApplication.application.votingClosed.isFalse()),//голосование не завершено
                 QApplication.application.applicationDate.asc()
         )){
@@ -73,12 +77,16 @@ public class DepartmentHeadServiceImpl implements DepartmentHeadService {
 
     @Override
     public int SetApplicationHeadApproved(long application_id, String head_username, boolean acceptance, String comment) {
+        Acceptance eApp;
+        if (acceptance)
+            eApp = Acceptance.Accepted;
+        else eApp = Acceptance.Rejected;
         Application application = applicationRepository.findOne(application_id);
         if(application == null){ return -1; }//no app
         User head = userService.GetUserByUsername(head_username);
         if(head == null){ return -2; }//no user
-        application.setHeadAcceptance(acceptance);//d/p/i/a/i/n
-        application.setAcceptance(acceptance);///////u/l/c/t/o/
+        application.setHeadAcceptance(eApp);//d/p/i/a/i/n
+        application.setAcceptance(eApp);///////u/l/c/t/o/
         application.setHeadComment(comment);
         application.setHead(head);
         applicationRepository.save(application);
@@ -104,9 +112,13 @@ public class DepartmentHeadServiceImpl implements DepartmentHeadService {
 
     @Override
     public int SetProlongationApproved(long prolongation_id, boolean acceptance) {
+        Acceptance eApp;
+        if (acceptance)
+            eApp = Acceptance.Accepted;
+        else eApp = Acceptance.Rejected;
         ProlongationApplication p = prolongationRepository.findOne(prolongation_id);
         if(p == null){ return -1; }//no app
-        p.setAcceptance(acceptance);
+        p.setAcceptance(eApp);
         prolongationRepository.save(p);
 
         //TODO Credit prolongation logic
