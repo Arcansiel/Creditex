@@ -7,4 +7,5 @@ import java.util.List;
 public interface CreditService {
     Credit GetCreditById(long id);
     List<Credit> findByUsername(String username);
+    int ExecuteProlongation(long credit_id, long duration);
 }
