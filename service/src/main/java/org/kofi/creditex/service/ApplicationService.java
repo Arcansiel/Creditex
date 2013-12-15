@@ -21,5 +21,8 @@ public interface ApplicationService {
     void RemoveCreditApplicationWithId(long id);
     void RemoveProlongationApplicationWithId(long id);
     void RemovePriorRepaymentApplicationWithId(long id);
+    void FinalizeProlongationApplication(String username);
+    void FinalizePriorRepaymentApplication(String username);
+    void FinalizeCreditApplication(String username);
 
 }

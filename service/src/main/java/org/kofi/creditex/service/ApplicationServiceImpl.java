@@ -27,6 +27,8 @@ public class ApplicationServiceImpl implements ApplicationService {
     private ProductRepository productRepository;
     @Autowired    
     private CreditexDateProvider creditexDateProvider;
+    @Autowired
+    private CreditService creditService;
     @Override
     public List<Application> GetApplicationsByUsername(String username) {
         return applicationRepository.findByClient_Username(username);
@@ -150,5 +152,28 @@ public class ApplicationServiceImpl implements ApplicationService {
         application.setProcessed(true);
         application.setAcceptance(Acceptance.Aborted);
         prolongationApplicationRepository.save(application);
+    }
+
+    @Override
+    public void FinalizeProlongationApplication(String username) {
+        ProlongationApplication application = prolongationApplicationRepository.findByClientUsernameAndProcessed(username, false);
+        application.setProcessed(true);
+        prolongationApplicationRepository.save(application);
+        creditService.ExecuteProlongation(application.getCredit().getId(), application.getDuration());
+    }
+
+
+    @Override
+    public void FinalizePriorRepaymentApplication(String username) {
+        PriorRepaymentApplication application = priorRepaymentApplicationRepository.findByClientUsernameAndProcessed(username,false);
+        application.setProcessed(true);
+        priorRepaymentApplicationRepository.save(application);
+        creditService.PriorRepaymentClose(application.getCredit().getId());
+    }
+
+    @Override
+    public void FinalizeCreditApplication(String username) {
+        // TODO Implement logic
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 }

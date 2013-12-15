@@ -26,4 +26,9 @@ public class CreditexDateProvider implements ApplicationEventPublisherAware{
         CreditexDateProvider.log.warn(currentDate.toString("dd/MM/yyyy"));
         applicationEventPublisher.publishEvent(new DateChangeEvent(this, getCurrentSqlDate()));
     }
+
+    public Date transformDate(LocalDate date){
+        return new java.sql.Date(date.toDate().getTime());
+    }
+
 }

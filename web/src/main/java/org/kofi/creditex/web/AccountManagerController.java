@@ -91,18 +91,30 @@ public class AccountManagerController {
     }
 
     @RequestMapping("/account_manager/client/credit/application/finalize/")
-    public String ClientFinalizeCreditApplication(){
-
+    public String ClientFinalizeCreditApplication(HttpSession session){
+        User client = (User)session.getAttribute("client");
+        if (client == null)
+            return "redirect:/account_manager/";
+        applicationService.FinalizeCreditApplication(client.getUsername());
+        return "redirect:/account_manager/client/";
     }
 
     @RequestMapping("/account_manager/client/prior/finalize/")
-    public String ClientFinalizePriorRepaymentApplication(){
-
+    public String ClientFinalizePriorRepaymentApplication(HttpSession session){
+        User client = (User)session.getAttribute("client");
+        if (client == null)
+            return "redirect:/account_manager/";
+        applicationService.FinalizePriorRepaymentApplication(client.getUsername());
+        return "redirect:/account_manager/client/";
     }
 
     @RequestMapping("/account_manager/client/prolongation/finalize/")
-    public String ClientFinalizeProlongationApplication(){
-
+    public String ClientFinalizeProlongationApplication(HttpSession session){
+        User client = (User)session.getAttribute("client");
+        if (client == null)
+            return "redirect:/account_manager/";
+        applicationService.FinalizeProlongationApplication(client.getUsername());
+        return "redirect:/account_manager/client/";
     }
 
     @RequestMapping("/account_manager/client/credit/application/view/")

@@ -11,4 +11,5 @@ public interface CreditService {
     int ExecuteProlongation(long credit_id, long duration);
     List<Credit> GetCreditsByActive(boolean active);
     List<Credit> GetCreditsByUserId(long user_id);
+    void PriorRepaymentClose(long creditId);
 }

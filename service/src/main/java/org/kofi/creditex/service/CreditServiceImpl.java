@@ -1,10 +1,7 @@
 package org.kofi.creditex.service;
 
 import com.google.common.base.Function;
-import org.kofi.creditex.model.Credit;
-import org.kofi.creditex.model.Payment;
-import org.kofi.creditex.model.QCredit;
-import org.kofi.creditex.model.QPayment;
+import org.kofi.creditex.model.*;
 import org.kofi.creditex.repository.CreditRepository;
 import org.kofi.creditex.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +28,9 @@ public class CreditServiceImpl implements CreditService{
 
     @Autowired
     private PaymentRepository paymentRepository;
+
+    @Autowired
+    private CreditexDateProvider dateProvider;
 
     /**
      * Получить кредит по ID
@@ -129,5 +129,34 @@ public class CreditServiceImpl implements CreditService{
     @Override
     public Credit findByUsernameAndRunning(String username, boolean running) {
         return creditRepository.findByRunningAndUserUsername(running, username);
+    }
+
+    @Override
+    public void PriorRepaymentClose(long creditId) {
+        Credit credit = creditRepository.findOne(creditId);
+        long paymentNumber=0;
+        for (Payment payment : credit.getPayments()){
+            payment.setPaymentClosed(true);
+            paymentNumber = payment.getNumber();
+        }
+        long modifiedPercentDebt = 0;
+        if (credit.getProduct().getPrior()== PriorRepayment.AvailableFineInterest)
+            modifiedPercentDebt = Math.round(credit.getCurrentMainDebt() * ((credit.getProduct().getPercent()+credit.getProduct().getPriorRepaymentPercent()) /100));
+        else
+            if (credit.getProduct().getPrior() == PriorRepayment.AvailableFinePercentSum)
+                modifiedPercentDebt = Math.round(credit.getCurrentPercentDebt() * (credit.getProduct().getPriorRepaymentPercent()/100));
+        long totalSum = credit.getCurrentMainDebt() + modifiedPercentDebt;
+        LocalDate start = dateProvider.getCurrentDate();
+        LocalDate end = start.plusMonths(1);
+        Date startSql = dateProvider.transformDate(start);
+        Date endSql = dateProvider.transformDate(end);
+        Payment payment = new Payment()
+                .setCredit(credit)
+                .setNumber(paymentNumber+1)
+                .setPaymentStart(startSql)
+                .setPaymentEnd(endSql)
+                .setRequiredPayment(totalSum)
+                .setPercents(modifiedPercentDebt);
+        paymentRepository.save(payment);
     }
 }
