@@ -92,7 +92,10 @@ public class DepartmentHeadController {
 
     @RequestMapping(value = "/department_head/product/create/", method = RequestMethod.POST)
     public String DepartmentHead41(
-                                  @ModelAttribute Product productForm){
+                                  @Valid @ModelAttribute Product productForm, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "redirect:/department_head/?error=invalid_input_data";
+        }
         if(productService.CreateProductByForm(productForm) == 0){
             return "redirect:/department_head/?product_created=true";
         }else{
