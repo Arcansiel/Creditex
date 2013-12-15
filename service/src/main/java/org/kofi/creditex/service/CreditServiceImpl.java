@@ -37,4 +37,9 @@ public class CreditServiceImpl implements CreditService{
     public List<Credit> findByUsername(String username) {
         return creditRepository.findByUserUsername(username);
     }
+
+    @Override
+    public Credit findByUsernameAndRunning(String username, boolean running) {
+        return creditRepository.findByRunningAndUserUsername(running, username);
+    }
 }

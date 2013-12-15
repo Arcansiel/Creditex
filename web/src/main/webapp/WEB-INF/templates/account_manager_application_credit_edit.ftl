@@ -11,7 +11,7 @@
     <div class="page">
         <div class="form-action">
             <p class="name">Введите данные клиента</p>
-            <form action="[@spring.url '/account_manager/client/credit/add/process/'/]" method="post" class="form">
+            <form action="[@spring.url '/account_manager/client/credit/application/process/'/]" method="post" class="form">
                 <p>
                     <label for="requestedMoney">Деньги</label>
                     <input type="text" id="requestedMoney" name="request">

@@ -54,8 +54,18 @@ public class AccountManagerController {
     }
 
     @RequestMapping("/account_manager/client/")
-    public String ClientOperationsMain(){
-
+    public String ClientOperationsMain(HttpSession session, ModelMap model){
+        User client = (User)session.getAttribute("client");
+        if (client == null)
+            return "redirect:/account_manager/";
+        Credit credit = creditService.findByUsernameAndRunning(client.getUsername(), true);
+        Application creditApplication = applicationService.GetUnprocessedApplicationByUsername(client.getUsername());
+        PriorRepaymentApplication priorRepaymentApplication = applicationService.GetUnprocessedPriorRepaymentApplicationByUsername(client.getUsername());
+        ProlongationApplication prolongationApplication = applicationService.GetUnprocessedProlongationApplicationByUsername(client.getUsername());
+        model.put("credit", credit);
+        model.put("creditApplication", creditApplication);
+        model.put("priorRepaymentApplication", priorRepaymentApplication);
+        model.put("prolongationApplication", prolongationApplication);
         return "account_manager_client";
     }
 
@@ -73,9 +83,26 @@ public class AccountManagerController {
         if (client == null)
             return "redirect:/account_manager/";
         if (result.hasErrors())
-            return "redirect:/account_manager/client/credit/add?isError=true/";
-        applicationService.RegisterApplicationByFormAndUsernameAndAccountManagerName(form, client.getUsername(), principal.getName());
+            return "redirect:/account_manager/client/credit/application/add?isError=true/";
+        if (applicationService.RegisterApplicationByFormAndUsernameAndAccountManagerName(form, client.getUsername(), principal.getName())!=null){
+            return "redirect:/account_manager/client/credit/application/add?isError=true/";
+        }
         return "redirect:/account_manager/client/";
+    }
+
+    @RequestMapping("/account_manager/client/credit/application/finalize/")
+    public String ClientFinalizeCreditApplication(){
+
+    }
+
+    @RequestMapping("/account_manager/client/prior/finalize/")
+    public String ClientFinalizePriorRepaymentApplication(){
+
+    }
+
+    @RequestMapping("/account_manager/client/prolongation/finalize/")
+    public String ClientFinalizeProlongationApplication(){
+
     }
 
     @RequestMapping("/account_manager/client/credit/application/view/")
@@ -83,8 +110,26 @@ public class AccountManagerController {
         User client = (User)session.getAttribute("client");
         if (client == null)
             return "redirect:/account_manager/";
-        model.put("attribute", applicationService.GetUnprocessedApplicationByUsername(client.getUsername()));
+        model.put("application", applicationService.GetUnprocessedApplicationByUsername(client.getUsername()));
         return "account_manager_application_credit_view";
+    }
+
+    @RequestMapping("/account_manager/client/credit/application/abort/{id}/")
+    public String ClientAbortCreditApplication(@PathVariable long id){
+        applicationService.RemoveCreditApplicationWithId(id);
+        return "redirect:/account_manager/client/";
+    }
+
+    @RequestMapping("/account_manager/client/prolongation/abort/{id}/")
+    public String ClientAbortProlongationApplication(@PathVariable long id){
+        applicationService.RemoveProlongationApplicationWithId(id);
+        return "redirect:/account_manager/client/";
+    }
+
+    @RequestMapping("/account_manager/client/prior/abort/{id}/")
+    public String ClientAbortPriorRepaymentApplication(@PathVariable long id){
+        applicationService.RemovePriorRepaymentApplicationWithId(id);
+        return "redirect:/account_manager/client/";
     }
 
     @RequestMapping("/account_manager/client/prolongation/view/")
@@ -121,7 +166,7 @@ public class AccountManagerController {
         if (client == null)
             return "redirect:/account_manager/";
         if(result.hasErrors()){
-            return "redirect:/account_manager/client/credit/add/";
+            return "redirect:/account_manager/client/credit/application/add/";
         }
         applicationService.RegisterProlongationApplicationByFormAndUsernameAndAccountManagerName(form, client.getUsername(), principal.getName());
         return "redirect:/account_manager/client/";
@@ -133,7 +178,7 @@ public class AccountManagerController {
         if (client == null)
             return "redirect:/account_manager/";
         if(result.hasErrors()){
-            return "redirect:/account_manager/client/credit/add/";
+            return "redirect:/account_manager/client/credit/application/add/";
         }
         applicationService.RegisterPriorRepaymentApplicationByFormAndUsernameAndAccountManagerName(form, client.getUsername(), principal.getName());
         return "redirect:/account_manager/client/";

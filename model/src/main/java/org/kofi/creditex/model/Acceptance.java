@@ -3,7 +3,8 @@ package org.kofi.creditex.model;
 public enum Acceptance {
     Accepted("Принята"),
     Rejected("Отклонена"),
-    InProcess("В рассмотрении");
+    InProcess("В рассмотрении"),
+    Aborted("Отменена");
     private Acceptance(final String text){
         this.text=text;
     }

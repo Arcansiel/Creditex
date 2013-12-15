@@ -9,11 +9,7 @@
     <div class="page">
         <div class="form-action">
             <p class="name">Введите данные о пролонгации кредита</p>
-            <form action="[@spring.url '/account_manager/client/prolongation/add/process/'/]" method="post" class="form">
-                [#--<input type="hidden" name="id" value="0"/>--]
-                [#--<input type="hidden" name="date" value=""/>--]
-                [#--<input type="hidden" name="acceptance" value=""/>--]
-                [#--<input type="hidden" name="creditId" value="0"/>--]
+            <form action="[@spring.url '/account_manager/client/prolongation/process/'/]" method="post" class="form">
                 <p>
                     <label for="duration_field">Срок пролонгации(мес)</label>
                     <input type="text" id="duration_field" name="duration">

@@ -10,7 +10,7 @@
     <div class="page">
         <div class="form-action">
             <p class="name">Введите данные о предварительном возврате кредита</p>
-            <form action="[@spring.url '/account_manager/client/prior/add/process/'/]" method="post" class="form">
+            <form action="[@spring.url '/account_manager/client/prior/process/'/]" method="post" class="form">
                 <p>
                     <label for="comment_field">Комментарий</label>
                     <input type="text" id="comment_field" name="comment">

@@ -1,5 +1,5 @@
 [#ftl]
-[#-- @ftlvariable name="credit" type="org.kofi.creditex.web.model.CreditForm" --]
+[#-- @ftlvariable name="credit" type="org.kofi.creditex.model.Credit" --]
 [#import "creditex.ftl" as creditex]
 [#import "spring.ftl" as spring]
 
@@ -22,7 +22,7 @@
                 <input type="hidden" value="${credit.id}" name="id">
                 <p>
                     <label for="credit.start">Дата начала кредита</label>
-                    <input type="text" id="credit.start" name="credit.start" value="${credit.start}">
+                    <input type="text" id="credit.start" name="credit.start" value="${credit.creditStart}">
                 </p>
                 <p>
                     <label for="credit.duration">Длительность кредита</label>
@@ -38,7 +38,7 @@
                 </p>
                 <p>
                     <label for="credit.fine">Текущая пеня</label>
-                    <input type="text" id="credit.fine" name="credit.fine" value="${credit.fine}">
+                    <input type="text" id="credit.fine" name="credit.fine" value="${credit.mainFine+credit.percentFine}">
                 </p>
                 <p>
                     <label for="number_filed">Текущие деньги на счету</label>
@@ -46,7 +46,7 @@
                 </p>
                 <p>
                     <label for="number_filed">Кредитный продукт</label>
-                    <a href="[@spring.url '/account_manager/product/view/'+'${credit.productId}'+'/'/]">Перейти к ${credit.productName}</a>
+                    <a href="[@spring.url '/account_manager/product/view/'+'${credit.product.id}'+'/'/]">Перейти к ${credit.product.name}</a>
                 </p>
             </form>
         </div>
@@ -61,16 +61,18 @@
                     <th>Погашен ли платёж</th>
                     <th>Просрочен ли платёж</th>
                 </tr>
+                [#if credit.payments??]
                     [#list credit.payments as payment]
                         <tr>
                             <td>${payment.number}</td>
-                            <td>${payment.payment}</td>
-                            <td>${payment.start}</td>
-                            <td>${payment.end}</td>
-                            <td>${payment.closed}</td>
-                            <td>${payment.expired}</td>
+                            <td>${payment.requiredPayment}</td>
+                            <td>${payment.paymentStart}</td>
+                            <td>${payment.paymentClosed?string("Да","Нет")}</td>
+                            <td>${payment.paymentClosed?string("Да","Нет")}</td>
+                            <td>${payment.paymentExpired?string("Да","Нет")}</td>
                         </tr>
                     [/#list]
+                [/#if]
             </table>
         </div>
         <div class="content">

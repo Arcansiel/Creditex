@@ -12,10 +12,14 @@ public interface ApplicationService {
     List<Application> GetApplicationsByUsername(String username);
     List<PriorRepaymentApplication> GetPriorRepaymentApplicationsByUsername(String username);
     List<ProlongationApplication> GetProlongationApplicationsByUsername(String username);
-    void RegisterApplicationByFormAndUsernameAndAccountManagerName(CreditApplicationRegistrationForm form, String username, String accountManagerUsername);
-    void RegisterPriorRepaymentApplicationByFormAndUsernameAndAccountManagerName(PriorRepaymentApplication form, String username, String accountManagerUsername);
-    void RegisterProlongationApplicationByFormAndUsernameAndAccountManagerName(ProlongationApplication form, String username, String accountManagerUsername);
+    String RegisterApplicationByFormAndUsernameAndAccountManagerName(CreditApplicationRegistrationForm form, String username, String accountManagerUsername);
+    boolean RegisterPriorRepaymentApplicationByFormAndUsernameAndAccountManagerName(PriorRepaymentApplication form, String username, String accountManagerUsername);
+    boolean RegisterProlongationApplicationByFormAndUsernameAndAccountManagerName(ProlongationApplication form, String username, String accountManagerUsername);
     Application GetUnprocessedApplicationByUsername(String username);
     PriorRepaymentApplication GetUnprocessedPriorRepaymentApplicationByUsername(String username);
     ProlongationApplication GetUnprocessedProlongationApplicationByUsername(String username);
+    void RemoveCreditApplicationWithId(long id);
+    void RemoveProlongationApplicationWithId(long id);
+    void RemovePriorRepaymentApplicationWithId(long id);
+
 }

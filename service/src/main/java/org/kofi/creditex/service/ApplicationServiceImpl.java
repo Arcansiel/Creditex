@@ -44,25 +44,44 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public void RegisterApplicationByFormAndUsernameAndAccountManagerName(CreditApplicationRegistrationForm form, String username, String accountManagerUsername) {
+    public String RegisterApplicationByFormAndUsernameAndAccountManagerName(CreditApplicationRegistrationForm form, String username, String accountManagerUsername) {
         User client = userRepository.findByUsername(username);
         User accountManager = userRepository.findByUsername(accountManagerUsername);
         Product product = productRepository.findOne(form.getProductId());
-        Application application = new Application()
-                .setApplicationDate(creditexDateProvider.getCurrentSqlDate())
-                .setAccountManager(accountManager)
-                .setClient(client)
-                .setDuration(form.getDuration())
-                .setProduct(product)
-                .setRequest(form.getRequest())
-                .setVotingClosed(false)
-                .setVoteAcceptance(0)
-                .setVoteRejection(0);
-        applicationRepository.save(application);
+        boolean minDur = form.getDuration()>=product.getMinDuration();
+        boolean maxDur = form.getDuration()<=product.getMaxDuration();
+        boolean minMon = form.getRequest()>=product.getMinMoney();
+        boolean maxMon = form.getRequest()<=product.getMaxMoney();
+        if (minDur && maxDur && minMon && maxMon)
+        {
+            Application application = new Application()
+                    .setApplicationDate(creditexDateProvider.getCurrentSqlDate())
+                    .setAccountManager(accountManager)
+                    .setClient(client)
+                    .setDuration(form.getDuration())
+                    .setProduct(product)
+                    .setRequest(form.getRequest())
+                    .setAcceptance(Acceptance.InProcess)
+                    .setSecurityAcceptance(Acceptance.InProcess)
+                    .setCommitteeAcceptance(Acceptance.InProcess)
+                    .setHeadAcceptance(Acceptance.InProcess)
+                    .setVotingClosed(false)
+                    .setVoteAcceptance(0)
+                    .setVoteRejection(0);
+            applicationRepository.save(application);
+            return null;
+        }
+        if (!minDur)
+            return "Длительность кредита недостаточна для выбранного кредитного продукта";
+        if(!maxDur)
+            return "Длительность кредита превышает макслимльную для выбранного кредитного продукта";
+        if (!minMon)
+            return "Денежная сумма кредита недостаточна для выбранного кредитного продукта";
+        return "Денежная сумма превышает максимальную для выбранного продукта";
     }
 
     @Override
-    public void RegisterPriorRepaymentApplicationByFormAndUsernameAndAccountManagerName(PriorRepaymentApplication form, String username, String accountManagerUsername){
+    public boolean RegisterPriorRepaymentApplicationByFormAndUsernameAndAccountManagerName(PriorRepaymentApplication form, String username, String accountManagerUsername){
         Credit credit=creditRepository.findByRunningAndUserUsername(true, username);
         User client = userRepository.findByUsername(username);
         User accountManager = userRepository.findByUsername(accountManagerUsername);
@@ -70,13 +89,15 @@ public class ApplicationServiceImpl implements ApplicationService {
                 .setClient(client)
                 .setAccountManager(accountManager)
                 .setApplicationDate(creditexDateProvider.getCurrentSqlDate())
+                .setAcceptance(Acceptance.InProcess)
                 .setCredit(credit)
                 .setComment(form.getComment());
         priorRepaymentApplicationRepository.save(application);
+        return true;
     }
 
     @Override
-    public void RegisterProlongationApplicationByFormAndUsernameAndAccountManagerName(ProlongationApplication form, String username, String accountManagerUsername){
+    public boolean RegisterProlongationApplicationByFormAndUsernameAndAccountManagerName(ProlongationApplication form, String username, String accountManagerUsername){
         Credit credit=creditRepository.findByRunningAndUserUsername(true, username);
         User client = userRepository.findByUsername(username);
         User accountManager = userRepository.findByUsername(accountManagerUsername);
@@ -85,9 +106,11 @@ public class ApplicationServiceImpl implements ApplicationService {
                 .setAccountManager(accountManager)
                 .setCredit(credit)
                 .setApplicationDate(creditexDateProvider.getCurrentSqlDate())
+                .setAcceptance(Acceptance.InProcess)
                 .setDuration(form.getDuration())
                 .setComment(form.getComment());
         prolongationApplicationRepository.save(application);
+        return true;
     }
 
     @Override
@@ -103,5 +126,29 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public ProlongationApplication GetUnprocessedProlongationApplicationByUsername(String username) {
         return prolongationApplicationRepository.findByClientUsernameAndProcessed(username,false);
+    }
+
+    @Override
+    public void RemovePriorRepaymentApplicationWithId(long id) {
+        PriorRepaymentApplication application = priorRepaymentApplicationRepository.findOne(id);
+        application.setProcessed(true);
+        application.setAcceptance(Acceptance.Aborted);
+        priorRepaymentApplicationRepository.save(application);
+    }
+
+    @Override
+    public void RemoveCreditApplicationWithId(long id) {
+        Application application = applicationRepository.findOne(id);
+        application.setProcessed(true);
+        application.setAcceptance(Acceptance.Aborted);
+        applicationRepository.save(application);
+    }
+
+    @Override
+    public void RemoveProlongationApplicationWithId(long id) {
+        ProlongationApplication application = prolongationApplicationRepository.findOne(id);
+        application.setProcessed(true);
+        application.setAcceptance(Acceptance.Aborted);
+        prolongationApplicationRepository.save(application);
     }
 }

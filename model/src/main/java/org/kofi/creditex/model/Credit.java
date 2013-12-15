@@ -98,7 +98,7 @@ public class Credit {
     /**
      * Список платежей по кредиту {@link Payment}
      */
-    @OneToMany(mappedBy = "credit")
+    @OneToMany(mappedBy = "credit", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Payment> payments;
     /**
      * Список всех операций с деньгами на счету {@link Operation}
