@@ -29,9 +29,12 @@
                         <li><a href="[@spring.url '/department_head/prolongation/list/'/]">Список заявок на пролонгацию</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Отчёты</a>
+                <li><a href="#">Архив</a>
                     <ul>
                         <li><a href="[@spring.url '/department_head/report/'/]">Отчёт</a></li>
+                        <li><a href="[@spring.url '/department_head/credits/active/list/'/]">Открытые кредиты</a></li>
+                        <li><a href="[@spring.url '/department_head/credits/returned/list/'/]">Погашеные кредиты</a></li>
+                        <li><a href="[@spring.url '/department_head/clients/list/'/]">Клиенты банка</a></li>
                     </ul>
                 </li>
             </ul>

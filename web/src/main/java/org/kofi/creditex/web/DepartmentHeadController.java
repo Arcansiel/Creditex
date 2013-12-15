@@ -148,15 +148,31 @@ public class DepartmentHeadController {
         return "redirect:/department_head/?prolongation_application_approved="+form.isAcceptance();
     }
 
-    /*
-    @RequestMapping(value = "/department_head/11", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/department_head/report/", method = RequestMethod.GET)
     public String DepartmentHead11(Model model){
-        return "department_head";
+        return "department_head_report";
     }
 
-    @RequestMapping(value = "/department_head/12", method = RequestMethod.GET)
+    @RequestMapping(value = "/department_head/credits/active/list/", method = RequestMethod.GET)
     public String DepartmentHead12(Model model){
-        return "department_head";
+        return "department_head_credits_active_list";
     }
-    */
+
+    @RequestMapping(value = "/department_head/credits/returned/list/", method = RequestMethod.GET)
+    public String DepartmentHead13(Model model){
+        return "department_head_credits_returned_list";
+    }
+
+    @RequestMapping(value = "/department_head/clients/list/", method = RequestMethod.GET)
+    public String DepartmentHead14(Model model){
+        return "department_head_clients_list";
+    }
+
+    @RequestMapping(value = "/department_head/client/{id}", method = RequestMethod.GET)
+    public String DepartmentHead15(Model model
+                    ,@PathVariable("id")long id
+    ){
+        return "department_head_client_view";
+    }
 }
