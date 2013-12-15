@@ -5,6 +5,8 @@ import org.kofi.creditex.model.User;
 import org.kofi.creditex.model.UserData;
 import org.kofi.creditex.web.model.UserRegistrationForm;
 
+import java.util.List;
+
 public interface UserService {
     User GetUserByUsername(String username);
     User GetUserByUserDataValues(UserData data);
@@ -13,4 +15,6 @@ public interface UserService {
     void RegisterUserByForm(UserRegistrationForm form);
     void SaveUser(User user);
     void ChangeUserDataByForm(UserData form);
+    List<User> GetAllUsersByAuthority(String authority);
+    User GetUserById(long user_id);
 }
