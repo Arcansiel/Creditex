@@ -3,6 +3,7 @@ package org.kofi.creditex.service;
 import com.google.common.base.Function;
 import org.kofi.creditex.model.Credit;
 import org.kofi.creditex.model.Payment;
+import org.kofi.creditex.model.QCredit;
 import org.kofi.creditex.model.QPayment;
 import org.kofi.creditex.repository.CreditRepository;
 import org.kofi.creditex.repository.PaymentRepository;
@@ -80,8 +81,8 @@ public class CreditServiceImpl implements CreditService{
         List<Payment> list = new ArrayList<Payment>();
         for(Payment p:paymentRepository.findAll(
                 QPayment.payment.credit.id.eq(credit_id)
-                .and(QPayment.payment.paymentClosed.isFalse())
-                .and(QPayment.payment.paymentExpired.isFalse())//TODO ? prolongation and expired payments
+                        .and(QPayment.payment.paymentClosed.isFalse())
+                        .and(QPayment.payment.paymentExpired.isFalse())//TODO ? prolongation and expired payments
         )){
             list.add(p);
         }
@@ -101,4 +102,27 @@ public class CreditServiceImpl implements CreditService{
         return payments;
     }
 
+    @Override
+    public List<Credit> GetCreditsByActive(boolean active) {
+        List<Credit> list = new ArrayList<Credit>();
+        for(Credit credit:creditRepository.findAll(
+                QCredit.credit.running.eq(active)
+                ,QCredit.credit.creditStart.desc()
+        )){
+            list.add(credit);
+        }
+        return  list;
+    }
+
+    @Override
+    public List<Credit> GetCreditsByUserId(long user_id) {
+        List<Credit> list = new ArrayList<Credit>();
+        for(Credit credit:creditRepository.findAll(
+                QCredit.credit.user.id.eq(user_id)
+                ,QCredit.credit.creditStart.desc()
+        )){
+            list.add(credit);
+        }
+        return  list;
+    }
 }
