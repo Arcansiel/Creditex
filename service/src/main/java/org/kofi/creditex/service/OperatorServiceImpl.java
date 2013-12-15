@@ -179,6 +179,18 @@ public class OperatorServiceImpl implements OperatorService {
         return new long[]{ amount, fine };
     }
 
+    private void CloseCreditPayments(long credit_id){
+        List<Payment> list = new ArrayList<Payment>();
+        for(Payment p:paymentRepository.findAll(
+            QPayment.payment.credit.id.eq(credit_id)
+                .and(QPayment.payment.paymentClosed.isFalse())
+        )){
+            p.setPaymentClosed(true);
+            list.add(p);
+        }
+        paymentRepository.save(list);
+    }
+
     private boolean ExecutePriorRepayment(Credit credit, PriorRepaymentApplication prior, long amount){
         //досрочное погашение кредита (II)
         long[] x = PriorRepaymentAmount(credit);
@@ -192,6 +204,7 @@ public class OperatorServiceImpl implements OperatorService {
             credit.setCurrentPercentDebt(credit.getCurrentPercentDebt() - x[1]);
             priorRepository.save(prior);
             creditRepository.save(credit);
+            CloseCreditPayments(credit.getId());
             return true;
         }else{
             return false;//sum != amount

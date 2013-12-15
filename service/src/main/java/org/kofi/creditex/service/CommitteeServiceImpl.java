@@ -91,6 +91,7 @@ public class CommitteeServiceImpl implements CommitteeService {
             }else{
                 a.setVoteRejection(a.getVoteRejection()+1);
             }
+            ChangeVotingStatus(a);
             applicationRepository.save(a);
         }else{
             boolean vacceptance = v.isAcceptance();
@@ -109,9 +110,23 @@ public class CommitteeServiceImpl implements CommitteeService {
             applicationRepository.save(a);
         }
 
-        //TODO count votes and close voting
-
         return 0;
+    }
+
+    private void ChangeVotingStatus(Application application){
+        //TODO select votes limit from database
+        long votes_limit = 2;
+        long votes_count = application.getVoteAcceptance() + application.getVoteRejection();
+        if(votes_count >= votes_limit){
+            //close voting
+            application.setVotingClosed(true);
+            //set acceptance
+            if(application.getVoteAcceptance() >= application.getVoteRejection()){
+                application.setCommitteeAcceptance(Acceptance.Accepted);
+            }else{
+                application.setCommitteeAcceptance(Acceptance.Rejected);
+            }
+        }
     }
 
     @Override

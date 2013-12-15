@@ -1,8 +1,10 @@
 package org.kofi.creditex.web;
 
 import org.kofi.creditex.model.*;
+import org.kofi.creditex.service.CreditService;
 import org.kofi.creditex.service.DepartmentHeadService;
 import org.kofi.creditex.service.ProductService;
+import org.kofi.creditex.service.UserService;
 import org.kofi.creditex.web.model.ConfirmationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -24,6 +26,12 @@ public class DepartmentHeadController {
 
     @Autowired
     DepartmentHeadService departmentHeadService;
+
+    @Autowired
+    CreditService creditService;
+
+    @Autowired
+    UserService userService;
 
     @RequestMapping("/department_head/")
     public String MainDepartmentHead(){
@@ -92,7 +100,10 @@ public class DepartmentHeadController {
 
     @RequestMapping(value = "/department_head/product/create/", method = RequestMethod.POST)
     public String DepartmentHead41(
-                                  @ModelAttribute Product productForm){
+                                  @Valid @ModelAttribute Product productForm, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "redirect:/department_head/?error=invalid_input_data";
+        }
         if(productService.CreateProductByForm(productForm) == 0){
             return "redirect:/department_head/?product_created=true";
         }else{
@@ -145,15 +156,40 @@ public class DepartmentHeadController {
         return "redirect:/department_head/?prolongation_application_approved="+form.isAcceptance();
     }
 
-    /*
-    @RequestMapping(value = "/department_head/11", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/department_head/report/", method = RequestMethod.GET)
     public String DepartmentHead11(Model model){
-        return "department_head";
+        return "department_head_report";
     }
 
-    @RequestMapping(value = "/department_head/12", method = RequestMethod.GET)
+    @RequestMapping(value = "/department_head/credits/active/list/", method = RequestMethod.GET)
     public String DepartmentHead12(Model model){
-        return "department_head";
+        model.addAttribute("credits",creditService.GetCreditsByActive(true));
+        return "department_head_credits_active_list";
     }
-    */
+
+    @RequestMapping(value = "/department_head/credits/returned/list/", method = RequestMethod.GET)
+    public String DepartmentHead13(Model model){
+        model.addAttribute("credits",creditService.GetCreditsByActive(false));
+        return "department_head_credits_returned_list";
+    }
+
+    @RequestMapping(value = "/department_head/clients/list/", method = RequestMethod.GET)
+    public String DepartmentHead14(Model model){
+        model.addAttribute("clients",userService.GetAllUsersByAuthority("ROLE_CLIENT"));
+        return "department_head_clients_list";
+    }
+
+    @RequestMapping(value = "/department_head/client/{id}", method = RequestMethod.GET)
+    public String DepartmentHead15(Model model
+                    ,@PathVariable("id")long id
+    ){
+        User user = userService.GetUserById(id);
+        if(user == null){
+            return "redirect:/department_head/?error=no_user_found&info="+id;
+        }
+        model.addAttribute("client",user);
+        model.addAttribute("credits",creditService.GetCreditsByUserId(id));
+        return "department_head_client_view";
+    }
 }

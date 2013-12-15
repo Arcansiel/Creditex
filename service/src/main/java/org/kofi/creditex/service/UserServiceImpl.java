@@ -2,6 +2,7 @@ package org.kofi.creditex.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.kofi.creditex.model.Authority;
+import org.kofi.creditex.model.QUser;
 import org.kofi.creditex.model.User;
 import org.kofi.creditex.model.UserData;
 import org.kofi.creditex.repository.AuthoritiesRepository;
@@ -12,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -82,5 +86,25 @@ public class UserServiceImpl implements UserService {
     @Override
     public void ChangeUserDataByForm(UserData form) {
         userDataRepository.save(form);
+    }
+
+    @Override
+    public List<User> GetAllUsersByAuthority(String authority) {
+        Authority a = authoritiesRepository.findByAuthority(authority);
+        if(a == null){
+            return null;
+        }
+        List<User> list = new ArrayList<User>();
+        for(User user:userRepository.findAll(
+            QUser.user.authority.eq(a)
+        )){
+            list.add(user);
+        }
+        return list;
+    }
+
+    @Override
+    public User GetUserById(long user_id) {
+        return userRepository.findOne(user_id);
     }
 }
