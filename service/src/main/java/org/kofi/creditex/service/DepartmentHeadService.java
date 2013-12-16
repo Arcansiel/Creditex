@@ -12,4 +12,7 @@ public interface DepartmentHeadService {
     List<ProlongationApplication> GetUncheckedProlongations();
     ProlongationApplication GetProlongation(long id);
     int SetProlongationApproved(long prolongation_id, boolean acceptance);
+    List<PriorRepaymentApplication> GetUncheckedPriors();
+    PriorRepaymentApplication GetPrior(long id);
+    int SetPriorApproved(long prior_id, boolean acceptance);
 }

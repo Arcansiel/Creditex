@@ -12,6 +12,9 @@
             <p class="name"><a href=[@spring.url "/department_head/appliances/committee_approved/"/]>Список заявок, одобренных комитетом</a></p>
             <p class="name"><a href=[@spring.url "/department_head/appliances/committee_vote/"/]>Список заявок с открытым голосованием</a></p>
             [#if application??]
+
+                <p class="name"><a href=[@spring.url '/department_head/client/${application.client.id?string("0")}?app=${application.id?string("0")}'/]>Информация о клиенте</a></p>
+
                 [#if application.committeeAcceptance??]
                     [#if application.committeeAcceptance.name() == "Accepted"]
                         <p class="name">Заявка на кредит, принятая комитетом</p>

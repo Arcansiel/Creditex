@@ -23,6 +23,12 @@
                         <li><a href="[@spring.url '/security_manager/credits/unreturned/'/]">Невозвращённые кредиты</a></li>
                     </ul>
                 </li>
+                <li><a href="#">Клиенты</a>
+                    <ul>
+                        <li><a href="[@spring.url '/security_manager/clients/list/'/]">Список клиентов</a></li>
+                        <li><a href="[@spring.url '/security_manager/client/search/'/]">Поиск клиента</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>

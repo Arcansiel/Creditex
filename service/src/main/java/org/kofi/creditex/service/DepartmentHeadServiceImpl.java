@@ -24,6 +24,9 @@ public class DepartmentHeadServiceImpl implements DepartmentHeadService {
     ProlongationApplicationRepository prolongationRepository;
 
     @Autowired
+    PriorRepaymentApplicationRepository priorRepaymentApplicationRepository;
+
+    @Autowired
     VoteRepository voteRepository;
 
     @Autowired
@@ -134,10 +137,46 @@ public class DepartmentHeadServiceImpl implements DepartmentHeadService {
         ProlongationApplication p = prolongationRepository.findOne(prolongation_id);
         if(p == null){ return -1; }//no app
         if(!p.getAcceptance().equals(Acceptance.InProcess)){
-            return -2;//not in progress
+            return -2;//not in process
         }
         p.setAcceptance(acceptance_value);
         prolongationRepository.save(p);
+
+        return 0;
+    }
+
+    @Override
+    public List<PriorRepaymentApplication> GetUncheckedPriors() {
+        List<PriorRepaymentApplication> list = new ArrayList<PriorRepaymentApplication>();
+        for(PriorRepaymentApplication p:priorRepaymentApplicationRepository.findAll(
+                QPriorRepaymentApplication.priorRepaymentApplication.acceptance.eq(Acceptance.InProcess),
+                QPriorRepaymentApplication.priorRepaymentApplication.applicationDate.asc()
+        )){
+            list.add(p);
+        }
+        return list;
+    }
+
+    @Override
+    public PriorRepaymentApplication GetPrior(long id) {
+        return priorRepaymentApplicationRepository.findOne(id);
+    }
+
+    @Override
+    public int SetPriorApproved(long prior_id, boolean acceptance) {
+        Acceptance acceptance_value;
+        if (acceptance){
+            acceptance_value = Acceptance.Accepted;
+        }else{
+            acceptance_value = Acceptance.Rejected;
+        }
+        PriorRepaymentApplication p = priorRepaymentApplicationRepository.findOne(prior_id);
+        if(p == null){ return -1; }//no app
+        if(!p.getAcceptance().equals(Acceptance.InProcess)){
+            return -2;//not in process
+        }
+        p.setAcceptance(acceptance_value);
+        priorRepaymentApplicationRepository.save(p);
 
         return 0;
     }

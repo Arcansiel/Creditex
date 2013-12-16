@@ -7,21 +7,12 @@
     [@creditex.body]
     <div class="page">
         <div class="form-action">
-            <p class="name"><a href=[@spring.url "/department_head/"/]>Назад на главную страницу</a></p>
-            <p class="name"><a href=[@spring.url "/department_head/clients/list/"/]>Список клиентов</a></p>
+            <p class="name"><a href=[@spring.url "/committee_manager/"/]>Назад на главную страницу</a></p>
 
             [#if client??]
 
                 [#if application_id??]
-                    <p class="name"><a href="[@spring.url '/department_head/appliance/${application_id?string("0")}'/]">Назад к заявке на кредит</a></p>
-                [/#if]
-
-                [#if prolongation_id??]
-                    <p class="name"><a href="[@spring.url '/department_head/prolongation/${prolongation_id?string("0")}'/]">Назад к заявке на пролонгацию</a></p>
-                [/#if]
-
-                [#if prior_id??]
-                    <p class="name"><a href="[@spring.url '/department_head/prior/${prior_id?string("0")}'/]">Назад к заявке на досрочное погашение</a></p>
+                    <p class="name"><a href="[@spring.url '/committee_manager/appliance/${application_id?string("0")}'/]">Назад к заявке на кредит</a></p>
                 [/#if]
 
                 <p class="name">Клиент банка</p>
@@ -105,7 +96,6 @@
                         <th class="name">ID кредита</th>
                         <th class="name">Удовлетворена</th>
                         <th class="comment">Комментарий</th>
-                        <th class="name">Проверить</th>
                     </tr>
                     [#list priors as prior]
                         <tr>
@@ -113,11 +103,6 @@
                             <td class="name">${prior.credit.id}</td>
                             <td class="name">[#if (prior.acceptance)??]${prior.acceptance?html}[/#if]</td>
                             <td class="comment">${prior.comment?html}</td>
-                            <td class="name">
-                                [#if prior.acceptance.name()=="InProcess"]
-                                    <a href="[@spring.url '/department_head/prior/${prior.id?string("0")}'/]">Проверить</a>
-                                [/#if]
-                            </td>
                         </tr>
                     [/#list]
                 </table>
@@ -131,7 +116,6 @@
                         <th class="duration">Длительность пролонгации</th>
                         <th class="name">Удовлетворена</th>
                         <th class="comment">Комментарий</th>
-                        <th class="name">Проверить</th>
                     </tr>
                     [#list prolongations as prolongation]
                         <tr>
@@ -140,11 +124,6 @@
                             <td class="duration">${prolongation.duration}</td>
                             <td class="name">[#if (prolongation.acceptance)??]${prolongation.acceptance?html}[/#if]</td>
                             <td class="comment">${prolongation.comment?html}</td>
-                            <td class="name">
-                                [#if prolongation.acceptance.name()=="InProcess"]
-                                    <a href="[@spring.url '/department_head/prolongation/${prolongation.id?string("0")}'/]">Проверить</a>
-                                [/#if]
-                            </td>
                         </tr>
                     [/#list]
                 </table>

@@ -2,40 +2,38 @@
 [#import "creditex.ftl" as creditex]
 
 [@creditex.root]
-    [@creditex.head "Заявка на пролонгацию"]
+    [@creditex.head "Заявка на досрочное погашение кредита"]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
     <div class="form-action">
         <p class="name"><a href=[@spring.url "/department_head/"/]>Назад на главную страницу</a></p>
-        <p class="name"><a href=[@spring.url "/department_head/prolongation/list/"/]>Назад к списку заявок на пролонгацию</a></p>
-        [#if prolongation??]
+        <p class="name"><a href=[@spring.url "/department_head/prior/list/"/]>Назад к списку заявок на досрочное погашение</a></p>
+        [#if prior??]
 
-            <p class="name"><a href=[@spring.url '/department_head/client/${prolongation.client.id?string("0")}?app_type=prolongation&app=${prolongation.id?string("0")}'/]>Информация о клиенте</a></p>
+            <p class="name"><a href=[@spring.url '/department_head/client/${prior.client.id?string("0")}?app_type=prior&app=${prior.id?string("0")}'/]>Информация о клиенте</a></p>
 
-            <p class="name">Заявка на пролонгацию</p>
+            <p class="name">Заявка на досрочное погашение кредита</p>
             <table>
                 <tr>
                     <th class="name">ID заявки</th>
                     <th class="name">ФИО клиента</th>
                     <th class="passport">Серия и номер паспорта</th>
                     <th class="start_date">Поступление заявки</th>
-                    <th class="duration">Запрашиваемая длительность пролонгации</th>
                     <th class="comment">Комментарий клиента</th>
                 </tr>
 
                 <tr>
-                    <td class="name">${prolongation.id?string("0")}</td>
-                    <td class="name">${prolongation.client.userData.last?html} ${prolongation.client.userData.first?html} ${prolongation.client.userData.patronymic?html}</td>
-                    <td class="passport">${prolongation.client.userData.passportSeries?html} ${prolongation.client.userData.passportNumber}</td>
-                    <td class="start_date">${prolongation.applicationDate}</td>
-                    <td class="duration">${prolongation.duration}</td>
-                    <td class="comment">${prolongation.comment?html}</td>
+                    <td class="name">${prior.id?string("0")}</td>
+                    <td class="name">${prior.client.userData.last?html} ${prior.client.userData.first?html} ${prior.client.userData.patronymic?html}</td>
+                    <td class="passport">${prior.client.userData.passportSeries?html} ${prior.client.userData.passportNumber}</td>
+                    <td class="start_date">${prior.applicationDate}</td>
+                    <td class="comment">${prior.comment?html}</td>
                 </tr>
             </table>
 
-            [#if prolongation.acceptance?? && prolongation.acceptance.name() == "InProcess"]
-            <form method="post" action=[@spring.url '/department_head/prolongation/${prolongation.id?string("0")}/set_head_approved/'/]>
+            [#if prior.acceptance?? && prior.acceptance.name() == "InProcess"]
+            <form method="post" action=[@spring.url '/department_head/prior/${prior.id?string("0")}/set_head_approved/'/]>
                 <table>
                     <td class="comment"><textarea name="comment" ></textarea></td>
                     <td class="action">
@@ -57,7 +55,7 @@
             </form>
             [/#if]
 
-            [#if prolongation.credit??]
+            [#if prior.credit??]
                 <p class="name">Состояние кредита</p>
                 <table>
                     <tr>
@@ -74,17 +72,17 @@
                         <th class="name">Активный кредит</th>
                     </tr>
                     <tr>
-                        <td class="name">${prolongation.credit.id}</td>
-                        <td class="name">${prolongation.credit.product.name?html}</td>
-                        <td class="start_date">${prolongation.credit.creditStart}</td>
-                        <td class="duration">${prolongation.credit.duration}</td>
-                        <td class="start_date">${prolongation.credit.creditEnd}</td>
-                        <td class="amount">${prolongation.credit.originalMainDebt}</td>
-                        <td class="amount">${prolongation.credit.currentMainDebt}</td>
-                        <td class="amount">${prolongation.credit.currentPercentDebt}</td>
-                        <td class="amount">${prolongation.credit.mainFine}</td>
-                        <td class="amount">${prolongation.credit.percentFine}</td>
-                        <td class="name">${prolongation.credit.running?c}</td>
+                        <td class="name">${prior.credit.id}</td>
+                        <td class="name">${prior.credit.product.name?html}</td>
+                        <td class="start_date">${prior.credit.creditStart}</td>
+                        <td class="duration">${prior.credit.duration}</td>
+                        <td class="start_date">${prior.credit.creditEnd}</td>
+                        <td class="amount">${prior.credit.originalMainDebt}</td>
+                        <td class="amount">${prior.credit.currentMainDebt}</td>
+                        <td class="amount">${prior.credit.currentPercentDebt}</td>
+                        <td class="amount">${prior.credit.mainFine}</td>
+                        <td class="amount">${prior.credit.percentFine}</td>
+                        <td class="name">${prior.credit.running?c}</td>
                     </tr>
                 </table>
             [/#if]

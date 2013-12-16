@@ -1,10 +1,7 @@
 package org.kofi.creditex.web;
 
 import org.kofi.creditex.model.*;
-import org.kofi.creditex.service.CreditService;
-import org.kofi.creditex.service.DepartmentHeadService;
-import org.kofi.creditex.service.ProductService;
-import org.kofi.creditex.service.UserService;
+import org.kofi.creditex.service.*;
 import org.kofi.creditex.web.model.ConfirmationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -26,6 +23,9 @@ public class DepartmentHeadController {
 
     @Autowired
     DepartmentHeadService departmentHeadService;
+
+    @Autowired
+    SecurityService securityService;
 
     @Autowired
     CreditService creditService;
@@ -81,7 +81,7 @@ public class DepartmentHeadController {
         }
         int err;
         if((err = departmentHeadService.SetApplicationHeadApproved(id,principal.getName(),form.isAcceptance(),form.getComment())) != 0){
-            return "redirect:/department_head/?error=head_acceptance_filed&info="+err;
+            return "redirect:/department_head/?error=head_acceptance_failed&info="+err;
         }
         return "redirect:/department_head/?application_approved="+form.isAcceptance();
     }
@@ -137,7 +137,7 @@ public class DepartmentHeadController {
             model.addAttribute("prolongation",prolongation);
             return "department_head_prolongation_view";
         }else{
-            return "redirect:/department_head/?error=no_such_prolongation_application";
+            return "redirect:/department_head/?error=no_prolongation_application";
         }
     }
 
@@ -151,7 +151,7 @@ public class DepartmentHeadController {
         }
         int err;
         if((err = departmentHeadService.SetProlongationApproved(id,form.isAcceptance())) != 0){
-            return "redirect:/department_head/?error=prolongation_acceptance_filed&info="+err;
+            return "redirect:/department_head/?error=prolongation_acceptance_failed&info="+err;
         }
         return "redirect:/department_head/?prolongation_application_approved="+form.isAcceptance();
     }
@@ -183,13 +183,96 @@ public class DepartmentHeadController {
     @RequestMapping(value = "/department_head/client/{id}", method = RequestMethod.GET)
     public String DepartmentHead15(Model model
                     ,@PathVariable("id")long id
+                    ,@RequestParam(value = "app", required = false)Long app
+                    ,@RequestParam(value = "app_type", required = false)String app_type
     ){
-        User user = userService.GetUserById(id);
-        if(user == null){
-            return "redirect:/department_head/?error=no_user_found&info="+id;
+        User client = userService.GetUserById(id);
+        if(client == null){
+            return "redirect:/department_head/?error=no_client&info="+id;
         }
-        model.addAttribute("client",user);
-        model.addAttribute("credits",creditService.GetCreditsByUserId(id));
+        model.addAttribute("client",client);
+        long client_id = client.getId();
+        model.addAttribute("credits",creditService.GetCreditsByUserId(client_id));
+        long payments_count = securityService.GetClientPaymentsCount(client_id);
+        long expired_payments_count = securityService.GetClientExpiredPaymentsCount(client_id);
+        model.addAttribute("payments_count", payments_count);
+        model.addAttribute("expired_payments_count", expired_payments_count);
+        List<PriorRepaymentApplication> priors = securityService.GetClientPriorRepaymentApplications(client_id);
+        model.addAttribute("priors",priors);
+        List<ProlongationApplication> prolongations = securityService.GetClientProlongationApplications(client_id);
+        model.addAttribute("prolongations",prolongations);
+
+        if(app != null){
+            if(app_type == null || app_type.equals("credit")){
+                Application application = securityService.GetApplication(app);
+                if(application != null){
+                    model.addAttribute("application_id",app);
+                }
+            }else if(app_type.equals("prolongation")){
+                ProlongationApplication prolongation = departmentHeadService.GetProlongation(app);
+                if(prolongation != null){
+                    model.addAttribute("prolongation_id",app);
+                }
+            }else if(app_type.equals("prior")){
+                PriorRepaymentApplication prior = departmentHeadService.GetPrior(app);
+                if(prior != null){
+                    model.addAttribute("prior_id",app);
+                }
+            }
+        }
+
         return "department_head_client_view";
+    }
+
+    @RequestMapping(value = {"/department_head/client/search/"}, method = RequestMethod.GET)
+    public String Security81(){
+        return "department_head_client_search";
+    }
+
+    @RequestMapping(value = {"/department_head/client/search/"}, method = RequestMethod.POST)
+    public String Security82(@Valid @ModelAttribute UserData form, BindingResult bindingResult
+    ){
+        if(bindingResult.hasErrors()){
+            return "redirect:/department_head/client/search/?error=invalid_input_data";
+        }
+        User client = userService.GetUserByUserDataValues(form);
+        if(client != null){
+            return "redirect:/department_head/client/"+client.getId();
+        }else{
+            return "redirect:/department_head/client/search/?info=no_client";
+        }
+    }
+
+    @RequestMapping(value = "/department_head/prior/list/", method = RequestMethod.GET)
+    public String DepartmentHeadPList(Model model){
+        model.addAttribute("priors",departmentHeadService.GetUncheckedPriors());
+        return "department_head_prior_list_view";
+    }
+
+    @RequestMapping(value = "/department_head/prior/{id}", method = RequestMethod.GET)
+    public String DepartmentHeadPrior(Model model,
+                                  @PathVariable("id")long id){
+        PriorRepaymentApplication prior = departmentHeadService.GetPrior(id);
+        if(prior != null){
+            model.addAttribute("prior",prior);
+            return "department_head_prior_view";
+        }else{
+            return "redirect:/department_head/?error=no_prior_repayment_application";
+        }
+    }
+
+    @RequestMapping(value = "/department_head/prior/{id}/set_head_approved/", method = RequestMethod.POST)
+    public String DepartmentHeadPriorApprove(Model model,
+                                                    @PathVariable("id")long id
+            ,@Valid @ModelAttribute ConfirmationForm form, BindingResult bindingResult
+    ){
+        if(bindingResult.hasErrors()){
+            return "redirect:/department_head/?error=invalid_input_data";
+        }
+        int err;
+        if((err = departmentHeadService.SetPriorApproved(id,form.isAcceptance())) != 0){
+            return "redirect:/department_head/?error=prior_acceptance_failed&info="+err;
+        }
+        return "redirect:/department_head/?prior_repayment_application_approved="+form.isAcceptance();
     }
 }

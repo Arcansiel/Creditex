@@ -13,6 +13,8 @@
             <p class="name"><a href=[@spring.url "/committee_manager/appliances/finished/"/]>Список заявок, голосование по которым завершено</a></p>
             [#if application??]
 
+                <p class="name"><a href=[@spring.url '/committee_manager/client/${application.client.id?string("0")}?app=${application.id?string("0")}'/]>Проверить клиента</a></p>
+
                 <p class="name">Заявка на кредит (Голосование завершено)</p>
                 <table>
                     <tr>
