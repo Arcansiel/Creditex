@@ -7,13 +7,11 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
-
+        [@creditex.goback /]
         <div class="form-action">
-            [#if error??]
-                <p>${error?html}</p>
-            [/#if]
-            <p class="name"><a href=[@spring.url "/operation_manager/"/]>Другой клиент</a></p>
-            <p class="name"><a href=[@spring.url "/operation_manager/operation/list/"/]>Список операций</a></p>
+            <p class="name"><a href="[@spring.url '/operation_manager/'/]">Другой клиент</a></p>
+            <p class="name"><a href="[@spring.url '/operation_manager/payments/'/]">Ближайшие платежи</a></p>
+            <p class="name"><a href="[@spring.url '/operation_manager/operation/list/'/]">История операций</a></p>
             [#if prior??]
                 <p class="name">Досрочное погашение кредита</p>
                 <table>

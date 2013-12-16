@@ -7,11 +7,8 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
-
+        [@creditex.goback /]
         <div class="form-action">
-            [#if error??]
-                <p>${error?html}</p>
-            [/#if]
             <p class="name">Введите данные клиента</p>
             <form action="" method="post" class="form">
                 <p>
@@ -34,7 +31,7 @@
                     <label for="number_filed">Номер паспорта</label>
                     <input type="text" id="number_filed" name="passportNumber">
                 </p>
-                <p class="a-center"><button type="submit" class="button">Перейти к операциям</button></p>
+                <p class="a-center"><button type="submit" class="button">Подтвердить</button></p>
             </form>
         </div>
 
