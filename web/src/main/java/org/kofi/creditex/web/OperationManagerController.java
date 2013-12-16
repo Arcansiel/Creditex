@@ -70,7 +70,7 @@ public class OperationManagerController {
         }
     }
 
-    private void AddPriorRepaymentToModel(long credit_id, Model model){
+    /*private void AddPriorRepaymentToModel(long credit_id, Model model){
         long[] prior_values = new long[2];
         PriorRepaymentApplication prior = operatorService.CurrentPriorRepayment(credit_id, prior_values);
         if(prior != null && prior_values[0] >= 0){
@@ -78,7 +78,7 @@ public class OperationManagerController {
             model.addAttribute("priorAmount",prior_values[0]);
             model.addAttribute("priorFine",prior_values[1]);
         }
-    }
+    }*/
 
     @RequestMapping(value = {"/operation_manager/operation/list/"}, method = RequestMethod.GET)
     public String OperationManagerOperationList(HttpSession session, Model model){
@@ -90,7 +90,7 @@ public class OperationManagerController {
             //push to model
             model.addAttribute("operations",operations);
             model.addAttribute("payments",payments);
-            AddPriorRepaymentToModel(credit_id, model);
+            //AddPriorRepaymentToModel(credit_id, model);
             return "operation_manager_operation_list";
         }else{
             //push error : credit not selected
@@ -111,7 +111,7 @@ public class OperationManagerController {
             }
             model.addAttribute("credit",credit);
             model.addAttribute("expired", credit.getMainFine() > 0);
-            AddPriorRepaymentToModel(credit_id, model);
+            //AddPriorRepaymentToModel(credit_id, model);
             return "operation_manager_operation";
         }else{
             //push error : credit not selected

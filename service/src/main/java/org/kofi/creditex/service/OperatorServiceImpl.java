@@ -58,6 +58,7 @@ public class OperatorServiceImpl implements OperatorService {
         return CurrentPayment(credit_id,dateProvider.getCurrentSqlDate());
     }
 
+    /*
     private PriorRepaymentApplication CurrentPrior(long credit_id){
         return priorRepository.findOne(
                 QPriorRepaymentApplication.priorRepaymentApplication.credit.id.eq(credit_id)
@@ -67,7 +68,7 @@ public class OperatorServiceImpl implements OperatorService {
     }
 
     //amount[0] - debt + fine, amount[1] - fine
-    @Override
+
     public PriorRepaymentApplication CurrentPriorRepayment(long credit_id, long[] amount) {
         PriorRepaymentApplication prior = CurrentPrior(credit_id);
         if(prior != null && amount != null && amount.length > 0){
@@ -82,7 +83,7 @@ public class OperatorServiceImpl implements OperatorService {
             }
         }
         return prior;
-    }
+    }*/
 
     @Override
     public List<Operation> CreditOperations(long credit_id) {
@@ -264,13 +265,13 @@ public class OperatorServiceImpl implements OperatorService {
                     return -1;//sum != amount
                 }
             }else{
-                PriorRepaymentApplication prior = CurrentPrior(credit_id);
+                /*PriorRepaymentApplication prior = CurrentPrior(credit_id);
                 if(prior != null){
                     //досрочное погашение кредита (II)
                     if(!ExecutePriorRepayment(credit, prior, amount)){
                         return -2;//sum != amount
                     }
-                }else{
+                }else{*/
                     Payment current = CurrentPayment(credit_id, now);
                     if(current != null){
                         //оплата текущего платежа (III)
@@ -280,7 +281,7 @@ public class OperatorServiceImpl implements OperatorService {
                     }else{
                         return 1;//no payments available now
                     }
-                }
+                //}
             }
         }else{
             //OperationType.Withdrawal (IV)
