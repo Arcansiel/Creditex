@@ -3,17 +3,18 @@
 [#import "spring.ftl" as spring]
 
 [@creditex.root]
-    [@creditex.head "Кредитный комитет / голосование по заявке"]
+    [@creditex.head "Кредитный комитет / заявка, голосование закрыто"]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.goback /]
         <div class="form-action">
-            <p class="name"><a href=[@spring.url "/committee_manager/"/]>Назад на главную страницу</a></p>
-            <p class="name"><a href=[@spring.url "/committee_manager/appliances/running/"/]>Список заявок для голосования</a></p>
-            <p class="name"><a href=[@spring.url "/committee_manager/appliances/finished/"/]>Список заявок, голосование по которым завершено</a></p>
+            <p class="name"><a href="[@spring.url '/committee_manager/'/]">На главную страницу</a></p>
+            <p class="name"><a href="[@spring.url '/committee_manager/appliances/running/'/]">Список заявок для голосования</a></p>
+            <p class="name"><a href="[@spring.url '/committee_manager/appliances/finished/'/]">Список заявок, голосование по которым завершено</a></p>
             [#if application??]
 
-                <p class="name"><a href=[@spring.url '/committee_manager/client/${application.client.id?string("0")}?app=${application.id?string("0")}'/]>Проверить клиента</a></p>
+                <p class="name"><a href="[@spring.url '/committee_manager/client/${application.client.id?string("0")}'/]">Проверить клиента</a></p>
 
                 <p class="name">Заявка на кредит (Голосование завершено)</p>
                 <table>

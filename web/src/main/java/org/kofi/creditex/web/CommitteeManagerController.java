@@ -93,7 +93,6 @@ public class CommitteeManagerController {
     @RequestMapping(value = "/committee_manager/client/{id}", method = RequestMethod.GET)
     public String Committee5(Model model
             ,@PathVariable("id")long id
-            ,@RequestParam(value = "app", required = false)Long app
     ){
         User client = userService.GetUserById(id);
         if(client == null){
@@ -101,23 +100,67 @@ public class CommitteeManagerController {
         }
         model.addAttribute("client",client);
         long client_id = client.getId();
-        model.addAttribute("credits",creditService.GetCreditsByUserId(client_id));
         long payments_count = securityService.GetClientPaymentsCount(client_id);
         long expired_payments_count = securityService.GetClientExpiredPaymentsCount(client_id);
         model.addAttribute("payments_count", payments_count);
         model.addAttribute("expired_payments_count", expired_payments_count);
-        List<PriorRepaymentApplication> priors = securityService.GetClientPriorRepaymentApplications(client_id);
-        model.addAttribute("priors",priors);
-        List<ProlongationApplication> prolongations = securityService.GetClientProlongationApplications(client_id);
-        model.addAttribute("prolongations",prolongations);
-
-        if(app != null){
-            Application application = securityService.GetApplication(app);
-            if(application != null){
-                model.addAttribute("application_id",application.getId());
-            }
-        }
 
         return "committee_manager_client_view";
+    }
+
+    @RequestMapping(value = "/committee_manager/client/{id}/credits/all/", method = RequestMethod.GET)
+    public String Committee53(Model model
+            ,@PathVariable("id")long id
+    ){
+        User client = userService.GetUserById(id);
+        if(client == null){
+            return "redirect:/committee_manager/?error=no_client&info="+id;
+        }
+        model.addAttribute("client",client);
+        model.addAttribute("credits",creditService.GetCreditsByUserId(client.getId()));
+
+        return "committee_manager_client_credit_list";
+    }
+
+    @RequestMapping(value = "/committee_manager/client/{id}/credits/expired/", method = RequestMethod.GET)
+    public String Committee54(Model model
+            ,@PathVariable("id")long id
+    ){
+        User client = userService.GetUserById(id);
+        if(client == null){
+            return "redirect:/committee_manager/?error=no_client&info="+id;
+        }
+        model.addAttribute("client",client);
+        model.addAttribute("credits",securityService.GetClientExpiredCredits(client.getId()));
+
+        return "committee_manager_client_credit_list";
+    }
+
+    @RequestMapping(value = "/committee_manager/client/{id}/prolongations/", method = RequestMethod.GET)
+    public String Committee55(Model model
+            ,@PathVariable("id")long id
+    ){
+        User client = userService.GetUserById(id);
+        if(client == null){
+            return "redirect:/committee_manager/?error=no_client&info="+id;
+        }
+        model.addAttribute("client",client);
+        model.addAttribute("prolongations",securityService.GetClientProlongationApplications(client.getId()));
+
+        return "committee_manager_client_prolongations_list";
+    }
+
+    @RequestMapping(value = "/committee_manager/client/{id}/priors/", method = RequestMethod.GET)
+    public String Committee56(Model model
+            ,@PathVariable("id")long id
+    ){
+        User client = userService.GetUserById(id);
+        if(client == null){
+            return "redirect:/committee_manager/?error=no_client&info="+id;
+        }
+        model.addAttribute("client",client);
+        model.addAttribute("priors",securityService.GetClientPriorRepaymentApplications(client.getId()));
+
+        return "committee_manager_client_priors_list";
     }
 }

@@ -7,13 +7,14 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.goback /]
         <div class="form-action">
-            <p class="name"><a href=[@spring.url "/committee_manager/"/]>Назад на главную страницу</a></p>
-            <p class="name"><a href=[@spring.url "/committee_manager/appliances/running/"/]>Список заявок для голосования</a></p>
-            <p class="name"><a href=[@spring.url "/committee_manager/appliances/finished/"/]>Список заявок, голосование по которым завершено</a></p>
+            <p class="name"><a href="[@spring.url '/committee_manager/'/]">На главную страницу</a></p>
+            <p class="name"><a href="[@spring.url '/committee_manager/appliances/running/'/]">Список заявок для голосования</a></p>
+            <p class="name"><a href="[@spring.url '/committee_manager/appliances/finished/'/]">Список заявок, голосование по которым завершено</a></p>
             [#if application??]
 
-                <p class="name"><a href=[@spring.url '/committee_manager/client/${application.client.id?string("0")}?app=${application.id?string("0")}'/]>Проверить клиента</a></p>
+                <p class="name"><a href=[@spring.url '/committee_manager/client/${application.client.id?string("0")}'/]>Проверить клиента</a></p>
 
                 <p class="name">Заявка на кредит (Голосование открыто)</p>
                 <table>
@@ -43,7 +44,7 @@
                             <td class="comment">[#if application.securityComment??]${application.securityComment?html}[/#if]</td>
                         </tr>
                 </table>
-                <form method="post" action=[@spring.url '/committee_manager/appliance/vote/${application.id?string("0")}'/]>
+                <form method="post" action="[@spring.url '/committee_manager/appliance/vote/${application.id?string("0")}'/]">
                     <table>
                         <td class="comment"><textarea name="comment" ></textarea></td>
                         <td class="action">
