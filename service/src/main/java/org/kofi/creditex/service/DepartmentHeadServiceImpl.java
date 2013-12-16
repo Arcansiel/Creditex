@@ -137,14 +137,6 @@ public class DepartmentHeadServiceImpl implements DepartmentHeadService {
             return -2;//not in progress
         }
         p.setAcceptance(acceptance_value);
-
-        //TODO (test it) Credit prolongation call
-        if(acceptance){
-            if(creditService.ExecuteProlongation(p.getCredit().getId(),p.getDuration()) != 0){
-                return -3;//prolongation failed
-            }
-        }
-
         prolongationRepository.save(p);
 
         return 0;
