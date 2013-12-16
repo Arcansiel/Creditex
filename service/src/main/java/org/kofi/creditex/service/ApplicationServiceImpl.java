@@ -1,5 +1,6 @@
 package org.kofi.creditex.service;
 
+import org.joda.time.LocalDate;
 import org.kofi.creditex.model.*;
 import org.kofi.creditex.repository.*;
 import org.kofi.creditex.web.model.CreditApplicationForm;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.util.List;
 @Service
 @Transactional
@@ -29,6 +31,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     private CreditexDateProvider creditexDateProvider;
     @Autowired
     private CreditService creditService;
+
     @Override
     public List<Application> GetApplicationsByUsername(String username) {
         return applicationRepository.findByClient_Username(username);
@@ -173,7 +176,28 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public void FinalizeCreditApplication(String username) {
-        // TODO Implement logic
-        //To change body of implemented methods use File | Settings | File Templates.
+        Application application = applicationRepository.findByClientUsernameAndProcessed(username, false);
+        LocalDate date = creditexDateProvider.getCurrentDate();
+        Date end = creditexDateProvider.transformDate(date.plusMonths((int) application.getDuration()));
+        long[] params = new long[3];
+        List<Payment> payments = CreditCalculator.PaymentPlan(application,creditexDateProvider.getCurrentSqlDate(),params);
+        Credit credit = new Credit()
+                .setCreditApplication(application)
+                .setUser(userRepository.findByUsername(username))
+
+                .setRunning(true)
+                .setCreditStart(creditexDateProvider.getCurrentSqlDate())
+                .setCreditEnd(end)
+                .setCurrentMainDebt(application.getRequest())
+                .setCurrentMoney(application.getRequest())
+                .setDuration(application.getDuration())
+                .setOriginalMainDebt(application.getRequest())
+                .setProduct(application.getProduct())
+                .setPayments(payments)
+                .setCurrentPercentDebt(params[1]);
+        for (Payment payment : credit.getPayments()){
+            payment.setCredit(credit);
+        }
+        creditRepository.save(credit);
     }
 }
