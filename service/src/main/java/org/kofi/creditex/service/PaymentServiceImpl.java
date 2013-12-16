@@ -5,7 +5,9 @@ import org.kofi.creditex.model.Credit;
 import org.kofi.creditex.model.Payment;
 import org.kofi.creditex.model.ProductType;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public interface PaymentService {
+public class PaymentServiceImpl implements PaymentService {
+
 }

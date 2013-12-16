@@ -67,7 +67,7 @@
                             <td>${payment.number}</td>
                             <td>${payment.requiredPayment}</td>
                             <td>${payment.paymentStart}</td>
-                            <td>${payment.paymentClosed?string("Да","Нет")}</td>
+                            <td>${payment.paymentEnd}</td>
                             <td>${payment.paymentClosed?string("Да","Нет")}</td>
                             <td>${payment.paymentExpired?string("Да","Нет")}</td>
                         </tr>
