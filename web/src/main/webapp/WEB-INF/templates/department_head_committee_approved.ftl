@@ -6,10 +6,11 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.goback/]
         <div class="form-action">
-            <p class="name"><a href=[@spring.url "/department_head/"/]>Назад на главную страницу</a></p>
-            <p class="name"><a href=[@spring.url "/department_head/appliances/committee_rejected/"/]>Список заявок, отклонённых комитетом</a></p>
-            <p class="name"><a href=[@spring.url "/department_head/appliances/committee_vote/"/]>Список заявок с открытым голосованием</a></p>
+            <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
+            <p class="name"><a href="[@spring.url '/department_head/appliances/committee_rejected/'/]">Список заявок, отклонённых комитетом</a></p>
+            <p class="name"><a href="[@spring.url '/department_head/appliances/committee_vote/'/]">Список заявок с открытым голосованием</a></p>
             <p class="name">Заявки, одобренные кредитным комитетом</p>
             <table>
                 <tr>
@@ -26,7 +27,7 @@
                     <th class="submit-button">Подробнее</th>
                 </tr>
 
-                [#list applications as app]
+                [#if applications??][#list applications as app]
                     <tr>
                         <td class="name">${app.id?string("0")}</td>
                         <td class="name">${app.client.userData.last?html} ${app.client.userData.first?html} ${app.client.userData.patronymic?html}</td>
@@ -38,9 +39,9 @@
                         <td class="amount">${app.voteAcceptance?string("0")} / ${app.voteRejection?string("0")}</td>
                         <td class="name">[#if app.security??]${app.security.username?html}[/#if]</td>
                         <td class="comment">[#if app.securityComment??]${app.securityComment?html}[/#if]</td>
-                        <td><a href=[@spring.url '/department_head/appliance/${app.id?string("0")}'/]>Открыть заявку</a></td>
+                        <td><a href="[@spring.url '/department_head/appliance/${app.id?string("0")}'/]">Открыть заявку</a></td>
                     </tr>
-                [/#list]
+                [/#list][/#if]
             </table>
         </div>
     </div>

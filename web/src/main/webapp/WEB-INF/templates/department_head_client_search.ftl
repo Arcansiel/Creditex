@@ -7,12 +7,9 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
-
+        [@creditex.goback /]
         <div class="form-action">
-            [#if error??]
-                <p>${error?html}</p>
-            [/#if]
-            <p class="name"><a href=[@spring.url "/department_head/"/]>Назад на главную страницу</a></p>
+            <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
             <p class="name">Введите данные клиента</p>
             <form action="" method="post" class="form">
                 <p>

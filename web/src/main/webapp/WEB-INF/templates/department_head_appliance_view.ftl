@@ -6,14 +6,15 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.goback /]
         <div class="form-action">
-            <p class="name"><a href=[@spring.url "/department_head/"/]>Назад на главную страницу</a></p>
-            <p class="name"><a href=[@spring.url "/department_head/appliances/committee_rejected/"/]>Список заявок, отклонённых комитетом</a></p>
-            <p class="name"><a href=[@spring.url "/department_head/appliances/committee_approved/"/]>Список заявок, одобренных комитетом</a></p>
-            <p class="name"><a href=[@spring.url "/department_head/appliances/committee_vote/"/]>Список заявок с открытым голосованием</a></p>
+            <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
+            <p class="name"><a href="[@spring.url '/department_head/appliances/committee_rejected/'/]">Список заявок, отклонённых комитетом</a></p>
+            <p class="name"><a href="[@spring.url '/department_head/appliances/committee_approved/'/]">Список заявок, одобренных комитетом</a></p>
+            <p class="name"><a href="[@spring.url '/department_head/appliances/committee_vote/'/]">Список заявок с открытым голосованием</a></p>
             [#if application??]
 
-                <p class="name"><a href=[@spring.url '/department_head/client/${application.client.id?string("0")}?app=${application.id?string("0")}'/]>Информация о клиенте</a></p>
+                <p class="name"><a href="[@spring.url '/department_head/client/${application.client.id?string("0")}'/]">Информация о клиенте</a></p>
 
                 [#if application.committeeAcceptance??]
                     [#if application.committeeAcceptance.name() == "Accepted"]
@@ -58,7 +59,7 @@
 
                 [#if application.committeeAcceptance?? && application.committeeAcceptance.name() == "Accepted"]
                 [#-- show form only for committee accepted applications --]
-                <form method="post" action=[@spring.url '/department_head/appliance/${application.id?string("0")}/set_head_approved/'/]>
+                <form method="post" action="[@spring.url '/department_head/appliance/${application.id?string("0")}/set_head_approved/'/]">
                     <table>
                         <td class="comment"><textarea name="comment" ></textarea></td>
                         <td class="action">

@@ -6,12 +6,13 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+    [@creditex.goback /]
     <div class="form-action">
-        <p class="name"><a href=[@spring.url "/department_head/"/]>Назад на главную страницу</a></p>
-        <p class="name"><a href=[@spring.url "/department_head/prolongation/list/"/]>Назад к списку заявок на пролонгацию</a></p>
+        <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
+        <p class="name"><a href="[@spring.url '/department_head/prolongation/list/'/]">Назад к списку заявок на пролонгацию</a></p>
         [#if prolongation??]
 
-            <p class="name"><a href=[@spring.url '/department_head/client/${prolongation.client.id?string("0")}?app_type=prolongation&app=${prolongation.id?string("0")}'/]>Информация о клиенте</a></p>
+            <p class="name"><a href="[@spring.url '/department_head/client/${prolongation.client.id?string("0")}'/]">Информация о клиенте</a></p>
 
             <p class="name">Заявка на пролонгацию</p>
             <table>
@@ -35,7 +36,7 @@
             </table>
 
             [#if prolongation.acceptance?? && prolongation.acceptance.name() == "InProcess"]
-            <form method="post" action=[@spring.url '/department_head/prolongation/${prolongation.id?string("0")}/set_head_approved/'/]>
+            <form method="post" action="[@spring.url '/department_head/prolongation/${prolongation.id?string("0")}/set_head_approved/'/]">
                 <table>
                     <td class="comment"><textarea name="comment" ></textarea></td>
                     <td class="action">

@@ -6,8 +6,9 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.goback/]
         <div class="form-action">
-            <p class="name"><a href=[@spring.url "/department_head/"/]>Назад на главную страницу</a></p>
+            <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
             <p class="name">Активные кредитные продукты</p>
             <table>
                 <tr>
@@ -40,7 +41,7 @@
                         <td class="amount">${product.debtPercent?string("0.####")}</td>
                         <td class="name">${product.prior}</td>
                         <td class="amount">${product.priorRepaymentPercent}</td>
-                        <td><a href=[@spring.url '/department_head/product/${product.id?string("0")}/set_active/false'/]>Деактивировать</a></td>
+                        <td><a href="[@spring.url '/department_head/product/${product.id?string("0")}/set_active/false'/]">Деактивировать</a></td>
                     </tr>
                 [/#list][/#if]
             </table>
@@ -77,7 +78,7 @@
                         <td class="amount">${product.debtPercent?string("0.####")}</td>
                         <td class="name">${product.prior}</td>
                         <td class="amount">${product.priorRepaymentPercent}</td>
-                        <td><a href=[@spring.url '/department_head/product/${product.id?string("0")}/set_active/true'/]>Активировать</a></td>
+                        <td><a href="[@spring.url '/department_head/product/${product.id?string("0")}/set_active/true'/]">Активировать</a></td>
                     </tr>
                 [/#list][/#if]
             </table>

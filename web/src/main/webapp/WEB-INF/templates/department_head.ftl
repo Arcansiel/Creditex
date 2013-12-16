@@ -3,7 +3,6 @@
 
 [@creditex.root]
     [@creditex.head "Глава кредитного отдела"]
-
     [/@creditex.head]
     [@creditex.body]
     <div class="page">

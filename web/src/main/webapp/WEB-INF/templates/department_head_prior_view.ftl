@@ -6,12 +6,13 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+    [@creditex.goback/]
     <div class="form-action">
-        <p class="name"><a href=[@spring.url "/department_head/"/]>Назад на главную страницу</a></p>
-        <p class="name"><a href=[@spring.url "/department_head/prior/list/"/]>Назад к списку заявок на досрочное погашение</a></p>
+        <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
+        <p class="name"><a href="[@spring.url '/department_head/prior/list/'/]">Список заявок на досрочное погашение</a></p>
         [#if prior??]
 
-            <p class="name"><a href=[@spring.url '/department_head/client/${prior.client.id?string("0")}?app_type=prior&app=${prior.id?string("0")}'/]>Информация о клиенте</a></p>
+            <p class="name"><a href="[@spring.url '/department_head/client/${prior.client.id?string("0")}'/]">Информация о клиенте</a></p>
 
             <p class="name">Заявка на досрочное погашение кредита</p>
             <table>
@@ -33,7 +34,7 @@
             </table>
 
             [#if prior.acceptance?? && prior.acceptance.name() == "InProcess"]
-            <form method="post" action=[@spring.url '/department_head/prior/${prior.id?string("0")}/set_head_approved/'/]>
+            <form method="post" action="[@spring.url '/department_head/prior/${prior.id?string("0")}/set_head_approved/'/]">
                 <table>
                     <td class="comment"><textarea name="comment" ></textarea></td>
                     <td class="action">

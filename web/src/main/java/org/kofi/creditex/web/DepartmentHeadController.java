@@ -137,7 +137,7 @@ public class DepartmentHeadController {
             model.addAttribute("prolongation",prolongation);
             return "department_head_prolongation_view";
         }else{
-            return "redirect:/department_head/?error=no_prolongation_application";
+            return "redirect:/department_head/?error=no_prolongation_application&info="+id;
         }
     }
 
@@ -183,8 +183,6 @@ public class DepartmentHeadController {
     @RequestMapping(value = "/department_head/client/{id}", method = RequestMethod.GET)
     public String DepartmentHead15(Model model
                     ,@PathVariable("id")long id
-                    ,@RequestParam(value = "app", required = false)Long app
-                    ,@RequestParam(value = "app_type", required = false)String app_type
     ){
         User client = userService.GetUserById(id);
         if(client == null){
@@ -192,37 +190,71 @@ public class DepartmentHeadController {
         }
         model.addAttribute("client",client);
         long client_id = client.getId();
-        model.addAttribute("credits",creditService.GetCreditsByUserId(client_id));
         long payments_count = securityService.GetClientPaymentsCount(client_id);
         long expired_payments_count = securityService.GetClientExpiredPaymentsCount(client_id);
         model.addAttribute("payments_count", payments_count);
         model.addAttribute("expired_payments_count", expired_payments_count);
-        List<PriorRepaymentApplication> priors = securityService.GetClientPriorRepaymentApplications(client_id);
-        model.addAttribute("priors",priors);
-        List<ProlongationApplication> prolongations = securityService.GetClientProlongationApplications(client_id);
-        model.addAttribute("prolongations",prolongations);
-
-        if(app != null){
-            if(app_type == null || app_type.equals("credit")){
-                Application application = securityService.GetApplication(app);
-                if(application != null){
-                    model.addAttribute("application_id",app);
-                }
-            }else if(app_type.equals("prolongation")){
-                ProlongationApplication prolongation = departmentHeadService.GetProlongation(app);
-                if(prolongation != null){
-                    model.addAttribute("prolongation_id",app);
-                }
-            }else if(app_type.equals("prior")){
-                PriorRepaymentApplication prior = departmentHeadService.GetPrior(app);
-                if(prior != null){
-                    model.addAttribute("prior_id",app);
-                }
-            }
-        }
 
         return "department_head_client_view";
     }
+
+
+    @RequestMapping(value = "/department_head/client/{id}/credits/all/", method = RequestMethod.GET)
+    public String DepartmentHead_list1(Model model
+            ,@PathVariable("id")long id
+    ){
+        User client = userService.GetUserById(id);
+        if(client == null){
+            return "redirect:/department_head/?error=no_client&info="+id;
+        }
+        model.addAttribute("client",client);
+        model.addAttribute("credits",creditService.GetCreditsByUserId(client.getId()));
+
+        return "department_head_client_credit_list";
+    }
+
+    @RequestMapping(value = "/department_head/client/{id}/credits/expired/", method = RequestMethod.GET)
+    public String DepartmentHead_list2(Model model
+            ,@PathVariable("id")long id
+    ){
+        User client = userService.GetUserById(id);
+        if(client == null){
+            return "redirect:/department_head/?error=no_client&info="+id;
+        }
+        model.addAttribute("client",client);
+        model.addAttribute("credits",securityService.GetClientExpiredCredits(client.getId()));
+
+        return "department_head_client_credit_list";
+    }
+
+    @RequestMapping(value = "/department_head/client/{id}/prolongations/", method = RequestMethod.GET)
+    public String DepartmentHead_list3(Model model
+            ,@PathVariable("id")long id
+    ){
+        User client = userService.GetUserById(id);
+        if(client == null){
+            return "redirect:/department_head/?error=no_client&info="+id;
+        }
+        model.addAttribute("client",client);
+        model.addAttribute("prolongations",securityService.GetClientProlongationApplications(client.getId()));
+
+        return "department_head_client_prolongations_list";
+    }
+
+    @RequestMapping(value = "/department_head/client/{id}/priors/", method = RequestMethod.GET)
+    public String DepartmentHead_list4(Model model
+            ,@PathVariable("id")long id
+    ){
+        User client = userService.GetUserById(id);
+        if(client == null){
+            return "redirect:/department_head/?error=no_client&info="+id;
+        }
+        model.addAttribute("client",client);
+        model.addAttribute("priors",securityService.GetClientPriorRepaymentApplications(client.getId()));
+
+        return "department_head_client_priors_list";
+    }
+
 
     @RequestMapping(value = {"/department_head/client/search/"}, method = RequestMethod.GET)
     public String Security81(){
@@ -257,7 +289,7 @@ public class DepartmentHeadController {
             model.addAttribute("prior",prior);
             return "department_head_prior_view";
         }else{
-            return "redirect:/department_head/?error=no_prior_repayment_application";
+            return "redirect:/department_head/?error=no_prior_repayment_application&info="+id;
         }
     }
 
