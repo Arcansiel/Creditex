@@ -9,7 +9,7 @@ public interface OperatorService {
     Credit getCredit(long credit_id);
     Credit CurrentCredit(long client_id);
     Payment CurrentPayment(long credit_id);
-    PriorRepaymentApplication CurrentPriorRepayment(long credit_id, long[] amount);
+    //PriorRepaymentApplication CurrentPriorRepayment(long credit_id, long[] amount);
     List<Operation> CreditOperations(long credit_id);
     List<Payment> NearestPayments(long credit_id);
     int ExecuteOperation(String operator_name, long credit_id, OperationType type, long amount);
