@@ -58,7 +58,7 @@
 [#macro goback]
 <div class="content">
     <ul class="nav-menu">
-        <li><a href="javascript: history.go(-1)">Вырнуться назад</a>
+        <li><a href="javascript: history.go(-1)">Вернуться назад</a>
         </li>
     </ul>
 </div>
