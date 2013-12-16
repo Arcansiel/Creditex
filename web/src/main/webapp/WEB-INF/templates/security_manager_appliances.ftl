@@ -7,8 +7,9 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.goback /]
         <div class="form-action">
-        <p class="name"><a href=[@spring.url "/security_manager/"/]>Назад на главную страницу</a></p>
+            <p class="name"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
         <p class="name">Заявки, нуждающиеся в проверке</p>
         <table>
             <tr>
@@ -22,7 +23,7 @@
                 <th class="submit-button">Проверка заявки</th>
             </tr>
 
-            [#list applications as app]
+            [#if applications??][#list applications as app]
             <tr>
                 <td class="name">${app.id?string("0")}</td>
                 <td class="name">${app.client.userData.last?html} ${app.client.userData.first?html} ${app.client.userData.patronymic?html}</td>
@@ -33,7 +34,7 @@
                 <td class="duration">${app.duration}</td>
                 <td><a href=[@spring.url '/security_manager/appliance/check/${app.id?string("0")}'/]>Проверка заявки</a></td>
             </tr>
-            [/#list]
+            [/#list][/#if]
          </table>
         </div>
     </div>

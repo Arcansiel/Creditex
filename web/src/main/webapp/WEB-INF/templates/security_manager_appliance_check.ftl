@@ -7,12 +7,13 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.goback /]
          <div class="form-action">
-             <p class="name"><a href=[@spring.url "/security_manager/"/]>Назад на главную страницу</a></p>
-             <p class="name"><a href=[@spring.url "/security_manager/appliances/"/]>Назад к списку заявок</a></p>
+             <p class="name"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
+             <p class="name"><a href="[@spring.url '/security_manager/appliances/'/]">Список заявок</a></p>
         [#if application??]
-            <p class="name"><a href=[@spring.url '/security_manager/client/check/${application.client.id?string("0")}?app=${application.id?string("0")}'/]>Проверка клиента по внутренним базам</a></p>
-            <p class="name"><a href=[@spring.url '/security_manager/client/check/outer/${application.client.id?string("0")}?app=${application.id?string("0")}'/]>Проверка клиента по внешним базам</a></p>
+            <p class="name"><a href="[@spring.url '/security_manager/client/check/${application.client.id?string("0")}'/]">Проверка клиента по внутренним базам</a></p>
+            <p class="name"><a href="[@spring.url '/security_manager/client/check/outer/${application.client.id?string("0")}'/]">Проверка клиента по внешним базам</a></p>
 
              <p class="name">Заявка на кредит</p>
              <table>
@@ -35,7 +36,7 @@
                      <td class="duration">${application.duration}</td>
                  </tr>
              </table>
-             <form method="post" action=[@spring.url '/security_manager/appliance/confirm/${application.id?string("0")}'/]>
+             <form method="post" action="[@spring.url '/security_manager/appliance/confirm/${application.id?string("0")}'/]">
                  <table>
                      <td class="comment"><textarea name="comment" ></textarea></td>
                      <td class="action">

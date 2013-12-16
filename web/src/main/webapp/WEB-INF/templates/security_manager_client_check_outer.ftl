@@ -6,17 +6,11 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.goback /]
         <div class="form-action">
-            <p class="name"><a href=[@spring.url "/security_manager/"/]>На главную страницу</a></p>
-
+        <p class="name"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
         [#if client??]
-            [#if application_id??]
-                <p class="name"><a href="[@spring.url '/security_manager/appliance/check/${application_id?string("0")}'/]">Назад к заявке</a></p>
-                <p class="name"><a href=[@spring.url '/security_manager/client/check/${client.id?string("0")}?app=${application_id?string("0")}'/]>Проверка клиента по внутренним базам</a></p>
-            [#else]
-                <p class="name"><a href=[@spring.url '/security_manager/client/check/${client.id?string("0")}'/]>Проверка клиента по внутренним базам</a></p>
-            [/#if]
-
+            <p class="name"><a href=[@spring.url '/security_manager/client/check/${client.id?string("0")}'/]>Проверка клиента по внутренним базам</a></p>
             <p class="name">Клиент банка (внешняя проверка)</p>
             <table>
                 <tr>

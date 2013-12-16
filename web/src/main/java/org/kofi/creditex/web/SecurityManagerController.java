@@ -3,6 +3,7 @@ package org.kofi.creditex.web;
 
 
 import org.kofi.creditex.model.*;
+import org.kofi.creditex.service.CreditService;
 import org.kofi.creditex.service.SecurityService;
 import org.kofi.creditex.service.UserService;
 import org.kofi.creditex.web.model.ConfirmationForm;
@@ -14,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
@@ -27,6 +29,9 @@ public class SecurityManagerController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    CreditService creditService;
 
     @RequestMapping("/security_manager/")
     public String MainSecurityManager(){
@@ -58,8 +63,9 @@ public class SecurityManagerController {
 
 
     @RequestMapping(value = "/security_manager/appliance/check/{id}", method = RequestMethod.GET)
-    public String Security4(Model model
+    public String Security4(HttpSession session, Model model
                             ,@PathVariable("id")long id){
+
         Application app = securityService.GetApplication(id);
         if(app == null){
             return "redirect:/security_manager/?error=no_application&info="+id;
@@ -71,7 +77,6 @@ public class SecurityManagerController {
     @RequestMapping(value = "/security_manager/client/check/{id}", method = RequestMethod.GET)
     public String Security51(Model model
             ,@PathVariable("id")long id
-            ,@RequestParam(value = "app", required = false) Long app
     ){
         User client = userService.GetUserById(id);
         if(client == null){
@@ -81,34 +86,22 @@ public class SecurityManagerController {
 
         long client_id = client.getId();
         List<Credit> credits = securityService.GetCurrentClientCredits(client_id);
-        model.addAttribute("credits",credits);
-        List<Credit> expired = securityService.GetClientExpiredCredits(client_id);
-        model.addAttribute("expired",expired);
+        if(credits.size() > 0){
+            model.addAttribute("credit",credits.get(0));
+        }
         long payments_count = securityService.GetClientPaymentsCount(client_id);
         long expired_payments_count = securityService.GetClientExpiredPaymentsCount(client_id);
         model.addAttribute("payments_count", payments_count);
         model.addAttribute("expired_payments_count", expired_payments_count);
         List<Credit> unreturned = securityService.GetClientUnreturnedCredits(client_id);
         model.addAttribute("unreturned",unreturned);
-        List<PriorRepaymentApplication> priors = securityService.GetClientPriorRepaymentApplications(client_id);
-        model.addAttribute("priors",priors);
-        List<ProlongationApplication> prolongations = securityService.GetClientProlongationApplications(client_id);
-        model.addAttribute("prolongations",prolongations);
 
-        Application application;
-        if(app != null){
-            application = securityService.GetApplication(app);
-            if(application != null){
-                model.addAttribute("application_id",app);
-            }
-        }
         return "security_manager_client_check";
     }
 
     @RequestMapping(value = "/security_manager/client/check/outer/{id}", method = RequestMethod.GET)
     public String Security52(Model model
             ,@PathVariable("id")long id
-            ,@RequestParam(value = "app", required = false) Long app
     ){
         User client = userService.GetUserById(id);
         if(client == null){
@@ -116,14 +109,63 @@ public class SecurityManagerController {
         }
         model.addAttribute("client",client);
 
-        Application application;
-        if(app != null){
-            application = securityService.GetApplication(app);
-            if(application != null){
-                model.addAttribute("application_id",app);
-            }
-        }
         return "security_manager_client_check_outer";
+    }
+
+    @RequestMapping(value = "/security_manager/client/{id}/credits/all/", method = RequestMethod.GET)
+    public String Security53(Model model
+            ,@PathVariable("id")long id
+    ){
+        User client = userService.GetUserById(id);
+        if(client == null){
+            return "redirect:/security_manager/?error=no_client&info="+id;
+        }
+        model.addAttribute("client",client);
+        model.addAttribute("credits",creditService.GetCreditsByUserId(client.getId()));
+
+        return "security_manager_client_credit_list";
+    }
+
+    @RequestMapping(value = "/security_manager/client/{id}/credits/expired/", method = RequestMethod.GET)
+    public String Security54(Model model
+            ,@PathVariable("id")long id
+    ){
+        User client = userService.GetUserById(id);
+        if(client == null){
+            return "redirect:/security_manager/?error=no_client&info="+id;
+        }
+        model.addAttribute("client",client);
+        model.addAttribute("credits",securityService.GetClientExpiredCredits(client.getId()));
+
+        return "security_manager_client_credit_list";
+    }
+
+    @RequestMapping(value = "/security_manager/client/{id}/prolongations/", method = RequestMethod.GET)
+    public String Security55(Model model
+            ,@PathVariable("id")long id
+    ){
+        User client = userService.GetUserById(id);
+        if(client == null){
+            return "redirect:/security_manager/?error=no_client&info="+id;
+        }
+        model.addAttribute("client",client);
+        model.addAttribute("prolongations",securityService.GetClientProlongationApplications(client.getId()));
+
+        return "security_manager_client_prolongations_list";
+    }
+
+    @RequestMapping(value = "/security_manager/client/{id}/priors/", method = RequestMethod.GET)
+    public String Security56(Model model
+            ,@PathVariable("id")long id
+    ){
+        User client = userService.GetUserById(id);
+        if(client == null){
+            return "redirect:/security_manager/?error=no_client&info="+id;
+        }
+        model.addAttribute("client",client);
+        model.addAttribute("priors",securityService.GetClientPriorRepaymentApplications(client.getId()));
+
+        return "security_manager_client_priors_list";
     }
 
     @RequestMapping(value = "/security_manager/appliance/confirm/{id}", method = RequestMethod.POST)
