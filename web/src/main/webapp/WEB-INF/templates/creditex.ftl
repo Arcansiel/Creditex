@@ -53,3 +53,13 @@
     <p class="name">Специалист по работе с клиентами</p>
 </div>
 [/#macro]
+
+
+[#macro goback]
+<div class="content">
+    <ul class="nav-menu">
+        <li><a href="javascript: history.go(-1)">Вырнуться назад</a>
+        </li>
+    </ul>
+</div>
+[/#macro]
