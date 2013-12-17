@@ -12,6 +12,7 @@
             <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
             <p class="name">Заявки на досрочное погашение, нуждающиеся в проверке</p>
             <table>
+                <thead>
                 <tr>
                     <th class="name">ID заявки</th>
                     <th class="name">ФИО клиента</th>
@@ -20,7 +21,8 @@
                     <th class="comment">Комментарий клиента</th>
                     <th class="submit-button">Подробнее</th>
                 </tr>
-
+                </thead>
+                <tbody id="list">
                 [#if priors??][#list priors as app]
                     <tr>
                         <td class="name">${app.id?string("0")}</td>
@@ -31,6 +33,7 @@
                         <td><a href="[@spring.url '/department_head/prior/${app.id?string("0")}'/]">Открыть заявку</a></td>
                     </tr>
                 [/#list][/#if]
+                </tbody>
             </table>
         </div>
     </div>

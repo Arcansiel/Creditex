@@ -12,6 +12,7 @@
             <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
             <p class="name">Клиенты банка</p>
             <table>
+                <thead>
                 <tr>
                     <th class="name">ID клиента</th>
                     <th class="name">ФИО клиента</th>
@@ -23,7 +24,8 @@
                     <th class="name">Доход</th>
                     <th class="submit-button">Клиент</th>
                 </tr>
-
+                </thead>
+                <tbody id="list">
                 [#if clients??][#list clients as c]
                     <tr>
                         <td class="name">${c.id}</td>
@@ -37,6 +39,7 @@
                         <td class="submit-button"><a href="[@spring.url '/department_head/client/${c.id?string("0")}'/]">Клиент</a></td>
                     </tr>
                 [/#list][/#if]
+                </tbody>
             </table>
         </div>
     </div>

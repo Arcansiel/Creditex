@@ -13,6 +13,7 @@
             <p class="name"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
         <p class="name">Заявки, нуждающиеся в проверке</p>
         <table>
+            <thead>
             <tr>
                 <th class="name">ID заявки</th>
                 <th class="name">ФИО клиента</th>
@@ -23,7 +24,8 @@
                 <th class="duration">Длительность кредитования</th>
                 <th class="submit-button">Проверка заявки</th>
             </tr>
-
+            </thead>
+            <tbody id="list">
             [#if applications??][#list applications as app]
             <tr>
                 <td class="name">${app.id?string("0")}</td>
@@ -36,6 +38,7 @@
                 <td><a href=[@spring.url '/security_manager/appliance/check/${app.id?string("0")}'/]>Проверка заявки</a></td>
             </tr>
             [/#list][/#if]
+            </tbody>
          </table>
         </div>
     </div>

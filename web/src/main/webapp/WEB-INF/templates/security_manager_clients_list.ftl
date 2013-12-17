@@ -12,6 +12,7 @@
             <p class="name"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
             <p class="name">Клиенты банка</p>
             <table>
+                <thead>
                 <tr>
                     <th class="name">ID клиента</th>
                     <th class="name">ФИО клиента</th>
@@ -23,7 +24,8 @@
                     <th class="name">Доход</th>
                     <th class="name" colspan="2">Проверка клиента</th>
                 </tr>
-
+                </thead>
+                <tbody id="list">
                 [#if clients??][#list clients as c]
                     <tr>
                         <td class="name">${c.id}</td>
@@ -38,6 +40,7 @@
                         <td class="name"><a href=[@spring.url '/security_manager/client/check/outer/${c.id?string("0")}'/]>Внешняя</a></td>
                     </tr>
                 [/#list][/#if]
+                </tbody>
             </table>
         </div>
     </div>

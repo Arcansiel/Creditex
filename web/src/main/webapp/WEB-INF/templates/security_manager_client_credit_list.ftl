@@ -36,9 +36,10 @@
                 </table>
             [/#if]
 
-            [#if credits??]
+
                 <p class="name">Кредиты клиента</p>
                 <table>
+                    <thead>
                     <tr>
                         <th class="name">ID</th>
                         <th class="name">Продукт</th>
@@ -53,7 +54,9 @@
                         <th class="name">Активный кредит</th>
                         <th class="name">Есть просроченные платежи</th>
                     </tr>
-                    [#list credits as credit]
+                    </thead>
+                    <tbody id="list">
+                        [#if credits??][#list credits as credit]
                         <tr>
                             <td class="name">${credit.id}</td>
                             <td class="name">${credit.product.name?html}</td>
@@ -68,9 +71,9 @@
                             <td class="name">${credit.running?c}</td>
                             <td class="name">${credit.expired?c}</td>
                         </tr>
-                    [/#list]
+                    [/#list][/#if]
+                    </tbody>
                 </table>
-            [/#if]
 
         </div>
     </div>
