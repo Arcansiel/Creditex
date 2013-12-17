@@ -5,23 +5,14 @@
 
 [@creditex.root]
     [@creditex.head "Main page"]
-    [@creditex.includeBootstrap/]
-    <script>
-        $(function(){
-            $("div.holder").jPages({
-               containerID:"applications",
-                perPage:3,
-                delay: 0
-            });
-        });
-    </script>
+    [@creditex.tableProcess "priorApplicationsTable" "applications"/]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
         <div class="data-table">
             <p class="name">Заявки на досрочное погашение кредита</p>
             <div class="holder"></div>
-            <table>
+            <table id="priorApplicationsTable">
                 <thead>
                 <tr>
                     <th>Дата</th>
