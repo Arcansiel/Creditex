@@ -3,6 +3,7 @@
 
 [@creditex.root]
     [@creditex.head "Список неактивных кредитных продуктов"]
+        [@creditex.tableProcess "listtable" "list" 10 /]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
@@ -12,7 +13,7 @@
             <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
             <p class="name"><a href="[@spring.url '/department_head/product/list/activated/'/]">Список активных продуктов</a></p>
             <p class="name">Неактивные кредитные продукты</p>
-            <table>
+            <table id="listtable">
                 <thead>
                 <tr>
                     <th class="name">ID продукта</th>
