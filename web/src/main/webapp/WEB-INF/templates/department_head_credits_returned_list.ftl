@@ -3,16 +3,18 @@
 
 [@creditex.root]
     [@creditex.head "Погашеные кредиты"]
+        [@creditex.tableProcess "listtable" "list" 10 /]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
         [@creditex.department_head /]
         [@creditex.goback /]
-        <div class="form-action">
+        <div class="data-table">
             <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
             <p><a href="[@spring.url '/department_head/credits/active/list/'/]">Открытые кредиты</a></p>
             <p class="name">Погашеные кредиты</p>
-            <table>
+            <div class="holder"></div>
+            <table id="listtable">
                 <thead>
                 <tr>
                     <th class="name">ID кредита</th>

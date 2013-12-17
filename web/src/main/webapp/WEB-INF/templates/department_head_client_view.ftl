@@ -8,7 +8,7 @@
     <div class="page">
         [@creditex.department_head /]
         [@creditex.goback /]
-        <div class="form-action">
+        <div class="data-table">
             <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
 
             [#if client??]

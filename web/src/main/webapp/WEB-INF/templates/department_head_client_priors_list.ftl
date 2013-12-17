@@ -3,13 +3,14 @@
 
 [@creditex.root]
     [@creditex.head "Заявки клиента на пролонгацию клиента"]
+        [@creditex.tableProcess "listtable" "list" 10 /]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
         [@creditex.department_head /]
         [@creditex.goback /]
-        <div class="form-action">
-            <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
+        <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
+        <div class="data-table">
             [#if client??]
                 <p class="name">Клиент банка</p>
                 <table>
@@ -38,7 +39,8 @@
 
 
                 <p class="name">Завки клиента на досрочное погашение</p>
-                <table>
+            <div class="holder"></div>
+            <table id="listtable">
                     <thead>
                     <tr>
                         <th class="start_date">Дата</th>

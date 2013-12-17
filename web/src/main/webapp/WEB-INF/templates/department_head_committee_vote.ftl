@@ -3,17 +3,19 @@
 
 [@creditex.root]
     [@creditex.head "Рассматриваемые комитетом заявки на кредит"]
+        [@creditex.tableProcess "listtable" "list" 10 /]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
         [@creditex.department_head /]
         [@creditex.goback/]
-        <div class="form-action">
+        <div class="data-table">
             <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
             <p class="name"><a href="[@spring.url '/department_head/appliances/committee_rejected/'/]">Список заявок, отклонённых комитетом</a></p>
             <p class="name"><a href="[@spring.url '/department_head/appliances/committee_approved/'/]">Список заявок, одобренных комитетом</a></p>
             <p class="name">Заявки с открытым голосованием</p>
-            <table>
+            <div class="holder"></div>
+            <table id="listtable">
                 <thead>
                 <tr>
                     <th class="name">ID заявки</th>

@@ -4,18 +4,20 @@
 
 [@creditex.root]
     [@creditex.head "Операционист / история операций по кредиту"]
+        [@creditex.tableProcess "listtable" "list" 10 /]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
         [@creditex.operation_manager /]
         [@creditex.goback /]
-        <div class="form-action">
+
+        <div class="data-table">
             <p class="name"><a href="[@spring.url '/operation_manager/'/]">Другой клиент</a></p>
             <p class="name"><a href="[@spring.url '/operation_manager/payments/'/]">Ближайшие платежи</a></p>
             <p class="name"><a href="[@spring.url '/operation_manager/operation/'/]">Новая операция</a></p>
-
             <p class="name">История операций по текущему кредиту</p>
-            <table>
+            <div class="holder"></div>
+            <table id="listtable">
                 <thead>
                 <tr>
                     <th class="start_date">Дата операции</th>

@@ -4,16 +4,18 @@
 
 [@creditex.root]
     [@creditex.head "Кредитный комитет / заявки на голосование"]
+        [@creditex.tableProcess "listtable" "list" 10 /]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
         [@creditex.committee_manager /]
         [@creditex.goback /]
-        <div class="form-action">
+        <div class="data-table">
             <p class="name"><a href="[@spring.url '/committee_manager/'/]">На главную страницу</a></p>
             <p class="name"><a href="[@spring.url '/committee_manager/appliances/finished/'/]">Список заявок, голосование по которым завершено</a></p>
             <p class="name">Заявки, нуждающиеся в голосовании</p>
-            <table>
+            <div class="holder"></div>
+            <table id="listtable">
                 <thead>
                 <tr>
                     <th class="name">ID заявки</th>

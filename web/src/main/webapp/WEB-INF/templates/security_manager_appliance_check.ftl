@@ -9,7 +9,7 @@
     <div class="page">
         [@creditex.security_manager /]
         [@creditex.goback /]
-         <div class="form-action">
+         <div class="data-table">
              <p class="name"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
              <p class="name"><a href="[@spring.url '/security_manager/appliances/'/]">Список заявок</a></p>
         [#if application??]

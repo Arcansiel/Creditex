@@ -8,7 +8,7 @@
     <div class="page">
         [@creditex.security_manager /]
         [@creditex.goback /]
-        <div class="form-action">
+        <div class="data-table">
             <p class="name"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
             [#if client??]
                 <p class="name"><a href="[@spring.url '/security_manager/client/check/outer/${client.id?string("0")}'/]">Проверка клиента по внешним базам</a></p>

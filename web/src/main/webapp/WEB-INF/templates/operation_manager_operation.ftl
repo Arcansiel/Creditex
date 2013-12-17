@@ -9,10 +9,11 @@
     <div class="page">
         [@creditex.operation_manager /]
         [@creditex.goback /]
-        <div class="form-action">
-            <p class="name"><a href="[@spring.url '/operation_manager/'/]">Другой клиент</a></p>
-            <p class="name"><a href="[@spring.url '/operation_manager/payments/'/]">Ближайшие платежи</a></p>
-            <p class="name"><a href="[@spring.url '/operation_manager/operation/list/'/]">История операций</a></p>
+        <p class="name"><a href="[@spring.url '/operation_manager/'/]">Другой клиент</a></p>
+        <p class="name"><a href="[@spring.url '/operation_manager/payments/'/]">Ближайшие платежи</a></p>
+        <p class="name"><a href="[@spring.url '/operation_manager/operation/list/'/]">История операций</a></p>
+        <div class="data-table">
+
             [#if prior??]
                 <p class="name">Досрочное погашение кредита</p>
                 <table>
