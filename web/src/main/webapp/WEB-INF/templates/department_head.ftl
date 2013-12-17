@@ -20,7 +20,8 @@
                 </li>
                 <li><a href="#">Кредитные продукты</a>
                     <ul>
-                        <li><a href="[@spring.url '/department_head/product/list/'/]">Списки кредитных продуктов</a></li>
+                        <li><a href="[@spring.url '/department_head/product/list/activated/'/]">Список активных кредитных продуктов</a></li>
+                        <li><a href="[@spring.url '/department_head/product/list/deactivated/'/]">Список неактивных кредитных продуктов</a></li>
                         <li><a href="[@spring.url '/department_head/product/create/'/]">Создать кредитный продукт</a></li>
                     </ul>
                 </li>

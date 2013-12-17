@@ -86,11 +86,16 @@ public class DepartmentHeadController {
         return "redirect:/department_head/?application_approved="+form.isAcceptance();
     }
 
-    @RequestMapping(value = "/department_head/product/list/", method = RequestMethod.GET)
-    public String DepartmentHead3(Model model){
-        model.addAttribute("activated",productService.GetProductsByActive(true));
-        model.addAttribute("deactivated",productService.GetProductsByActive(false));
+    @RequestMapping(value = {"/department_head/product/list/","/department_head/product/list/activated/"}, method = RequestMethod.GET)
+    public String DepartmentHead31(Model model){
+        model.addAttribute("products",productService.GetProductsByActive(true));
         return "department_head_product_list";
+    }
+
+    @RequestMapping(value = "/department_head/product/list/deactivated/", method = RequestMethod.GET)
+    public String DepartmentHead32(Model model){
+        model.addAttribute("products",productService.GetProductsByActive(false));
+        return "department_head_product_list_deactivated";
     }
 
     @RequestMapping(value = "/department_head/product/create/", method = RequestMethod.GET)
