@@ -29,8 +29,8 @@ public class OperatorServiceImpl implements OperatorService {
     @Autowired
     CreditexDateProvider dateProvider;
 
-    @Autowired
-    PriorRepaymentApplicationRepository priorRepository;
+    //@Autowired
+    //PriorRepaymentApplicationRepository priorRepository;
 
     @Override
     public Credit getCredit(long credit_id) {
@@ -104,7 +104,7 @@ public class OperatorServiceImpl implements OperatorService {
         for(Payment p:paymentRepository.findAll(
                 QPayment.payment.credit.id.eq(credit_id)
                         .and(QPayment.payment.paymentClosed.isFalse())
-                        .and(QPayment.payment.paymentStart.lt(now))
+                        .and(QPayment.payment.paymentStart.loe(now))
                 , QPayment.payment.paymentStart.asc()
         )){
             list.add(p);
@@ -152,6 +152,7 @@ public class OperatorServiceImpl implements OperatorService {
         }
     }
 
+    /*
     //[0] = debt + fine, [1] - fine
     private long[] PriorRepaymentAmount(Credit credit){
         long amount, fine;
@@ -179,6 +180,7 @@ public class OperatorServiceImpl implements OperatorService {
         }
         return new long[]{ amount, fine };
     }
+
 
     private void CloseCreditPayments(long credit_id){
         List<Payment> list = new ArrayList<Payment>();
@@ -210,7 +212,7 @@ public class OperatorServiceImpl implements OperatorService {
         }else{
             return false;//sum != amount
         }
-    }
+    }*/
 
     private boolean ExecutePaymentCurrent(Credit credit, Payment current, long amount){
         //оплата текущего платежа (III)
@@ -279,7 +281,7 @@ public class OperatorServiceImpl implements OperatorService {
                             return -3;//sum != amount
                         }
                     }else{
-                        return 1;//no payments available now
+                        return 0;//no payments available now
                     }
                 //}
             }
@@ -298,6 +300,10 @@ public class OperatorServiceImpl implements OperatorService {
         operation.setOperationDate(now);
         operationRepository.save(operation);
 
-        return 0;//operation executed
+        if(credit.isRunning()){
+            return 1;//operation executed
+        }else{
+            return 2;//operation executed and credit closed
+        }
     }
 }

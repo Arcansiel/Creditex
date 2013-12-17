@@ -122,14 +122,21 @@ public class OperationManagerController {
                 model.addAttribute("payment",payment);
             }
             model.addAttribute("credit",credit);
-            model.addAttribute("expired", credit.getMainFine() > 0);
-            //AddPriorRepaymentToModel(credit_id, model);
+            boolean expired = credit.getMainFine() > 0;
+            model.addAttribute("expired", expired);
+            long amount = 0;
+            if(payment != null){
+                amount = payment.getRequiredPayment();
+            }else if(expired){
+                amount = credit.getMainFine() + credit.getPercentFine();
+            }
+            model.addAttribute("amount",amount);
+            //AddPriorRepaymentToModel(credit_id, model);//and amount as prior value
             return "operation_manager_operation";
         }else{
             //push error : credit not selected
             return "redirect:/operation_manager/?error=credit_not_selected";
         }
-
     }
 
     @RequestMapping(value = {"/operation_manager/operation/"}, method = RequestMethod.POST)
@@ -142,18 +149,21 @@ public class OperationManagerController {
         //get credit from session
         Long credit_id;
         if((credit_id = getCredit(session)) != null){
-            int err;
-            if((err=operatorService.ExecuteOperation(principal.getName(),credit_id,form.getType(),form.getAmount())) != 0){
-                if(err < 0){
-                    return "redirect:/operation_manager/operation/?error=operation_not_executed&info="+err;
-                }else{
+            int code;
+            if((code=operatorService.ExecuteOperation(principal.getName(),credit_id,form.getType(),form.getAmount())) < 0){
+                return "redirect:/operation_manager/operation/?error=operation_not_executed&info="+code;
+            }else{
+                if(code == 0){
                     return "redirect:/operation_manager/operation/?info=no_operations_available";
+                }else if(code == 1){
+                    return "redirect:/operation_manager/operation/?info=operation_executed";
+                }else{
+                    return "redirect:/operation_manager/?info=credit_closed";
                 }
             }
         }else{
             return "redirect:/operation_manager/?error=credit_not_selected";
         }
-        return "redirect:/operation_manager/operation/?info=operation_executed";
     }
 
 }

@@ -33,20 +33,29 @@ public class DepartmentHeadServiceImpl implements DepartmentHeadService {
     CreditService creditService;
 
     @Override
-    public List<Application> GetCommitteeApprovedUncheckedApplications(boolean approved) {
-        Acceptance acceptance;
-        if (approved){
-            acceptance = Acceptance.Accepted;
-        }else{
-            acceptance = Acceptance.Rejected;
-        }
+    public List<Application> GetCommitteeApprovedUncheckedApplications() {
         List<Application> list = new ArrayList<Application>();
         for(Application a:applicationRepository.findAll(
                 QApplication.application.request.goe(QApplication.application.product.minCommittee)//нужно одобрение
                         .and(QApplication.application.securityAcceptance.eq(Acceptance.Accepted))//одобрена службой безопасности
-                        .and(QApplication.application.committeeAcceptance.eq(acceptance))//одобрение комитета
-                        .and(QApplication.application.headAcceptance.eq(Acceptance.InProcess)),//не проверена главой отдела
-                QApplication.application.applicationDate.asc()
+                        .and(QApplication.application.committeeAcceptance.eq(Acceptance.Accepted))//одобрена комитетом
+                        .and(QApplication.application.acceptance.eq(Acceptance.InProcess))
+                        .and(QApplication.application.headAcceptance.eq(Acceptance.InProcess))//не проверена главой отдела
+                ,QApplication.application.applicationDate.asc()
+        )){
+            list.add(a);
+        }
+        return list;
+    }
+
+    @Override
+    public List<Application> GetCommitteeRejectedApplications() {
+        List<Application> list = new ArrayList<Application>();
+        for(Application a:applicationRepository.findAll(
+                QApplication.application.request.goe(QApplication.application.product.minCommittee)//нужно одобрение
+                        .and(QApplication.application.securityAcceptance.eq(Acceptance.Accepted))//одобрена службой безопасности
+                        .and(QApplication.application.committeeAcceptance.eq(Acceptance.Rejected))//отклонена комитетом
+                ,QApplication.application.applicationDate.desc()
         )){
             list.add(a);
         }
@@ -59,6 +68,7 @@ public class DepartmentHeadServiceImpl implements DepartmentHeadService {
         for(Application a:applicationRepository.findAll(
                 QApplication.application.request.goe(QApplication.application.product.minCommittee)//нужно одобрение
                 .and(QApplication.application.securityAcceptance.eq(Acceptance.Accepted))//одобрена службой безопасности
+                .and(QApplication.application.acceptance.eq(Acceptance.InProcess))
                 .and(QApplication.application.votingClosed.isFalse()),//голосование не завершено
                 QApplication.application.applicationDate.asc()
         )){
@@ -96,13 +106,16 @@ public class DepartmentHeadServiceImpl implements DepartmentHeadService {
         User head = userService.GetUserByUsername(head_username);
         if(head == null){ return -2; }//no user
         if(!application.getAcceptance().equals(Acceptance.InProcess)){
-            return -3;//not in progress
+            return -3;//not in process
         }
         if(!application.isVotingClosed()){
             return -4;//voting is not closed yet
         }
         application.setHeadAcceptance(acceptance_value);
         application.setAcceptance(acceptance_value);
+        if(!acceptance){
+            application.setProcessed(true);//обработка заявки завершена, заявка отклонена
+        }
         application.setHeadComment(comment);
         application.setHead(head);
         applicationRepository.save(application);
@@ -140,6 +153,9 @@ public class DepartmentHeadServiceImpl implements DepartmentHeadService {
             return -2;//not in process
         }
         p.setAcceptance(acceptance_value);
+        if(!acceptance){
+            p.setProcessed(true);//обработка заявки завершена, заявка отклонена
+        }
         prolongationRepository.save(p);
 
         return 0;
@@ -176,6 +192,9 @@ public class DepartmentHeadServiceImpl implements DepartmentHeadService {
             return -2;//not in process
         }
         p.setAcceptance(acceptance_value);
+        if(!acceptance){
+            p.setProcessed(true);//обработка заявки завершена, заявка отклонена
+        }
         priorRepaymentApplicationRepository.save(p);
 
         return 0;

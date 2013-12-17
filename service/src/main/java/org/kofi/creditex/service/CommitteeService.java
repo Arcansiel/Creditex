@@ -8,7 +8,7 @@ import java.sql.Date;
 public interface CommitteeService {
     Application GetApplication(long application_id);
     List<Vote> GetApplicationVotes(long application_id);
-    List<Application> GetVotingApplications(boolean voting);
+    List<Application> GetApplicationsForVoting();
+    List<Application> GetVotingClosedApplications();
     int Vote(String committee_name, long application_id, boolean acceptance, String comment);
-    List<Credit> GetClientCredits(long client_id);
 }

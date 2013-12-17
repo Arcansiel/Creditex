@@ -3,7 +3,7 @@ package org.kofi.creditex.service;
 import org.kofi.creditex.model.*;
 import java.util.List;
 import java.util.ArrayList;
-import java.sql.Date;
+
 import org.kofi.creditex.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,11 +42,28 @@ public class CommitteeServiceImpl implements CommitteeService {
         return list;
     }
 
-    public List<Application> GetVotingApplications(boolean voting){
+    @Override
+    public List<Application> GetApplicationsForVoting() {
         List<Application> list = new ArrayList<Application>();
         for(Application a:applicationRepository.findAll(
                 QApplication.application.securityAcceptance.eq(Acceptance.Accepted)
-                        .and(QApplication.application.votingClosed.ne(voting))
+                        .and(QApplication.application.acceptance.eq(Acceptance.InProcess))
+                        .and(QApplication.application.votingClosed.isFalse())
+                        .and(QApplication.application.request.goe(QApplication.application.product.minCommittee))
+                , QApplication.application.applicationDate.asc()
+        )){
+            list.add(a);
+        }
+        return list;
+    }
+
+    @Override
+    public List<Application> GetVotingClosedApplications() {
+        List<Application> list = new ArrayList<Application>();
+        for(Application a:applicationRepository.findAll(
+                QApplication.application.securityAcceptance.eq(Acceptance.Accepted)
+                        //.and(QApplication.application.acceptance.ne(Acceptance.InProcess))
+                        .and(QApplication.application.votingClosed.isTrue())
                         .and(QApplication.application.request.goe(QApplication.application.product.minCommittee))
                 , QApplication.application.applicationDate.desc()
         )){
@@ -72,7 +89,7 @@ public class CommitteeServiceImpl implements CommitteeService {
             return -2;//no application
         }
         if(!a.getAcceptance().equals(Acceptance.InProcess)){
-            return -3;//not in progress
+            return -3;//not in process
         }
         User u = userService.GetUserByUsername(committee_name);
         if(u == null){
@@ -91,7 +108,7 @@ public class CommitteeServiceImpl implements CommitteeService {
             }else{
                 a.setVoteRejection(a.getVoteRejection()+1);
             }
-            ChangeVotingStatus(a);
+            AfterVoteProcessing(a);
             applicationRepository.save(a);
         }else{
             boolean vacceptance = v.isAcceptance();
@@ -120,7 +137,7 @@ public class CommitteeServiceImpl implements CommitteeService {
         return userService.GetUsersCountByAuthorityAndEnabled("ROLE_COMMITTEE_MANAGER",true);
     }
 
-    private void ChangeVotingStatus(Application application){
+    private void AfterVoteProcessing(Application application){
         long votes_limit = GetVotesLimit();
         long votes_count = application.getVoteAcceptance() + application.getVoteRejection();
         if(votes_count >= votes_limit){
@@ -131,23 +148,13 @@ public class CommitteeServiceImpl implements CommitteeService {
                 application.setCommitteeAcceptance(Acceptance.Accepted);
             }else{
                 application.setCommitteeAcceptance(Acceptance.Rejected);
+                application.setAcceptance(Acceptance.Rejected);
+                application.setProcessed(true);//обработка заявки завершена, заявка отклонена
             }
         }
     }
 
-    @Override
-    public List<Credit> GetClientCredits(long client_id) {
-        List<Credit> list = new ArrayList<Credit>();
-        for(Credit c:creditRepository.findAll(
-                QCredit.credit.user.id.eq(client_id),
-                QCredit.credit.creditStart.desc()
-        )){
-            list.add(c);
-        }
-        return list;
-    }
-
-    public List<Application> GetCommitteeVotingCheckedApplications(long committee_id, boolean voting, boolean checked){
+    /*public List<Application> GetCommitteeVotingCheckedApplications(long committee_id, boolean voting, boolean checked){
         List<Application> list = new ArrayList<Application>();
         for(Application a:applicationRepository.findAll(
                 QApplication.application.securityAcceptance.eq(Acceptance.Accepted)
@@ -160,7 +167,7 @@ public class CommitteeServiceImpl implements CommitteeService {
             }
         }
         return list;
-    }
+    }*/
 
 
 }
