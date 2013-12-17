@@ -5,18 +5,9 @@
 
 [@creditex.root]
     [@creditex.head "Main page"]
-    [@creditex.includeBootstrap/]
+    [@creditex.tableProcess "paymentTable" "payments"/]
     <script type="text/javascript">
         $(function(){
-            $("div.holder").jPages({
-                containerID:"payments",
-                perPage      : 10,
-                startPage    : 1,
-                startRange   : 1,
-                midRange     : 5,
-                endRange     : 1,
-                delay: 0
-            });
             $("#foo").onclick = function () {
                 history.go(-1);
             };
@@ -62,7 +53,7 @@
         <div class="data-table">
             <p class="name">Платежи</p>
             <div class="holder"></div>
-            <table>
+            <table id="paymentTable">
                 <thead>
                 <tr>
                     <th>Номер платежа</th>

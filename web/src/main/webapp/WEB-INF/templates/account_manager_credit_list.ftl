@@ -5,27 +5,14 @@
 
 [@creditex.root]
     [@creditex.head "Main page"]
-    [@creditex.includeBootstrap/]
-    <script>
-        $(function(){
-            $("div.holder").jPages({
-                containerID:"credits",
-                perPage      : 10,
-                startPage    : 1,
-                startRange   : 1,
-                midRange     : 5,
-                endRange     : 1,
-                delay: 0
-            });
-        });
-    </script>
+    [@creditex.tableProcess "creditTable" "credits"/]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
         <div class="data-table">
             <p class="name">Список кредитов</p>
             <div class="holder"></div>
-            <table>
+            <table id="creditTable">
                 <thead>
                 <tr>
                     <th>Дата начала</th>

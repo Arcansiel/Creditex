@@ -12,10 +12,45 @@
 <link rel="stylesheet" type="text/css" href="[@spring.url '/css/bootstrap.css'/]"/>
 <link rel="stylesheet" type="text/css" href="[@spring.url '/css/bootstrap-theme.css'/]"/>
 <link rel="stylesheet" type="text/css" href="[@spring.url '/css/jPages.css'/]">
+<link rel="stylesheet" type="text/css" href="[@spring.url '/css/tablecloth.css'/]"/>
 <script src="[@spring.url '/js/bootstrap.js'/]"></script>
 <script src="[@spring.url '/js/jquery-2.0.3.js'/]"></script>
 <script src="[@spring.url '/js/jPages.js'/]"></script>
+<script src="[@spring.url '/js/jquery.tablecloth.js'/]"></script>
+<script src="[@spring.url '/js/jquery.tablesorter.js'/]"></script>
+<script src="[@spring.url '/js/jquery.metadata.js'/]"></script>
 [/#macro]
+
+[#macro pagination container pageLength]
+$("div.holder").jPages({
+    containerID:"${container}",
+    perPage: ${pageLength},
+    delay: 0
+});
+[/#macro]
+
+[#macro sorting table theme sortable class]
+$("#${table}").tablecloth(
+        {
+            theme:"${theme}",
+            sortable:${sortable?c},
+            clean:true,
+            cleanElements: "td th",
+            customClass:"${class}"
+        }
+);
+[/#macro]
+
+[#macro tableProcess table container pageLength=10 theme = "default" sortable = true class = "data-table"]
+[@includeBootstrap/]
+<script>
+    $(function(){
+        [@pagination container=container pageLength=pageLength/]
+        [@sorting table=table theme=theme sortable=sortable class=class/]
+    });
+</script>
+[/#macro]
+
 
 [#macro head title]
 <head>
