@@ -5,13 +5,28 @@
 
 [@creditex.root]
     [@creditex.head "Main page"]
-
+    [@creditex.includeBootstrap/]
+    <script>
+        $(function(){
+            $("div.holder").jPages({
+                containerID:"products",
+                perPage      : 10,
+                startPage    : 1,
+                startRange   : 1,
+                midRange     : 5,
+                endRange     : 1,
+                delay: 0
+            });
+        });
+    </script>
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
         <div class="data-table">
-            <p class="name">Заявки на досрочное погашение кредита</p>
+            <p class="name">Список кредитных продуктов</p>
+            <div class="holder"></div>
             <table>
+                <thead>
                 <tr>
                     <th>Название</th>
                     <th>Тип кредита</th>
@@ -26,8 +41,10 @@
                     <th>Процент штрафа за предварительный возврат</th>
                     <th>Просмотреть</th>
                 </tr>
-                [#if products??]
-                    [#list products as product]
+                </thead>
+                <tbody id="products">
+                    [#if products??]
+                        [#list products as product]
                         <tr>
                             <td>${product.name}</td>
                             <td>${product.type}</td>
@@ -42,8 +59,10 @@
                             <td>${product.priorRepaymentPercent}</td>
                             <td><a href="[@spring.url '/account_manager/product/view/'+'${product.id}'+'/'/]">Просмотреть</a> </td>
                         </tr>
-                    [/#list]
-                [/#if]
+                        [/#list]
+                    [/#if]
+                </tbody>
+
             </table>
         </div>
         <div class="content">

@@ -5,29 +5,46 @@
 
 [@creditex.root]
     [@creditex.head "Main page"]
-
+    [@creditex.includeBootstrap/]
+    <script>
+        $(function(){
+            $("div.holder").jPages({
+               containerID:"applications",
+                perPage:3,
+                delay: 0
+            });
+        });
+    </script>
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
         <div class="data-table">
             <p class="name">Заявки на досрочное погашение кредита</p>
+            <div class="holder"></div>
             <table>
+                <thead>
                 <tr>
                     <th>Дата</th>
                     <th>Комментарий</th>
                     <th>Кредит</th>
                     <th>Принята ли заявка</th>
                 </tr>
-                [#if applications??]
-                    [#list applications as application]
+                </thead>
+                <tbody id = "applications">
+                    [#if applications??]
+
+                        [#list applications as application]
                         <tr>
-                            <td>${application.applicationDate?string("dd/MM/yyyy")}</td>
+                            <td>${application.applicationDate}</td>
                             <td>${application.comment}</td>
                             <td><a href="[@spring.url '/account_manager/client/credit/view/'+'${application.credit.id}'+'/'/]">Посмотреть</a></td>
                             <td>${application.acceptance}</td>
                         </tr>
-                    [/#list]
-                [/#if]
+                        [/#list]
+
+                    [/#if]
+                </tbody>
+
             </table>
         </div>
         <div class="content">

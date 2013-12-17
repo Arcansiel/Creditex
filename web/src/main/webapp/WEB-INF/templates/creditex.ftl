@@ -11,8 +11,10 @@
 [#macro includeBootstrap]
 <link rel="stylesheet" type="text/css" href="[@spring.url '/css/bootstrap.css'/]"/>
 <link rel="stylesheet" type="text/css" href="[@spring.url '/css/bootstrap-theme.css'/]"/>
+<link rel="stylesheet" type="text/css" href="[@spring.url '/css/jPages.css'/]">
 <script src="[@spring.url '/js/bootstrap.js'/]"></script>
 <script src="[@spring.url '/js/jquery-2.0.3.js'/]"></script>
+<script src="[@spring.url '/js/jPages.js'/]"></script>
 [/#macro]
 
 [#macro head title]

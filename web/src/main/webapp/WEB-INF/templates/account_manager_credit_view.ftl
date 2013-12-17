@@ -5,13 +5,22 @@
 
 [@creditex.root]
     [@creditex.head "Main page"]
+    [@creditex.includeBootstrap/]
     <script type="text/javascript">
-        var el = document.getElementById('foo');
-        el.onclick = showFoo;
-        function showFoo() {
-            history.go(-1);
-            return false;
-        }
+        $(function(){
+            $("div.holder").jPages({
+                containerID:"payments",
+                perPage      : 10,
+                startPage    : 1,
+                startRange   : 1,
+                midRange     : 5,
+                endRange     : 1,
+                delay: 0
+            });
+            $("#foo").onclick = function () {
+                history.go(-1);
+            };
+        });
     </script>
     [/@creditex.head]
     [@creditex.body]
@@ -52,7 +61,9 @@
         </div>
         <div class="data-table">
             <p class="name">Платежи</p>
+            <div class="holder"></div>
             <table>
+                <thead>
                 <tr>
                     <th>Номер платежа</th>
                     <th>Сумма платежа</th>
@@ -61,8 +72,10 @@
                     <th>Погашен ли платёж</th>
                     <th>Просрочен ли платёж</th>
                 </tr>
-                [#if credit.payments??]
-                    [#list credit.payments as payment]
+                </thead>
+                <tbody id="payments">
+                    [#if credit.payments??]
+                        [#list credit.payments as payment]
                         <tr>
                             <td>${payment.number}</td>
                             <td>${payment.requiredPayment}</td>
@@ -71,8 +84,10 @@
                             <td>${payment.paymentClosed?string("Да","Нет")}</td>
                             <td>${payment.paymentExpired?string("Да","Нет")}</td>
                         </tr>
-                    [/#list]
-                [/#if]
+                        [/#list]
+                    [/#if]
+                </tbody>
+
             </table>
         </div>
         <div class="content">

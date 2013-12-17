@@ -5,13 +5,28 @@
 
 [@creditex.root]
     [@creditex.head "Main page"]
-
+    [@creditex.includeBootstrap/]
+    <script>
+        $(function(){
+            $("div.holder").jPages({
+                containerID:"credits",
+                perPage      : 10,
+                startPage    : 1,
+                startRange   : 1,
+                midRange     : 5,
+                endRange     : 1,
+                delay: 0
+            });
+        });
+    </script>
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
         <div class="data-table">
-            <p class="name">Заявки на досрочное погашение кредита</p>
+            <p class="name">Список кредитов</p>
+            <div class="holder"></div>
             <table>
+                <thead>
                 <tr>
                     <th>Дата начала</th>
                     <th>Длительность</th>
@@ -22,8 +37,10 @@
                     <th>Кредитный продукт</th>
                     <th>Просмотреть</th>
                 </tr>
-                [#if credits??]
-                    [#list credits as credit]
+                </thead>
+                <tbody id="credits">
+                    [#if credits??]
+                        [#list credits as credit]
                         <tr>
                             <td>${credit.creditStart}</td>
                             <td>${credit.duration}</td>
@@ -34,8 +51,9 @@
                             <td><a href="[@spring.url '/account_manager/product/view/'+'${credit.product.id}'+'/'/]">${credit.product.name}</a></td>
                             <td><a href="[@spring.url '/account_manager/client/credit/view/'+'${credit.id}'+'/'/]">Просмотреть</a></td>
                         </tr>
-                    [/#list]
-                [/#if]
+                        [/#list]
+                    [/#if]
+                </tbody>
             </table>
         </div>
         <div class="content">
