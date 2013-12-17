@@ -7,6 +7,7 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.operation_manager /]
         [@creditex.goback /]
         <div class="form-action">
             <p class="name">Введите данные клиента</p>

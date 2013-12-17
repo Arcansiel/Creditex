@@ -6,6 +6,7 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.department_head /]
         [@creditex.goback/]
         <div class="form-action">
             <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>

@@ -7,6 +7,7 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.security_manager /]
         [@creditex.goback /]
         <div class="form-action">
             <p class="name"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>

@@ -4,10 +4,10 @@
 
 [@creditex.root]
     [@creditex.head "Служба безопасности"]
-         [#--menu: app for view, credits 1 and 2--]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.security_manager /]
         <div class="content">
 
             <ul class="nav-menu">

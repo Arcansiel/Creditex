@@ -7,6 +7,7 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.committee_manager /]
         [@creditex.goback /]
         <div class="form-action">
             <p class="name"><a href="[@spring.url '/committee_manager/'/]">На главную страницу</a></p>

@@ -6,6 +6,7 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.department_head /]
         <div class="content">
 
             <ul class="nav-menu">
