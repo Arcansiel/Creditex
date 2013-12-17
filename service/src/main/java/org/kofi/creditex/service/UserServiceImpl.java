@@ -107,4 +107,23 @@ public class UserServiceImpl implements UserService {
     public User GetUserById(long user_id) {
         return userRepository.findOne(user_id);
     }
+
+    @Override
+    public long GetUsersCountByAuthorityAndEnabled(String authority, boolean enabled) {
+        return userRepository.count(
+            QUser.user.authority.authority.eq(authority)
+                .and(QUser.user.enabled.eq(enabled))
+        );
+    }
+
+    @Override
+    public boolean SetUserEnabledById(long user_id, boolean enabled) {
+        User user = userRepository.findOne(user_id);
+        if(user == null){
+            return false;
+        }
+        user.setEnabled(enabled);
+        userRepository.save(user);
+        return true;
+    }
 }

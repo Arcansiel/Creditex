@@ -113,9 +113,15 @@ public class CommitteeServiceImpl implements CommitteeService {
         return 0;
     }
 
+
+
+    private long GetVotesLimit(){
+        //TODO select votes limit from special table
+        return userService.GetUsersCountByAuthorityAndEnabled("ROLE_COMMITTEE_MANAGER",true);
+    }
+
     private void ChangeVotingStatus(Application application){
-        //TODO select votes limit from database
-        long votes_limit = 2;
+        long votes_limit = GetVotesLimit();
         long votes_count = application.getVoteAcceptance() + application.getVoteRejection();
         if(votes_count >= votes_limit){
             //close voting
