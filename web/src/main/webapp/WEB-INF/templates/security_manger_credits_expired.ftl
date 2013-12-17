@@ -14,6 +14,7 @@
 
             <p class="name">Кредиты с просроченными платежами</p>
             <table>
+                <thead>
                 <tr>
                     <th class="name">ID кредита</th>
                     <th class="name">Кредитный продукт</th>
@@ -30,7 +31,8 @@
                     <th class="name">Активный кредит</th>
                     <th class="name" colspan="2">Проверка клиента</th>
                 </tr>
-
+                </thead>
+                <tbody id="list">
                 [#if credits??][#list credits as c]
                     <tr>
                         <td class="name">${c.id}</td>
@@ -50,6 +52,7 @@
                         <td class="name"><a href=[@spring.url '/security_manager/client/check/outer/${c.user.id?string("0")}'/]>Внешняя</a></td>
                     </tr>
                 [/#list][/#if]
+                </tbody>
             </table>
 
         </div>

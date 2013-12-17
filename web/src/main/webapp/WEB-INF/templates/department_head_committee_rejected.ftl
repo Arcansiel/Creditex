@@ -14,6 +14,7 @@
             <p class="name"><a href="[@spring.url '/department_head/appliances/committee_vote/'/]">Список заявок с открытым голосованием</a></p>
             <p class="name">Заявки, отклонённые кредитным комитетом</p>
             <table>
+                <thead>
                 <tr>
                     <th class="name">ID заявки</th>
                     <th class="name">ФИО клиента</th>
@@ -27,7 +28,8 @@
                     <th class="comment">Комментарий СБ</th>
                     <th class="submit-button">Подробнее</th>
                 </tr>
-
+                </thead>
+                <tbody id="list">
                 [#if applications??][#list applications as app]
                     <tr>
                         <td class="name">${app.id?string("0")}</td>
@@ -43,6 +45,7 @@
                         <td><a href="[@spring.url '/department_head/appliance/${app.id?string("0")}'/]">Открыть заявку</a></td>
                     </tr>
                 [/#list][/#if]
+                </tbody>
             </table>
         </div>
     </div>

@@ -36,9 +36,10 @@
                 </table>
             [/#if]
 
-            [#if priors??]
+
                 <p class="name">Завки клиента на досрочное погашение</p>
                 <table>
+                    <thead>
                     <tr>
                         <th class="start_date">Дата</th>
                         <th class="name">ID кредита</th>
@@ -46,7 +47,9 @@
                         <th class="comment">Комментарий</th>
                         <th class="name">Проверить</th>
                     </tr>
-                    [#list priors as prior]
+                    </thead>
+                    <tbody id="list">
+                        [#if priors??][#list priors as prior]
                         <tr>
                             <td class="start_date">${prior.applicationDate}</td>
                             <td class="name">${prior.credit.id}</td>
@@ -58,9 +61,10 @@
                                 [/#if]
                             </td>
                         </tr>
-                    [/#list]
+                    [/#list][/#if]
+                    </tbody>
                 </table>
-            [/#if]
+
 
         </div>
     </div>

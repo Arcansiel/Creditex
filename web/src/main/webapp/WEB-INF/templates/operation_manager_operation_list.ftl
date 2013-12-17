@@ -16,13 +16,15 @@
 
             <p class="name">История операций по текущему кредиту</p>
             <table>
+                <thead>
                 <tr>
                     <th class="start_date">Дата операции</th>
                     <th class="name">Тип операции</th>
                     <th class="amount">Сумма операции</th>
                     <th class="name">Операционист</th>
                 </tr>
-
+                </thead>
+                <tbody id="list">
                 [#if operations??]
                     [#list operations as operation]
                         <tr>
@@ -35,6 +37,7 @@
                 [#else]
                 <tr><td colspan="4">Данные отсутствуют</td></tr>
                 [/#if]
+                </tbody>
             </table>
         </div>
 

@@ -14,6 +14,7 @@
             <p class="name"><a href="[@spring.url '/committee_manager/appliances/running/'/]">Список заявок для голосования</a></p>
             <p class="name">Заявки, голосование по которым окончено</p>
             <table>
+                <thead>
                 <tr>
                     <th class="name">ID заявки</th>
                     <th class="name">ФИО клиента</th>
@@ -28,7 +29,8 @@
                     <th class="comment">Комментарий ГКО</th>
                     <th class="submit-button">Подробнее</th>
                 </tr>
-
+                </thead>
+                <tbody id="list">
                 [#if applications??][#list applications as app]
                     <tr>
                         <td class="name">${app.id?string("0")}</td>
@@ -45,6 +47,7 @@
                         <td><a href="[@spring.url '/committee_manager/appliance/${app.id?string("0")}'/]">Открыть заявку</a></td>
                     </tr>
                 [/#list][/#if]
+                </tbody>
             </table>
         </div>
     </div>

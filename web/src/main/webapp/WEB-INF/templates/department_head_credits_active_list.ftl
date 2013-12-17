@@ -13,6 +13,7 @@
             <p><a href="[@spring.url '/department_head/credits/returned/list/'/]">Погашеные кредиты</a></p>
             <p class="name">Открытые кредиты</p>
             <table>
+                <thead>
                 <tr>
                     <th class="name">ID кредита</th>
                     <th class="name">Кредитный продукт</th>
@@ -28,7 +29,8 @@
                     <th class="amount">Пеня</th>
                     <th class="submit-button">Клиент</th>
                 </tr>
-
+                </thead>
+                <tbody id="list">
                 [#if credits??][#list credits as c]
                     <tr>
                         <td class="name">${c.id}</td>
@@ -46,6 +48,7 @@
                         <td class="submit-button"><a href="[@spring.url '/department_head/client/${c.user.id?string("0")}'/]">Клиент</a></td>
                     </tr>
                 [/#list][/#if]
+                </tbody>
             </table>
         </div>
     </div>

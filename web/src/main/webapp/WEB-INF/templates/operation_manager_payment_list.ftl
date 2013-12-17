@@ -15,6 +15,7 @@
             <p class="name"><a href="[@spring.url '/operation_manager/operation/'/]">Новая операция</a></p>
             <p class="name">Ближайшие платежи по текущему кредиту</p>
             <table>
+                <thead>
                 <tr>
                     <th class="name">Номер платежа</th>
                     <th class="start_date">Крайняя дата</th>
@@ -23,7 +24,8 @@
                     <th class="amount">Сумма по процентам</th>
                     <th class="name">Просрочен</th>
                 </tr>
-
+                </thead>
+                <tbody id="list">
                 [#if payments??]
                     [#list payments as payment]
                         <tr>
@@ -38,6 +40,7 @@
                 [#else]
                     <tr><td colspan="6">Данные отсутствуют</td></tr>
                 [/#if]
+                </tbody>
             </table>
 
             [#if prior??]

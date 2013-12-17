@@ -36,9 +36,10 @@
                 </table>
             [/#if]
 
-            [#if prolongations??]
+
                 <p class="name">Завки клиента на пролонгацию</p>
                 <table>
+                    <thead>
                     <tr>
                         <th class="start_date">Дата</th>
                         <th class="name">ID кредита</th>
@@ -46,7 +47,9 @@
                         <th class="name">Удовлетворена</th>
                         <th class="comment">Комментарий</th>
                     </tr>
-                    [#list prolongations as prolongation]
+                    </thead>
+                    <tbody id="list">
+                        [#if prolongations??][#list prolongations as prolongation]
                         <tr>
                             <td class="start_date">${prolongation.applicationDate}</td>
                             <td class="name">${prolongation.credit.id}</td>
@@ -54,9 +57,10 @@
                             <td class="name">[#if (prolongation.acceptance)??]${prolongation.acceptance?html}[/#if]</td>
                             <td class="comment">${prolongation.comment?html}</td>
                         </tr>
-                    [/#list]
+                    [/#list][/#if]
+                    </tbody>
                 </table>
-            [/#if]
+
 
         </div>
     </div>
