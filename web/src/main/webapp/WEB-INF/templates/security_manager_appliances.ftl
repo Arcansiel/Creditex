@@ -7,8 +7,10 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.security_manager /]
+        [@creditex.goback /]
         <div class="form-action">
-        <p class="name"><a href=[@spring.url "/security_manager/"/]>Назад на главную страницу</a></p>
+            <p class="name"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
         <p class="name">Заявки, нуждающиеся в проверке</p>
         <table>
             <tr>
@@ -19,10 +21,10 @@
                 <th class="name">Кредитный продукт</th>
                 <th class="amount">Запрашиваемая сумма</th>
                 <th class="duration">Длительность кредитования</th>
-                <th class="submit-button" colspan="2">Проверка заявки</th>
+                <th class="submit-button">Проверка заявки</th>
             </tr>
 
-            [#list applications as app]
+            [#if applications??][#list applications as app]
             <tr>
                 <td class="name">${app.id?string("0")}</td>
                 <td class="name">${app.client.userData.last?html} ${app.client.userData.first?html} ${app.client.userData.patronymic?html}</td>
@@ -31,10 +33,9 @@
                 <td class="name">${app.product.name}</td>
                 <td class="amount">${app.request}</td>
                 <td class="duration">${app.duration}</td>
-                <td><a href=[@spring.url '/security_manager/appliance/check/${app.id?string("0")}'/]>По внутренним базам</a></td>
-                <td><a href=[@spring.url '/security_manager/appliance/check/outer/${app.id?string("0")}'/]>По внешним базам</a></td>
+                <td><a href=[@spring.url '/security_manager/appliance/check/${app.id?string("0")}'/]>Проверка заявки</a></td>
             </tr>
-            [/#list]
+            [/#list][/#if]
          </table>
         </div>
     </div>

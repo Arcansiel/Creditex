@@ -6,10 +6,10 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
-        [@creditex.department_head /]
+        [@creditex.committee_manager /]
         [@creditex.goback /]
         <div class="form-action">
-            <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
+            <p class="name"><a href=[@spring.url "/committee_manager/"/]>На главную страницу</a></p>
 
             [#if client??]
 
@@ -37,14 +37,14 @@
                     </tr>
                 </table>
 
-                <p class="name"><a href="[@spring.url '/department_head/client/${client.id?string("0")}/credits/all/'/]">Все кредиты клиента</a></p>
-                <p class="name"><a href="[@spring.url '/department_head/client/${client.id?string("0")}/credits/expired/'/]">Просроченные кредиты клиента</a></p>
-                <p class="name"><a href="[@spring.url '/department_head/client/${client.id?string("0")}/prolongations/'/]">Заявки на пролонгацию</a></p>
-                <p class="name"><a href="[@spring.url '/department_head/client/${client.id?string("0")}/priors/'/]">Заявки на досрочное погашение</a></p>
+
+
+            <p class="name"><a href="[@spring.url '/committee_manager/client/${client.id?string("0")}/credits/all/'/]">Все кредиты клиента</a></p>
+            <p class="name"><a href="[@spring.url '/committee_manager/client/${client.id?string("0")}/credits/expired/'/]">Просроченные кредиты клиента</a></p>
+            <p class="name"><a href="[@spring.url '/committee_manager/client/${client.id?string("0")}/prolongations/'/]">Заявки на пролонгацию</a></p>
+            <p class="name"><a href="[@spring.url '/committee_manager/client/${client.id?string("0")}/priors/'/]">Заявки на досрочное погашение</a></p>
 
             [/#if]
-
-
 
             [#if payments_count?? && expired_payments_count??]
                 <p class="name">Просроченные платежи клиента</p>

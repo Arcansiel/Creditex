@@ -7,9 +7,11 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.committee_manager /]
+        [@creditex.goback /]
         <div class="form-action">
-            <p class="name"><a href=[@spring.url "/committee_manager/"/]>Назад на главную страницу</a></p>
-            <p class="name"><a href=[@spring.url "/committee_manager/appliances/running/"/]>Список заявок для голосования</a></p>
+            <p class="name"><a href="[@spring.url '/committee_manager/'/]">На главную страницу</a></p>
+            <p class="name"><a href="[@spring.url '/committee_manager/appliances/running/'/]">Список заявок для голосования</a></p>
             <p class="name">Заявки, голосование по которым окончено</p>
             <table>
                 <tr>
@@ -27,7 +29,7 @@
                     <th class="submit-button">Подробнее</th>
                 </tr>
 
-                [#list applications as app]
+                [#if applications??][#list applications as app]
                     <tr>
                         <td class="name">${app.id?string("0")}</td>
                         <td class="name">${app.client.userData.last?html} ${app.client.userData.first?html} ${app.client.userData.patronymic?html}</td>
@@ -40,9 +42,9 @@
                         <td class="name">[#if app.committeeAcceptance??]${app.committeeAcceptance?html}[/#if]</td>
                         <td class="name">[#if app.headAcceptance??]${app.headAcceptance?html}[/#if]</td>
                         <td class="comment">[#if app.headComment??]${app.headComment?html}[/#if]</td>
-                        <td><a href=[@spring.url '/committee_manager/appliance/${app.id?string("0")}'/]>Открыть заявку</a></td>
+                        <td><a href="[@spring.url '/committee_manager/appliance/${app.id?string("0")}'/]">Открыть заявку</a></td>
                     </tr>
-                [/#list]
+                [/#list][/#if]
             </table>
         </div>
     </div>

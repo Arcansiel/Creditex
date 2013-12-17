@@ -7,8 +7,11 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.security_manager /]
+        [@creditex.goback /]
         <div class="form-action">
-            <p class="name"><a href=[@spring.url "/security_manager/"/]>Назад на главную страницу</a></p>
+            <p class="name"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
+
             <p class="name">Кредиты с просроченными платежами</p>
             <table>
                 <tr>
@@ -25,9 +28,10 @@
                     <th class="amount">Долг по платежам</th>
                     <th class="amount">Пеня</th>
                     <th class="name">Активный кредит</th>
+                    <th class="name" colspan="2">Проверка клиента</th>
                 </tr>
 
-                [#list credits as c]
+                [#if credits??][#list credits as c]
                     <tr>
                         <td class="name">${c.id}</td>
                         <td class="name">${c.product.name?html}</td>
@@ -42,9 +46,12 @@
                         <td class="amount">${c.mainFine}</td>
                         <td class="amount">${c.percentFine}</td>
                         <td class="name">${c.running?c}</td>
+                        <td class="name"><a href=[@spring.url '/security_manager/client/check/${c.user.id?string("0")}'/]>Внутренняя</a></td>
+                        <td class="name"><a href=[@spring.url '/security_manager/client/check/outer/${c.user.id?string("0")}'/]>Внешняя</a></td>
                     </tr>
-                [/#list]
+                [/#list][/#if]
             </table>
+
         </div>
     </div>
     [/@creditex.body]

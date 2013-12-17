@@ -2,17 +2,15 @@
 [#import "creditex.ftl" as creditex]
 
 [@creditex.root]
-    [@creditex.head "Клиент банка"]
+    [@creditex.head "Заявки клиента на пролонгацию клиента"]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
-        [@creditex.department_head /]
+        [@creditex.committee_manager /]
         [@creditex.goback /]
         <div class="form-action">
-            <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
-
+            <p class="name"><a href="[@spring.url '/committee_manager/'/]">На главную страницу</a></p>
             [#if client??]
-
                 <p class="name">Клиент банка</p>
                 <table>
                     <tr>
@@ -36,27 +34,25 @@
                         <td class="name">${client.enabled?c}</td>
                     </tr>
                 </table>
-
-                <p class="name"><a href="[@spring.url '/department_head/client/${client.id?string("0")}/credits/all/'/]">Все кредиты клиента</a></p>
-                <p class="name"><a href="[@spring.url '/department_head/client/${client.id?string("0")}/credits/expired/'/]">Просроченные кредиты клиента</a></p>
-                <p class="name"><a href="[@spring.url '/department_head/client/${client.id?string("0")}/prolongations/'/]">Заявки на пролонгацию</a></p>
-                <p class="name"><a href="[@spring.url '/department_head/client/${client.id?string("0")}/priors/'/]">Заявки на досрочное погашение</a></p>
-
             [/#if]
 
-
-
-            [#if payments_count?? && expired_payments_count??]
-                <p class="name">Просроченные платежи клиента</p>
+            [#if priors??]
+                <p class="name">Завки клиента на досрочное погашение</p>
                 <table>
                     <tr>
-                        <th class="amount">Количество просроченных платежей</th>
-                        <th class="amount">Общее количество платежей</th>
+                        <th class="start_date">Дата</th>
+                        <th class="name">ID кредита</th>
+                        <th class="name">Удовлетворена</th>
+                        <th class="comment">Комментарий</th>
                     </tr>
-                    <tr>
-                        <td class="amount">${expired_payments_count}</td>
-                        <td class="amount">${payments_count}</td>
-                    </tr>
+                    [#list priors as prior]
+                        <tr>
+                            <td class="start_date">${prior.applicationDate}</td>
+                            <td class="name">${prior.credit.id}</td>
+                            <td class="name">[#if (prior.acceptance)??]${prior.acceptance?html}[/#if]</td>
+                            <td class="comment">${prior.comment?html}</td>
+                        </tr>
+                    [/#list]
                 </table>
             [/#if]
 

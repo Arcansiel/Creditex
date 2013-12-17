@@ -6,10 +6,10 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
-        [@creditex.department_head /]
-        [@creditex.goback/]
+        [@creditex.security_manager /]
+        [@creditex.goback /]
         <div class="form-action">
-            <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
+            <p class="name"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
             <p class="name">Клиенты банка</p>
             <table>
                 <tr>
@@ -21,7 +21,7 @@
                     <th class="name">Место работы</th>
                     <th class="name">Занимаемая должность</th>
                     <th class="name">Доход</th>
-                    <th class="submit-button">Клиент</th>
+                    <th class="name" colspan="2">Проверка клиента</th>
                 </tr>
 
                 [#if clients??][#list clients as c]
@@ -34,7 +34,8 @@
                         <td class="name">${c.userData.workName?html}</td>
                         <td class="name">${c.userData.workPosition?html}</td>
                         <td class="name">${c.userData.workIncome?html}</td>
-                        <td class="submit-button"><a href="[@spring.url '/department_head/client/${c.id?string("0")}'/]">Клиент</a></td>
+                        <td class="name"><a href=[@spring.url '/security_manager/client/check/${c.id?string("0")}'/]>Внутренняя</a></td>
+                        <td class="name"><a href=[@spring.url '/security_manager/client/check/outer/${c.id?string("0")}'/]>Внешняя</a></td>
                     </tr>
                 [/#list][/#if]
             </table>

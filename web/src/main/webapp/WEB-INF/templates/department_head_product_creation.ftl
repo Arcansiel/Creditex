@@ -6,8 +6,10 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.department_head /]
+        [@creditex.goback/]
         <div class="form-action">
-            <p class="name"><a href=[@spring.url "/department_head/"/]>Назад на главную страницу</a></p>
+            <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
             <p class="name">Данные нового кредитного продукта</p>
             <form action="" method="post" class="form">
                 <p>
@@ -38,7 +40,7 @@
                     <input type="text" id="product.minCommittee" name="minCommittee" value="">
                 </p>
                 <p>
-                    <label for="product.minMoney">минимальная сумма кредита</label>
+                    <label for="product.minMoney">Минимальная сумма кредита</label>
                     <input type="text" id="product.minMoney" name="minMoney" value="">
                 </p>
                 <p>
@@ -58,7 +60,7 @@
                     <input type="text" id="product.finePercent" name="debtPercent" value="">
                 </p>
                 <p>
-                    <label for="product.priorRepayment">Возможность предварительного возврата кредита</label>
+                    <label for="product.priorRepayment">Возможность досрочного погашения кредита</label>
                     <select id="product.priorRepayment" name="prior">
                         <option value="NotAvailable">Невозможно</option>
                         <option value="Available">Возможно без штрафа</option>
@@ -67,7 +69,7 @@
                     </select>
                 </p>
                 <p>
-                    <label for="product.priorRepaymentPercent">Штраф за предварительный возврат кредита (%)</label>
+                    <label for="product.priorRepaymentPercent">Штраф за досрочное погашение кредита (%)</label>
                     <input type="text" id="product.priorRepaymentPercent" name="priorRepaymentPercent" value="">
                 </p>
                 <p><button type="submit" class="button">Создать</button></p>

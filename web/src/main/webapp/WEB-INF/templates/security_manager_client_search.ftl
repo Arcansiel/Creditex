@@ -3,13 +3,14 @@
 [#import "spring.ftl" as spring]
 
 [@creditex.root]
-    [@creditex.head "Операционист"]
+    [@creditex.head "Служба безопасности / поиск клиента"]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
-        [@creditex.operation_manager /]
+        [@creditex.security_manager /]
         [@creditex.goback /]
         <div class="form-action">
+            <p class="name"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
             <p class="name">Введите данные клиента</p>
             <form action="" method="post" class="form">
                 <p>
@@ -32,7 +33,7 @@
                     <label for="number_filed">Номер паспорта</label>
                     <input type="text" id="number_filed" name="passportNumber">
                 </p>
-                <p class="a-center"><button type="submit" class="button">Подтвердить</button></p>
+                <p class="a-center"><button type="submit" class="button">Проверка клиента</button></p>
             </form>
         </div>
 

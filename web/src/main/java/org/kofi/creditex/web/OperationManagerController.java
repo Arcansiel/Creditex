@@ -65,7 +65,7 @@ public class OperationManagerController {
             }else{
                 Long credit_id = credit.getId();
                 setCredit(session,credit_id);
-                return "redirect:/operation_manager/operation/list/";
+                return "redirect:/operation_manager/payments/";
             }
         }
     }
@@ -80,23 +80,35 @@ public class OperationManagerController {
         }
     }*/
 
+    @RequestMapping(value = {"/operation_manager/payments/"}, method = RequestMethod.GET)
+    public String OperationManagerNearestPayments(HttpSession session, Model model){
+        //get credit from session
+        Long credit_id;
+        if((credit_id = getCredit(session)) != null){
+            List<Payment> payments = operatorService.NearestPayments(credit_id);
+            //push to model
+            model.addAttribute("payments",payments);
+            //AddPriorRepaymentToModel(credit_id, model);
+            return "operation_manager_payment_list";
+        }else{
+            //push error : credit not selected
+            return "redirect:/operation_manager/?error=credit_not_selected";
+        }
+    }
+
     @RequestMapping(value = {"/operation_manager/operation/list/"}, method = RequestMethod.GET)
     public String OperationManagerOperationList(HttpSession session, Model model){
         //get credit from session
         Long credit_id;
         if((credit_id = getCredit(session)) != null){
             List<Operation> operations = operatorService.CreditOperations(credit_id);
-            List<Payment> payments = operatorService.NearestPayments(credit_id);
             //push to model
             model.addAttribute("operations",operations);
-            model.addAttribute("payments",payments);
-            //AddPriorRepaymentToModel(credit_id, model);
             return "operation_manager_operation_list";
         }else{
             //push error : credit not selected
             return "redirect:/operation_manager/?error=credit_not_selected";
         }
-
     }
 
     @RequestMapping(value = {"/operation_manager/operation/"}, method = RequestMethod.GET)

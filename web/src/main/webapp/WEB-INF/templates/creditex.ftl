@@ -53,3 +53,41 @@
     <p class="name">Специалист по работе с клиентами</p>
 </div>
 [/#macro]
+
+
+[#macro goback]
+<div class="content">
+    <ul class="nav-menu">
+        <li><a href="javascript: history.go(-1)">Вернуться назад</a>
+        </li>
+    </ul>
+</div>
+[/#macro]
+
+[#macro operation_manager]
+<div class="title">
+    <p class="icon"><img src="[@spring.url '/img/oparator-logo.jpg'/]" /></p>
+    <p class="name">Операционист</p>
+</div>
+[/#macro]
+
+[#macro security_manager]
+<div class="title">
+    <p class="icon"><img src="[@spring.url '/img/security-logo.jpg'/]" /></p>
+    <p class="name">Служба безопасности</p>
+</div>
+[/#macro]
+
+[#macro committee_manager]
+<div class="title">
+    <p class="icon"><img src="[@spring.url '/img/credit-committee-logo.jpg'/]" /></p>
+    <p class="name">Кредитный комитет</p>
+</div>
+[/#macro]
+
+[#macro department_head]
+<div class="title">
+    <p class="icon"><img src="[@spring.url '/img/boss-logo.jpg'/]" /></p>
+    <p class="name">Глава кредитного отдела</p>
+</div>
+[/#macro]

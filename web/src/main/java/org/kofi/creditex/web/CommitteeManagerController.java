@@ -3,7 +3,9 @@ package org.kofi.creditex.web;
 
 import org.kofi.creditex.model.*;
 import org.kofi.creditex.service.CommitteeService;
+import org.kofi.creditex.service.CreditService;
 import org.kofi.creditex.service.SecurityService;
+import org.kofi.creditex.service.UserService;
 import org.kofi.creditex.web.model.ConfirmationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -25,6 +27,12 @@ public class CommitteeManagerController {
 
     @Autowired
     CommitteeService committeeService;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    CreditService creditService;
 
     @RequestMapping("/committee_manager/")
     public String MainCommitteeManager(){
@@ -60,19 +68,6 @@ public class CommitteeManagerController {
         if(application.isVotingClosed()){
             return "committee_manager_vote_finished_view";
         }else{
-            long client_id = application.getClient().getId();
-            List<Credit> credits = committeeService.GetClientCredits(client_id);
-            model.addAttribute("credits",credits);
-            long payments_count = securityService.GetClientPaymentsCount(client_id);
-            long expired_payments_count = securityService.GetClientExpiredPaymentsCount(client_id);
-            model.addAttribute("payments_count", payments_count);
-            model.addAttribute("expired_payments_count", expired_payments_count);
-            List<PriorRepaymentApplication> priors =
-                    securityService.GetClientPriorRepaymentApplications(client_id);
-            model.addAttribute("priors",priors);
-            List<ProlongationApplication> prolongations =
-                    securityService.GetClientProlongationApplications(client_id);
-            model.addAttribute("prolongations",prolongations);
             return "committee_manager_vote_running_view";
         }
 
@@ -94,4 +89,78 @@ public class CommitteeManagerController {
         }
     }
 
+
+    @RequestMapping(value = "/committee_manager/client/{id}", method = RequestMethod.GET)
+    public String Committee5(Model model
+            ,@PathVariable("id")long id
+    ){
+        User client = userService.GetUserById(id);
+        if(client == null){
+            return "redirect:/committee_manager/?error=no_client&info="+id;
+        }
+        model.addAttribute("client",client);
+        long client_id = client.getId();
+        long payments_count = securityService.GetClientPaymentsCount(client_id);
+        long expired_payments_count = securityService.GetClientExpiredPaymentsCount(client_id);
+        model.addAttribute("payments_count", payments_count);
+        model.addAttribute("expired_payments_count", expired_payments_count);
+
+        return "committee_manager_client_view";
+    }
+
+    @RequestMapping(value = "/committee_manager/client/{id}/credits/all/", method = RequestMethod.GET)
+    public String Committee53(Model model
+            ,@PathVariable("id")long id
+    ){
+        User client = userService.GetUserById(id);
+        if(client == null){
+            return "redirect:/committee_manager/?error=no_client&info="+id;
+        }
+        model.addAttribute("client",client);
+        model.addAttribute("credits",creditService.GetCreditsByUserId(client.getId()));
+
+        return "committee_manager_client_credit_list";
+    }
+
+    @RequestMapping(value = "/committee_manager/client/{id}/credits/expired/", method = RequestMethod.GET)
+    public String Committee54(Model model
+            ,@PathVariable("id")long id
+    ){
+        User client = userService.GetUserById(id);
+        if(client == null){
+            return "redirect:/committee_manager/?error=no_client&info="+id;
+        }
+        model.addAttribute("client",client);
+        model.addAttribute("credits",securityService.GetClientExpiredCredits(client.getId()));
+
+        return "committee_manager_client_credit_list";
+    }
+
+    @RequestMapping(value = "/committee_manager/client/{id}/prolongations/", method = RequestMethod.GET)
+    public String Committee55(Model model
+            ,@PathVariable("id")long id
+    ){
+        User client = userService.GetUserById(id);
+        if(client == null){
+            return "redirect:/committee_manager/?error=no_client&info="+id;
+        }
+        model.addAttribute("client",client);
+        model.addAttribute("prolongations",securityService.GetClientProlongationApplications(client.getId()));
+
+        return "committee_manager_client_prolongations_list";
+    }
+
+    @RequestMapping(value = "/committee_manager/client/{id}/priors/", method = RequestMethod.GET)
+    public String Committee56(Model model
+            ,@PathVariable("id")long id
+    ){
+        User client = userService.GetUserById(id);
+        if(client == null){
+            return "redirect:/committee_manager/?error=no_client&info="+id;
+        }
+        model.addAttribute("client",client);
+        model.addAttribute("priors",securityService.GetClientPriorRepaymentApplications(client.getId()));
+
+        return "committee_manager_client_priors_list";
+    }
 }
