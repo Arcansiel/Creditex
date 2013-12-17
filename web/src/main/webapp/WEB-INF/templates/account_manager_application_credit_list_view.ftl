@@ -6,13 +6,28 @@
 
 [@creditex.root]
     [@creditex.head "Main page"]
-
+    [@creditex.includeBootstrap/]
+    <script>
+        $(function(){
+            $("div.holder").jPages({
+                containerID:"applications",
+                perPage      : 10,
+                startPage    : 1,
+                startRange   : 1,
+                midRange     : 5,
+                endRange     : 1,
+                delay: 0
+            });
+        });
+    </script>
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
         <div class="data-table">
             <p class="name">Заявки на кредит</p>
+            <div class="holder"></div>
             <table>
+                <thead>
                 <tr>
                     <th>Кредитный продукт</th>
                     <th>Запрашиваемая сумма</th>
@@ -23,8 +38,10 @@
                     <th>Причина отвержения</th>
                     <th>Просомтреть</th>
                 </tr>
-                [#if applications??]
-                    [#list applications as application]
+                </thead>
+                <tbody id="applications">
+                    [#if applications??]
+                        [#list applications as application]
                         <tr>
                             <td><a href="[@spring.url '/account_manager/product/view/'+'${application.product.id}'+'/'/]">${application.product.name}</a></td>
                             <td>${application.request}</td>
@@ -49,8 +66,9 @@
                             <td>${whyRejected}</td>
                             <td>[#if application.credit??]<a href="[@spring.url '/account_manager/client/credit/view/'+'${application.credit.id}'+'/'/]">Просомотреть</a>[/#if] </td>
                         </tr>
-                    [/#list]
-                [/#if]
+                        [/#list]
+                    [/#if]
+                </tbody>
             </table>
         </div>
         <div class="content">
