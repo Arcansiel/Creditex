@@ -9,10 +9,11 @@
     <div class="page">
         [@creditex.department_head /]
         [@creditex.goback/]
-        <div class="form-action">
             <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
             <p class="name"><a href="[@spring.url '/department_head/product/list/deactivated/'/]">Список неактивных продуктов</a></p>
-            <p class="name">Активные кредитные продукты</p>
+        <div class="data-table">
+        <p class="name">Активные кредитные продукты</p>
+            <div class="holder"></div>
             <table id="listtable">
                 <thead>
                 <tr>
