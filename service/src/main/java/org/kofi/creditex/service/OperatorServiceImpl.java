@@ -258,7 +258,9 @@ public class OperatorServiceImpl implements OperatorService {
         if(credit == null){
             return -30;//no credit
         }
-
+        if(!credit.isRunning()){
+            return -40;//invalid credit state
+        }
         if(type.equals(OperationType.Deposit)){
             //OperationType.Deposit
             if(credit.getMainFine() > 0){
