@@ -1,7 +1,7 @@
 [#ftl]
 [#import "creditex.ftl" as creditex]
 [#import "spring.ftl" as spring]
-
+[#import "creditex_data.ftl" as creditex_data]
 [@creditex.root]
     [@creditex.head "Операционист / операция"]
     [/@creditex.head]
@@ -9,10 +9,12 @@
     <div class="page">
         [@creditex.operation_manager /]
         [@creditex.goback /]
-        <div class="form-action">
+
+        <div class="data-table">
             <p class="name"><a href="[@spring.url '/operation_manager/'/]">Другой клиент</a></p>
-            <p class="name"><a href="[@spring.url '/operation_manager/payments/'/]">Ближайшие платежи</a></p>
             <p class="name"><a href="[@spring.url '/operation_manager/operation/list/'/]">История операций</a></p>
+            <p class="name"><a href="[@spring.url '/operation_manager/payments/'/]">Ближайшие платежи</a></p>
+
             [#if prior??]
                 <p class="name">Досрочное погашение кредита</p>
                 <table>
@@ -98,21 +100,34 @@
                 </tr>
             </table>
 
-            <form action="" method="post" class="form">
-                <p class="name">Операция</p>
-                <p>
-                    <label>Тип операции</label>
-                    <select name="type">
-                        <option value="Deposit">Платёж по кредиту</option>
-                        <option value="Withdrawal">Снять деньги со счёта</option>
-                    </select>
-                </p>
-                <p>
-                    <label for="amount_filed" class="col-sm-10">Сумма</label>
-                    <input type="text" id="amount_filed" name="amount" value="0">
-                </p>
-                <p class="a-center"><button type="submit" class="button">Выполнить операцию</button></p>
-            </form>
+            [#if amount??]
+                <p class="name">Сумма к оплате: ${amount?string("0")}</p>
+            [#else]
+                <p class="name">Сумма к оплате: 0</p>
+            [/#if]
+
+            <div class="form-action">
+                <form action="" method="post" class="form">
+                    <p class="name">Операция</p>
+                    <p>
+                        <label>Тип операции</label>
+                        <select name="type">
+                            <option value="Deposit">Платёж по кредиту</option>
+                            <option value="Withdrawal">Снять деньги со счёта</option>
+                        </select>
+                    </p>
+                    <p>
+                        <label for="amount_filed" class="col-sm-10">Сумма</label>
+                        <input type="text" id="amount_filed" name="amount" value="0">
+                    </p>
+                    <p class="a-center"><button type="submit" class="button">Выполнить операцию</button></p>
+                </form>
+            </div>
+
+            [#if (credit.product)??]
+                [@creditex_data.product_view_table credit.product /]
+            [/#if]
+
         </div>
 
     </div>

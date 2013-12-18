@@ -3,6 +3,7 @@
 
 [@creditex.root]
     [@creditex.head "Заявки на пролонгацию"]
+        [@creditex.tableProcess "listtable" "list" 10 /]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
@@ -11,7 +12,8 @@
         <div class="form-action">
             <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
             <p class="name">Заявки на пролонгацию, нуждающиеся в проверке</p>
-            <table>
+            <div class="holder"></div>
+            <table id="listtable">
                 <thead>
                 <tr>
                     <th class="name">ID заявки</th>

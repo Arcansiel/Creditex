@@ -4,7 +4,8 @@ import org.kofi.creditex.model.*;
 import java.util.List;
 
 public interface DepartmentHeadService {
-    List<Application> GetCommitteeApprovedUncheckedApplications(boolean approved);
+    List<Application> GetCommitteeApprovedUncheckedApplications();
+    List<Application> GetCommitteeRejectedApplications();
     List<Application> GetCommitteeVoteApplications();
     Application GetApplicationById(long id);
     List<Vote> GetApplicationVotes(long application_id);

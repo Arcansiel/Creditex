@@ -1,6 +1,6 @@
 [#ftl]
 [#import "creditex.ftl" as creditex]
-
+[#import "creditex_data.ftl" as creditex_data]
 [@creditex.root]
     [@creditex.head "Заявка на кредит, результаты голосования"]
     [/@creditex.head]
@@ -8,7 +8,7 @@
     <div class="page">
         [@creditex.department_head /]
         [@creditex.goback /]
-        <div class="form-action">
+        <div class="data-table">
             <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
             <p class="name"><a href="[@spring.url '/department_head/appliances/committee_rejected/'/]">Список заявок, отклонённых комитетом</a></p>
             <p class="name"><a href="[@spring.url '/department_head/appliances/committee_approved/'/]">Список заявок, одобренных комитетом</a></p>
@@ -82,22 +82,12 @@
                 </form>
                 [/#if]
 
+                [#if (application.product)??]
+                    [@creditex_data.product_view_table application.product /]
+                [/#if]
+
                 [#if votes??]
-                    <p class="name">Голоса членов комитета</p>
-                    <table>
-                        <tr>
-                            <th class="name">Член комитета</th>
-                            <th class="name">Принятие</th>
-                            <th class="comment">Комментарий</th>
-                        </tr>
-                        [#list votes as vote]
-                            <tr>
-                                <td class="name">${vote.manager.username?html}</td>
-                                <td class="name">${vote.acceptance?c}</td>
-                                <td class="comment">${vote.comment?html}</td>
-                            </tr>
-                        [/#list]
-                    </table>
+                    [@creditex_data.vote_list_table votes /]
                 [/#if]
 
             [/#if]

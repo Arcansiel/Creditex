@@ -41,14 +41,14 @@ public class CommitteeManagerController {
 
     @RequestMapping(value = {"/committee_manager/appliances/running/","/committee_manager/appliances/"}, method = RequestMethod.GET)
     public String Committee1(Model model){
-        List<Application> applications = committeeService.GetVotingApplications(true);
+        List<Application> applications = committeeService.GetApplicationsForVoting();
         model.addAttribute("applications",applications);
         return "committee_manager_vote_running_list_view";
     }
 
     @RequestMapping(value = "/committee_manager/appliances/finished/", method = RequestMethod.GET)
     public String Committee2(Model model){
-        List<Application> applications = committeeService.GetVotingApplications(false);
+        List<Application> applications = committeeService.GetVotingClosedApplications();
         model.addAttribute("applications",applications);
         return "committee_manager_vote_finished_list_view";
     }

@@ -40,7 +40,8 @@ public class SecurityServiceImpl implements SecurityService{
     public List<Application> GetSecurityApplications() {
         List<Application> list = new ArrayList<Application>();
         for(Application app:applicationRepository.findAll(
-                QApplication.application.securityAcceptance.eq(Acceptance.InProcess),
+                QApplication.application.securityAcceptance.eq(Acceptance.InProcess)
+                .and(QApplication.application.acceptance.eq(Acceptance.InProcess)),
                 QApplication.application.applicationDate.asc()
         )
                 )
@@ -102,6 +103,10 @@ public class SecurityServiceImpl implements SecurityService{
              //no committee voting
             application.setAcceptance(acceptance_value);
         }
+        if(!acceptance){
+            application.setAcceptance(Acceptance.Rejected);
+            application.setProcessed(true);//обработка заявки завершена, заявка отклонена
+        }
         applicationRepository.save(application);
         return 0;
     }
@@ -160,7 +165,7 @@ public class SecurityServiceImpl implements SecurityService{
         for(Credit c: creditRepository.findAll(
                 QCredit.credit.user.id.eq(client_id)
                 .and(QCredit.credit.creditEnd.lt(now))
-                .and(QCredit.credit.originalMainDebt.gt(0))
+                .and(QCredit.credit.currentMainDebt.gt(0))
                 ,QCredit.credit.creditStart.desc()
         )){
             list.add(c);

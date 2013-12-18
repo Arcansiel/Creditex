@@ -40,13 +40,13 @@ public class DepartmentHeadController {
 
     @RequestMapping(value = "/department_head/appliances/committee_approved/", method = RequestMethod.GET)
     public String DepartmentHead1(Model model){
-        model.addAttribute("applications",departmentHeadService.GetCommitteeApprovedUncheckedApplications(true));
+        model.addAttribute("applications",departmentHeadService.GetCommitteeApprovedUncheckedApplications());
         return "department_head_committee_approved";
     }
 
     @RequestMapping(value = "/department_head/appliances/committee_rejected/", method = RequestMethod.GET)
     public String DepartmentHead2(Model model){
-        model.addAttribute("applications",departmentHeadService.GetCommitteeApprovedUncheckedApplications(false));
+        model.addAttribute("applications",departmentHeadService.GetCommitteeRejectedApplications());
         return "department_head_committee_rejected";
     }
 
