@@ -1,7 +1,7 @@
 [#ftl]
 [#import "creditex.ftl" as creditex]
 [#import "spring.ftl" as spring]
-
+[#import "creditex_data.ftl" as creditex_data]
 [@creditex.root]
     [@creditex.head "Кредитный комитет / голосование по заявке"]
     [/@creditex.head]
@@ -66,23 +66,12 @@
                     </table>
                 </form>
 
+                [#if (application.product)??]
+                    [@creditex_data.product_view_table application.product /]
+                [/#if]
 
                 [#if votes??]
-                <p class="name">Голоса членов комитета</p>
-                    <table>
-                        <tr>
-                            <th class="name">Член комитета</th>
-                            <th class="name">Принятие</th>
-                            <th class="comment">Комментарий</th>
-                        </tr>
-                        [#list votes as vote]
-                            <tr>
-                                <td class="name">${vote.manager.username?html}</td>
-                                <td class="name">${vote.acceptance?c}</td>
-                                <td class="comment">${vote.comment?html}</td>
-                            </tr>
-                        [/#list]
-                    </table>
+                    [@creditex_data.vote_list_table votes /]
                 [/#if]
 
             [/#if]

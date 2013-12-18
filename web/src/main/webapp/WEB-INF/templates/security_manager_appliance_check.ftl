@@ -1,7 +1,7 @@
 [#ftl]
 [#import "creditex.ftl" as creditex]
 [#import "spring.ftl" as spring]
-
+[#import "creditex_data.ftl" as creditex_data]
 [@creditex.root]
     [@creditex.head "Служба безопасности / заявка на кредит"]
     [/@creditex.head]
@@ -57,6 +57,11 @@
                      </td>
                  </table>
              </form>
+
+            [#if (application.product)??]
+                [@creditex_data.product_view_table application.product /]
+            [/#if]
+
         [/#if]
 
          </div>

@@ -1,5 +1,6 @@
 [#ftl]
 [#import "spring.ftl" as spring]
+[#import "creditex_data.ftl" as creditex_data]
 [#assign sec=JspTaglibs["http://www.springframework.org/security/tags"]/]
 [#macro root]
 <!DOCTYPE html>

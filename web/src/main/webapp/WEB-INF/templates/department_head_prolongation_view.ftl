@@ -1,6 +1,6 @@
 [#ftl]
 [#import "creditex.ftl" as creditex]
-
+[#import "creditex_data.ftl" as creditex_data]
 [@creditex.root]
     [@creditex.head "Заявка на пролонгацию"]
     [/@creditex.head]
@@ -59,37 +59,14 @@
             </form>
             [/#if]
 
-            [#if prolongation.credit??]
-                <p class="name">Состояние кредита</p>
-                <table>
-                    <tr>
-                        <th class="name">ID</th>
-                        <th class="name">Продукт</th>
-                        <th class="start_date">Начало кредитования</th>
-                        <th class="duration">Длительность</th>
-                        <th class="start_date">Конец кредитования</th>
-                        <th class="amount">Сумма кредита</th>
-                        <th class="amount">Основной долг</th>
-                        <th class="amount">Процентный долг</th>
-                        <th class="amount">Долг по платежам</th>
-                        <th class="amount">Пеня</th>
-                        <th class="name">Активный кредит</th>
-                    </tr>
-                    <tr>
-                        <td class="name">${prolongation.credit.id}</td>
-                        <td class="name">${prolongation.credit.product.name?html}</td>
-                        <td class="start_date">${prolongation.credit.creditStart}</td>
-                        <td class="duration">${prolongation.credit.duration}</td>
-                        <td class="start_date">${prolongation.credit.creditEnd}</td>
-                        <td class="amount">${prolongation.credit.originalMainDebt}</td>
-                        <td class="amount">${prolongation.credit.currentMainDebt}</td>
-                        <td class="amount">${prolongation.credit.currentPercentDebt}</td>
-                        <td class="amount">${prolongation.credit.mainFine}</td>
-                        <td class="amount">${prolongation.credit.percentFine}</td>
-                        <td class="name">${prolongation.credit.running?c}</td>
-                    </tr>
-                </table>
+            [#if (prolongation.credit)??]
+                [@creditex_data.credit_view_table prolongation.credit "Состояние кредита" /]
             [/#if]
+
+            [#if (prolongation.credit.product)??]
+                [@creditex_data.product_view_table prolongation.credit.product /]
+            [/#if]
+
         [/#if]
     [/@creditex.body]
 [/@creditex.root]

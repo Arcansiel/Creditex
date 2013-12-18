@@ -1,6 +1,6 @@
 [#ftl]
 [#import "creditex.ftl" as creditex]
-
+[#import "creditex_data.ftl" as creditex_data]
 [@creditex.root]
     [@creditex.head "Кредиты клиента"]
         [@creditex.tableProcess "listtable" "list" 10 /]
@@ -13,29 +13,7 @@
         <div class="data-table">
 
             [#if client??]
-                <p class="name">Клиент банка</p>
-                <table>
-                    <tr>
-                        <th class="name">ID клиента</th>
-                        <th class="name">ФИО клиента</th>
-                        <th class="passport">Серия и номер паспорта</th>
-                        <th class="name">username</th>
-                        <th class="name">Место работы</th>
-                        <th class="name">Занимаемая должность</th>
-                        <th class="name">Доход</th>
-                        <th class="name">Активен</th>
-                    </tr>
-                    <tr>
-                        <td class="name">${client.id}</td>
-                        <td class="name">${client.userData.last?html} ${client.userData.first?html} ${client.userData.patronymic?html}</td>
-                        <td class="passport">${client.userData.passportSeries?html} ${client.userData.passportNumber}</td>
-                        <td class="name">${client.username?html}</td>
-                        <td class="name">${client.userData.workName?html}</td>
-                        <td class="name">${client.userData.workPosition?html}</td>
-                        <td class="name">${client.userData.workIncome?html}</td>
-                        <td class="name">${client.enabled?c}</td>
-                    </tr>
-                </table>
+                [@creditex_data.client_view_table client /]
             [/#if]
 
 

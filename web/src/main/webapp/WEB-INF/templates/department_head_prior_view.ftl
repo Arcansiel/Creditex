@@ -1,6 +1,6 @@
 [#ftl]
 [#import "creditex.ftl" as creditex]
-
+[#import "creditex_data.ftl" as creditex_data]
 [@creditex.root]
     [@creditex.head "Заявка на досрочное погашение кредита"]
     [/@creditex.head]
@@ -57,37 +57,14 @@
             </form>
             [/#if]
 
-            [#if prior.credit??]
-                <p class="name">Состояние кредита</p>
-                <table>
-                    <tr>
-                        <th class="name">ID</th>
-                        <th class="name">Продукт</th>
-                        <th class="start_date">Начало кредитования</th>
-                        <th class="duration">Длительность</th>
-                        <th class="start_date">Конец кредитования</th>
-                        <th class="amount">Сумма кредита</th>
-                        <th class="amount">Основной долг</th>
-                        <th class="amount">Процентный долг</th>
-                        <th class="amount">Долг по платежам</th>
-                        <th class="amount">Пеня</th>
-                        <th class="name">Активный кредит</th>
-                    </tr>
-                    <tr>
-                        <td class="name">${prior.credit.id}</td>
-                        <td class="name">${prior.credit.product.name?html}</td>
-                        <td class="start_date">${prior.credit.creditStart}</td>
-                        <td class="duration">${prior.credit.duration}</td>
-                        <td class="start_date">${prior.credit.creditEnd}</td>
-                        <td class="amount">${prior.credit.originalMainDebt}</td>
-                        <td class="amount">${prior.credit.currentMainDebt}</td>
-                        <td class="amount">${prior.credit.currentPercentDebt}</td>
-                        <td class="amount">${prior.credit.mainFine}</td>
-                        <td class="amount">${prior.credit.percentFine}</td>
-                        <td class="name">${prior.credit.running?c}</td>
-                    </tr>
-                </table>
+            [#if (prior.credit)??]
+                [@creditex_data.credit_view_table prior.credit "Состояние кредита" /]
             [/#if]
+
+            [#if (prior.credit.product)??]
+                [@creditex_data.product_view_table prior.credit.product /]
+            [/#if]
+
         [/#if]
     [/@creditex.body]
 [/@creditex.root]
