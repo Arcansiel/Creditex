@@ -107,4 +107,21 @@ public class UserServiceImpl implements UserService {
     public User GetUserById(long user_id) {
         return userRepository.findOne(user_id);
     }
+
+    @Override
+    public void ChangeRegistrationDataByForm(UserRegistrationForm form) {
+        User user = userRepository.findByUsername(form.getUsername());
+        if (!form.getPassword().equals("")&&form.getPassword().equals(form.getRepeatPassword()))
+            user.setPassword(encoder.encode(form.getPassword()));
+        UserData data = user.getUserData();
+        data.setFirst(form.getFirst())
+                .setLast(form.getLast())
+                .setPatronymic(form.getPatronymic())
+                .setPassportSeries(form.getSeries())
+                .setPassportNumber(form.getNumber())
+                .setWorkName(form.getWorkName())
+                .setWorkPosition(form.getWorkPosition())
+                .setWorkIncome(form.getWorkIncome());
+        userRepository.save(user);
+    }
 }

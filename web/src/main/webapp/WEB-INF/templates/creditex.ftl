@@ -78,6 +78,7 @@ $("#${table}").tablecloth(
         [/@sec.authorize]
         [@sec.authorize access='isAuthenticated()']
             <li><a href="[@spring.url '/j_spring_security_logout'/]">Выйти</a></li>
+        <li><a href="[@spring.url '/change_registration_data/'/]">Изменить регистрационные данные</a></li>
         [/@sec.authorize]
 </ul>
 </div>

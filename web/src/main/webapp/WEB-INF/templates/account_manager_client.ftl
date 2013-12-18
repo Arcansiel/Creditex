@@ -59,7 +59,7 @@
                             [#if creditApplication??]
                                 [#switch creditApplication.acceptance.name()]
                                     [#case "Accepted"]
-                                        <li><a href="[@spring.url '/account_manager/client/credit/application/finalize/'/]">Оформить кредит по заявке</a> </li>
+                                        <li><a href="[@spring.url '/account_manager/client/credit/process/'/]">Оформить кредит по заявке</a> </li>
                                     [#break]
                                     [#case "InProcess"]
                                         <li><a href="[@spring.url '/account_manager/client/credit/application/view/'/]">Проверить статус заявки на предоставление кредита</a> </li>
