@@ -148,6 +148,7 @@ public class CommitteeServiceImpl implements CommitteeService {
                 application.setCommitteeAcceptance(Acceptance.Accepted);
             }else{
                 application.setCommitteeAcceptance(Acceptance.Rejected);
+                application.setHeadAcceptance(Acceptance.Rejected);//TODO check it
                 application.setAcceptance(Acceptance.Rejected);
                 application.setProcessed(true);//обработка заявки завершена, заявка отклонена
             }
