@@ -131,6 +131,27 @@ public class AccountManagerController {
         return "account_manager_credit_processing";
     }
 
+    @RequestMapping("/account_manager/client/prior/final/")
+    public String ClientPriorApplicationFinalProcessing(ModelMap model, HttpSession session){
+        User client = (User)session.getAttribute("client");
+        if (client == null)
+            return "redirect:/account_manager/";
+        PriorRepaymentApplication application = applicationService.GetUnprocessedPriorRepaymentApplicationByUsername(client.getUsername());
+        model.put("id", application.getId());
+        return "account_manager_prior_processing";
+    }
+
+    @RequestMapping("/account_manager/client/prolongation/final/")
+    public String ClientProlongationApplicationFinalProcessing(ModelMap model, HttpSession session){
+        User client = (User)session.getAttribute("client");
+        if (client == null)
+            return "redirect:/account_manager/";
+        ProlongationApplication application = applicationService.GetUnprocessedProlongationApplicationByUsername(client.getUsername());
+        model.put("id", application.getId());
+        return "account_manager_prolongation_processing";
+    }
+
+
     @RequestMapping("/account_manager/client/prolongation/finalize/")
     public String ClientFinalizeProlongationApplication(HttpSession session){
         User client = (User)session.getAttribute("client");

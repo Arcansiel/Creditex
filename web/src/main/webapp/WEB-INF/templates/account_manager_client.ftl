@@ -34,7 +34,7 @@
                             [#if priorRepaymentApplication??]
                                 [#switch priorRepaymentApplication.acceptance.name()]
                                     [#case "Accepted"]
-                                        <li><a href="[@spring.url '/account_manager/client/prior/finalize/'/]">Оформить предварительное погашение кредита</a> </li>
+                                        <li><a href="[@spring.url '/account_manager/client/prior/final/'/]">Оформить предварительное погашение кредита</a> </li>
                                     [#break ]
                                     [#case "InProcess"]
                                         <li><a href="[@spring.url '/account_manager/client/prior/view/'/]">Проверить заявку на предварительное погашение кредита</a> </li>
@@ -46,7 +46,7 @@
                             [#if prolongationApplication??]
                                 [#switch prolongationApplication.acceptance.name()]
                                     [#case "Accepted"]
-                                        <li><a href="[@spring.url '/account_manager/client/prolongation/finalize/'/]">Оформить пролонгацию кредита</a> </li>
+                                        <li><a href="[@spring.url '/account_manager/client/prolongation/final/'/]">Оформить пролонгацию кредита</a> </li>
                                     [#break]
                                     [#case "InProcess"]
                                         <li><a href="[@spring.url '/account_manager/client/prolongation/view/'/]">Проверить заявку на пролонгацию кредита</a> </li>
