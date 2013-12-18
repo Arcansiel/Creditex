@@ -12,10 +12,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.NoSuchAlgorithmException;
+import java.security.Principal;
 
 @Controller
 @Slf4j
@@ -73,5 +75,28 @@ public class UserController {
         userService.RegisterUserByForm(form);
 
         return "redirect:/";
+    }
+
+    @RequestMapping("/change_registration_data/")
+    public String ShowChangeRegistrationData(@RequestParam(required = false) Boolean isError,Principal principal, ModelMap model){
+        User user = userService.GetUserByUsername(principal.getName());
+        model.put("user", user);
+        if (isError!=null)
+            model.put("isError", true);
+        return "change_registration_data";
+    }
+
+    @RequestMapping("/change_registration_data/process/")
+    public String ChangeRegistrationData(@Valid @ModelAttribute UserRegistrationForm form, BindingResult result){
+        if (result.hasErrors())
+            return "redirect://change_registration_data?isError=true/";
+        if (form.getChangePassword().equals(form.getChangeRepeatPassword()) && form.getChangePassword().length()>8 && form.getChangePassword().length()<46)
+            form.setPassword(form.getChangePassword())
+                    .setRepeatPassword(form.getRepeatPassword());
+        else
+            form.setPassword("")
+                    .setRepeatPassword("");
+        userService.ChangeRegistrationDataByForm(form);
+        return "redirect:/j_spring_security_logout";
     }
 }

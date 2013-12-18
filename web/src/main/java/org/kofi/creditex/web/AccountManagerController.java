@@ -1,10 +1,8 @@
 package org.kofi.creditex.web;
 
+import org.joda.time.LocalDate;
 import org.kofi.creditex.model.*;
-import org.kofi.creditex.service.ApplicationService;
-import org.kofi.creditex.service.CreditService;
-import org.kofi.creditex.service.ProductService;
-import org.kofi.creditex.service.UserService;
+import org.kofi.creditex.service.*;
 import org.kofi.creditex.web.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +34,9 @@ public class AccountManagerController {
     private CreditService creditService;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private CreditexDateProvider dateProvider;
+
 
     @RequestMapping("/account_manager/")
     public String MainAccountManager(){
@@ -95,8 +96,17 @@ public class AccountManagerController {
         User client = (User)session.getAttribute("client");
         if (client == null)
             return "redirect:/account_manager/";
-        applicationService.FinalizeCreditApplication(client.getUsername());
-        return "redirect:/account_manager/client/";
+        long creditId = applicationService.FinalizeCreditApplication(client.getUsername());
+        return "redirect:/account_manager/credit/"+creditId+"/contract/";
+    }
+
+    @RequestMapping("/account_manager/credit/{creditID}/contract/")
+    public String ShowCreditContract(@PathVariable long creditID, ModelMap model){
+        Credit credit = creditService.GetCreditById(creditID);
+        LocalDate date = dateProvider.getCurrentDate();
+        model.put("credit", credit);
+        model.put("date",date);
+        return "account_manager_contract";
     }
 
     @RequestMapping("/account_manager/client/prior/finalize/")
@@ -106,6 +116,19 @@ public class AccountManagerController {
             return "redirect:/account_manager/";
         applicationService.FinalizePriorRepaymentApplication(client.getUsername());
         return "redirect:/account_manager/client/";
+    }
+
+    @RequestMapping("/account_manager/client/credit/process/")
+    public String ClientCreditApplicationProcess(HttpSession session,ModelMap model){
+        User client = (User)session.getAttribute("client");
+        if (client == null)
+            return "redirect:/account_manager/";
+        Application application = applicationService.GetUnprocessedApplicationByUsername(client.getUsername());
+        long[] mock = new long[3];
+        List<Payment> payments = CreditCalculator.PaymentPlan(application, dateProvider.getCurrentSqlDate(), mock);
+        model.put("id", application.getId());
+        model.put("payments", payments);
+        return "account_manager_credit_processing";
     }
 
     @RequestMapping("/account_manager/client/prolongation/finalize/")
@@ -158,7 +181,7 @@ public class AccountManagerController {
         User client = (User)session.getAttribute("client");
         if (client == null)
             return "redirect:/account_manager/";
-        map.put("application",applicationService.GetUnprocessedPriorRepaymentApplicationByUsername(client.getUsername()));
+        map.put("application", applicationService.GetUnprocessedPriorRepaymentApplicationByUsername(client.getUsername()));
         return "account_manager_application_prior_view";
     }
 
@@ -201,7 +224,7 @@ public class AccountManagerController {
         User client = (User)session.getAttribute("client");
         if (client == null)
             return "redirect:/account_manager/";
-        List<Application> applications = applicationService.GetApplicationsByUsername (client.getUsername());
+        List<Application> applications = applicationService.GetApplicationsByUsername(client.getUsername());
         if (applications==null)
             applications = new ArrayList<Application>();
         model.put("applications", applications);
@@ -255,7 +278,7 @@ public class AccountManagerController {
         User client = (User)session.getAttribute("client");
         if (client == null)
             return "redirect:/account_manager/";
-        model.put("credits",creditService.findByUsername(client.getUsername()));
+        model.put("credits", creditService.findByUsername(client.getUsername()));
         return "account_manager_credit_list";
     }
 

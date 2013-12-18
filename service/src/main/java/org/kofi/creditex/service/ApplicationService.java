@@ -23,6 +23,6 @@ public interface ApplicationService {
     void RemovePriorRepaymentApplicationWithId(long id);
     void FinalizeProlongationApplication(String username);
     void FinalizePriorRepaymentApplication(String username);
-    void FinalizeCreditApplication(String username);
+    long FinalizeCreditApplication(String username);
 
 }

@@ -175,8 +175,10 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public void FinalizeCreditApplication(String username) {
+    public long FinalizeCreditApplication(String username) {
         Application application = applicationRepository.findByClientUsernameAndProcessed(username, false);
+        application.setProcessed(true);
+        applicationRepository.save(application);
         LocalDate date = creditexDateProvider.getCurrentDate();
         Date end = creditexDateProvider.transformDate(date.plusMonths((int) application.getDuration()));
         long[] params = new long[3];
@@ -198,6 +200,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         for (Payment payment : credit.getPayments()){
             payment.setCredit(credit);
         }
-        creditRepository.save(credit);
+        Credit saved = creditRepository.save(credit);
+        return saved.getId();
     }
 }

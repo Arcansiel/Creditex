@@ -17,6 +17,7 @@ public interface UserService {
     void ChangeUserDataByForm(UserData form);
     List<User> GetAllUsersByAuthority(String authority);
     User GetUserById(long user_id);
+    void ChangeRegistrationDataByForm(UserRegistrationForm form);
     long GetUsersCountByAuthorityAndEnabled(String authority, boolean enabled);
     boolean SetUserEnabledById(long user_id, boolean enabled);
 }
