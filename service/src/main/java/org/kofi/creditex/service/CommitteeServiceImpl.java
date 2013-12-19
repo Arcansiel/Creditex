@@ -63,8 +63,8 @@ public class CommitteeServiceImpl implements CommitteeService {
         for(Application a:applicationRepository.findAll(
                 QApplication.application.securityAcceptance.eq(Acceptance.Accepted)
                         //.and(QApplication.application.acceptance.ne(Acceptance.InProcess))
-                        .and(QApplication.application.votingClosed.isTrue())
                         .and(QApplication.application.request.goe(QApplication.application.product.minCommittee))
+                        .and(QApplication.application.votingClosed.isTrue())
                 , QApplication.application.applicationDate.desc()
         )){
             list.add(a);
@@ -148,7 +148,6 @@ public class CommitteeServiceImpl implements CommitteeService {
                 application.setCommitteeAcceptance(Acceptance.Accepted);
             }else{
                 application.setCommitteeAcceptance(Acceptance.Rejected);
-                application.setHeadAcceptance(Acceptance.Rejected);//TODO check it
                 application.setAcceptance(Acceptance.Rejected);
                 application.setProcessed(true);//обработка заявки завершена, заявка отклонена
             }

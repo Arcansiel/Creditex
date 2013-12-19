@@ -15,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
@@ -34,14 +33,22 @@ public class SecurityManagerController {
     CreditService creditService;
 
     @RequestMapping("/security_manager/")
-    public String MainSecurityManager(){
+    public String MainSecurityManager(Model model, Principal principal){
+        Application application = securityService.GetSecurityAssignedApplication(principal.getName());
+        if(application != null){
+            model.addAttribute("application",application);
+        }
         return "security_manager";
     }
 
     @RequestMapping(value = "/security_manager/appliances/", method = RequestMethod.GET)
-    public String Security1(Model model){
-        List<Application> applications = securityService.GetSecurityApplications();
+    public String Security1(Model model, Principal principal){
+        List<Application> applications = securityService.GetSecurityUncheckedApplications();
         model.addAttribute("applications",applications);
+        Application current = securityService.GetSecurityAssignedApplication(principal.getName());
+        if(current != null){
+            model.addAttribute("current",current);
+        }
         return "security_manager_appliances";
     }
 
@@ -63,15 +70,28 @@ public class SecurityManagerController {
 
 
     @RequestMapping(value = "/security_manager/appliance/check/{id}", method = RequestMethod.GET)
-    public String Security4(HttpSession session, Model model
+    public String Security4(Model model, Principal principal
                             ,@PathVariable("id")long id){
-
-        Application app = securityService.GetApplication(id);
-        if(app == null){
+        int err = securityService.AssignApplicationToSecurity(id,principal.getName());
+        if(err < 0){
+            return "redirect:/security_manager/?error=application_assignment_failed&info="+err;
+        }
+        Application application = securityService.GetApplication(id);
+        if(application == null){
             return "redirect:/security_manager/?error=no_application&info="+id;
         }
-        model.addAttribute("application",app);
+        model.addAttribute("application",application);
         return "security_manager_appliance_check";
+    }
+
+    @RequestMapping(value = "/security_manager/appliance/cancel_assignment/{id}", method = {RequestMethod.GET,RequestMethod.POST})
+    public String Security41(Principal principal, @PathVariable("id")long id){
+        int err = securityService.CancelApplicationAssignment(id,principal.getName());
+        if(err < 0){
+            return "redirect:/security_manager/?error=application_assignment_cancel_failed&info="+err;
+        }else{
+            return "redirect:/security_manager/?info=application_assignment_canceled";
+        }
     }
 
     @RequestMapping(value = "/security_manager/client/check/{id}", method = RequestMethod.GET)
@@ -85,9 +105,9 @@ public class SecurityManagerController {
         model.addAttribute("client",client);
 
         long client_id = client.getId();
-        List<Credit> credits = securityService.GetCurrentClientCredits(client_id);
-        if(credits.size() > 0){
-            model.addAttribute("credit",credits.get(0));
+        Credit credit = securityService.GetCurrentClientCredit(client_id);
+        if(credit != null){
+            model.addAttribute("credit",credit);
         }
         long payments_count = securityService.GetClientPaymentsCount(client_id);
         long expired_payments_count = securityService.GetClientExpiredPaymentsCount(client_id);
