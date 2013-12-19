@@ -60,26 +60,10 @@
 
                 [#if application.committeeAcceptance?? && application.committeeAcceptance.name() == "Accepted"]
                 [#-- show form only for committee accepted applications --]
-                <form method="post" action="[@spring.url '/department_head/appliance/${application.id?string("0")}/set_head_approved/'/]">
-                    <table>
-                        <td class="comment"><textarea name="comment" ></textarea></td>
-                        <td class="action">
-                            <p>
-                                <label>
-                                    <input type="radio" name="acceptance" value="true" />
-                                    ПРИНЯТЬ</label>
-                                <br />
-                                <label>
-                                    <input type="radio" name="acceptance" value="false" checked/>
-                                    ОТКЛОНИТЬ</label>
-                                <br />
-                            </p>
-                        </td>
-                        <td class="submit-button">
-                            <button type="submit" class="button">Выполнить</button>
-                        </td>
-                    </table>
-                </form>
+                    [@creditex_data.confirmation_form
+                    "post"
+                    '/department_head/appliance/${application.id?string("0")}/set_head_approved/'
+                    /]
                 [/#if]
 
                 [#if (application.product)??]

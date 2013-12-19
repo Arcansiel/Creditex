@@ -45,26 +45,14 @@
                             <td class="comment">[#if application.securityComment??]${application.securityComment?html}[/#if]</td>
                         </tr>
                 </table>
-                <form method="post" action="[@spring.url '/committee_manager/appliance/vote/${application.id?string("0")}'/]">
-                    <table>
-                        <td class="comment"><textarea name="comment" ></textarea></td>
-                        <td class="action">
-                            <p>
-                                <label>
-                                    <input type="radio" name="acceptance" value="true" />
-                                    ЗА</label>
-                                <br />
-                                <label>
-                                    <input type="radio" name="acceptance" value="false" checked/>
-                                    ПРОТИВ</label>
-                                <br />
-                            </p>
-                        </td>
-                        <td class="submit-button">
-                            <button type="submit" class="button">Голосовать</button>
-                        </td>
-                    </table>
-                </form>
+
+                [@creditex_data.confirmation_form
+                "post"
+                '/committee_manager/appliance/vote/${application.id?string("0")}'
+                "ЗА"
+                "ПРОТИВ"
+                "Голосовать"/]
+
 
                 [#if (application.product)??]
                     [@creditex_data.product_view_table application.product /]

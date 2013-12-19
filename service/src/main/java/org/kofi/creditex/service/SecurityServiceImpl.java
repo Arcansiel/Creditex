@@ -37,7 +37,7 @@ public class SecurityServiceImpl implements SecurityService{
     CreditexDateProvider dateProvider;
 
     @Override
-    public List<Application> GetSecurityApplications() {
+    public List<Application> GetSecurityUncheckedApplications() {
         List<Application> list = new ArrayList<Application>();
         for(Application app:applicationRepository.findAll(
                 QApplication.application.securityAcceptance.eq(Acceptance.InProcess)
@@ -51,8 +51,79 @@ public class SecurityServiceImpl implements SecurityService{
         return list;
     }
 
-    private  void f(){
+    private Application GetSecurityAssignedApplication(long security_id) {
+        for(Application application:applicationRepository.findAll(
+                QApplication.application.securityAcceptance.eq(Acceptance.InProcess)
+                        .and(QApplication.application.security.id.eq(security_id))
+        )){
+            return application;
+        }
+        return null;
+    }
 
+    @Override
+    public int AssignApplicationToSecurity(long application_id, String security_name) {
+        User security = userService.GetUserByUsername(security_name);
+        if(security == null){ return -1; }//no security
+        Application application = applicationRepository.findOne(application_id);
+        if(application == null){
+            return -2;//no application
+        }
+        if(!application.getSecurityAcceptance().equals(Acceptance.InProcess)){
+            return -3;//invalid application state
+        }
+        User applicationSecurity = application.getSecurity();
+        if(applicationSecurity != null){
+            if(applicationSecurity.getId() != security.getId()){
+                return -4;//assigned to another security
+            }else{
+                return 1;//already assigned to this security
+            }
+        }
+        Application current = GetSecurityAssignedApplication(security.getId());
+        if(current != null){
+            //cancel assignment of current application
+            current.setSecurity(null);
+            applicationRepository.save(current);
+        }
+        application.setSecurity(security);
+        applicationRepository.save(application);
+        return 0;
+    }
+
+    @Override
+    public Application GetSecurityAssignedApplication(String security_name) {
+        for(Application application:applicationRepository.findAll(
+                QApplication.application.securityAcceptance.eq(Acceptance.InProcess)
+                .and(QApplication.application.security.username.eq(security_name))
+        )){
+            return application;
+        }
+        return null;
+    }
+
+    @Override
+    public int CancelApplicationAssignment(long application_id, String security_name){
+        User security = userService.GetUserByUsername(security_name);
+        if(security == null){ return -1; }//no security
+        Application application = applicationRepository.findOne(application_id);
+        if(application == null){
+            return -2;//no application
+        }
+        if(!application.getSecurityAcceptance().equals(Acceptance.InProcess)){
+            return -3;//invalid application state
+        }
+        User applicationSecurity = application.getSecurity();
+        if(applicationSecurity != null){
+            if(applicationSecurity.getId() != security.getId()){
+                return -4;//assigned to another security
+            }
+        }else{
+            return 1;//no security assigned to this application
+        }
+        application.setSecurity(null);
+        applicationRepository.save(application);
+        return 0;
     }
 
     @Override
@@ -91,10 +162,17 @@ public class SecurityServiceImpl implements SecurityService{
             acceptance_value = Acceptance.Rejected;
         }
         User security = userService.GetUserByUsername(security_name);
-        if(security == null){ return -1; }
+        if(security == null){ return -1; }//no security
         Application application = applicationRepository.findOne(application_id);
-        if(application == null || !application.getSecurityAcceptance().equals(Acceptance.InProcess)){
-            return -2;
+        if(application == null){
+            return -2;//no application
+        }
+        if(!application.getSecurityAcceptance().equals(Acceptance.InProcess)){
+            return -3;//invalid application state
+        }
+        User applicationSecurity = application.getSecurity();
+        if(applicationSecurity != null && applicationSecurity.getId() != security.getId()){
+            return -4;//assigned to another security
         }
         application.setSecurityAcceptance(acceptance_value);
         application.setSecurityComment(comment);
@@ -117,15 +195,13 @@ public class SecurityServiceImpl implements SecurityService{
     }
 
     @Override
-    public List<Credit> GetCurrentClientCredits(long client_id) {
-        List<Credit> list = new ArrayList<Credit>();
-        for(Credit c:creditRepository.findAll(
-                QCredit.credit.user.id.eq(client_id).and(QCredit.credit.running.isTrue()),
-                QCredit.credit.creditStart.desc()
+    public Credit GetCurrentClientCredit(long client_id) {
+        for(Credit credit:creditRepository.findAll(
+                QCredit.credit.user.id.eq(client_id).and(QCredit.credit.running.isTrue())
         )){
-            list.add(c);
+            return credit;
         }
-        return list;
+        return null;
     }
 
     @Override

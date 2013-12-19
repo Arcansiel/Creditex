@@ -15,6 +15,9 @@
                 <li><a href="#">Заявки</a>
                     <ul>
                         <li><a href="[@spring.url '/security_manager/appliances/'/]">Заявки на рассмотрение службой безопасности</a></li>
+                        [#if application??]
+                            <li><a href="[@spring.url '/security_manager/appliance/check/${application.id?string("0")}'/]">Открыть текущую заявку</a></li>
+                        [/#if]
                     </ul>
                 </li>
                 <li><a href="#">Кредиты</a>

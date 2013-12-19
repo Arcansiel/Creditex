@@ -112,6 +112,16 @@ public class OperatorServiceImpl implements OperatorService {
         return list;
     }
 
+    private boolean ChangeCreditState(Credit credit){
+        if(credit.getCurrentMainDebt() <= 0){
+            credit.setRunning(false);//close credit
+            credit.setCurrentMoney(0);//TODO check: credit closed -> money = 0
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     private List<Payment> ExpiredPayments(long credit_id){
         List<Payment> list = new ArrayList<Payment>();
         for(Payment p:paymentRepository.findAll(
@@ -142,9 +152,7 @@ public class OperatorServiceImpl implements OperatorService {
             credit.setPercentFine(0);
             credit.setCurrentMainDebt(credit.getCurrentMainDebt() - mainDebt);
             credit.setCurrentPercentDebt(credit.getCurrentPercentDebt() - percents);
-            if(credit.getCurrentMainDebt() <= 0){
-                credit.setRunning(false);//close credit
-            }
+            ChangeCreditState(credit);
             creditRepository.save(credit);
             return true;
         }else{
@@ -203,8 +211,8 @@ public class OperatorServiceImpl implements OperatorService {
         if(x[0] == amount){
             prior.setProcessed(true);
             credit.setCurrentMainDebt(0);
-            credit.setRunning(false);//close credit
             credit.setCurrentPercentDebt(credit.getCurrentPercentDebt() - x[1]);
+            ChangeCreditState(credit);
             priorRepository.save(prior);
             creditRepository.save(credit);
             CloseCreditPayments(credit.getId());
@@ -220,9 +228,7 @@ public class OperatorServiceImpl implements OperatorService {
             current.setPaymentClosed(true);
             credit.setCurrentMainDebt(credit.getCurrentMainDebt() - (current.getRequiredPayment() - current.getPercents()));
             credit.setCurrentPercentDebt(credit.getCurrentPercentDebt() - current.getPercents());
-            if(credit.getCurrentMainDebt() <= 0){
-                credit.setRunning(false);//close credit
-            }
+            ChangeCreditState(credit);
             paymentRepository.save(current);
             creditRepository.save(credit);
             return true;
