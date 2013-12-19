@@ -140,4 +140,9 @@ public class User implements org.springframework.security.core.userdetails.UserD
      */
     @OneToMany(mappedBy = "manager", cascade = CascadeType.ALL)
     private List<Vote> votes;
+
+    @OneToMany
+    private List<Notification> notificationsTo;
+    @OneToMany
+    private List<Notification> notificationsBy;
 }

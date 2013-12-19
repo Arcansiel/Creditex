@@ -115,4 +115,7 @@ public class Credit {
      */
     @OneToMany(mappedBy = "credit")
     private List<PriorRepaymentApplication> priorApplications;
+
+    @OneToMany
+    private List<Notification> notifications;
 }
