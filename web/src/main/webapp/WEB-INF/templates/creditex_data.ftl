@@ -1,5 +1,6 @@
 [#ftl]
 
+[#import "creditex.ftl" as creditex]
 [#import "spring.ftl" as spring]
 
 [#macro product_view_table product caption = "Кредитный продукт" show_active = true]
@@ -168,13 +169,79 @@
 [/#macro]
 
 
+[#macro user_search_form
+form_method
+form_action
+submit_label = "Подтвердить"
+]
+<form method="${form_method}" action="[@spring.url form_action/]" class="form" id="searchForm">
+    <p>
+        <label for="name_field">Имя</label>
+        <input type="text" id="name_field" name="first">
+    </p>
+    <p>
+        <label for="last_field">Фамилия</label>
+        <input type="text" id="last_field" name="last">
+    </p>
+    <p>
+        <label for="patronymic_field">Отчество</label>
+        <input type="text" id="patronymic_field" name="patronymic">
+    </p>
+    <p>
+        <label for="series_field">Серия паспорта</label>
+        <input type="text" id="series_field" name="passportSeries">
+    </p>
+    <p>
+        <label for="number_filed">Номер паспорта</label>
+        <input type="text" id="number_filed" name="passportNumber">
+    </p>
+    <p class="a-center"><button type="submit" class="button">${submit_label?html}</button></p>
+</form>
+[/#macro]
+
+
+[#macro user_search_form_validation]
+[@creditex.addValidator /]
+<script type="text/javascript">
+    $(function(){
+        $("#searchForm").validate(
+                {
+                    rules:{
+                        first: {
+                            required: true
+                        },
+                        last: {
+                            required: true
+                        },
+                        patronymic:{
+                            required: true
+                        },
+                        passportSeries:{
+                            required: true,
+                            minlength:2,
+                            maxlength:2
+                        },
+                        passportNumber:{
+                            required: true,
+                            min: 0,
+                            max: 9999999
+                        }
+                    }
+
+                }
+        );
+    });
+</script>
+[/#macro]
+
+
 [#macro confirmation_form
 form_method
 form_action
 accept_label = "Утвердить"
 reject_label = "Отклонить"
 submit_label = "Принять"]
-<form method="${form_method}" action="[@spring.url form_action/]">
+<form method="${form_method}" action="[@spring.url form_action/]" class="form" id="confirmationForm">
     <table>
         <td class="comment"><textarea name="comment" ></textarea></td>
         <td class="action">
@@ -196,3 +263,25 @@ submit_label = "Принять"]
 </form>
 [/#macro]
 
+
+[#macro confirmation_form_validation]
+    [@creditex.addValidator /]
+<script type="text/javascript">
+    $(function(){
+        $("#confirmationForm").validate(
+                {
+                    rules:{
+                        acceptance:{
+                            required: true
+                        }
+                        comment:{
+                            required: false,
+                            maxlength: 4000
+                        }
+                    }
+
+                }
+        );
+    });
+</script>
+[/#macro]

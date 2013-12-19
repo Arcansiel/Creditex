@@ -4,6 +4,24 @@
 [#import "creditex_data.ftl" as creditex_data]
 [@creditex.root]
     [@creditex.head "Операционист / операция"]
+        [@creditex.addValidator/]
+    <script type="text/javascript">
+        $(function(){
+            $("#operationForm").validate(
+                    {
+                        rules:{
+                            type: {
+                                required: true
+                            },
+                            amount: {
+                                required: true,
+                                min: 1
+                            }
+                        }
+                    }
+            );
+        });
+    </script>
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
@@ -107,7 +125,7 @@
             [/#if]
 
             <div class="form-action">
-                <form action="" method="post" class="form">
+                <form action="" method="post" class="form" id="operationForm">
                     <p class="name">Операция</p>
                     <p>
                         <label>Тип операции</label>

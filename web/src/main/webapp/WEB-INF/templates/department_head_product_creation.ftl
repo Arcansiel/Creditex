@@ -3,6 +3,63 @@
 
 [@creditex.root]
     [@creditex.head "Создание кредитного продукта"]
+        [@creditex.addValidator/]
+    <script type="text/javascript">
+        $(function(){
+            $("#productForm").validate(
+                    {
+                        rules:{
+                            active: {
+                                required: true
+                            },
+                            name: {
+                                required: true,
+                                minlength: 1,
+                                maxlength: 48
+                            },
+                            type: {
+                                required: true
+                            },
+                            percent: {
+                                required: true,
+                                min: 0
+                            },
+                            minCommittee: {
+                                required: true,
+                                min: 0
+                            },
+                            minMoney:{
+                                required: true,
+                                min: 1
+                            },
+                            maxMoney:{
+                                required: true,
+                                min: 1
+                            },
+                            minDuration:{
+                                required: true,
+                                min: 1
+                            },
+                            maxDuration:{
+                                required: true,
+                                min: 1
+                            },
+                            debtPercent:{
+                                required: true,
+                                min: 0
+                            },
+                            prior:{
+                                required: true
+                            },
+                            priorRepaymentPercent:{
+                                required: true
+                            }
+                        }
+
+                    }
+            );
+        });
+    </script>
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
@@ -11,7 +68,7 @@
         <div class="form-action">
             <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
             <p class="name">Данные нового кредитного продукта</p>
-            <form action="" method="post" class="form">
+            <form action="" method="post" class="form" id="productForm">
                 <p>
                     <label for="product.active">Состояние кредитного продукта</label>
                     <select id="product.active" name="active">
