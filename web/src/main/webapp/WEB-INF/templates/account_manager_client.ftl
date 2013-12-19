@@ -41,7 +41,7 @@
                                     [#break ]
                                 [/#switch]
                             [#else]
-                                <li><a href="[@spring.url '/account_manager/client/prior/add/'/]">Создать заявку на предварительное погашение кредита</a></li>
+                                <li><a href="[@spring.url '/account_manager/client/prior/'/]">Создать заявку на предварительное погашение кредита</a></li>
                             [/#if]
                             [#if prolongationApplication??]
                                 [#switch prolongationApplication.acceptance.name()]
@@ -53,20 +53,20 @@
                                     [#break]
                                 [/#switch]
                             [#else]
-                                <li><a href="[@spring.url '/account_manager/client/prolongation/add/'/]">Создать заявку на пролонгацию кредита кредита</a></li>
+                                <li><a href="[@spring.url '/account_manager/client/prolongation/'/]">Создать заявку на пролонгацию кредита кредита</a></li>
                             [/#if]
                         [#else ]
                             [#if creditApplication??]
                                 [#switch creditApplication.acceptance.name()]
                                     [#case "Accepted"]
-                                        <li><a href="[@spring.url '/account_manager/client/credit/process/'/]">Оформить кредит по заявке</a> </li>
+                                        <li><a href="[@spring.url '/account_manager/client/credit/'/]">Оформить кредит по заявке</a> </li>
                                     [#break]
                                     [#case "InProcess"]
                                         <li><a href="[@spring.url '/account_manager/client/credit/application/view/'/]">Проверить статус заявки на предоставление кредита</a> </li>
                                     [#break]
                                 [/#switch]
                             [#else]
-                                <li><a href="[@spring.url '/account_manager/client/credit/application/add/'/]">Создать заявку на предоставление кредита</a></li>
+                                <li><a href="[@spring.url '/account_manager/client/product/'/]">Создать заявку на предоставление кредита</a></li>
                             [/#if]
                         [/#if]
 

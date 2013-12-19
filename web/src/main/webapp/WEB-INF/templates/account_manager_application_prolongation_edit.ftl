@@ -3,13 +3,31 @@
 [#import "spring.ftl" as spring]
 [@creditex.root]
     [@creditex.head "Main page"]
-
+        [@creditex.includeBootstrapCss/]
+        [@creditex.addValidator/]
+    <script type="text/javascript">
+        $(function(){
+            $("#applicationForm").validate(
+                    {
+                        rules:{
+                            duration:{
+                                required:true,
+                                min:1
+                            },
+                            comment:{
+                                required: true
+                            }
+                        }
+                    }
+            );
+        });
+    </script>
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
         <div class="form-action">
             <p class="name">Введите данные о пролонгации кредита</p>
-            <form action="[@spring.url '/account_manager/client/prolongation/process/'/]" method="post" class="form">
+            <form action="" method="post" class="form" id="applicationForm">
                 <p>
                     <label for="duration_field">Срок пролонгации(мес)</label>
                     <input type="text" id="duration_field" name="duration">
@@ -23,7 +41,7 @@
         </div>
         <div class="content">
             <ul class="nav-menu">
-                <li><a href="[@spring.url '/account_manager/client/'/]">Вырнуться назад</a>
+                <li><a href="[@spring.url '/account_manager/client/'/]">Вернуться назад</a>
                 </li>
             </ul>
         </div>

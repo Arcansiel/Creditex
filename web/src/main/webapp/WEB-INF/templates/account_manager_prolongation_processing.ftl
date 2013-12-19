@@ -13,7 +13,7 @@
             <ul class="nav-menu">
                 <li><a href="#">Операции с заявкой</a>
                     <ul>
-                        <li><a href="[@spring.url '/account_manager/client/prolongation/finalize/'/]" id="creditRegistration">Зарегистрировать предварительное погашение</a></li>
+                        <li><a href="[@spring.url '/account_manager/client/prolongation/finalize/'/]" id="creditRegistration">Зарегистрировать пролонгацию</a></li>
                         <li><a href="[@spring.url '/account_manager/client/prolongation/abort/${id}/'/]">Отменить заявку</a></li>
                     </ul>
                 </li>

@@ -86,7 +86,7 @@ public class UserController {
         return "change_registration_data";
     }
 
-    @RequestMapping("/change_registration_data/process/")
+    @RequestMapping(value = "/change_registration_data/", method = RequestMethod.POST)
     public String ChangeRegistrationData(@Valid @ModelAttribute UserRegistrationForm form, BindingResult result){
         if (result.hasErrors())
             return "redirect://change_registration_data?isError=true/";

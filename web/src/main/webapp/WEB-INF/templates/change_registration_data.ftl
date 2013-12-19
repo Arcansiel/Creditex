@@ -6,14 +6,58 @@
 
 [@creditex.root]
     [@creditex.head "Main page"]
-
+        [@creditex.includeBootstrapCss/]
+        [@creditex.addValidator/]
+    <script type="text/javascript">
+        $(function(){
+           $("#change_form").validate({
+               rules:{
+                   changePassword:{
+                       minlength:8,
+                       maxlength:46
+                   },
+                   changeRepeatPassword:{
+                       equalTo:"#password_field"
+                   },
+                   first:{
+                       required: true
+                   },
+                   last:{
+                       required:true
+                   },
+                   patronymic:{
+                       required:true
+                   },
+                   series:{
+                       required:true,
+                       minlength:2,
+                       maxlength:2
+                   },
+                   number:{
+                       required:true,
+                       min:0
+                   },
+                   workName:{
+                       required:true
+                   },
+                   workPosition:{
+                       required:true
+                   },
+                   workIncome:{
+                       required:true,
+                       min:0
+                   }
+               }
+           });
+        });
+    </script>
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
         [@creditex.account_manager/]
         <div class="form-action">
             <p class="name">Введите регистационные данные</p>
-            <form action="[@spring.url '/change_registration_data/process/'/]" method="post" class="form">
+            <form action="" method="post" id="change_form" class="form">
                 <input name="username" value="${user.username}" type="hidden">
                 <p>
                     <label for="password_field">Пароль</label>

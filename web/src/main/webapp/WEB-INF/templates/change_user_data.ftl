@@ -5,14 +5,52 @@
 [#import "spring.ftl" as spring]
 [@creditex.root]
     [@creditex.head "Main page"]
-
+        [@creditex.includeBootstrapCss/]
+        [@creditex.addValidator/]
+    <script type="text/javascript">
+        $(function(){
+            $("#changeDataForm").validate(
+                    {
+                        rules:{
+                            first:{
+                                required:true
+                            },
+                            last:{
+                                required:true
+                            },
+                            patronymic:{
+                                required:true
+                            },
+                            passportSeries:{
+                                required:true,
+                                minlength:2,
+                                maxlength:2
+                            },
+                            passportNumber:{
+                                required:true,
+                                min:1
+                            },
+                            workName:{
+                                required:true
+                            },
+                            workPosition:{
+                                required:true
+                            },
+                            workIncome:{
+                                required:true
+                            }
+                        }
+                    }
+            );
+        });
+    </script>
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
         [@creditex.account_manager/]
         <div class="form-action">
             <p class="name">Введите данные клиента</p>
-            <form action="[@spring.url '/change_user_data/process/'/]" method="post" class="form">
+            <form action="[@spring.url '/change_user_data/process/'/]" method="post" class="form" id="changeDataForm">
                 <input type="hidden" name="id" value="${data.id}">
                 <p>
                     <label for="name_field">Имя</label>

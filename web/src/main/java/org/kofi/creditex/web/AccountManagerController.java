@@ -11,10 +11,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -43,7 +40,7 @@ public class AccountManagerController {
         return "account_manager";
     }
 
-    @RequestMapping(value = "/account_manager/process/")
+    @RequestMapping(value = "/account_manager/", method = RequestMethod.POST)
     public String SelectClient(HttpSession session, @ModelAttribute UserData form, BindingResult result, ModelMap model){
         if(result.hasErrors()){
             model.put("isError", "Введено неверное значение в поле номера паспорта");
@@ -70,23 +67,24 @@ public class AccountManagerController {
         return "account_manager_client";
     }
 
-    @RequestMapping("/account_manager/client/credit/application/add/")
-    public String ClientShowCreditApplicationForm(@RequestParam(required = false) Boolean isError,ModelMap model){
-        model.put("products", productService.GetProductsByActive(true));
+    @RequestMapping("/account_manager/client/credit/{productId}/application/")
+    public String ClientShowCreditApplicationForm(@PathVariable long productId,@RequestParam(required = false) Boolean isError,ModelMap model){
+        model.put("product", productService.GetProductById(productId));
         if (isError!=null)
             model.put("isError", isError);
         return "account_manager_application_credit_edit";
     }
 
-    @RequestMapping("/account_manager/client/credit/application/process/")
-    public String ClientProcessCreditApplication(Principal principal,HttpSession session,@Valid @ModelAttribute CreditApplicationRegistrationForm form, BindingResult result){
+    @RequestMapping(value = "/account_manager/client/credit/{productId}/application/", method = RequestMethod.POST)
+    public String ClientProcessCreditApplication(@PathVariable long productId,Principal principal,HttpSession session,@Valid @ModelAttribute CreditApplicationRegistrationForm form, BindingResult result){
         User client = (User)session.getAttribute("client");
         if (client == null)
             return "redirect:/account_manager/";
         if (result.hasErrors())
-            return "redirect:/account_manager/client/credit/application/add?isError=true/";
+            return "redirect:/account_manager/client/credit/"+productId+"/application?isError=true";
+        form.setProductId(productId);
         if (applicationService.RegisterApplicationByFormAndUsernameAndAccountManagerName(form, client.getUsername(), principal.getName())!=null){
-            return "redirect:/account_manager/client/credit/application/add?isError=true/";
+            return "redirect:/account_manager/client/credit/"+productId+"/application?isError=true";
         }
         return "redirect:/account_manager/client/";
     }
@@ -98,6 +96,15 @@ public class AccountManagerController {
             return "redirect:/account_manager/";
         long creditId = applicationService.FinalizeCreditApplication(client.getUsername());
         return "redirect:/account_manager/credit/"+creditId+"/contract/";
+    }
+
+    @RequestMapping("/account_manager/client/product/")
+    public String ClientProductSelector(HttpSession session, ModelMap model){
+        User client = (User)session.getAttribute("client");
+        if (client == null)
+            return "redirect:/account_manager/";
+        model.put("products",productService.GetProductsByActive(true));
+        return "account_manager_application_credit_product_select";
     }
 
     @RequestMapping("/account_manager/credit/{creditID}/contract/")
@@ -118,7 +125,7 @@ public class AccountManagerController {
         return "redirect:/account_manager/client/";
     }
 
-    @RequestMapping("/account_manager/client/credit/process/")
+    @RequestMapping(value = "/account_manager/client/credit/")
     public String ClientCreditApplicationProcess(HttpSession session,ModelMap model){
         User client = (User)session.getAttribute("client");
         if (client == null)
@@ -206,35 +213,35 @@ public class AccountManagerController {
         return "account_manager_application_prior_view";
     }
 
-    @RequestMapping("/account_manager/client/prolongation/add/")
+    @RequestMapping("/account_manager/client/prolongation/")
     public String ClientShowProlongationApplicationForm(){
         return "account_manager_application_prolongation_edit";
     }
 
-    @RequestMapping("/account_manager/client/prior/add/")
+    @RequestMapping("/account_manager/client/prior/")
     public String ClientShowPriorApplicationForm(){
         return "account_manager_application_prior_edit";
     }
 
-    @RequestMapping("/account_manager/client/prolongation/process/")
+    @RequestMapping(value = "/account_manager/client/prolongation/", method = RequestMethod.POST)
     public String ClientRegisterProlongationApplicationForm(Principal principal,HttpSession session, @ModelAttribute ProlongationApplication form, BindingResult result, ModelMap model){
         User client = (User)session.getAttribute("client");
         if (client == null)
             return "redirect:/account_manager/";
         if(result.hasErrors()){
-            return "redirect:/account_manager/client/credit/application/add/";
+            return "redirect:/account_manager/client/prolongation/";
         }
         applicationService.RegisterProlongationApplicationByFormAndUsernameAndAccountManagerName(form, client.getUsername(), principal.getName());
         return "redirect:/account_manager/client/";
     }
 
-    @RequestMapping("/account_manager/client/prior/process/")
+    @RequestMapping(value = "/account_manager/client/prior/", method = RequestMethod.POST)
     public String ClientRegisterPriorApplicationForm(Principal principal,HttpSession session, @ModelAttribute PriorRepaymentApplication form, BindingResult result){
         User client = (User)session.getAttribute("client");
         if (client == null)
             return "redirect:/account_manager/";
         if(result.hasErrors()){
-            return "redirect:/account_manager/client/credit/application/add/";
+            return "redirect:/account_manager/client/prior/";
         }
         applicationService.RegisterPriorRepaymentApplicationByFormAndUsernameAndAccountManagerName(form, client.getUsername(), principal.getName());
         return "redirect:/account_manager/client/";

@@ -5,7 +5,28 @@
 
 [@creditex.root]
     [@creditex.head "Main page"]
-
+        [@creditex.includeBootstrapCss/]
+        [@creditex.addValidator/]
+    <script type="text/javascript">
+    $(function(){
+        $("#loginForm").validate(
+                {
+                    rules:{
+                        login:{
+                            required:true,
+                            minlength:8,
+                            maxlength:46
+                        },
+                        password:{
+                            required:true,
+                            minlength:8,
+                            maxlength:46
+                        }
+                    }
+                }
+        );
+    });
+    </script>
     [/@creditex.head]
     [@creditex.body]
         <div class="page">
@@ -39,11 +60,11 @@
     <div class="identification inner-box">
         <p class="name">Вход в систему</p>
         <div id="login-form">
-            <form method="post" action="/j_spring_security_check">
-                <p><label> Логин</label>
-                    <input name="j_username" type="text" /></p>
-                <p><label> Пароль </label>
-                    <input name="j_password" type="password" /></p>
+            <form method="post" action="/j_spring_security_check" id="loginForm">
+                <p><label for="username"> Логин</label>
+                    <input name="j_username" id="username" type="text" /></p>
+                <p><label for="password"> Пароль </label>
+                    <input name="j_password" type="password" id="password"/></p>
                 <p><button type="submit" class="button">Войти</button></p>
             </form>
         </div>

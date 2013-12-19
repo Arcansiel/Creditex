@@ -44,8 +44,4 @@ public class MainController {
         }
         return "main";
     }
-    @RequestMapping("/login/")
-    public String LoginPage(){
-        return "login";
-    }
 }
