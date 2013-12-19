@@ -3,6 +3,7 @@
 [#import "creditex_data.ftl" as creditex_data]
 [@creditex.root]
     [@creditex.head "Заявка на досрочное погашение кредита"]
+        [@creditex_data.confirmation_form_validation /]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">

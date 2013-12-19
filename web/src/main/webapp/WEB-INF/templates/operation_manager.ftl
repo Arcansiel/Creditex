@@ -1,9 +1,10 @@
 [#ftl]
 [#import "creditex.ftl" as creditex]
 [#import "spring.ftl" as spring]
-
+[#import "creditex_data.ftl" as creditex_data]
 [@creditex.root]
     [@creditex.head "Операционист"]
+        [@creditex_data.user_search_form_validation /]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
@@ -11,31 +12,8 @@
         [@creditex.goback /]
         <div class="form-action">
             <p class="name">Введите данные клиента</p>
-            <form action="" method="post" class="form">
-                <p>
-                    <label for="name_field">Имя</label>
-                    <input type="text" id="name_field" name="first">
-                </p>
-                <p>
-                    <label for="last_field">Фамилия</label>
-                    <input type="text" id="last_field" name="last">
-                </p>
-                <p>
-                    <label for="patronymic_field">Отчество</label>
-                    <input type="text" id="patronymic_field" name="patronymic">
-                </p>
-                <p>
-                    <label for="series_field">Серия паспорта</label>
-                    <input type="text" id="series_field" name="passportSeries">
-                </p>
-                <p>
-                    <label for="number_filed">Номер паспорта</label>
-                    <input type="text" id="number_filed" name="passportNumber">
-                </p>
-                <p class="a-center"><button type="submit" class="button">Подтвердить</button></p>
-            </form>
+            [@creditex_data.user_search_form "post" "" "Подтвердить" /]
         </div>
-
     </div>
     [/@creditex.body]
 [/@creditex.root]

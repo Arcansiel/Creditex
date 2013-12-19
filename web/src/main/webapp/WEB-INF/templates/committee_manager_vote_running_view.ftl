@@ -4,6 +4,7 @@
 [#import "creditex_data.ftl" as creditex_data]
 [@creditex.root]
     [@creditex.head "Кредитный комитет / голосование по заявке"]
+        [@creditex_data.confirmation_form_validation /]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
