@@ -12,15 +12,11 @@
         $("#loginForm").validate(
                 {
                     rules:{
-                        login:{
-                            required:true,
-                            minlength:8,
-                            maxlength:46
+                        j_username:{
+                            required:true
                         },
-                        password:{
-                            required:true,
-                            minlength:8,
-                            maxlength:46
+                        j_password:{
+                            required:true
                         }
                     }
                 }
