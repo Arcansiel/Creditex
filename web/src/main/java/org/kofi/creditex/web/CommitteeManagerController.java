@@ -34,8 +34,47 @@ public class CommitteeManagerController {
     @Autowired
     CreditService creditService;
 
+    private void AddInfoToModel(Model model, String error, String info){
+        if(error != null){
+            if(error.equals("no_application")){
+                model.addAttribute("error","Заявка не найдена");
+                if(info != null){
+                    model.addAttribute("info","ID заявки: "+info);
+                }
+            }else if(error.equals("no_client")){
+                model.addAttribute("error","Клиент не найден в системе");
+                if(info != null){
+                    model.addAttribute("info","ID клиента: "+info);
+                }
+            }else if(error.equals("invalid_input_data")){
+                model.addAttribute("error","Введены некорректные данные");
+            }else if(error.equals("vote_failed")){
+                model.addAttribute("error","Ошибка голосования по заявке");
+                if(info != null){
+                    if(info.equals("-1")){
+                        model.addAttribute("info","Сотрудник кредитного комитета отсутствует в системе");
+                    }else if(info.equals("-2")){
+                        model.addAttribute("info","Заявка не найдена");
+                    }else if(info.equals("-3")){
+                        model.addAttribute("info","Заявка не находится на стадии рассмотрения кредитным комитетом");
+                    }else if(info.equals("-4")){
+                        model.addAttribute("info","Голосование по заявке закрыто");
+                    }
+                }
+            }
+        }else if(info != null){
+            if(info.equals("vote_completed")){
+                model.addAttribute("info","Голос по заявке принят");
+            }
+        }
+    }
+
     @RequestMapping("/committee_manager/")
-    public String MainCommitteeManager(){
+    public String MainCommitteeManager(Model model
+            ,@RequestParam(value = "error", required = false)String error
+            ,@RequestParam(value = "info", required = false)String info
+    ){
+        AddInfoToModel(model,error,info);
         return "committee_manager";
     }
 

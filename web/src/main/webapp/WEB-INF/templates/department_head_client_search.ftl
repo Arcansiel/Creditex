@@ -12,6 +12,7 @@
         [@creditex.goback /]
         <div class="form-action">
             <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
+            [#include "creditex_error_info.ftl" /]
             <p class="name">Введите данные клиента</p>
             [@creditex_data.user_search_form "post" "" "Поиск клиента" /]
         </div>

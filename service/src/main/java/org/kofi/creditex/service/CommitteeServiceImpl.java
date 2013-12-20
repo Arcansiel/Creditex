@@ -80,20 +80,23 @@ public class CommitteeServiceImpl implements CommitteeService {
 
     @Override
     public int Vote(String committee_name, long application_id, boolean acceptance, String comment) {
+        User u = userService.GetUserByUsername(committee_name);
+        if(u == null){
+            return -1;//no committee manager
+        }
         Application a = applicationRepository.findOne(application_id);
         if(a != null){
             if(a.isVotingClosed()){
-                return -1;//voting closed
+                return -4;//voting closed
             }
         }else{
             return -2;//no application
         }
-        if(!a.getAcceptance().equals(Acceptance.InProcess)){
+        if(!a.getSecurityAcceptance().equals(Acceptance.Accepted)
+                || !a.getAcceptance().equals(Acceptance.InProcess)
+                || !a.getCommitteeAcceptance().equals(Acceptance.InProcess)
+                ){
             return -3;//not in process
-        }
-        User u = userService.GetUserByUsername(committee_name);
-        if(u == null){
-            return -4;//no committee manager
         }
         Vote v = GetVote(u.getId(), application_id);
         if(v == null){

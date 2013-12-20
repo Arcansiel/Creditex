@@ -8,7 +8,7 @@
     <div class="page">
         [@creditex.committee_manager /]
         <div class="content">
-
+            [#include "creditex_error_info.ftl" /]
             <ul class="nav-menu">
 
                 <li><a href="#">Заявки</a>
