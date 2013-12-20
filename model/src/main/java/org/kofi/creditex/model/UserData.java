@@ -9,6 +9,7 @@ import lombok.experimental.Builder;
 
 import javax.annotation.RegEx;
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -34,18 +35,21 @@ public class UserData {
      * Имя
      */
     @Size(max = 46)
+    @Pattern(regexp = "^\\w+")
     @Column(nullable = false)
     private String first;
     /**
      * Фамилия
      */
     @Size(max = 46)
+    @Pattern(regexp = "^\\w+")
     @Column(nullable = false)
     private String last;
     /**
      * Отчество
      */
     @Size(max = 46)
+    @Pattern(regexp = "^\\w+")
     @Column(nullable = false)
     private String patronymic;
     /**
@@ -57,24 +61,27 @@ public class UserData {
      * Серия паспорта
      */
     @Size(max = 2, min = 2)
-    @Pattern(regexp = "\\w+")
+    @Pattern(regexp = "[A-Z]")
     @Column(nullable = false)
     private String passportSeries;
     /**
      * Номер паспорта
      */
     @Min(0)
+    @Max(9999999)
     private int passportNumber;
     /**
      * Место работы
      */
     @Size(max = 46)
+    @Pattern(regexp = "^\\w+")
     @Column(nullable = false)
     private String workName;
     /**
      * Занимаемая позиция
      */
     @Size(max = 46)
+    @Pattern(regexp = "^\\w+")
     @Column(nullable = false)
     private String workPosition;
     /**

@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class Authority implements GrantedAuthority {
      * Текстовое представление роли
      */
     @Size(max = 46)
+    @Pattern(regexp = "^\\w+")
     private String authority;
     /**
      * Все пользователи с данной ролью {@link User}

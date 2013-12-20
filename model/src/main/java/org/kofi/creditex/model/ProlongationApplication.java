@@ -42,23 +42,24 @@ public class ProlongationApplication {
      * Ссылка на специалиста по работе с клиентами
      */
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(nullable = false)
     private User accountManager;
     /**
      * Ссылка на кредит по заявке
      */
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(nullable = false)
     private Credit credit;
     /**
      * Ссылка на клиента
      */
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(nullable = false)
     private User client;
     /**
      * Принятие заявки
      */
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Acceptance acceptance;
     /**

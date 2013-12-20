@@ -39,12 +39,12 @@ public class Vote {
      * Заявка, за которую происходит голосование {@link Application}
      */
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JoinColumn(nullable = false)
     private Application application;
     /**
      * Ссылка на члена кредитного комитета {@link User}
      */
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JoinColumn(nullable = false)
     private User manager;
 }
