@@ -5,12 +5,11 @@
 [@creditex.root]
     [@creditex.head "Main page"]
     <script type="text/javascript">
-        var el = document.getElementById('foo');
-        el.onclick = showFoo;
-        function showFoo() {
-            history.go(-1);
-            return false;
-        }
+        $(function(){
+            $("#foo").click(function(){
+                history.back();
+            });
+        });
     </script>
     [/@creditex.head]
     [@creditex.body]
@@ -72,8 +71,7 @@
         </div>
         <div class="content">
             <ul class="nav-menu">
-                <li><a href="[@spring.url '/account_manager/client/'/]" id="foo">Вырнуться назад</a>
-                </li>
+                <li><a href="" id="foo">Вернуться назад</a></li>
             </ul>
         </div>
     </div>

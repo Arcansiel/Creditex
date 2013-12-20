@@ -6,6 +6,13 @@
 [@creditex.root]
     [@creditex.head "Main page"]
     [@creditex.tableProcess "productTable" "products"/]
+    <script type="text/javascript">
+        $(function(){
+            $("#returnLink").click(function(){
+                history.back();
+            });
+        });
+    </script>
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
@@ -54,7 +61,7 @@
         </div>
         <div class="content">
             <ul class="nav-menu">
-                <li><a href="[@spring.url '/account_manager/client/'/]">Вырнуться назад</a>
+                <li><a href="" id="returnLink">Вернуться назад</a>
                 </li>
             </ul>
         </div>
