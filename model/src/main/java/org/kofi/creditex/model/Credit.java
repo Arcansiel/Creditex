@@ -122,4 +122,8 @@ public class Credit {
      */
     @OneToMany(mappedBy = "credit")
     private List<Notification> notifications;
+    /**
+     * Дата последнего уведомления
+     */
+    private Date lastNotificationDate;
 }
