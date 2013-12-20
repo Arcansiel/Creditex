@@ -32,13 +32,99 @@ public class SecurityManagerController {
     @Autowired
     CreditService creditService;
 
+    private void AddInfoToModel(Model model, String error, String info){
+        if(error != null){
+            if(error.equals("application_assignment_failed")){
+                model.addAttribute("error","Получение заявки не выполнено");
+                if(info != null){
+                    if(info.equals("-1")){
+                        model.addAttribute("info","Специалист безопасности отсутствует в системе");
+                    }else if(info.equals("-2")){
+                        model.addAttribute("info","Заявка не найдена");
+                    }else if(info.equals("-3")){
+                        model.addAttribute("info","Заявка не находится в рассмотрении службой безопасности");
+                    }else if(info.equals("-4")){
+                        model.addAttribute("info","Заявка находится в рассмотрении у другого специалиста безопасности");
+                    }
+                }
+            }else if(error.equals("no_application")){
+                model.addAttribute("error","Заявка не найдена");
+                if(info != null){
+                    model.addAttribute("info","ID заявки: "+info);
+                }
+            }else if(error.equals("application_assignment_cancel_failed")){
+                model.addAttribute("error","Ошибка при отказе от рассмотрения заявки");
+                if(info != null){
+                    if(info.equals("-1")){
+                        model.addAttribute("info","Специалист безопасности отсутствует в системе");
+                    }else if(info.equals("-2")){
+                        model.addAttribute("info","Заявка не найдена");
+                    }else if(info.equals("-3")){
+                        model.addAttribute("info","Заявка не находится в рассмотрении службой безопасности");
+                    }else if(info.equals("-4")){
+                        model.addAttribute("info","Заявка находится в рассмотрении у другого специалиста безопасности");
+                    }
+                }
+            }else if(error.equals("no_client")){
+                model.addAttribute("error","Клиент не найден в системе");
+                if(info != null){
+                    model.addAttribute("info","ID клиента: "+info);
+                }
+            }else if(error.equals("invalid_input_data")){
+                model.addAttribute("error","Введены некорректные данные");
+            }else if(error.equals("confirmation_failed")){
+                model.addAttribute("error","Ошибка принятия решения по заявке");
+                if(info != null){
+                    if(info.equals("-1")){
+                        model.addAttribute("info","Специалист безопасности отсутствует в системе");
+                    }else if(info.equals("-2")){
+                        model.addAttribute("info","Заявка не найдена");
+                    }else if(info.equals("-3")){
+                        model.addAttribute("info","Заявка не находится в рассмотрении службой безопасности");
+                    }else if(info.equals("-4")){
+                        model.addAttribute("info","Заявка находится в рассмотрении у другого специалиста безопасности");
+                    }
+                }
+            }else if(error.equals("")){
+                model.addAttribute("error","");
+                if(info != null){
+                    if(info.equals("-1")){
+                        model.addAttribute("info","");
+                    }else if(info.equals("-2")){
+                        model.addAttribute("info","");
+                    }else if(info.equals("-3")){
+                        model.addAttribute("info","");
+                    }
+                }
+            }
+        }else if(info != null){
+            if(info.equals("application_assignment_canceled")){
+                model.addAttribute("info","Отказ от рассмотрения заявки выполнен");
+            }else if(info.equals("confirmation_completed")){
+                model.addAttribute("info","Решение по заявке принято");
+            }else if(info.equals("no_assigned_application")){
+                model.addAttribute("info","Заявка для рассмотрения не выбрана");
+            }
+        }
+    }
+
     @RequestMapping("/security_manager/")
-    public String MainSecurityManager(Model model, Principal principal){
+    public String MainSecurityManager(Model model
+            ,@RequestParam(value = "error", required = false)String error
+            ,@RequestParam(value = "info", required = false)String info
+    ){
+        AddInfoToModel(model, error, info);
+        return "security_manager";
+    }
+
+    @RequestMapping(value = "/security_manager/appliance/current/", method = RequestMethod.GET)
+    public String SecurityManagerCurrentApplication(Principal principal){
         Application application = securityService.GetSecurityAssignedApplication(principal.getName());
         if(application != null){
-            model.addAttribute("application",application);
+            return "redirect:/security_manager/appliance/check/"+application.getId();
+        }else{
+            return "redirect:/security_manager/?info=no_assigned_application";
         }
-        return "security_manager";
     }
 
     @RequestMapping(value = "/security_manager/appliances/", method = RequestMethod.GET)
@@ -211,7 +297,11 @@ public class SecurityManagerController {
     }
 
     @RequestMapping(value = {"/security_manager/client/search/"}, method = RequestMethod.GET)
-    public String Security81(){
+    public String Security81(Model model
+            ,@RequestParam(value = "error", required = false)String error
+            ,@RequestParam(value = "info", required = false)String info
+    ){
+        AddInfoToModel(model, error, info);
         return "security_manager_client_search";
     }
 
@@ -225,7 +315,7 @@ public class SecurityManagerController {
         if(client != null){
             return "redirect:/security_manager/client/check/"+client.getId();
         }else{
-            return "redirect:/security_manager/client/search/?info=no_client";
+            return "redirect:/security_manager/client/search/?error=no_client";
         }
     }
 }

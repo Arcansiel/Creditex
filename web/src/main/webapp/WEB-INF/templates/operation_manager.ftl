@@ -11,6 +11,7 @@
         [@creditex.operation_manager /]
         [@creditex.goback /]
         <div class="form-action">
+            [#include "creditex_error_info.ftl" /]
             <p class="name">Введите данные клиента</p>
             [@creditex_data.user_search_form "post" "" "Подтвердить" /]
         </div>

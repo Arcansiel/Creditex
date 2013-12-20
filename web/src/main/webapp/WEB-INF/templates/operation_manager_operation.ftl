@@ -121,10 +121,11 @@
             [#if amount??]
                 <p class="name">Сумма к оплате: ${amount?string("0")}</p>
             [#else]
-                <p class="name">Сумма к оплате: 0</p>
+                <p class="name">В данный момент нет доступных платежей</p>
             [/#if]
 
             <div class="form-action">
+                [#include "creditex_error_info.ftl" /]
                 <form action="" method="post" class="form" id="operationForm">
                     <p class="name">Операция</p>
                     <p>
