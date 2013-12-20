@@ -43,19 +43,25 @@ public class AccountManagerController {
     @RequestMapping(value = "/account_manager/", method = RequestMethod.POST)
     public String SelectClient(HttpSession session, @Valid @ModelAttribute UserData form, BindingResult result, ModelMap model){
         if(result.hasErrors()){
+            log.warn(result.getAllErrors().toString());
             model.put("isError", "Введено неверное значение в поле номера паспорта");
             return "account_manager";
         }
         log.warn("Form values:"+form.toString());
-        session.setAttribute("client", userService.GetUserByUserDataValues(form));
+        User client = userService.GetUserByUserDataValues(form);
+        log.warn("User object:"+client.toString());
+        session.setAttribute("client", client);
         return "redirect:/account_manager/client/";
     }
 
     @RequestMapping("/account_manager/client/")
     public String ClientOperationsMain(HttpSession session, ModelMap model){
         User client = (User)session.getAttribute("client");
-        if (client == null)
+        if (client == null){
+            log.warn("No user in session");
             return "redirect:/account_manager/";
+        }
+
         Credit credit = creditService.findByUsernameAndRunning(client.getUsername(), true);
         Application creditApplication = applicationService.GetUnprocessedApplicationByUsername(client.getUsername());
         PriorRepaymentApplication priorRepaymentApplication = applicationService.GetUnprocessedPriorRepaymentApplicationByUsername(client.getUsername());

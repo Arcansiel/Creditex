@@ -61,7 +61,7 @@ public class UserData {
      * Серия паспорта
      */
     @Size(max = 2, min = 2)
-    @Pattern(regexp = "[A-Z]")
+    @Pattern(regexp = "[A-Z]{2}")
     @Column(nullable = false)
     private String passportSeries;
     /**
