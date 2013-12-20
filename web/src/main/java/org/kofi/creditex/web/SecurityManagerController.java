@@ -42,7 +42,7 @@ public class SecurityManagerController {
                     }else if(info.equals("-2")){
                         model.addAttribute("info","Заявка не найдена");
                     }else if(info.equals("-3")){
-                        model.addAttribute("info","Заявка не находится в рассмотрении службой безопасности");
+                        model.addAttribute("info","Заявка не находится на стадии рассмотрения службой безопасности");
                     }else if(info.equals("-4")){
                         model.addAttribute("info","Заявка находится в рассмотрении у другого специалиста безопасности");
                     }
@@ -60,7 +60,7 @@ public class SecurityManagerController {
                     }else if(info.equals("-2")){
                         model.addAttribute("info","Заявка не найдена");
                     }else if(info.equals("-3")){
-                        model.addAttribute("info","Заявка не находится в рассмотрении службой безопасности");
+                        model.addAttribute("info","Заявка не находится на стадии рассмотрения службой безопасности");
                     }else if(info.equals("-4")){
                         model.addAttribute("info","Заявка находится в рассмотрении у другого специалиста безопасности");
                     }
@@ -80,20 +80,9 @@ public class SecurityManagerController {
                     }else if(info.equals("-2")){
                         model.addAttribute("info","Заявка не найдена");
                     }else if(info.equals("-3")){
-                        model.addAttribute("info","Заявка не находится в рассмотрении службой безопасности");
+                        model.addAttribute("info","Заявка не находится на стадии рассмотрения службой безопасности");
                     }else if(info.equals("-4")){
                         model.addAttribute("info","Заявка находится в рассмотрении у другого специалиста безопасности");
-                    }
-                }
-            }else if(error.equals("")){
-                model.addAttribute("error","");
-                if(info != null){
-                    if(info.equals("-1")){
-                        model.addAttribute("info","");
-                    }else if(info.equals("-2")){
-                        model.addAttribute("info","");
-                    }else if(info.equals("-3")){
-                        model.addAttribute("info","");
                     }
                 }
             }

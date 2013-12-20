@@ -30,7 +30,7 @@
                 <tr>
                     <td class="name">${prolongation.id?string("0")}</td>
                     <td class="name">${prolongation.client.userData.last?html} ${prolongation.client.userData.first?html} ${prolongation.client.userData.patronymic?html}</td>
-                    <td class="passport">${prolongation.client.userData.passportSeries?html} ${prolongation.client.userData.passportNumber}</td>
+                    <td class="passport">${prolongation.client.userData.passportSeries?html} ${prolongation.client.userData.passportNumber?string("0000000")}</td>
                     <td class="start_date">${prolongation.applicationDate}</td>
                     <td class="duration">${prolongation.duration}</td>
                     <td class="comment">${prolongation.comment?html}</td>

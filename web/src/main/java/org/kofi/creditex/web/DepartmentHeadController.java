@@ -33,8 +33,111 @@ public class DepartmentHeadController {
     @Autowired
     UserService userService;
 
+    private void AddInfoToModel(Model model, String error, String info){
+        if(error != null){
+            if(error.equals("no_application")){
+                model.addAttribute("error","Заявка на кредит не найдена");
+                if(info != null){
+                    model.addAttribute("info","ID заявки: "+info);
+                }
+            }else if(error.equals("no_prior_repayment_application")){
+                model.addAttribute("error","Заявка на досрочное погашение не найдена");
+                if(info != null){
+                    model.addAttribute("info","ID заявки: "+info);
+                }
+            }else if(error.equals("no_prolongation_application")){
+                model.addAttribute("error","Заявка на пролонгацию не найдена");
+                if(info != null){
+                    model.addAttribute("info","ID заявки: "+info);
+                }
+            }else if(error.equals("no_client")){
+                model.addAttribute("error","Клиент не найден в системе");
+                if(info != null){
+                    model.addAttribute("info","ID клиента: "+info);
+                }
+            }else if(error.equals("invalid_input_data")){
+                model.addAttribute("error","Введены некорректные данные");
+            }else if(error.equals("head_acceptance_failed")){
+                model.addAttribute("error","Ошибка принятия решения по заявке на кредит");
+                if(info != null){
+                    if(info.equals("-1")){
+                        model.addAttribute("info","ГКО отсутствует в системе");
+                    }else if(info.equals("-2")){
+                        model.addAttribute("info","Заявка не найдена");
+                    }else if(info.equals("-3")){
+                        model.addAttribute("info","Заявка не находится на стадии рассмотрения ГКО");
+                    }else if(info.equals("-4")){
+                        model.addAttribute("info","Голосование по заявке ещё не завершено");
+                    }
+                }
+            }else if(error.equals("prior_acceptance_failed")){
+                model.addAttribute("error","Ошибка принятия решения по заявке на досрочное погашение");
+                if(info != null){
+                    if(info.equals("-1")){
+                        model.addAttribute("info","Заявка на досрочное погашение не найдена");
+                    }else if(info.equals("-2")){
+                        model.addAttribute("info","Заявка на досрочное погашение не находится на стадии рассмотрения");
+                    }
+                }
+            }else if(error.equals("prolongation_acceptance_failed")){
+                model.addAttribute("error","Ошибка принятия решения по заявке на пролонгацию");
+                if(info != null){
+                    if(info.equals("-1")){
+                        model.addAttribute("info","Заявка на пролонгацию не найдена");
+                    }else if(info.equals("-2")){
+                        model.addAttribute("info","Заявка на пролонгацию не находится на стадии рассмотрения");
+                    }
+                }
+            }else if(error.equals("product_creation_failed")){
+                model.addAttribute("error","Ошибка создания кредитного продукта");
+                if(info != null){
+                    if(info.equals("-1")){
+                        model.addAttribute("info","Имя кредитного продкта не должно быть пустым");
+                    }else if(info.equals("-2")){
+                        model.addAttribute("info","Неверные значени для границ суммы кредита (или меньше нуля, или минимальное больше максимального)");
+                    }else if(info.equals("-3")){
+                        model.addAttribute("info","Неверные значени для границ срока кредитования (или меньше нуля, или минимальное больше максимального)");
+                    }else if(info.equals("-4")){
+                        model.addAttribute("info","Неверное значение процентных полей кредита (меньше нуля)");
+                    }else if(info.equals("-4")){
+                        model.addAttribute("info","Кредитный продукт с таким именем уже существует");
+                    }
+                }
+            }else if(error.equals("product_state_changing_failed")){
+                model.addAttribute("error","Ошибка изменения состояния кредитного продукта");
+                if(info != null){
+                    model.addAttribute("info","Кредитный продукт не существует, ID : "+info);
+                }
+            }
+        }else if(info != null){
+            if(info.equals("application_accepted")){
+                model.addAttribute("info","Заявка на кредит принята");
+            }else if(info.equals("application_rejected")){
+                model.addAttribute("info","Заявка на кредит отклонена");
+            }else if(info.equals("prior_repayment_application_accepted")){
+                model.addAttribute("info","Заявка на досрочное погашение принята");
+            }else if(info.equals("prior_repayment_application_rejected")){
+                model.addAttribute("info","Заявка на досрочное погашение отклонена");
+            }else if(info.equals("prolongation_application_accepted")){
+                model.addAttribute("info","Заявка на пролонгацию принята");
+            }else if(info.equals("prolongation_application_rejected")){
+                model.addAttribute("info","Заявка на пролонгацию отклонена");
+            }else if(info.equals("product_created")){
+                model.addAttribute("info","Кредитный продукт создан");
+            }else if(info.equals("product_state_active")){
+                model.addAttribute("info","Состояние кредитного продукта установлено: Активный");
+            }else if(info.equals("product_state_inactive")){
+                model.addAttribute("info","Состояние кредитного продукта установлено: Неактивный");
+            }
+        }
+    }
+
     @RequestMapping("/department_head/")
-    public String MainDepartmentHead(){
+    public String MainDepartmentHead(Model model
+            ,@RequestParam(value = "error", required = false)String error
+            ,@RequestParam(value = "info", required = false)String info
+    ){
+        AddInfoToModel(model,error,info);
         return "department_head";
     }
 
@@ -83,7 +186,11 @@ public class DepartmentHeadController {
         if((err = departmentHeadService.SetApplicationHeadApproved(id,principal.getName(),form.isAcceptance(),form.getComment())) != 0){
             return "redirect:/department_head/?error=head_acceptance_failed&info="+err;
         }
-        return "redirect:/department_head/?application_approved="+form.isAcceptance();
+        if(form.isAcceptance()){
+            return "redirect:/department_head/?info=application_accepted";
+        }else{
+            return "redirect:/department_head/?info=application_rejected";
+        }
     }
 
     @RequestMapping(value = {"/department_head/product/list/","/department_head/product/list/activated/"}, method = RequestMethod.GET)
@@ -109,10 +216,11 @@ public class DepartmentHeadController {
         if(bindingResult.hasErrors()){
             return "redirect:/department_head/?error=invalid_input_data";
         }
-        if(productService.CreateProductByForm(productForm) == 0){
-            return "redirect:/department_head/?product_created=true";
+        int err;
+        if((err = productService.CreateProductByForm(productForm)) == 0){
+            return "redirect:/department_head/?info=product_created";
         }else{
-            return "redirect:/department_head/?product_created=false";
+            return "redirect:/department_head/?error=product_creation_failed&info="+err;
         }
 
     }
@@ -122,9 +230,13 @@ public class DepartmentHeadController {
             @PathVariable("id")long id,
             @PathVariable("active")boolean active){
         if(productService.SetProductIsActive(id, active)){
-            return "redirect:/department_head/?product_state_changed=true";
+            if(active){
+                return "redirect:/department_head/?info=product_state_active";
+            }else{
+                return "redirect:/department_head/?info=product_state_inactive";
+            }
         }else{
-            return "redirect:/department_head/?product_state_changed=false";
+            return "redirect:/department_head/?error=product_state_changing_failed&info="+id;
         }
     }
 
@@ -158,7 +270,11 @@ public class DepartmentHeadController {
         if((err = departmentHeadService.SetProlongationApproved(id,form.isAcceptance())) != 0){
             return "redirect:/department_head/?error=prolongation_acceptance_failed&info="+err;
         }
-        return "redirect:/department_head/?prolongation_application_approved="+form.isAcceptance();
+        if(form.isAcceptance()){
+            return "redirect:/department_head/?info=prolongation_application_accepted";
+        }else{
+            return "redirect:/department_head/?info=prolongation_application_rejected";
+        }
     }
 
 
@@ -262,7 +378,11 @@ public class DepartmentHeadController {
 
 
     @RequestMapping(value = {"/department_head/client/search/"}, method = RequestMethod.GET)
-    public String Security81(){
+    public String Security81(Model model
+            ,@RequestParam(value = "error", required = false)String error
+            ,@RequestParam(value = "info", required = false)String info
+    ){
+        AddInfoToModel(model,error,info);
         return "department_head_client_search";
     }
 
@@ -276,7 +396,7 @@ public class DepartmentHeadController {
         if(client != null){
             return "redirect:/department_head/client/"+client.getId();
         }else{
-            return "redirect:/department_head/client/search/?info=no_client";
+            return "redirect:/department_head/client/search/?error=no_client";
         }
     }
 
@@ -310,6 +430,10 @@ public class DepartmentHeadController {
         if((err = departmentHeadService.SetPriorApproved(id,form.isAcceptance())) != 0){
             return "redirect:/department_head/?error=prior_acceptance_failed&info="+err;
         }
-        return "redirect:/department_head/?prior_repayment_application_approved="+form.isAcceptance();
+        if(form.isAcceptance()){
+            return "redirect:/department_head/?info=prior_repayment_application_accepted";
+        }else{
+            return "redirect:/department_head/?info=prior_repayment_application_rejected";
+        }
     }
 }

@@ -34,35 +34,36 @@ public class ProductServiceImpl implements ProductService{
         return list;
     }
 
-    private boolean ValidateProductForm(Product product){
+    private int ValidateProductForm(Product product){
         if("".equals(product.getName().trim())){
-            return false;
+            return -1;//product name is whitespace
         }
         if(product.getMinMoney() < 0 || product.getMaxMoney() < 0 || product.getMinCommittee() < 0
                 || product.getMinMoney() > product.getMaxMoney()){
-            return false;
+            return -2;//invalid minMoney, maxMoney or minCommittee values
         }
         if(product.getMinDuration() < 0 || product.getMaxDuration() < 0
                 || product.getMinDuration() > product.getMaxDuration()){
-            return false;
+            return -3;//invalid minDuration or maxDuration values
         }
         if(product.getPercent() < 0 || product.getDebtPercent() < 0 || product.getPriorRepaymentPercent() < 0){
-            return false;
+            return -4;//invalid percent value
         }
-        return true;
+        return 0;//valid
     }
 
     @Override
     public int CreateProductByForm(Product productForm) {
         assert productForm != null;
         assert productForm.getName() != null;
-        if(!ValidateProductForm(productForm)){
-            return -1;//invalid input data
+        int err;
+        if((err = ValidateProductForm(productForm)) < 0){
+            return err;//invalid input data
         }
         if(productRepository.count(
                 QProduct.product.name.eq(productForm.getName())
         ) > 0){
-            return -2;//already exists
+            return -5;//already exists
         }
         productForm.setName(productForm.getName().trim());
         productRepository.save(productForm);

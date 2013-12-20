@@ -29,7 +29,7 @@
                 <tr>
                     <td class="name">${prior.id?string("0")}</td>
                     <td class="name">${prior.client.userData.last?html} ${prior.client.userData.first?html} ${prior.client.userData.patronymic?html}</td>
-                    <td class="passport">${prior.client.userData.passportSeries?html} ${prior.client.userData.passportNumber}</td>
+                    <td class="passport">${prior.client.userData.passportSeries?html} ${prior.client.userData.passportNumber?string("0000000")}</td>
                     <td class="start_date">${prior.applicationDate}</td>
                     <td class="comment">${prior.comment?html}</td>
                 </tr>

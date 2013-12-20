@@ -101,11 +101,15 @@ public class DepartmentHeadServiceImpl implements DepartmentHeadService {
         }else{
             acceptance_value = Acceptance.Rejected;
         }
-        Application application = applicationRepository.findOne(application_id);
-        if(application == null){ return -1; }//no app
         User head = userService.GetUserByUsername(head_username);
-        if(head == null){ return -2; }//no user
-        if(!application.getAcceptance().equals(Acceptance.InProcess)){
+        if(head == null){ return -1; }//no user
+        Application application = applicationRepository.findOne(application_id);
+        if(application == null){ return -2; }//no app
+        if(!application.getSecurityAcceptance().equals(Acceptance.Accepted)
+                || !application.getCommitteeAcceptance().equals(Acceptance.Accepted)
+                || !application.getAcceptance().equals(Acceptance.InProcess)
+                || !application.getHeadAcceptance().equals(Acceptance.InProcess)
+                ){
             return -3;//not in process
         }
         if(!application.isVotingClosed()){

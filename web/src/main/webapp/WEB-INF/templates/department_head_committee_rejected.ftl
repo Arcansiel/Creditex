@@ -36,7 +36,7 @@
                     <tr>
                         <td class="name">${app.id?string("0")}</td>
                         <td class="name">${app.client.userData.last?html} ${app.client.userData.first?html} ${app.client.userData.patronymic?html}</td>
-                        <td class="passport">${app.client.userData.passportSeries?html} ${app.client.userData.passportNumber}</td>
+                        <td class="passport">${app.client.userData.passportSeries?html} ${app.client.userData.passportNumber?string("0000000")}</td>
                         <td class="start_date">${app.applicationDate}</td>
                         <td class="name">${app.product.name?html}</td>
                         <td class="amount">${app.request}</td>

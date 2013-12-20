@@ -29,7 +29,7 @@
                     <tr>
                         <td class="name">${app.id?string("0")}</td>
                         <td class="name">${app.client.userData.last?html} ${app.client.userData.first?html} ${app.client.userData.patronymic?html}</td>
-                        <td class="passport">${app.client.userData.passportSeries?html} ${app.client.userData.passportNumber}</td>
+                        <td class="passport">${app.client.userData.passportSeries?html} ${app.client.userData.passportNumber?string("0000000")}</td>
                         <td class="start_date">${app.applicationDate}</td>
                         <td class="comment">${app.comment?html}</td>
                         <td><a href="[@spring.url '/department_head/prior/${app.id?string("0")}'/]">Открыть заявку</a></td>

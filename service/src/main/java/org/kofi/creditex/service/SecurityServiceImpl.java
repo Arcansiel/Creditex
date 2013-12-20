@@ -69,7 +69,8 @@ public class SecurityServiceImpl implements SecurityService{
         if(application == null){
             return -2;//no application
         }
-        if(!application.getSecurityAcceptance().equals(Acceptance.InProcess)){
+        if(!application.getAcceptance().equals(Acceptance.InProcess)
+                || !application.getSecurityAcceptance().equals(Acceptance.InProcess)){
             return -3;//invalid application state
         }
         User applicationSecurity = application.getSecurity();
@@ -110,7 +111,8 @@ public class SecurityServiceImpl implements SecurityService{
         if(application == null){
             return -2;//no application
         }
-        if(!application.getSecurityAcceptance().equals(Acceptance.InProcess)){
+        if(!application.getAcceptance().equals(Acceptance.InProcess)
+                || !application.getSecurityAcceptance().equals(Acceptance.InProcess)){
             return -3;//invalid application state
         }
         User applicationSecurity = application.getSecurity();
@@ -167,7 +169,8 @@ public class SecurityServiceImpl implements SecurityService{
         if(application == null){
             return -2;//no application
         }
-        if(!application.getSecurityAcceptance().equals(Acceptance.InProcess)){
+        if(!application.getAcceptance().equals(Acceptance.InProcess)
+                || !application.getSecurityAcceptance().equals(Acceptance.InProcess)){
             return -3;//invalid application state
         }
         User applicationSecurity = application.getSecurity();

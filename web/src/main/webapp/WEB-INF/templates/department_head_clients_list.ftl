@@ -32,7 +32,7 @@
                     <tr>
                         <td class="name">${c.id}</td>
                         <td class="name">${c.userData.last?html} ${c.userData.first?html} ${c.userData.patronymic?html}</td>
-                        <td class="passport">${c.userData.passportSeries?html} ${c.userData.passportNumber}</td>
+                        <td class="passport">${c.userData.passportSeries?html} ${c.userData.passportNumber?string("0000000")}</td>
                         <td class="name">${c.username?html}</td>
                         <td class="name">${c.enabled?c}</td>
                         <td class="name">${c.userData.workName?html}</td>
