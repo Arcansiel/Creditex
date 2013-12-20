@@ -21,4 +21,6 @@ public interface SecurityService {
     List<Credit> GetClientUnreturnedCredits(long client_id);
     List<PriorRepaymentApplication> GetClientPriorRepaymentApplications(long client_id);
     List<ProlongationApplication> GetClientProlongationApplications(long client_id);
+    int SendNotification(String security_name, long client_id, long credit_id,
+                         NotificationType notificationType, String message);
 }

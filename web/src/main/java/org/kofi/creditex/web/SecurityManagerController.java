@@ -70,6 +70,11 @@ public class SecurityManagerController {
                 if(info != null){
                     model.addAttribute("info","ID клиента: "+info);
                 }
+            }else if(error.equals("no_credit")){
+                model.addAttribute("error","Кредит не найден");
+                if(info != null){
+                    model.addAttribute("info","ID кредита: "+info);
+                }
             }else if(error.equals("invalid_input_data")){
                 model.addAttribute("error","Введены некорректные данные");
             }else if(error.equals("confirmation_failed")){
@@ -85,6 +90,17 @@ public class SecurityManagerController {
                         model.addAttribute("info","Заявка находится в рассмотрении у другого специалиста безопасности");
                     }
                 }
+            }else if(error.equals("notification_failed")){
+                model.addAttribute("error","Ошибка создания уведомления");
+                if(info != null){
+                    if(info.equals("-1")){
+                        model.addAttribute("info","Специалист безопасности отсутствует в системе");
+                    }else if(info.equals("-2")){
+                        model.addAttribute("info","Клиент не найден");
+                    }else if(info.equals("-3")){
+                        model.addAttribute("info","Кредит не найден");
+                    }
+                }
             }
         }else if(info != null){
             if(info.equals("application_assignment_canceled")){
@@ -93,6 +109,8 @@ public class SecurityManagerController {
                 model.addAttribute("info","Решение по заявке принято");
             }else if(info.equals("no_assigned_application")){
                 model.addAttribute("info","Заявка для рассмотрения не выбрана");
+            }else if(info.equals("notification_sent")){
+                model.addAttribute("info","Уведомление отправлено");
             }
         }
     }
@@ -307,4 +325,51 @@ public class SecurityManagerController {
             return "redirect:/security_manager/client/search/?error=no_client";
         }
     }
+
+    @RequestMapping(value = "/security_manager/notification/client/{client_id}/credit/{credit_id}", method = RequestMethod.GET)
+    public String Security91(Model model
+            ,@PathVariable("client_id")long client_id
+            ,@PathVariable("credit_id")long credit_id
+            ,@RequestParam(value = "type", required = false)String type
+    ){
+        NotificationType notificationType = NotificationType.Expired;
+        if(type != null){
+            type = type.toLowerCase();
+            if(type.equals("expired")){
+                notificationType = NotificationType.Expired;
+            }else if(type.equals("unreturned")){
+                notificationType = NotificationType.Unreturned;
+            }
+        }
+        User client = userService.GetUserById(client_id);
+        if(client == null){
+            return "redirect:/security_manager/?error=no_client&info="+client_id;
+        }
+        Credit credit = creditService.GetCreditById(credit_id);
+        if(credit == null){
+            return "redirect:/security_manager/?error=no_credit&info="+credit_id;
+        }
+        model.addAttribute("type",notificationType);
+        model.addAttribute("client",client);
+        model.addAttribute("credit",credit);
+        return "security_manager_notification";
+    }
+
+    @RequestMapping(value = "/security_manager/notification/client/{client_id}/credit/{credit_id}", method = RequestMethod.POST)
+    public String Security92(Principal principal
+            ,@PathVariable("client_id")long client_id
+            ,@PathVariable("credit_id")long credit_id
+            ,@Valid @ModelAttribute Notification notification, BindingResult bindingResult
+    ){
+        if(bindingResult.hasErrors()){
+            return "redirect:/security_manager/?error=invalid_input_data";
+        }
+        int err = securityService.SendNotification(principal.getName(),client_id,credit_id,
+                notification.getType(),notification.getMessage());
+        if(err < 0){
+            return "redirect:/security_manager/?error=notification_failed&info="+err;
+        }
+        return "redirect:/security_manager/?info=notification_sent";
+    }
+
 }
