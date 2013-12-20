@@ -35,7 +35,7 @@ public class Payment {
     /**
      * Требуемая сумма платежа
      */
-    @Min(0)
+    @Min(1)
     private long requiredPayment;
     /**
      * Сколько дополнительного долга в сумме платежа (в руб)
@@ -46,17 +46,14 @@ public class Payment {
     /**
      * Дата начала интервала платежа
      */
-    // start -> paymentStart
     private Date paymentStart;
     /**
      * Дата завершения интервала платежа
      */
-    // end -> paymentEnd
     private Date paymentEnd;
     /**
      * Был ли оплачен платёж
      */
-    // closed -> paymentClosed
     private boolean paymentClosed;
     /**
      * Был ли платёж просрочен
@@ -70,6 +67,6 @@ public class Payment {
      * Ссылка на кредит {@link Credit}
      */
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JoinColumn(nullable = false)
     private Credit credit;
 }

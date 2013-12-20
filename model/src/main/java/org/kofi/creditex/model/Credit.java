@@ -31,6 +31,7 @@ public class Credit {
     /**
      * Дата начала кредита
      */
+    @Column(nullable = false)
     private Date creditStart;
     /**
      * Продолжительность кредита в месяцах
@@ -40,6 +41,7 @@ public class Credit {
     /**
      * Дата завершения кредита
      */
+    @Column(nullable = false)
     private Date creditEnd;
     /**
      * Текущий основной долг кредита
@@ -84,16 +86,16 @@ public class Credit {
      * Ссылка на кредитный продукт {@link Product}
      */
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JoinColumn(nullable = false)
     private Product product;
     @OneToOne
-    @JoinColumn
+    @JoinColumn(nullable = false)
     private Application creditApplication;
     /**
      * Ссылка на клента банка {@link User}
      */
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JoinColumn(nullable = false)
     private User user;
     /**
      * Список платежей по кредиту {@link Payment}
@@ -115,7 +117,9 @@ public class Credit {
      */
     @OneToMany(mappedBy = "credit")
     private List<PriorRepaymentApplication> priorApplications;
-
-    @OneToMany
+    /**
+     * Все уведомления по данному кредиту
+     */
+    @OneToMany(mappedBy = "credit")
     private List<Notification> notifications;
 }

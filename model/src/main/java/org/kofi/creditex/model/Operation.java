@@ -41,13 +41,14 @@ public class Operation {
     /**
      * Тип операции {@link OperationType}
      */
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private OperationType type;
     /**
      * Ссылка на операциониста {@link User}
      */
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JoinColumn(nullable = false)
     private User operator;
     /**
      * Дата совершения операции

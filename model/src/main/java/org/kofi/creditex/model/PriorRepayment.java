@@ -20,14 +20,23 @@ public enum PriorRepayment {
      * Возможно с штрафом на оставшуюся невыплаченную дополнительную сумму долга
      */
     AvailableFinePercentSum("Доступно со штрафом в виде выплаты части оставшегося процентного долга");
-
+    /**
+     * Текстовое представление перечисления
+     */
     private final String text;
 
+    /**
+     * Конструктор, присваивающий текстовое значение перечисления
+     * @param text Текстовое значение перечисления
+     */
     private PriorRepayment(final String text){
         this.text = text;
     }
 
-
+    /**
+     * Возвращает текстовое значение перечисления
+     * @return Текстовое значение перечсления
+     */
     @Override
     public String toString() {
         return text;

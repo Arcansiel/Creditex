@@ -41,7 +41,7 @@ public class AccountManagerController {
     }
 
     @RequestMapping(value = "/account_manager/", method = RequestMethod.POST)
-    public String SelectClient(HttpSession session, @ModelAttribute UserData form, BindingResult result, ModelMap model){
+    public String SelectClient(HttpSession session, @Valid @ModelAttribute UserData form, BindingResult result, ModelMap model){
         if(result.hasErrors()){
             model.put("isError", "Введено неверное значение в поле номера паспорта");
             return "account_manager";
@@ -224,7 +224,7 @@ public class AccountManagerController {
     }
 
     @RequestMapping(value = "/account_manager/client/prolongation/", method = RequestMethod.POST)
-    public String ClientRegisterProlongationApplicationForm(Principal principal,HttpSession session, @ModelAttribute ProlongationApplication form, BindingResult result, ModelMap model){
+    public String ClientRegisterProlongationApplicationForm(Principal principal, HttpSession session, @Valid @ModelAttribute ProlongationApplication form, BindingResult result){
         User client = (User)session.getAttribute("client");
         if (client == null)
             return "redirect:/account_manager/";
@@ -236,7 +236,7 @@ public class AccountManagerController {
     }
 
     @RequestMapping(value = "/account_manager/client/prior/", method = RequestMethod.POST)
-    public String ClientRegisterPriorApplicationForm(Principal principal,HttpSession session, @ModelAttribute PriorRepaymentApplication form, BindingResult result){
+    public String ClientRegisterPriorApplicationForm(Principal principal,HttpSession session, @Valid @ModelAttribute PriorRepaymentApplication form, BindingResult result){
         User client = (User)session.getAttribute("client");
         if (client == null)
             return "redirect:/account_manager/";

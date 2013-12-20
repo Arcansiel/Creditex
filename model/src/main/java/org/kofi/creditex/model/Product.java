@@ -8,6 +8,7 @@ import lombok.experimental.Builder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class Product {
      * Название кредитного продукта
      */
     @Size(max = 48)
+    @Pattern(regexp = "^\\w+")
     @Column(nullable = false, unique = true)
     private String name;
     /**
@@ -92,11 +94,13 @@ public class Product {
     /**
      * Возможно ли предварительное возвращение кредита {@link PriorRepayment}
      */
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private PriorRepayment prior;
     /**
      * Тип кредита {@link ProductType}
      */
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ProductType type;
 }

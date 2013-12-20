@@ -37,23 +37,24 @@ public class PriorRepaymentApplication {
      * Ссылка на клиента
      */
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(nullable = false)
     private User client;
     /**
      * Ссылка на специалиста по работе с клиентами
      */
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(nullable = false)
     private User accountManager;
     /**
      * Ссылка на кредит
      */
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(nullable = false)
     private Credit credit;
     /**
      * Принята ли заявка
      */
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Acceptance acceptance;
     /**

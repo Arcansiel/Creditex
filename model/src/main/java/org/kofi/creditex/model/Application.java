@@ -41,10 +41,8 @@ public class Application {
     private long duration;
     /**
      * Принята ли заявка
-     * <p>Если принята - true</p>
-     * <p>Если в рассмотрении - Null</p>
-     * <p>Если отвергнута - false</p>
      */
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Acceptance acceptance;
     /**
@@ -54,6 +52,7 @@ public class Application {
     /**
      * Дата подачи заявки
      */
+    @Column(nullable = false)
     private Date applicationDate;
     /**
      * Ссылка на требуемый кредитный продукт {@link Product}
@@ -75,10 +74,8 @@ public class Application {
     private User accountManager;
     /**
      * Принята ли заявка специалистом службы безопасности
-     * <p>Если принята - true</p>
-     * <p>Если в рассмотрении - Null</p>
-     * <p>Если отвергнута - false</p>
      */
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Acceptance securityAcceptance;
     /**
@@ -108,10 +105,8 @@ public class Application {
     private boolean votingClosed;
     /**
      * Принял ли заявку кредитный комитет
-     * <p>Если принята - true</p>
-     * <p>Если в рассмотрении - Null</p>
-     * <p>Если отвергнута - false</p>
      */
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Acceptance committeeAcceptance;
     /**
@@ -121,10 +116,8 @@ public class Application {
     private List<Vote> votes;
     /**
      * Принял ли заявку глава кредитного отдела
-     * <p>Если принята - true</p>
-     * <p>Если в рассмотрении - Null</p>
-     * <p>Если отвергнута - false</p>
      */
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Acceptance headAcceptance;
     /**
@@ -138,6 +131,9 @@ public class Application {
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private User head;
+    /**
+     * Ссылка на кредит, который был создан по данной заявке
+     */
     @OneToOne(mappedBy = "creditApplication", fetch = FetchType.EAGER)
     private Credit credit;
 }

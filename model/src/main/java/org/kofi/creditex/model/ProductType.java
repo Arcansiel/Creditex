@@ -26,14 +26,23 @@ public enum ProductType {
      * Самый дешёвый кредит из всех.</p>
      */
     Residue("Диференцированный");
-
+    /**
+     * Текстовое представление перечисления
+     */
     private final String text;
 
+    /**
+     * Конструктор, присваивающий текстовое представление перечисления
+     * @param text Текстовое значение перечисления
+     */
     private ProductType(final String text){
         this.text = text;
     }
 
-
+    /**
+     * Возврат текстового значения перечисления
+     * @return Текстовое значение перечисления
+     */
     @Override
     public String toString() {
         return text;

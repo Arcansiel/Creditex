@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,6 +37,7 @@ public class User implements org.springframework.security.core.userdetails.UserD
      * Имя пользователя
      */
     @Size(max = 46, min = 8)
+    @Pattern(regexp = "^\\w+")
     @Column(nullable = false, unique = true)
     private String username;
     /**
@@ -140,9 +142,14 @@ public class User implements org.springframework.security.core.userdetails.UserD
      */
     @OneToMany(mappedBy = "manager", cascade = CascadeType.ALL)
     private List<Vote> votes;
-
-    @OneToMany
+    /**
+     * Уведомления, отправленные пользовтелю
+     */
+    @OneToMany(mappedBy = "client")
     private List<Notification> notificationsTo;
-    @OneToMany
+    /**
+     * Уведомления, отправленные специалистом безопасности
+     */
+    @OneToMany(mappedBy = "security")
     private List<Notification> notificationsBy;
 }

@@ -34,7 +34,7 @@ public class UserController {
         return "change_user_data";
     }
     @RequestMapping("/change_user_data/process/")
-    public String ChangeUserData(HttpSession session,@ModelAttribute UserData form, BindingResult result, ModelMap model){
+    public String ChangeUserData(HttpSession session,@Valid @ModelAttribute UserData form, BindingResult result, ModelMap model){
         if(result.hasErrors()){
             User user = (User) session.getAttribute("user_to_change_data");
             if(user==null)
