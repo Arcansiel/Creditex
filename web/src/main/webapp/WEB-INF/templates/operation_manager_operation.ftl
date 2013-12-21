@@ -58,6 +58,7 @@
                 <table>
                     <tr>
                         <th class="name">Номер платежа</th>
+                        <th class="start_date">Начальная дата</th>
                         <th class="start_date">Крайняя дата</th>
                         <th class="amount">Сумма платежа</th>
                         <th class="amount">Сумма по основному долгу</th>
@@ -66,6 +67,7 @@
                     </tr>
                     <tr>
                         <td class="name">${payment.number?html}</td>
+                        <td class="start_date">${payment.paymentStart?html}</td>
                         <td class="start_date">${payment.paymentEnd?html}</td>
                         <td class="amount">${payment.requiredPayment?html}</td>
                         <td class="amount">${(payment.requiredPayment - payment.percents)?html}</td>
