@@ -27,6 +27,10 @@ public interface ApplicationService {
 
     Application GetCreditApplicationById(long id);
     long FinalizeCreditApplication(long id);
-
-
+    ProlongationApplication GetProlongationApplicationById(long id);
+    List<ProlongationApplication> GetProlongationApplicationsByClientIdAndProcessed(long clientId, boolean processed);
+    List<PriorRepaymentApplication> GetPriorRepaymentApplicationByClientIdAndProcessed(long clientId, boolean processed);
+    void FinalizeProlongationApplication(long id);
+    PriorRepaymentApplication GetPriorRepaymentApplicationById(long id);
+    void FinalizePriorRepaymentApplication(long id);
 }

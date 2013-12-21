@@ -3,7 +3,6 @@ package org.kofi.creditex.service;
 import org.joda.time.LocalDate;
 import org.kofi.creditex.model.*;
 import org.kofi.creditex.repository.*;
-import org.kofi.creditex.web.model.CreditApplicationForm;
 
 import org.kofi.creditex.web.model.CreditApplicationRegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -236,5 +235,41 @@ public class ApplicationServiceImpl implements ApplicationService {
         }
         Credit saved = creditRepository.save(credit);
         return saved.getId();
+    }
+
+    @Override
+    public ProlongationApplication GetProlongationApplicationById(long id) {
+        return prolongationApplicationRepository.findOne(id);
+    }
+
+    @Override
+    public List<ProlongationApplication> GetProlongationApplicationsByClientIdAndProcessed(long clientId, boolean processed) {
+        return prolongationApplicationRepository.findByClientIdAndProcessed(clientId, processed);
+    }
+
+    @Override
+    public void FinalizeProlongationApplication(long id) {
+        ProlongationApplication application = prolongationApplicationRepository.findOne(id);
+        application.setProcessed(true);
+        prolongationApplicationRepository.save(application);
+        creditService.ExecuteProlongation(application.getCredit().getId(), application.getDuration());
+    }
+
+    @Override
+    public PriorRepaymentApplication GetPriorRepaymentApplicationById(long id) {
+        return priorRepaymentApplicationRepository.findOne(id);
+    }
+
+    @Override
+    public void FinalizePriorRepaymentApplication(long id) {
+        PriorRepaymentApplication application = priorRepaymentApplicationRepository.findOne(id);
+        application.setProcessed(true);
+        priorRepaymentApplicationRepository.save(application);
+        creditService.PriorRepaymentClose(application.getCredit().getId());
+    }
+
+    @Override
+    public List<PriorRepaymentApplication> GetPriorRepaymentApplicationByClientIdAndProcessed(long clientId, boolean processed) {
+        return priorRepaymentApplicationRepository.findByClientIdAndProcessed(clientId, processed);
     }
 }

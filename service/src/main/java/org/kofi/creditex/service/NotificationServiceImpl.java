@@ -28,4 +28,16 @@ public class NotificationServiceImpl implements NotificationService {
         }
         return null;
     }
+
+    @Override
+    public Notification GetNotificationById(long id) {
+        return notificationRepository.findOne(id);
+    }
+
+    @Override
+    public void DiscardNotification(long id) {
+        Notification notification = notificationRepository.findOne(id);
+        notification.setViewed(true);
+        notificationRepository.save(notification);
+    }
 }

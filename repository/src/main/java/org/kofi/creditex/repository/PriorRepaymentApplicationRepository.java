@@ -9,4 +9,5 @@ import java.util.List;
 public interface PriorRepaymentApplicationRepository extends JpaRepository<PriorRepaymentApplication, Long>, QueryDslPredicateExecutor<PriorRepaymentApplication> {
     List<PriorRepaymentApplication> findByClient_Username(String username);
     PriorRepaymentApplication findByClientUsernameAndProcessed(String username, boolean processed);
+    List<PriorRepaymentApplication> findByClientIdAndProcessed(long clientId, boolean processed);
 }

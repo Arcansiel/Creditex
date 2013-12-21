@@ -9,4 +9,5 @@ import java.util.List;
 public interface ProlongationApplicationRepository extends JpaRepository<ProlongationApplication, Long>, QueryDslPredicateExecutor<ProlongationApplication> {
     List<ProlongationApplication> findByClient_Username(String username);
     ProlongationApplication findByClientUsernameAndProcessed(String username, boolean processed);
+    List<ProlongationApplication> findByClientIdAndProcessed(long clientId, boolean processed);
 }
