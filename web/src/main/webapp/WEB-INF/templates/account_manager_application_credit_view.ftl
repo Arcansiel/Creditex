@@ -31,7 +31,7 @@
                     </tr>
                     <tr>
                         <td>Кредитный продукт</td>
-                        <td><a href="[@spring.url '/account_manager/product/view/${application.product.id}/'/]">${application.product.name}</a></td>
+                        <td><a href="[@spring.url '/account/product/${application.product.id}/view'/]">${application.product.name}</a></td>
                     </tr>
                     <tr>
                         <td>Принята ли заявка</td>
@@ -63,7 +63,7 @@
                     [#if application.acceptance.name()="Accepted"]
                         <tr>
                             <td>Кредит</td>
-                            <td><a href="[@spring.url '/account_manager/client/credit/view/${application.credit.id}/'/]">Просмотреть</a></td>
+                            <td><a href="[@spring.url '/account/credit/${application.credit.id}/view'/]">Просмотреть</a></td>
                         </tr>
                     [/#if]
                 [/#if]
@@ -71,8 +71,8 @@
         </div>
         <div class="content">
             <ul class="nav-menu">
-                <li><a href="[@spring.url '/account_manager/client/'/]" id="foo">Вернуться назад</a></li>
-                <li><a href="[@spring.url '/account_manager/client/credit/application/abort/${application.id}/'/]">Отменить заявку</a></li>
+                <li><a href="[@spring.url '/account'/]" id="foo">Вернуться назад</a></li>
+                <li><a href="[@spring.url '/account/credit/application/${application.id}/abort'/]">Отменить заявку</a></li>
             </ul>
         </div>
     </div>

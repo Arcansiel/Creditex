@@ -52,7 +52,7 @@
             </tr>
             <tr>
                 <td>Кредитный продукт</td>
-                <td><a href="[@spring.url '/account_manager/product/view/'+'${credit.product.id}'+'/'/]">Перейти к ${credit.product.name}</a></td>
+                <td><a href="[@spring.url '/account/product/${credit.product.id}/view/'/]">Перейти к ${credit.product.name}</a></td>
             </tr>
             </tbody>
         </table>
@@ -90,7 +90,7 @@
         </div>
         <div class="content">
             <ul class="nav-menu">
-                <li><a id="foo">Вырнуться назад</a>
+                <li><a id="foo">Вернуться назад</a>
                 </li>
             </ul>
         </div>

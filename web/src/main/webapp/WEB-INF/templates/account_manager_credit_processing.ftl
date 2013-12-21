@@ -10,8 +10,8 @@
     <script>
         $(function(){
                     $("#creditRegistration").click(function(){
-                        window.open("[@spring.url '/account_manager/client/credit/application/finalize/'/]");
-                        window.location.replace("[@spring.url '/account_manager/client/'/]");
+                        window.open("[@spring.url '/account/credit/application/{id}/register'/]");
+                        window.location.replace("[@spring.url '/account'/]");
                     });
                 }
         );
@@ -51,11 +51,11 @@
             <ul class="nav-menu">
                 <li><a href="#">Операции с заявкой</a>
                     <ul>
-                        <li><a href="[@spring.url '#'/]" id="creditRegistration">Зарегистрировать кредит</a></li>
-                        <li><a href="[@spring.url '/account_manager/client/credit/application/abort/${id}/'/]">Отменить заявку на кредит</a></li>
+                        <li><a id="creditRegistration">Зарегистрировать кредит</a></li>
+                        <li><a href="[@spring.url '/account/credit/application/${id}/abort'/]">Отменить заявку на кредит</a></li>
                     </ul>
                 </li>
-                <li><a href="[@spring.url '/account_manager/client/'/]">Назад</a>
+                <li><a href="[@spring.url '/account'/]">Назад</a>
                 </li>
             </ul>
         </div>

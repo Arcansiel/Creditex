@@ -50,7 +50,7 @@
         </div>
         <div class="content">
             <ul class="nav-menu">
-                <li><a href="[@spring.url '/account_manager/client/product/'/]">Вернуться назад</a>
+                <li><a href="[@spring.url '/account/application'/]">Вернуться назад</a>
                 </li>
             </ul>
         </div>

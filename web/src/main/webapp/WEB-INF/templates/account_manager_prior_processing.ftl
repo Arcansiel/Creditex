@@ -14,11 +14,11 @@
             <ul class="nav-menu">
                 <li><a href="#">Операции с заявкой</a>
                     <ul>
-                        <li><a href="[@spring.url '/account_manager/client/prior/finalize/'/]">Зарегистрировать предварительное погашение</a></li>
-                        <li><a href="[@spring.url '/account_manager/client/prior/abort/${id}/'/]">Отменить заявку</a></li>
+                        <li><a href="[@spring.url '/account/prior/${id}/register'/]">Зарегистрировать предварительное погашение</a></li>
+                        <li><a href="[@spring.url '/account/prior/${id}/abort'/]">Отменить заявку</a></li>
                     </ul>
                 </li>
-                <li><a href="[@spring.url '/account_manager/client/'/]">Назад</a>
+                <li><a href="[@spring.url '/account'/]">Назад</a>
                 </li>
             </ul>
         </div>

@@ -13,11 +13,11 @@
             <ul class="nav-menu">
                 <li><a href="#">Операции с заявкой</a>
                     <ul>
-                        <li><a href="[@spring.url '/account_manager/client/prolongation/finalize/'/]" id="creditRegistration">Зарегистрировать пролонгацию</a></li>
-                        <li><a href="[@spring.url '/account_manager/client/prolongation/abort/${id}/'/]">Отменить заявку</a></li>
+                        <li><a href="[@spring.url '/account/prolongation/${id}/register'/]">Зарегистрировать пролонгацию</a></li>
+                        <li><a href="[@spring.url '/account/prolongation/${id}/abort'/]">Отменить заявку</a></li>
                     </ul>
                 </li>
-                <li><a href="[@spring.url '/account_manager/client/'/]">Назад</a>
+                <li><a href="[@spring.url '/account'/]">Назад</a>
                 </li>
             </ul>
         </div>

@@ -34,14 +34,14 @@
                 </tr>
                 <tr>
                     <td>Кредит</td>
-                    <td><a href="[@spring.url '/account_manager/client/credit/view/${application.credit.id}/'/]">Просмотреть</a></td>
+                    <td><a href="[@spring.url '/account/credit/${application.credit.id}/view'/]">Просмотреть</a></td>
                 </tr>
             </table>
         </div>
         <div class="content">
             <ul class="nav-menu">
-                <li><a href="[@spring.url '/account_manager/client/'/]" id="foo">Вернуться назад</a></li>
-                <li><a href="[@spring.url '/account_manager/client/prolongation/abort/${application.id}/'/]">Отменить заявку</a></li>
+                <li><a href="[@spring.url '/account'/]" id="foo">Вернуться назад</a></li>
+                <li><a href="[@spring.url '/account/prolongation/${application.id}/abort'/]">Отменить заявку</a></li>
             </ul>
         </div>
     </div>
