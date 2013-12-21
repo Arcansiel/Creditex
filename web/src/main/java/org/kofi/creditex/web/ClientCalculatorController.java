@@ -7,6 +7,7 @@ import org.kofi.creditex.service.CreditCalculator;
 import org.kofi.creditex.service.ProductService;
 import org.kofi.creditex.service.UserService;
 import org.kofi.creditex.web.model.CreditApplicationForm;
+import org.kofi.creditex.web.model.CreditApplicationRegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -33,13 +34,12 @@ public class ClientCalculatorController {
     }
     
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public String CalculatorProcess(Principal principal,@Valid @ModelAttribute CreditApplicationForm form, BindingResult result, ModelMap model){
+    public String CalculatorProcess(Principal principal,@Valid @ModelAttribute CreditApplicationRegistrationForm form, BindingResult result, ModelMap model){
         if(result.hasErrors())
             return "redirect:/client/calculator";
         List<Product> products = productService.GetProductsByActive(true);
         User client = userService.GetUserByUsername(principal.getName());
-        List<Product> satisfactoryProducts=CreditCalculator.RequireProducts(products, form.getRequestedMoney(), form.getDuration(), client.getUserData().getWorkIncome()/2);
-        ClientCalculatorController.log.warn("Products:  "+satisfactoryProducts.toString());
+        List<Product> satisfactoryProducts=CreditCalculator.RequireProducts(products, form.getRequest(), form.getDuration(), client.getUserData().getWorkIncome()/2);
         model.put("products", satisfactoryProducts);
         return "bank_client_view_products";
     }
