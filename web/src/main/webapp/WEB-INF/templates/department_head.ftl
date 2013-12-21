@@ -23,6 +23,7 @@
                         <li><a href="[@spring.url '/department_head/product/list/activated/'/]">Список активных кредитных продуктов</a></li>
                         <li><a href="[@spring.url '/department_head/product/list/deactivated/'/]">Список неактивных кредитных продуктов</a></li>
                         <li><a href="[@spring.url '/department_head/product/create/'/]">Создать кредитный продукт</a></li>
+                        <li><a href="[@spring.url '/department_head/statistics/products/'/]">Статистика по кредитным продуктам</a></li>
                     </ul>
                 </li>
                 <li><a href="#">Заявки на пролонгацию</a>
@@ -37,6 +38,7 @@
                 </li>
                 <li><a href="#">Архив</a>
                     <ul>
+                        <li><a href="[@spring.url '/department_head/statistics/'/]">Статистика</a></li>
                         <li><a href="[@spring.url '/department_head/report/'/]">Отчёт</a></li>
                         <li><a href="[@spring.url '/department_head/credits/active/list/'/]">Открытые кредиты</a></li>
                         <li><a href="[@spring.url '/department_head/credits/returned/list/'/]">Погашеные кредиты</a></li>
