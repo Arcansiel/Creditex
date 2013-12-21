@@ -18,7 +18,7 @@
 
             <ul class="nav-menu">
                 <li>
-                    <a href="#">Кредиты и кредитные продукты</a>
+                    <a>Кредиты и кредитные продукты</a>
                     <ul>
                         <li><a href="[@spring.url '/account_manager/product/list/'/]">Кредитные продукты</a></li>
                         <li><a href="[@spring.url '/account_manager/client/credit/list/'/]">Предыдущие кредиты клиента</a></li>
@@ -28,7 +28,7 @@
 
                     </ul>
                 </li>
-                <li><a href="#">Заявки</a>
+                <li><a>Заявки</a>
                     <ul>
                         [#if credit??]
                             [#if priorRepaymentApplication??]
@@ -74,14 +74,14 @@
 
                     </ul>
                 </li>
-                <li><a href="#">Просмотр заявок</a>
+                <li><a>Просмотр заявок</a>
                     <ul>
                         <li><a href="[@spring.url '/account_manager/client/credit/application/list/'/]">На предоставление кредита</a></li>
                         <li><a href="[@spring.url '/account_manager/client/prior/list/'/]">На предварительное погашение кредита</a></li>
                         <li><a href="[@spring.url '/account_manager/client/prolongation/list/'/]">На пролонгацию кредита кредита</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Операции с клиентом</a>
+                <li><a>Операции с клиентом</a>
                     <ul>
                         <li><a href="[@spring.url '/account_manager/client/change_data/'/]">Изменить личные данные</a></li>
                         <li><a href="[@spring.url '/account_manager/'/]">Выбрать другого клиента</a></li>

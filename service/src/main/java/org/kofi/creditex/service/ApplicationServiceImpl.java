@@ -203,4 +203,38 @@ public class ApplicationServiceImpl implements ApplicationService {
         Credit saved = creditRepository.save(credit);
         return saved.getId();
     }
+
+    @Override
+    public Application GetCreditApplicationById(long id) {
+        return applicationRepository.findOne(id);
+    }
+
+    @Override
+    public long FinalizeCreditApplication(long id) {
+        Application application = applicationRepository.findOne(id);
+        application.setProcessed(true);
+        applicationRepository.save(application);
+        LocalDate date = creditexDateProvider.getCurrentDate();
+        Date end = creditexDateProvider.transformDate(date.plusMonths((int) application.getDuration()));
+        long[] params = new long[3];
+        List<Payment> payments = CreditCalculator.PaymentPlan(application,creditexDateProvider.getCurrentSqlDate(),params);
+        Credit credit = new Credit()
+                .setCreditApplication(application)
+                .setUser(application.getClient())
+                .setRunning(true)
+                .setCreditStart(creditexDateProvider.getCurrentSqlDate())
+                .setCreditEnd(end)
+                .setCurrentMainDebt(application.getRequest())
+                .setCurrentMoney(application.getRequest())
+                .setDuration(application.getDuration())
+                .setOriginalMainDebt(application.getRequest())
+                .setProduct(application.getProduct())
+                .setPayments(payments)
+                .setCurrentPercentDebt(params[1]);
+        for (Payment payment : credit.getPayments()){
+            payment.setCredit(credit);
+        }
+        Credit saved = creditRepository.save(credit);
+        return saved.getId();
+    }
 }

@@ -5,6 +5,7 @@ import org.kofi.creditex.model.*;
 import org.kofi.creditex.repository.CreditRepository;
 import org.kofi.creditex.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -158,5 +159,11 @@ public class CreditServiceImpl implements CreditService{
                 .setRequiredPayment(totalSum)
                 .setPercents(modifiedPercentDebt);
         paymentRepository.save(payment);
+    }
+
+
+    @Override
+    public List<Credit> GetCreditsByUserIdAndRunning(long userId, boolean running) {
+        return creditRepository.findByUserIdAndRunning(userId, running, new Sort(Sort.Direction.ASC, "creditStart"));
     }
 }

@@ -9,7 +9,7 @@
     <script type="text/javascript">
         $(function(){
             $("#returnLink").click(function(){
-                history.back();
+                history.go(-1);
             });
         });
     </script>
@@ -61,7 +61,7 @@
         </div>
         <div class="content">
             <ul class="nav-menu">
-                <li><a href="" id="returnLink">Вернуться назад</a>
+                <li><a id="returnLink">Вернуться назад</a>
                 </li>
             </ul>
         </div>

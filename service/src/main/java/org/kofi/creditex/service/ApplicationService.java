@@ -25,4 +25,8 @@ public interface ApplicationService {
     void FinalizePriorRepaymentApplication(String username);
     long FinalizeCreditApplication(String username);
 
+    Application GetCreditApplicationById(long id);
+    long FinalizeCreditApplication(long id);
+
+
 }
