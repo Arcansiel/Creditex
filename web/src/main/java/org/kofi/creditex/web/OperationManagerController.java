@@ -59,7 +59,7 @@ public class OperationManagerController {
                     }else if(info.equals("-3")){
                         model.addAttribute("info","Кредит не существует");
                     }else if(info.equals("-4")){
-                        model.addAttribute("info","Кредит закрыт, операции не возможны");
+                        model.addAttribute("info","Кредит закрыт, операции не разрешены");
                     }else if(info.equals("-5") || info.equals("-6") || info.equals("-7")){
                         model.addAttribute("info","Введена неверная сумма платежа");
                     }else if(info.equals("-8")){
@@ -172,10 +172,10 @@ public class OperationManagerController {
             boolean expired = credit.getMainFine() > 0;
             model.addAttribute("expired", expired);
             long amount = 0;
-            if(payment != null){
-                amount = payment.getRequiredPayment();
-            }else if(expired){
+            if(expired){
                 amount = credit.getMainFine() + credit.getPercentFine();
+            }else if(payment != null){
+                amount = payment.getRequiredPayment();
             }
             if(amount > 0){
                 model.addAttribute("amount",amount);

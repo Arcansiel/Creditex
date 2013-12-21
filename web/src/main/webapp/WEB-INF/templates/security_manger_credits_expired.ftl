@@ -31,6 +31,7 @@
                     <th class="amount">Долг по платежам</th>
                     <th class="amount">Пеня</th>
                     <th class="name">Активный кредит</th>
+                    <th class="name">Последнее уведомление</th>
                     <th class="name">Уведомление</th>
                     <th class="name" colspan="2">Проверка клиента</th>
                 </tr>
@@ -51,7 +52,8 @@
                         <td class="amount">${c.mainFine}</td>
                         <td class="amount">${c.percentFine}</td>
                         <td class="name">${c.running?c}</td>
-                        <td class="name"><a href=[@spring.url '/security_manager/notification/client/${c.user.id?string("0")}/credit/${c.id?string("0")}?type=Expired'/]>Уведомление</a></td>
+                        <td class="start_date">[#if (c.lastNotificationDate)??]${c.lastNotificationDate}[#else]Нет[/#if]</td>
+                        <td class="name"><a href=[@spring.url '/security_manager/notification/credit/${c.id?string("0")}?type=expired#notification_form_anchor'/]>Уведомление</a></td>
                         <td class="name"><a href=[@spring.url '/security_manager/client/check/${c.user.id?string("0")}'/]>Внутренняя</a></td>
                         <td class="name"><a href=[@spring.url '/security_manager/client/check/outer/${c.user.id?string("0")}'/]>Внешняя</a></td>
                     </tr>

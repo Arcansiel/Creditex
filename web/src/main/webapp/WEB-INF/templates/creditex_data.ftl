@@ -46,7 +46,7 @@
 [/#macro]
 
 
-[#macro credit_view_table credit caption = "Кредит" show_running = true show_product_name = true]
+[#macro credit_view_table credit caption = "Кредит" show_running = true show_product_name = true show_last_notification = false]
 [#if credit??]
 <p class="name">${caption?html}</p>
 <table>
@@ -63,6 +63,7 @@
         <th class="amount">Долг по платежам</th>
         <th class="amount">Пеня</th>
         [#if show_running]<th class="name">Активный кредит</th>[/#if]
+        [#if show_last_notification]<th class="name">Последнне уведомление</th>[/#if]
     </tr>
     </thead>
     <tbody>
@@ -78,6 +79,9 @@
         <td class="amount">${credit.mainFine}</td>
         <td class="amount">${credit.percentFine}</td>
         [#if show_running]<td class="name">${credit.running?c}</td>[/#if]
+        [#if show_last_notification]
+            <td class="start_date">[#if (credit.lastNotificationDate)??]${credit.lastNotificationDate}[#else]Нет[/#if]</td>
+        [/#if]
     </tr>
     </tbody>
 </table>

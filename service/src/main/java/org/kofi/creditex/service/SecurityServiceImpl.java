@@ -1,5 +1,7 @@
 package org.kofi.creditex.service;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Ordering;
 import org.kofi.creditex.model.*;
 
 import java.sql.Date;
@@ -35,6 +37,9 @@ public class SecurityServiceImpl implements SecurityService{
 
     @Autowired
     CreditexDateProvider dateProvider;
+
+    @Autowired
+    NotificationRepository notificationRepository;
 
     @Override
     public List<Application> GetSecurityUncheckedApplications() {
@@ -132,27 +137,28 @@ public class SecurityServiceImpl implements SecurityService{
     //текущие кредиты с просроченными платежами
     public List<Credit> GetExpiredCredits() {
         List<Credit> list = new ArrayList<Credit>();
-        for(Credit c:creditRepository.findAll(
-                QCredit.credit.mainFine.gt(0),
-                QCredit.credit.creditStart.desc()
-        )){
-             list.add(c);
-        }
-        return list;
+        Ordering<Credit> ordering = Ordering.natural().nullsFirst().onResultOf(new Function<Credit, Date>() {
+            public Date apply(Credit credit) {
+                return credit.getLastNotificationDate();
+            }
+        });
+        return ordering.sortedCopy(creditRepository.findAll(
+                QCredit.credit.mainFine.gt(0)
+        ));
     }
 
     @Override
     public List<Credit> GetUnreturnedCredits() {
         Date now = dateProvider.getCurrentSqlDate();
-        List<Credit> list = new ArrayList<Credit>();
-        for(Credit c: creditRepository.findAll(
-            QCredit.credit.creditEnd.lt(now)
-                .and(QCredit.credit.currentMainDebt.gt(0))
-                ,QCredit.credit.creditStart.desc()
-        )){
-             list.add(c);
-        }
-        return list;
+        Ordering<Credit> ordering = Ordering.natural().nullsFirst().onResultOf(new Function<Credit, Date>() {
+            public Date apply(Credit credit) {
+                return credit.getLastNotificationDate();
+            }
+        });
+        return ordering.sortedCopy(creditRepository.findAll(
+                QCredit.credit.creditEnd.lt(now)
+                        .and(QCredit.credit.currentMainDebt.gt(0))
+        ));
     }
 
     @Override
@@ -274,5 +280,37 @@ public class SecurityServiceImpl implements SecurityService{
             list.add(a);
         }
         return list;
+    }
+
+    @Override
+    public int SendNotification(String security_name, long credit_id,
+                                NotificationType notificationType, String message) {
+        User security = userService.GetUserByUsername(security_name);
+        if(security == null){ return -1; }//no security
+        Credit credit = creditRepository.findOne(credit_id);
+        if(credit == null){ return -2; }//no credit
+        User client = credit.getUser();
+        if(client == null){ return -3; }//no client
+        if(!credit.isRunning()){ return -4; }//invalid credit state
+        if(message == null){ message = ""; }
+        Date date = dateProvider.getCurrentSqlDate();
+        Notification notification = new Notification();
+        notification.setNotificationDate(date);
+        notification.setType(notificationType);
+        notification.setMessage(message);
+        notification.setSecurity(security);
+        notification.setClient(client);
+        notification.setCredit(credit);
+        notificationRepository.save(notification);
+        credit.setLastNotificationDate(date);
+        creditRepository.save(credit);
+        return 0;
+    }
+
+    @Override
+    public long GetCreditNotificationsCount(long credit_id) {
+        return notificationRepository.count(
+                QNotification.notification.credit.id.eq(credit_id)
+        );
     }
 }
