@@ -31,7 +31,7 @@ public class AccountCreditApplicationController {
     @Autowired
     private ProductService productService;
 
-    @RequestMapping("/")
+    @RequestMapping("")
     public String CreateApplication(@RequestParam Long productId, ModelMap model){
         if (productId==null){
             model.put("products",productService.GetProductsByActive(true));
@@ -41,7 +41,7 @@ public class AccountCreditApplicationController {
         return "account_manager_application_credit_edit";
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public String CreateApplicationProcess(@RequestParam long productId,Principal principal,HttpSession session,@Valid @ModelAttribute CreditApplicationRegistrationForm form, BindingResult result){
         User client = (User)session.getAttribute("client");
         if (client == null)
@@ -56,11 +56,11 @@ public class AccountCreditApplicationController {
     }
 
     @RequestMapping("/list")
-    public String ListApplications(HttpSession session, ModelMap model){
+    public String ListApplications(@RequestParam boolean processed,HttpSession session, ModelMap model){
         User client = (User)session.getAttribute("client");
         if (client == null)
             return "redirect:/account";
-        model.put("applications", applicationService.GetApplicationsByUsername(client.getUsername()));
+        model.put("applications", applicationService.GetApplicationsByClientIdAndProcessed(client.getId(), processed));
         return "account_manager_application_credit_list_view";
     }
 

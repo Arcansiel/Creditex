@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -27,10 +28,10 @@ public class AccountController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/")
-    public String Main(HttpSession session, ModelMap model){
+    @RequestMapping("")
+    public String Main(@RequestParam(required = false) Boolean change,HttpSession session, ModelMap model){
         User client = (User)session.getAttribute("client");
-        if (client == null){
+        if (client == null || change!=null){
             return "account_manager";
         }
         Credit credit = creditService.findByUsernameAndRunning(client.getUsername(), true);
@@ -44,7 +45,7 @@ public class AccountController {
         return "account_manager_client";
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public String MainProcess(HttpSession session, @Valid @ModelAttribute UserData form, BindingResult result, ModelMap model){
         if(result.hasErrors()){
             return "redirect:/account";
@@ -52,7 +53,11 @@ public class AccountController {
         User client = userService.GetUserByUserDataValues(form);
         session.setAttribute("client", client);
         return "redirect:/account";
-
     }
 
+    @RequestMapping("/change")
+    public String ChangeUserData(HttpSession session){
+        session.setAttribute("user_to_change_data", session.getAttribute("client"));
+        return "redirect:/change_user_data/";
+    }
 }

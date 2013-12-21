@@ -272,4 +272,9 @@ public class ApplicationServiceImpl implements ApplicationService {
     public List<PriorRepaymentApplication> GetPriorRepaymentApplicationByClientIdAndProcessed(long clientId, boolean processed) {
         return priorRepaymentApplicationRepository.findByClientIdAndProcessed(clientId, processed);
     }
+
+    @Override
+    public List<Application> GetApplicationsByClientIdAndProcessed(long id, boolean processed) {
+        return applicationRepository.findByClientIdAndProcessed(id, processed);
+    }
 }

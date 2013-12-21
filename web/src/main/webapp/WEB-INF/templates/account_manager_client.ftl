@@ -20,10 +20,10 @@
                 <li>
                     <a>Кредиты и кредитные продукты</a>
                     <ul>
-                        <li><a href="[@spring.url '/account_manager/product/list/'/]">Кредитные продукты</a></li>
-                        <li><a href="[@spring.url '/account_manager/client/credit/list/'/]">Предыдущие кредиты клиента</a></li>
+                        <li><a href="[@spring.url '/account/product/list?active=true'/]">Кредитные продукты</a></li>
+                        <li><a href="[@spring.url '/account/credit/list?running=true'/]">Предыдущие кредиты клиента</a></li>
                         [#if credit??]
-                            <li><a href="[@spring.url '/account_manager/client/credit/view/'+'${credit.id}'+'/'/]">Терущий кредит клиента</a></li>
+                            <li><a href="[@spring.url '/account/credit/${credit.id}/view/'/]">Терущий кредит клиента</a></li>
                         [/#if]
 
                     </ul>
@@ -76,15 +76,15 @@
                 </li>
                 <li><a>Просмотр заявок</a>
                     <ul>
-                        <li><a href="[@spring.url '/account_manager/client/credit/application/list/'/]">На предоставление кредита</a></li>
-                        <li><a href="[@spring.url '/account_manager/client/prior/list/'/]">На предварительное погашение кредита</a></li>
-                        <li><a href="[@spring.url '/account_manager/client/prolongation/list/'/]">На пролонгацию кредита кредита</a></li>
+                        <li><a href="[@spring.url '/account/credit/application/list?processed=true'/]">На предоставление кредита</a></li>
+                        <li><a href="[@spring.url '/account/prior/list?processed=true'/]">На предварительное погашение кредита</a></li>
+                        <li><a href="[@spring.url '/account/prolongation/list?processed=true'/]">На пролонгацию кредита кредита</a></li>
                     </ul>
                 </li>
                 <li><a>Операции с клиентом</a>
                     <ul>
-                        <li><a href="[@spring.url '/account_manager/client/change_data/'/]">Изменить личные данные</a></li>
-                        <li><a href="[@spring.url '/account_manager/'/]">Выбрать другого клиента</a></li>
+                        <li><a href="[@spring.url '/account/change'/]">Изменить личные данные</a></li>
+                        <li><a href="[@spring.url '/account?change=true'/]">Выбрать другого клиента</a></li>
                     </ul>
                 </li>
             </ul>

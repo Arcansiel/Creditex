@@ -33,4 +33,6 @@ public interface ApplicationService {
     void FinalizeProlongationApplication(long id);
     PriorRepaymentApplication GetPriorRepaymentApplicationById(long id);
     void FinalizePriorRepaymentApplication(long id);
+    List<Application> GetApplicationsByClientIdAndProcessed(long id, boolean processed);
+
 }
