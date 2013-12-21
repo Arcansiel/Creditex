@@ -457,6 +457,8 @@ public class DepartmentHeadController {
         model.addAttribute("credits",statisticsService.GetCreditsStatistics());
         model.addAttribute("clients",statisticsService.GetClientsStatistics());
         model.addAttribute("applications",statisticsService.GetApplicationsStatistics());
+        model.addAttribute("priors",statisticsService.GetPriorsStatistics());
+        model.addAttribute("prolongations",statisticsService.GetProlongationsStatistics());
         model.addAttribute("payments",statisticsService.GetPaymentsStatistics());
         return "department_head_statistics";
     }

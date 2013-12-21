@@ -9,5 +9,7 @@ public interface StatisticsService {
     Map<String,Object> GetCreditsStatistics();
     Map<String,Object> GetClientsStatistics();
     Map<String,Object> GetApplicationsStatistics();
+    Map<String,Object> GetPriorsStatistics();
+    Map<String,Object> GetProlongationsStatistics();
     Map<String,Object> GetPaymentsStatistics();
 }

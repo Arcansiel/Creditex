@@ -138,16 +138,19 @@ public class StatisticsServiceImpl implements StatisticsService {
                 countDebtors = userRepository.count(
                         QUser.user.authority.eq(clientAuthority)
                                 .and(QUser.user.credits.any().running.isTrue())
-        ));
+                ));
         map.put("countFree", countAll - countDebtors);
         map.put("countPriors", userRepository.count(
                 QUser.user.priorApplicationsTo.isNotEmpty()
         ));
         map.put("countPriorsAccepted", userRepository.count(
-                QUser.user.priorApplicationsTo.isNotEmpty()
+                QUser.user.priorApplicationsTo.any().acceptance.eq(Acceptance.Accepted)
         ));
         map.put("countProlongations", userRepository.count(
                 QUser.user.prolongationApplicationsTo.isNotEmpty()
+        ));
+        map.put("countProlongationsAccepted", userRepository.count(
+                QUser.user.prolongationApplicationsTo.any().acceptance.eq(Acceptance.Accepted)
         ));
         return map;
     }
@@ -155,14 +158,48 @@ public class StatisticsServiceImpl implements StatisticsService {
     @Override
     public Map<String,Object> GetApplicationsStatistics() {
         Map<String,Object> map = new HashMap<String,Object>(16);
+        map.put("countAll", applicationRepository.count());
+        map.put("countAccepted", applicationRepository.count(QApplication.application.acceptance.eq(Acceptance.Accepted)));
+        map.put("countRejected", applicationRepository.count(QApplication.application.acceptance.eq(Acceptance.Rejected)));
+        map.put("countAborted", applicationRepository.count(QApplication.application.acceptance.eq(Acceptance.Aborted)));
+        map.put("countInProcess", applicationRepository.count(QApplication.application.acceptance.eq(Acceptance.InProcess)));
+        return map;
+    }
 
+    @Override
+    public Map<String, Object> GetPriorsStatistics() {
+        Map<String,Object> map = new HashMap<String,Object>(16);
+        map.put("countAll", priorRepository.count());
+        map.put("countAccepted", priorRepository.count(QPriorRepaymentApplication.priorRepaymentApplication.acceptance.eq(Acceptance.Accepted)));
+        map.put("countRejected", priorRepository.count(QPriorRepaymentApplication.priorRepaymentApplication.acceptance.eq(Acceptance.Rejected)));
+        map.put("countAborted", priorRepository.count(QPriorRepaymentApplication.priorRepaymentApplication.acceptance.eq(Acceptance.Aborted)));
+        map.put("countInProcess", priorRepository.count(QPriorRepaymentApplication.priorRepaymentApplication.acceptance.eq(Acceptance.InProcess)));
+        return map;
+    }
+
+    @Override
+    public Map<String, Object> GetProlongationsStatistics() {
+        Map<String,Object> map = new HashMap<String,Object>(16);
+        map.put("countAll", prolongationRepository.count());
+        map.put("countAccepted", prolongationRepository.count(QProlongationApplication.prolongationApplication.acceptance.eq(Acceptance.Accepted)));
+        map.put("countRejected", prolongationRepository.count(QProlongationApplication.prolongationApplication.acceptance.eq(Acceptance.Rejected)));
+        map.put("countAborted", prolongationRepository.count(QProlongationApplication.prolongationApplication.acceptance.eq(Acceptance.Aborted)));
+        map.put("countInProcess", prolongationRepository.count(QProlongationApplication.prolongationApplication.acceptance.eq(Acceptance.InProcess)));
         return map;
     }
 
     @Override
     public Map<String,Object> GetPaymentsStatistics() {
         Map<String,Object> map = new HashMap<String,Object>(16);
-
+        map.put("countAll", paymentRepository.count());
+        map.put("countClosedNotExpired", paymentRepository.count(QPayment.payment.paymentClosed.isTrue()
+                .and(QPayment.payment.paymentExpired.isFalse())));
+        map.put("countClosedExpired", paymentRepository.count(QPayment.payment.paymentClosed.isTrue()
+                .and(QPayment.payment.paymentExpired.isTrue())));
+        map.put("countNotClosedNotExpired", paymentRepository.count(QPayment.payment.paymentClosed.isFalse()
+                .and(QPayment.payment.paymentExpired.isFalse())));
+        map.put("countNotClosedExpired", paymentRepository.count(QPayment.payment.paymentClosed.isFalse()
+                .and(QPayment.payment.paymentExpired.isTrue())));
         return map;
     }
 }
