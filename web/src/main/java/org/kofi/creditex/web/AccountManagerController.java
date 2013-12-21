@@ -174,7 +174,7 @@ public class AccountManagerController {
         return "redirect:/account_manager/client/";
     }
 
-    @RequestMapping("/account_manager/client/credit/application/view/")
+    @RequestMapping("/account_manager/client/product/application/view/")
     public String ClientViewCreditApplication(HttpSession session, ModelMap model){
         User client = (User)session.getAttribute("client");
         if (client == null)
