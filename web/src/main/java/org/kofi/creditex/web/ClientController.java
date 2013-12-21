@@ -34,41 +34,4 @@ public class ClientController {
         model.put("notification", notification);
         return "bank_client";
     }
-
-
-    @RequestMapping("/client/credit/list/")
-    public String ListCredits(){
-        //TODO
-        return "";
-    }
-
-    @RequestMapping("/client/credit/{id}/view/")
-    public String ShowCredit(@PathVariable long id){
-        //TODO
-        return "";
-    }
-
-    @RequestMapping("/client/product/list/")
-    public String ListProducts(){
-        //TODO
-        return "";
-    }
-
-    @RequestMapping("/client/product/{id}/view/")
-    public String ShowProduct(@PathVariable long id){
-        //TODO
-        return "";
-    }
-
-    @RequestMapping("/client/notification/list/")
-    public String ListNotifications(){
-        //TODO
-        return "";
-    }
-
-    @RequestMapping("/client/notification/{id}/view/")
-    public String ShowNotification(){
-        //TODO
-        return "";
-    }
 }
