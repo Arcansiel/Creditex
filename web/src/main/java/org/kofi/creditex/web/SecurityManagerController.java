@@ -96,9 +96,9 @@ public class SecurityManagerController {
                     if(info.equals("-1")){
                         model.addAttribute("info","Специалист безопасности отсутствует в системе");
                     }else if(info.equals("-2")){
-                        model.addAttribute("info","Клиент не найден");
-                    }else if(info.equals("-3")){
                         model.addAttribute("info","Кредит не найден");
+                    }else if(info.equals("-3")){
+                        model.addAttribute("info","Клиент не найден");
                     }
                 }
             }
@@ -326,10 +326,9 @@ public class SecurityManagerController {
         }
     }
 
-    @RequestMapping(value = "/security_manager/notification/client/{client_id}/credit/{credit_id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/security_manager/notification/credit/{id}", method = RequestMethod.GET)
     public String Security91(Model model
-            ,@PathVariable("client_id")long client_id
-            ,@PathVariable("credit_id")long credit_id
+            ,@PathVariable("id")long id
             ,@RequestParam(value = "type", required = false)String type
     ){
         NotificationType notificationType = NotificationType.Expired;
@@ -341,30 +340,25 @@ public class SecurityManagerController {
                 notificationType = NotificationType.Unreturned;
             }
         }
-        User client = userService.GetUserById(client_id);
-        if(client == null){
-            return "redirect:/security_manager/?error=no_client&info="+client_id;
-        }
-        Credit credit = creditService.GetCreditById(credit_id);
+        Credit credit = creditService.GetCreditById(id);
         if(credit == null){
-            return "redirect:/security_manager/?error=no_credit&info="+credit_id;
+            return "redirect:/security_manager/?error=no_credit&info="+id;
         }
         model.addAttribute("type",notificationType);
-        model.addAttribute("client",client);
         model.addAttribute("credit",credit);
+        model.addAttribute("credit_notifications_count",securityService.GetCreditNotificationsCount(id));
         return "security_manager_notification";
     }
 
-    @RequestMapping(value = "/security_manager/notification/client/{client_id}/credit/{credit_id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/security_manager/notification/credit/{id}", method = RequestMethod.POST)
     public String Security92(Principal principal
-            ,@PathVariable("client_id")long client_id
-            ,@PathVariable("credit_id")long credit_id
+            ,@PathVariable("id")long id
             ,@Valid @ModelAttribute Notification notification, BindingResult bindingResult
     ){
         if(bindingResult.hasErrors()){
             return "redirect:/security_manager/?error=invalid_input_data";
         }
-        int err = securityService.SendNotification(principal.getName(),client_id,credit_id,
+        int err = securityService.SendNotification(principal.getName(),id,
                 notification.getType(),notification.getMessage());
         if(err < 0){
             return "redirect:/security_manager/?error=notification_failed&info="+err;

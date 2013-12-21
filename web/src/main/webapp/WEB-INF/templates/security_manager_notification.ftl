@@ -33,14 +33,24 @@
             <p class="name"><a href="[@spring.url '/security_manager/credits/expired/'/]">Кредиты с задержкой платежей</a></p>
             <p class="name"><a href="[@spring.url '/security_manager/credits/unreturned/'/]">Невозвращённые кредиты</a></p>
 
-            [#if client?? && credit??]
+            [#if credit??]
 
-                [@creditex_data.client_view_table client "Клиент"/]
+                [#if (credit.user)??]
+                    [@creditex_data.client_view_table credit.user "Клиент"/]
+                    <p class="name">
+                        <a href="[@spring.url '/security_manager/client/check/${credit.user.id?string("0")}'/]">Проверка клиента по внутренним базам</a>
+                    </p>
+                [/#if]
 
-                [@creditex_data.credit_view_table credit "Кредит"/]
+                [@creditex_data.credit_view_table credit "Кредит" true true true /]
+
+            [#if credit_notifications_count??]
+                <p class="name">Количество уведомлений по данному кредиту: ${credit_notifications_count}</p>
+            [/#if]
 
                 <div class="form-action">
-                    <form action="[@spring.url '/security_manager/notification/client/${client.id?string("0")}/credit/${credit.id?string("0")}'/]"
+                    <a id="notification_form_anchor" />
+                    <form action="[@spring.url '/security_manager/notification/credit/${credit.id?string("0")}'/]"
                           method="post"
                           class="form"
                           id="notificationForm">
@@ -48,12 +58,12 @@
                         <p>
                             <label>Тип уведомления</label>
                             <select name="type">
-                                [#if type?? && type.name() == "Expired"]
+                                [#if type?? && type.name() == "Unreturned"]
+                                    <option value="Unreturned">Невозвращённый кредит</option>
+                                    <option value="Expired">Просроченный платёж</option>
+                                [#else]
                                     <option value="Expired">Просроченный платёж</option>
                                     <option value="Unreturned">Невозвращённый кредит</option>
-                                [#else]
-                                    <option value="Unreturned">Невозвращённый кредит</option>
-                                    <option value="Expired">Просроченный платёж</option>\
                                 [/#if]
                             </select>
                         </p>

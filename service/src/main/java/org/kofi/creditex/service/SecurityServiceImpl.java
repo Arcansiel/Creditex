@@ -283,14 +283,14 @@ public class SecurityServiceImpl implements SecurityService{
     }
 
     @Override
-    public int SendNotification(String security_name, long client_id, long credit_id,
+    public int SendNotification(String security_name, long credit_id,
                                 NotificationType notificationType, String message) {
         User security = userService.GetUserByUsername(security_name);
         if(security == null){ return -1; }//no security
-        User client = userService.GetUserById(client_id);
-        if(client == null){ return -2; }//no client
         Credit credit = creditRepository.findOne(credit_id);
-        if(credit == null){ return -3; }//no credit
+        if(credit == null){ return -2; }//no credit
+        User client = credit.getUser();
+        if(client == null){ return -3; }//no client
         if(message == null){ message = ""; }
         Date date = dateProvider.getCurrentSqlDate();
         Notification notification = new Notification();
@@ -304,5 +304,12 @@ public class SecurityServiceImpl implements SecurityService{
         credit.setLastNotificationDate(date);
         creditRepository.save(credit);
         return 0;
+    }
+
+    @Override
+    public long GetCreditNotificationsCount(long credit_id) {
+        return notificationRepository.count(
+                QNotification.notification.credit.id.eq(credit_id)
+        );
     }
 }
