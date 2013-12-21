@@ -17,23 +17,24 @@
                 <li>
                     <a href="#">Кредиты</a>
                     <ul>
-                        <li><a href="[@spring.url '/client/credit/list/'/]">Предыдущие кредиты клиента</a></li>
+                        <li><a href="[@spring.url '/client/credit/list?running=false'/]">Предыдущие кредиты клиента</a></li>
                         [#if credit??]
-                            <li><a href="[@spring.url '/client/credit/${credit.id}/view/'/]">Терущий кредит клиента</a></li>
+                            <li><a href="[@spring.url '/client/credit/${credit.id}/view'/]">Терущий кредит клиента</a></li>
                         [/#if]
                     </ul>
                 </li>
                 <li><a href="#">Уведомления</a>
                     <ul>
-                        <li><a href="[@spring.url '/client/notification/list/'/]">Просмотреть уведомления</a></li>
+                        <li><a href="[@spring.url '/client/notification/list?viewed=false'/]">Непросмотренные уведомления</a></li>
+                        <li><a href="[@spring.url '/client/notification/list?viewed=true'/]">Просмотренные уведомления</a></li>
                         [#if notification??]
-                            <li><a href="[@spring.url '/client/notification/${notification.id}/view/'/]">Просмотреть последнее уведомление</a></li>
+                            <li><a href="[@spring.url '/client/notification/${notification.id}/view'/]">Просмотреть последнее уведомление</a></li>
                         [/#if]
                     </ul>
                 </li>
                 <li><a href="">Кредитный калькулятор</a>
                     <ul>
-                        <li><a href="[@spring.url '/client/calculator/'/]">Выбрать ограничения поиска</a></li>
+                        <li><a href="[@spring.url '/client/calculator'/]">Выбрать ограничения поиска</a></li>
                     </ul>
                 </li>
             </ul>

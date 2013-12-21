@@ -11,44 +11,51 @@
             $("#foo").click(function () {
                 history.go(-1);
             });
+            [@creditex.sorting table="creditTable" theme = "default" sortable=false class = "data-table"/]
         });
     </script>
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
-        <div class="form-action">
-            <p class="name">Данные о кредите</p>
-            <form action="" method="post" class="form">
-                <input type="hidden" value="${credit.id}" name="id">
-                <p>
-                    <label for="credit.start">Дата начала кредита</label>
-                    <input type="text" id="credit.start" name="credit.start" value="${credit.creditStart}">
-                </p>
-                <p>
-                    <label for="credit.duration">Длительность кредита</label>
-                    <input type="text" id="credit.duration" name="type" value="${credit.duration}">
-                </p>
-                <p>
-                    <label for="credit.currentMainDebt">Текущий основной долг</label>
-                    <input type="text" id="credit.currentMainDebt" name="credit.currentMainDebt" value="${credit.currentMainDebt}">
-                </p>
-                <p>
-                    <label for="credit.originalMainDebt">Начальный основной долг</label>
-                    <input type="text" id="credit.originalMainDebt" name="credit.originalMainDebt" value="${credit.originalMainDebt}">
-                </p>
-                <p>
-                    <label for="credit.fine">Текущая пеня</label>
-                    <input type="text" id="credit.fine" name="credit.fine" value="${credit.mainFine+credit.percentFine}">
-                </p>
-                <p>
-                    <label for="number_filed">Текущие деньги на счету</label>
-                    <input type="text" id="number_filed" name="minDuration" value="${credit.currentMoney}">
-                </p>
-                <p>
-                    <label for="number_filed">Кредитный продукт</label>
-                    <a href="[@spring.url '/account_manager/product/view/'+'${credit.product.id}'+'/'/]">Перейти к ${credit.product.name}</a>
-                </p>
-            </form>
+        <div class="data-table">
+            <table id="creditTable">
+                <thead>
+                <tr>
+                    <th>Описание поля</th>
+                    <th>Значение</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Дата начала кредита</td>
+                    <td>${credit.creditStart}</td>
+                </tr>
+                <tr>
+                    <td>Длительность кредита</td>
+                    <td>${credit.duration}</td>
+                </tr>
+                <tr>
+                    <td>Текущий основной долг</td>
+                    <td>${credit.currentMainDebt}</td>
+                </tr>
+                <tr>
+                    <td>Начальный основной долг</td>
+                    <td>${credit.originalMainDebt}</td>
+                </tr>
+                <tr>
+                    <td>Текущая пеня</td>
+                    <td>${credit.mainFine+credit.percentFine}</td>
+                </tr>
+                <tr>
+                    <td>Текущие деньги на счету</td>
+                    <td>${credit.currentMoney}</td>
+                </tr>
+                <tr>
+                    <td>Кредитный продукт</td>
+                    <td>${credit.product.name}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
         <div class="data-table">
             <p class="name">Платежи</p>
@@ -83,7 +90,7 @@
         </div>
         <div class="content">
             <ul class="nav-menu">
-                <li><a href="[@spring.url '/bank_client/'/]" id="foo">Вернуться назад</a>
+                <li><a id="foo">Вернуться назад</a>
                 </li>
             </ul>
         </div>

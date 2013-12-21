@@ -5,14 +5,7 @@
 
 [@creditex.root]
     [@creditex.head "Main page"]
-        [@creditex.tableProcess "productTable" "products"/]
-    <script type="text/javascript">
-        $(function(){
-            $("#returnLink").click(function(){
-                history.back();
-            });
-        });
-    </script>
+    [@creditex.tableProcess "productTable" "products"/]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
@@ -33,7 +26,6 @@
                     <th>Процент пени</th>
                     <th>Предварительный возврат</th>
                     <th>Процент штрафа за предварительный возврат</th>
-                    <th>Просмотреть</th>
                 </tr>
                 </thead>
                 <tbody id="products">
@@ -51,7 +43,6 @@
                             <td>${product.debtPercent}</td>
                             <td>${product.prior}</td>
                             <td>${product.priorRepaymentPercent}</td>
-                            <td><a href="[@spring.url '/bank_client/product/${product.id}/view/'/]">Просмотреть</a> </td>
                         </tr>
                         [/#list]
                     [/#if]
@@ -61,7 +52,7 @@
         </div>
         <div class="content">
             <ul class="nav-menu">
-                <li><a href="" id="returnLink">Вернуться назад</a>
+                <li><a href="[@spring.url '/client/calculator'/]">Вернуться назад</a>
                 </li>
             </ul>
         </div>

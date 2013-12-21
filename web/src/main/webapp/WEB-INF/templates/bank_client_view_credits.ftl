@@ -42,8 +42,8 @@
                             <td>${credit.mainFine+credit.percentFine}</td>
                             <td>${credit.currentMoney}</td>
                             <td>${credit.originalMainDebt}</td>
-                            <td><a href="[@spring.url '/bank_client/product/${credit.product.id}/view/'/]">${credit.product.name}</a></td>
-                            <td><a href="[@spring.url '/bank_client/credit/${credit.id}/view/'/]">Просмотреть</a></td>
+                            <td><a href="[@spring.url '/client/product/${credit.product.id}/view/'/]">${credit.product.name}</a></td>
+                            <td><a href="[@spring.url '/client/credit/${credit.id}/view/'/]">Просмотреть</a></td>
                         </tr>
                         [/#list]
                     [/#if]
@@ -52,7 +52,7 @@
         </div>
         <div class="content">
             <ul class="nav-menu">
-                <li><a href="[@spring.url ''/]" id ="returnLink">Вернуться назад</a>
+                <li><a id ="returnLink">Вернуться назад</a>
                 </li>
             </ul>
         </div>
