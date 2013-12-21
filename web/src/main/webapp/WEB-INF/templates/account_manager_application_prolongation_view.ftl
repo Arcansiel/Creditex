@@ -5,13 +5,19 @@
 
 [@creditex.root]
     [@creditex.head "Main page"]
-
+    [@creditex.includeJQuery/]
+    [@creditex.includeTableCloth/]
+    <script type="text/javascript">
+        $(function(){
+            [@creditex.sorting table="prolongationTable" theme = "default" sortable=false class = "data-table"/]
+        });
+    </script>
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
         <div class="data-table">
             <p class="name">Данные по кредиту</p>
-            <table>
+            <table id="prolongationTable">
                 <tr>
                     <th>Параметр</th>
                     <th>Данные </th>

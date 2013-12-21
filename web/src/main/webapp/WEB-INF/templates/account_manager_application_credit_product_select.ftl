@@ -44,7 +44,7 @@
                             <td>${product.debtPercent}</td>
                             <td>${product.prior}</td>
                             <td>${product.priorRepaymentPercent}</td>
-                            <td><a href="[@spring.url '/account/credit?=productId=${product.id}'/]">Оформить заявку</a> </td>
+                            <td><a href="[@spring.url '/account/credit/application?productId=${product.id}'/]">Оформить заявку</a> </td>
                         </tr>
                         [/#list]
                     [/#if]

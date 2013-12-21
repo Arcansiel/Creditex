@@ -32,7 +32,7 @@ public class AccountCreditApplicationController {
     private ProductService productService;
 
     @RequestMapping("")
-    public String CreateApplication(@RequestParam Long productId, ModelMap model){
+    public String CreateApplication(@RequestParam(required = false) Long productId, ModelMap model){
         if (productId==null){
             model.put("products",productService.GetProductsByActive(true));
             return "account_manager_application_credit_product_select";
@@ -66,7 +66,7 @@ public class AccountCreditApplicationController {
 
     @RequestMapping("/{id}/view")
     public String ViewApplication(@PathVariable long id, ModelMap model){
-        model.put("Application", applicationService.GetCreditApplicationById(id));
+        model.put("application", applicationService.GetCreditApplicationById(id));
         return "account_manager_application_credit_view";
     }
 

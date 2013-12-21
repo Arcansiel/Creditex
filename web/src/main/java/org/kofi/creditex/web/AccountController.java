@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.kofi.creditex.model.*;
 import org.kofi.creditex.service.ApplicationService;
 import org.kofi.creditex.service.CreditService;
+import org.kofi.creditex.service.NotificationService;
 import org.kofi.creditex.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,8 @@ public class AccountController {
     private ApplicationService applicationService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private NotificationService notificationService;
 
     @RequestMapping("")
     public String Main(@RequestParam(required = false) Boolean change,HttpSession session, ModelMap model){
@@ -38,10 +41,12 @@ public class AccountController {
         Application creditApplication = applicationService.GetUnprocessedApplicationByUsername(client.getUsername());
         PriorRepaymentApplication priorRepaymentApplication = applicationService.GetUnprocessedPriorRepaymentApplicationByUsername(client.getUsername());
         ProlongationApplication prolongationApplication = applicationService.GetUnprocessedProlongationApplicationByUsername(client.getUsername());
+        Notification notification = notificationService.GetLatestNotViewedNotificationByClientId(client.getId());
         model.put("credit", credit);
         model.put("creditApplication", creditApplication);
         model.put("priorRepaymentApplication", priorRepaymentApplication);
         model.put("prolongationApplication", prolongationApplication);
+        model.put("notification", notification);
         return "account_manager_client";
     }
 

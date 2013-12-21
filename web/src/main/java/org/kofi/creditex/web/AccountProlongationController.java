@@ -21,12 +21,12 @@ public class AccountProlongationController {
     @Autowired
     private ApplicationService applicationService;
 
-    @RequestMapping("/")
+    @RequestMapping("")
     public String CreateApplication(){
         return "account_manager_application_prolongation_edit";
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public String CreateApplicationProcess(Principal principal, HttpSession session, @Valid @ModelAttribute ProlongationApplication form, BindingResult result){
         User client = (User)session.getAttribute("client");
         if (client == null)

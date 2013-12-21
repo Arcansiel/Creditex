@@ -10,7 +10,7 @@
     <script>
         $(function(){
                     $("#creditRegistration").click(function(){
-                        window.open("[@spring.url '/account/credit/application/{id}/register'/]");
+                        window.open("[@spring.url '/account/credit/application/${id}/register'/]");
                         window.location.replace("[@spring.url '/account'/]");
                     });
                 }

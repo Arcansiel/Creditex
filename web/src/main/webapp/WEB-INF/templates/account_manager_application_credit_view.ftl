@@ -5,13 +5,19 @@
 
 [@creditex.root]
     [@creditex.head "Main page"]
-
+    [@creditex.includeJQuery/]
+    [@creditex.includeTableCloth/]
+    <script type="text/javascript">
+        $(function(){
+            [@creditex.sorting table="creditTable" theme = "default" sortable=false class = "data-table"/]
+        });
+    </script>
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
         <div class="data-table">
             <p class="name">Данные по кредиту</p>
-            <table>
+            <table id="creditTable">
                 [#if application??]
                     <tr>
                         <th>Параметр</th>
@@ -72,7 +78,7 @@
         <div class="content">
             <ul class="nav-menu">
                 <li><a href="[@spring.url '/account'/]" id="foo">Вернуться назад</a></li>
-                <li><a href="[@spring.url '/account/credit/application/${application.id}/abort'/]">Отменить заявку</a></li>
+                [#if application??]<li><a href="[@spring.url '/account/credit/application/${application.id}/abort'/]">Отменить заявку</a></li>[/#if]
             </ul>
         </div>
     </div>

@@ -22,12 +22,12 @@ import java.util.List;
 public class AccountPriorController {
     @Autowired
     private ApplicationService applicationService;
-    @RequestMapping("/")
+    @RequestMapping("")
     public String CreateApplication(){
         return "account_manager_application_prior_edit";
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public String CreateApplicationProcess(Principal principal,HttpSession session, @Valid @ModelAttribute PriorRepaymentApplication form, BindingResult result){
         User client = (User)session.getAttribute("client");
         if (client == null)
@@ -70,6 +70,6 @@ public class AccountPriorController {
     @RequestMapping("/{id}/register")
     public String RegisterApplication(@PathVariable long id){
         applicationService.FinalizePriorRepaymentApplication(id);
-        return "redirect:/account_manager/client/";
+        return "redirect:/account";
     }
 }
