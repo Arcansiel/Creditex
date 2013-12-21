@@ -291,6 +291,7 @@ public class SecurityServiceImpl implements SecurityService{
         if(credit == null){ return -2; }//no credit
         User client = credit.getUser();
         if(client == null){ return -3; }//no client
+        if(!credit.isRunning()){ return -4; }//invalid credit state
         if(message == null){ message = ""; }
         Date date = dateProvider.getCurrentSqlDate();
         Notification notification = new Notification();

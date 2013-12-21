@@ -99,6 +99,8 @@ public class SecurityManagerController {
                         model.addAttribute("info","Кредит не найден");
                     }else if(info.equals("-3")){
                         model.addAttribute("info","Клиент не найден");
+                    }else if(info.equals("-4")){
+                        model.addAttribute("info","Нельзя отправлять уведомления по закрытым кредитам");
                     }
                 }
             }
