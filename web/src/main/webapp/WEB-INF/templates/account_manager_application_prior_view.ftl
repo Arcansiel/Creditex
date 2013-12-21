@@ -5,13 +5,19 @@
 
 [@creditex.root]
     [@creditex.head "Main page"]
-
+    [@creditex.includeJQuery/]
+    [@creditex.includeTableCloth/]
+    <script type="text/javascript">
+        $(function(){
+            [@creditex.sorting table="priorTable" theme = "default" sortable=false class = "data-table"/]
+        });
+    </script>
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
         <div class="data-table">
             <p class="name">Данные по кредиту</p>
-            <table>
+            <table id="priorTable">
                 <tr>
                     <th>Параметр</th>
                     <th>Данные</th>
@@ -30,14 +36,14 @@
                 </tr>
                 <tr>
                     <td>Кредит</td>
-                    <td><a href="[@spring.url '/account_manager/client/credit/view/${application.credit.id}/'/]">Просмотреть</a></td>
+                    <td><a href="[@spring.url '/account/credit/${application.credit.id}/view'/]">Просмотреть</a></td>
                 </tr>
             </table>
         </div>
         <div class="content">
             <ul class="nav-menu">
-                <li><a href="[@spring.url '/account_manager/client/'/]" id="foo">Вернуться назад</a></li>
-                <li><a href="[@spring.url '/account_manager/client/prior/abort/${application.id}/'/]">Отменить заявку</a></li>
+                <li><a href="[@spring.url '/account'/]" id="foo">Вернуться назад</a></li>
+                <li><a href="[@spring.url '/account/prior/${application.id}/abort'/]">Отменить заявку</a></li>
             </ul>
         </div>
     </div>

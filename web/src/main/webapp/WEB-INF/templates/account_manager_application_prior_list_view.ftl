@@ -28,7 +28,7 @@
                         <tr>
                             <td>${application.applicationDate}</td>
                             <td>${application.comment}</td>
-                            <td><a href="[@spring.url '/account_manager/client/credit/view/'+'${application.credit.id}'+'/'/]">Посмотреть</a></td>
+                            <td><a href="[@spring.url '/account/credit/${application.credit.id}/view'/]">Посмотреть</a></td>
                             <td>${application.acceptance}</td>
                         </tr>
                         [/#list]
@@ -40,7 +40,7 @@
         </div>
         <div class="content">
             <ul class="nav-menu">
-                <li><a href="[@spring.url '/account_manager/client/'/]">Вырнуться назад</a>
+                <li><a href="[@spring.url '/account'/]">Вырнуться назад</a>
                 </li>
             </ul>
         </div>

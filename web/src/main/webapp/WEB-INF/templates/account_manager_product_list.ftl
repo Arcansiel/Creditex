@@ -6,6 +6,13 @@
 [@creditex.root]
     [@creditex.head "Main page"]
     [@creditex.tableProcess "productTable" "products"/]
+    <script type="text/javascript">
+        $(function(){
+            $("#returnLink").click(function(){
+                history.go(-1);
+            });
+        });
+    </script>
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
@@ -44,7 +51,7 @@
                             <td>${product.debtPercent}</td>
                             <td>${product.prior}</td>
                             <td>${product.priorRepaymentPercent}</td>
-                            <td><a href="[@spring.url '/account_manager/product/view/'+'${product.id}'+'/'/]">Просмотреть</a> </td>
+                            <td><a href="[@spring.url '/account/product/${product.id}/view'/]">Просмотреть</a> </td>
                         </tr>
                         [/#list]
                     [/#if]
@@ -54,7 +61,7 @@
         </div>
         <div class="content">
             <ul class="nav-menu">
-                <li><a href="[@spring.url '/account_manager/client/'/]">Вырнуться назад</a>
+                <li><a id="returnLink">Вернуться назад</a>
                 </li>
             </ul>
         </div>

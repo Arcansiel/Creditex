@@ -10,6 +10,7 @@ public interface CreditService {
     Credit findByUsernameAndRunning(String username, boolean running);
     int ExecuteProlongation(long credit_id, long duration);
     List<Credit> GetCreditsByActive(boolean active);
+    List<Credit> GetCreditsByUserIdAndRunning(long userId, boolean running);
     List<Credit> GetCreditsByUserId(long user_id);
     void PriorRepaymentClose(long creditId);
 }

@@ -44,7 +44,7 @@
                             <td>${product.debtPercent}</td>
                             <td>${product.prior}</td>
                             <td>${product.priorRepaymentPercent}</td>
-                            <td><a href="[@spring.url '/account_manager/client/credit/${product.id}/application/'/]">Оформить заявку</a> </td>
+                            <td><a href="[@spring.url '/account/credit/application?productId=${product.id}'/]">Оформить заявку</a> </td>
                         </tr>
                         [/#list]
                     [/#if]
@@ -54,7 +54,7 @@
         </div>
         <div class="content">
             <ul class="nav-menu">
-                <li><a href="[@spring.url '/account_manager/client/'/]">Вернуться назад</a>
+                <li><a href="[@spring.url '/account'/]">Вернуться назад</a>
                 </li>
             </ul>
         </div>

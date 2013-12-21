@@ -30,7 +30,7 @@
                     [#if applications??]
                         [#list applications as application]
                         <tr>
-                            <td><a href="[@spring.url '/account_manager/product/view/'+'${application.product.id}'+'/'/]">${application.product.name}</a></td>
+                            <td><a href="[@spring.url '/account/product/${application.product.id}/view/'/]">${application.product.name}</a></td>
                             <td>${application.request}</td>
                             <td>${application.applicationDate}</td>
                             <td>${application.duration}</td>
@@ -51,7 +51,7 @@
                             <td>${application.acceptance}</td>
                             <td>${whoRejected}</td>
                             <td>${whyRejected}</td>
-                            <td>[#if application.credit??]<a href="[@spring.url '/account_manager/client/credit/view/'+'${application.credit.id}'+'/'/]">Просомотреть</a>[/#if] </td>
+                            <td>[#if application.credit??]<a href="[@spring.url '/account/credit/${application.credit.id}/view/'/]">Просомотреть</a>[/#if]</td>
                         </tr>
                         [/#list]
                     [/#if]
@@ -60,7 +60,7 @@
         </div>
         <div class="content">
             <ul class="nav-menu">
-                <li><a href="[@spring.url '/account_manager/client/'/]">Вернуться назад</a>
+                <li><a href="[@spring.url '/account'/]">Вернуться назад</a>
                 </li>
             </ul>
         </div>

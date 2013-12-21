@@ -6,7 +6,7 @@
 
 [@creditex.root]
     [@creditex.head "Main page"]
-        [@creditex.tableProcess "notificationTable" "notifications"/]
+        [@creditex.tableProcess "paymentTable" "payments"/]
     <script type="text/javascript">
         $(function(){
             $("#foo").click(function () {
@@ -18,9 +18,9 @@
     [@creditex.body]
     <div class="page">
         <div class="data-table">
-            <p class="name">Уведомления</p>
+            <p class="name">Платежи</p>
             <div class="holder"></div>
-            <table id="notificationTable">
+            <table id="paymentTable">
                 <thead>
                 <tr>
                     <th>Дата нотификации</th>
@@ -30,15 +30,15 @@
                     <th>Кредит</th>
                 </tr>
                 </thead>
-                <tbody id="notifications">
+                <tbody id="payments">
                     [#if notifications??]
                         [#list notifications as notification]
                         <tr>
                             <td>${notification.notificationDate}</td>
                             <td>${notification.type}</td>
                             <td>${notification.viewed?string("Да", "Нет")}</td>
-                            <td><a href="[@spring.url '/client/notification/${notification.id}/view'/]">Перейти</a></td>
-                            <td><a href="[@spring.url '/client/credit/${notification.credit.id}/view'/]">Перейти</a></td>
+                            <td><a href="[@spring.url '/account/notification/${notification.id}/view'/]">Перейти</a></td>
+                            <td><a href="[@spring.url '/account/credit/${notification.credit.id}/view'/]">Перейти</a></td>
                         </tr>
                         [/#list]
                     [/#if]

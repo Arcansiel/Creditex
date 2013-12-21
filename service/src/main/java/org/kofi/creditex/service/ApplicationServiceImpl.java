@@ -3,7 +3,6 @@ package org.kofi.creditex.service;
 import org.joda.time.LocalDate;
 import org.kofi.creditex.model.*;
 import org.kofi.creditex.repository.*;
-import org.kofi.creditex.web.model.CreditApplicationForm;
 
 import org.kofi.creditex.web.model.CreditApplicationRegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -202,5 +201,80 @@ public class ApplicationServiceImpl implements ApplicationService {
         }
         Credit saved = creditRepository.save(credit);
         return saved.getId();
+    }
+
+    @Override
+    public Application GetCreditApplicationById(long id) {
+        return applicationRepository.findOne(id);
+    }
+
+    @Override
+    public long FinalizeCreditApplication(long id) {
+        Application application = applicationRepository.findOne(id);
+        application.setProcessed(true);
+        applicationRepository.save(application);
+        LocalDate date = creditexDateProvider.getCurrentDate();
+        Date end = creditexDateProvider.transformDate(date.plusMonths((int) application.getDuration()));
+        long[] params = new long[3];
+        List<Payment> payments = CreditCalculator.PaymentPlan(application,creditexDateProvider.getCurrentSqlDate(),params);
+        Credit credit = new Credit()
+                .setCreditApplication(application)
+                .setUser(application.getClient())
+                .setRunning(true)
+                .setCreditStart(creditexDateProvider.getCurrentSqlDate())
+                .setCreditEnd(end)
+                .setCurrentMainDebt(application.getRequest())
+                .setCurrentMoney(application.getRequest())
+                .setDuration(application.getDuration())
+                .setOriginalMainDebt(application.getRequest())
+                .setProduct(application.getProduct())
+                .setPayments(payments)
+                .setCurrentPercentDebt(params[1]);
+        for (Payment payment : credit.getPayments()){
+            payment.setCredit(credit);
+        }
+        Credit saved = creditRepository.save(credit);
+        return saved.getId();
+    }
+
+    @Override
+    public ProlongationApplication GetProlongationApplicationById(long id) {
+        return prolongationApplicationRepository.findOne(id);
+    }
+
+    @Override
+    public List<ProlongationApplication> GetProlongationApplicationsByClientIdAndProcessed(long clientId, boolean processed) {
+        return prolongationApplicationRepository.findByClientIdAndProcessed(clientId, processed);
+    }
+
+    @Override
+    public void FinalizeProlongationApplication(long id) {
+        ProlongationApplication application = prolongationApplicationRepository.findOne(id);
+        application.setProcessed(true);
+        prolongationApplicationRepository.save(application);
+        creditService.ExecuteProlongation(application.getCredit().getId(), application.getDuration());
+    }
+
+    @Override
+    public PriorRepaymentApplication GetPriorRepaymentApplicationById(long id) {
+        return priorRepaymentApplicationRepository.findOne(id);
+    }
+
+    @Override
+    public void FinalizePriorRepaymentApplication(long id) {
+        PriorRepaymentApplication application = priorRepaymentApplicationRepository.findOne(id);
+        application.setProcessed(true);
+        priorRepaymentApplicationRepository.save(application);
+        creditService.PriorRepaymentClose(application.getCredit().getId());
+    }
+
+    @Override
+    public List<PriorRepaymentApplication> GetPriorRepaymentApplicationByClientIdAndProcessed(long clientId, boolean processed) {
+        return priorRepaymentApplicationRepository.findByClientIdAndProcessed(clientId, processed);
+    }
+
+    @Override
+    public List<Application> GetApplicationsByClientIdAndProcessed(long id, boolean processed) {
+        return applicationRepository.findByClientIdAndProcessed(id, processed);
     }
 }

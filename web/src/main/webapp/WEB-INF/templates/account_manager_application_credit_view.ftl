@@ -5,13 +5,19 @@
 
 [@creditex.root]
     [@creditex.head "Main page"]
-
+    [@creditex.includeJQuery/]
+    [@creditex.includeTableCloth/]
+    <script type="text/javascript">
+        $(function(){
+            [@creditex.sorting table="creditTable" theme = "default" sortable=false class = "data-table"/]
+        });
+    </script>
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
         <div class="data-table">
             <p class="name">Данные по кредиту</p>
-            <table>
+            <table id="creditTable">
                 [#if application??]
                     <tr>
                         <th>Параметр</th>
@@ -31,7 +37,7 @@
                     </tr>
                     <tr>
                         <td>Кредитный продукт</td>
-                        <td><a href="[@spring.url '/account_manager/product/view/${application.product.id}/'/]">${application.product.name}</a></td>
+                        <td><a href="[@spring.url '/account/product/${application.product.id}/view'/]">${application.product.name}</a></td>
                     </tr>
                     <tr>
                         <td>Принята ли заявка</td>
@@ -63,7 +69,7 @@
                     [#if application.acceptance.name()="Accepted"]
                         <tr>
                             <td>Кредит</td>
-                            <td><a href="[@spring.url '/account_manager/client/credit/view/${application.credit.id}/'/]">Просмотреть</a></td>
+                            <td><a href="[@spring.url '/account/credit/${application.credit.id}/view'/]">Просмотреть</a></td>
                         </tr>
                     [/#if]
                 [/#if]
@@ -71,8 +77,8 @@
         </div>
         <div class="content">
             <ul class="nav-menu">
-                <li><a href="[@spring.url '/account_manager/client/'/]" id="foo">Вернуться назад</a></li>
-                <li><a href="[@spring.url '/account_manager/client/credit/application/abort/${application.id}/'/]">Отменить заявку</a></li>
+                <li><a href="[@spring.url '/account'/]" id="foo">Вернуться назад</a></li>
+                [#if application??]<li><a href="[@spring.url '/account/credit/application/${application.id}/abort'/]">Отменить заявку</a></li>[/#if]
             </ul>
         </div>
     </div>

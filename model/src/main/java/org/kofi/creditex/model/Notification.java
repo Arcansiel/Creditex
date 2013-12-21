@@ -40,7 +40,6 @@ public class Notification {
     /**
      * Дата создания уведомления
      */
-    @Column(nullable = false)
     private Date notificationDate;
     /**
      * Ссылка на клиента-получателя

@@ -6,8 +6,8 @@
 
 [@creditex.root]
     [@creditex.head "Main page"]
-        [@creditex.includeJQuery/]
-        [@creditex.includeTableCloth/]
+    [@creditex.includeJQuery/]
+    [@creditex.includeTableCloth/]
     <script type="text/javascript">
         $(function(){
             $("#foo").click(function(){
@@ -47,7 +47,7 @@
                 </tr>
                 <tr>
                     <td>Кредит</td>
-                    <td><a href="[@spring.url '/client/credit/${notification.credit.id}/view'/]">Перейти</a></td>
+                    <td><a href="[@spring.url '/account/credit/${notification.credit.id}/view'/]">Перейти</a></td>
                 </tr>
                 </tbody>
             </table>

@@ -32,7 +32,7 @@ public class MainController {
             if (authority.equals("ROLE_CLIENT"))
                 return "redirect:/client/";
             if (authority.equals("ROLE_ACCOUNT_MANAGER"))
-                return "redirect:/account_manager/";
+                return "redirect:/account/";
             if (authority.equals("ROLE_SECURITY_MANAGER"))
                 return "redirect:/security_manager/";
             if (authority.equals("ROLE_COMMITTEE_MANAGER"))
