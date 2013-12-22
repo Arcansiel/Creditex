@@ -48,6 +48,9 @@ public class CommitteeManagerController {
                 }
             }else if(error.equals("invalid_input_data")){
                 model.addAttribute("error","Введены некорректные данные");
+                if(info != null){
+                    model.addAttribute("info","Введены некорректные данные в поле "+info);
+                }
             }else if(error.equals("vote_failed")){
                 model.addAttribute("error","Ошибка голосования по заявке");
                 if(info != null){
@@ -118,7 +121,7 @@ public class CommitteeManagerController {
                              ,@Valid @ModelAttribute ConfirmationForm form, BindingResult bindingResult
     ){
         if(bindingResult.hasErrors()){
-            return "redirect:/committee_manager/?error=invalid_input_data";
+            return "redirect:/committee_manager/?error=invalid_input_data&info="+bindingResult.getFieldError().getField();
         }
         int err;
         if((err = committeeService.Vote(principal.getName(),id,form.isAcceptance(),form.getComment())) != 0){

@@ -77,6 +77,9 @@ public class SecurityManagerController {
                 }
             }else if(error.equals("invalid_input_data")){
                 model.addAttribute("error","Введены некорректные данные");
+                if(info != null){
+                    model.addAttribute("info","Введены некорректные данные в поле "+info);
+                }
             }else if(error.equals("confirmation_failed")){
                 model.addAttribute("error","Ошибка принятия решения по заявке");
                 if(info != null){
@@ -289,7 +292,7 @@ public class SecurityManagerController {
                             ,@Valid @ModelAttribute ConfirmationForm form, BindingResult bindingResult
     ){
         if(bindingResult.hasErrors()){
-            return "redirect:/security_manager/?error=invalid_input_data";
+            return "redirect:/security_manager/?error=invalid_input_data&info="+bindingResult.getFieldError().getField();
         }
         int err;
         if((err = securityService.ConfirmApplication(principal.getName(),id,form.isAcceptance(),form.getComment())) == 0){
@@ -318,7 +321,7 @@ public class SecurityManagerController {
     public String Security82(@Valid @ModelAttribute UserData form, BindingResult bindingResult
     ){
         if(bindingResult.hasErrors()){
-            return "redirect:/security_manager/client/search/?error=invalid_input_data";
+            return "redirect:/security_manager/client/search/?error=invalid_input_data&info="+bindingResult.getFieldError().getField();
         }
         User client = userService.GetUserByUserDataValues(form);
         if(client != null){
@@ -358,7 +361,7 @@ public class SecurityManagerController {
             ,@Valid @ModelAttribute Notification notification, BindingResult bindingResult
     ){
         if(bindingResult.hasErrors()){
-            return "redirect:/security_manager/?error=invalid_input_data";
+            return "redirect:/security_manager/?error=invalid_input_data&info="+bindingResult.getFieldError().getField();
         }
         int err = securityService.SendNotification(principal.getName(),id,
                 notification.getType(),notification.getMessage());
