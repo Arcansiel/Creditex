@@ -18,21 +18,8 @@
             <p class="name"><a href="[@spring.url '/committee_manager/client/${client.id?string("0")}/credits/expired/'/]">Просроченные кредиты клиента</a></p>
             <p class="name"><a href="[@spring.url '/committee_manager/client/${client.id?string("0")}/prolongations/'/]">Заявки на пролонгацию</a></p>
             <p class="name"><a href="[@spring.url '/committee_manager/client/${client.id?string("0")}/priors/'/]">Заявки на досрочное погашение</a></p>
+            <p class="name"><a href="[@spring.url '/committee_manager/client/${client.id?string("0")}/statistics/'/]">Статистика по клиенту</a></p>
 
-            [/#if]
-
-            [#if payments_count?? && expired_payments_count??]
-                <p class="name">Просроченные платежи клиента</p>
-                <table>
-                    <tr>
-                        <th class="amount">Количество просроченных платежей</th>
-                        <th class="amount">Общее количество платежей</th>
-                    </tr>
-                    <tr>
-                        <td class="amount">${expired_payments_count}</td>
-                        <td class="amount">${payments_count}</td>
-                    </tr>
-                </table>
             [/#if]
 
         </div>

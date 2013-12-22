@@ -328,12 +328,6 @@ public class DepartmentHeadController {
             return "redirect:/department_head/?error=no_client&info="+id;
         }
         model.addAttribute("client",client);
-        long client_id = client.getId();
-        long payments_count = securityService.GetClientPaymentsCount(client_id);
-        long expired_payments_count = securityService.GetClientExpiredPaymentsCount(client_id);
-        model.addAttribute("payments_count", payments_count);
-        model.addAttribute("expired_payments_count", expired_payments_count);
-
         return "department_head_client_view";
     }
 
@@ -394,6 +388,22 @@ public class DepartmentHeadController {
         return "department_head_client_priors_list";
     }
 
+    @RequestMapping(value = "/department_head/client/{id}/statistics/", method = RequestMethod.GET)
+    public String ClientStatistics(Model model
+            ,@PathVariable("id")long id
+    ){
+        User client = userService.GetUserById(id);
+        if(client == null){
+            return "redirect:/department_head/?error=no_client&info="+id;
+        }
+        model.addAttribute("client",client);
+        model.addAttribute("credits",statisticsService.GetClientCreditsStatistics(id));
+        model.addAttribute("applications",statisticsService.GetClientApplicationsStatistics(id));
+        model.addAttribute("priors",statisticsService.GetClientPriorsStatistics(id));
+        model.addAttribute("prolongations",statisticsService.GetClientProlongationsStatistics(id));
+        model.addAttribute("payments",statisticsService.GetClientPaymentsStatistics(id));
+        return "department_head_statistics_client";
+    }
 
     @RequestMapping(value = {"/department_head/client/search/"}, method = RequestMethod.GET)
     public String Security81(Model model
