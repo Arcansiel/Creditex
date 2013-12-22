@@ -212,18 +212,21 @@ submit_label = "Подтвердить"
                 {
                     rules:{
                         first: {
-                            required: true
+                            required: true,
+                            maxlength: 48
                         },
                         last: {
-                            required: true
+                            required: true,
+                            maxlength: 48
                         },
                         patronymic:{
-                            required: true
+                            required: true,
+                            maxlength: 48
                         },
                         passportSeries:{
                             required: true,
-                            minlength:2,
-                            maxlength:2
+                            minlength: 2,
+                            maxlength: 2
                         },
                         passportNumber:{
                             required: true,

@@ -16,8 +16,6 @@ public interface SecurityService {
     Application GetApplication(long id);
     Credit GetCurrentClientCredit(long client_id);
     List<Credit> GetClientExpiredCredits(long client_id);
-    long GetClientPaymentsCount(long client_id);
-    long GetClientExpiredPaymentsCount(long client_id);
     List<Credit> GetClientUnreturnedCredits(long client_id);
     List<PriorRepaymentApplication> GetClientPriorRepaymentApplications(long client_id);
     List<ProlongationApplication> GetClientProlongationApplications(long client_id);

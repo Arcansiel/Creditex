@@ -45,6 +45,9 @@ public class OperationManagerController {
         if(error != null){
             if(error.equals("invalid_input_data")){
                 model.addAttribute("error","Введены некорректные данные");
+                if(info != null){
+                    model.addAttribute("info","Введены некорректные данные в поле "+info);
+                }
             }else if(error.equals("no_client")){
                 model.addAttribute("error","Клиент не найден в системе");
             }else if(error.equals("credit_not_selected")){
@@ -95,7 +98,7 @@ public class OperationManagerController {
             ){
         setCredit(session,null);
         if(bindingResult.hasErrors()){
-            return "redirect:/operation_manager/?error=invalid_input_data";
+            return "redirect:/operation_manager/?error=invalid_input_data&info="+bindingResult.getFieldError().getField();
         }
         User client = userService.GetUserByUserDataValues(form);
         if(client == null){
@@ -193,7 +196,7 @@ public class OperationManagerController {
             ,@Valid @ModelAttribute Operation form, BindingResult bindingResult
     ){
         if(bindingResult.hasErrors()){
-            return "redirect:/operation_manager/operation/?error=invalid_input_data#error_info";
+            return "redirect:/operation_manager/operation/?error=invalid_input_data&info="+bindingResult.getFieldError().getField()+"#error_info";
         }
         //get credit from session
         Long credit_id;

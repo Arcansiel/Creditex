@@ -60,6 +60,9 @@ public class DepartmentHeadController {
                 }
             }else if(error.equals("invalid_input_data")){
                 model.addAttribute("error","Введены некорректные данные");
+                if(info != null){
+                    model.addAttribute("info","Введены некорректные данные в поле "+info);
+                }
             }else if(error.equals("head_acceptance_failed")){
                 model.addAttribute("error","Ошибка принятия решения по заявке на кредит");
                 if(info != null){
@@ -102,7 +105,7 @@ public class DepartmentHeadController {
                         model.addAttribute("info","Неверные значени для границ срока кредитования (или меньше нуля, или минимальное больше максимального)");
                     }else if(info.equals("-4")){
                         model.addAttribute("info","Неверное значение процентных полей кредита (меньше нуля)");
-                    }else if(info.equals("-4")){
+                    }else if(info.equals("-5")){
                         model.addAttribute("info","Кредитный продукт с таким именем уже существует");
                     }
                 }
@@ -183,7 +186,7 @@ public class DepartmentHeadController {
                                   @Valid @ModelAttribute ConfirmationForm form, BindingResult bindingResult
     ){
         if(bindingResult.hasErrors()){
-            return "redirect:/department_head/?error=invalid_input_data";
+            return "redirect:/department_head/?error=invalid_input_data&info="+bindingResult.getFieldError().getField();
         }
         int err;
         if((err = departmentHeadService.SetApplicationHeadApproved(id,principal.getName(),form.isAcceptance(),form.getComment())) != 0){
@@ -228,7 +231,7 @@ public class DepartmentHeadController {
     public String DepartmentHead41(
                                   @Valid @ModelAttribute Product productForm, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return "redirect:/department_head/?error=invalid_input_data";
+            return "redirect:/department_head/?error=invalid_input_data&info="+bindingResult.getFieldError().getField();
         }
         int err;
         if((err = productService.CreateProductByForm(productForm)) == 0){
@@ -278,7 +281,7 @@ public class DepartmentHeadController {
                                   ,@Valid @ModelAttribute ConfirmationForm form, BindingResult bindingResult
     ){
         if(bindingResult.hasErrors()){
-            return "redirect:/department_head/?error=invalid_input_data";
+            return "redirect:/department_head/?error=invalid_input_data&info="+bindingResult.getFieldError().getField();
         }
         int err;
         if((err = departmentHeadService.SetProlongationApproved(id,form.isAcceptance())) != 0){
@@ -325,12 +328,6 @@ public class DepartmentHeadController {
             return "redirect:/department_head/?error=no_client&info="+id;
         }
         model.addAttribute("client",client);
-        long client_id = client.getId();
-        long payments_count = securityService.GetClientPaymentsCount(client_id);
-        long expired_payments_count = securityService.GetClientExpiredPaymentsCount(client_id);
-        model.addAttribute("payments_count", payments_count);
-        model.addAttribute("expired_payments_count", expired_payments_count);
-
         return "department_head_client_view";
     }
 
@@ -391,6 +388,22 @@ public class DepartmentHeadController {
         return "department_head_client_priors_list";
     }
 
+    @RequestMapping(value = "/department_head/client/{id}/statistics/", method = RequestMethod.GET)
+    public String ClientStatistics(Model model
+            ,@PathVariable("id")long id
+    ){
+        User client = userService.GetUserById(id);
+        if(client == null){
+            return "redirect:/department_head/?error=no_client&info="+id;
+        }
+        model.addAttribute("client",client);
+        model.addAttribute("credits",statisticsService.GetClientCreditsStatistics(id));
+        model.addAttribute("applications",statisticsService.GetClientApplicationsStatistics(id));
+        model.addAttribute("priors",statisticsService.GetClientPriorsStatistics(id));
+        model.addAttribute("prolongations",statisticsService.GetClientProlongationsStatistics(id));
+        model.addAttribute("payments",statisticsService.GetClientPaymentsStatistics(id));
+        return "department_head_statistics_client";
+    }
 
     @RequestMapping(value = {"/department_head/client/search/"}, method = RequestMethod.GET)
     public String Security81(Model model
@@ -405,7 +418,7 @@ public class DepartmentHeadController {
     public String Security82(@Valid @ModelAttribute UserData form, BindingResult bindingResult
     ){
         if(bindingResult.hasErrors()){
-            return "redirect:/department_head/client/search/?error=invalid_input_data";
+            return "redirect:/department_head/client/search/?error=invalid_input_data&info="+bindingResult.getFieldError().getField();
         }
         User client = userService.GetUserByUserDataValues(form);
         if(client != null){
@@ -439,7 +452,7 @@ public class DepartmentHeadController {
             ,@Valid @ModelAttribute ConfirmationForm form, BindingResult bindingResult
     ){
         if(bindingResult.hasErrors()){
-            return "redirect:/department_head/?error=invalid_input_data";
+            return "redirect:/department_head/?error=invalid_input_data&info="+bindingResult.getFieldError().getField();
         }
         int err;
         if((err = departmentHeadService.SetPriorApproved(id,form.isAcceptance())) != 0){

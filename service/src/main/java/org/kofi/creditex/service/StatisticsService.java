@@ -12,4 +12,9 @@ public interface StatisticsService {
     Map<String,Object> GetPriorsStatistics();
     Map<String,Object> GetProlongationsStatistics();
     Map<String,Object> GetPaymentsStatistics();
+    Map<String,Object> GetClientCreditsStatistics(long client_id);
+    Map<String,Object> GetClientApplicationsStatistics(long client_id);
+    Map<String,Object> GetClientPriorsStatistics(long client_id);
+    Map<String,Object> GetClientProlongationsStatistics(long client_id);
+    Map<String,Object> GetClientPaymentsStatistics(long client_id);
 }

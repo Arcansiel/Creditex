@@ -2,10 +2,7 @@ package org.kofi.creditex.web;
 
 
 import org.kofi.creditex.model.*;
-import org.kofi.creditex.service.CommitteeService;
-import org.kofi.creditex.service.CreditService;
-import org.kofi.creditex.service.SecurityService;
-import org.kofi.creditex.service.UserService;
+import org.kofi.creditex.service.*;
 import org.kofi.creditex.web.model.ConfirmationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -34,6 +31,9 @@ public class CommitteeManagerController {
     @Autowired
     CreditService creditService;
 
+    @Autowired
+    StatisticsService statisticsService;
+
     private void AddInfoToModel(Model model, String error, String info){
         if(error != null){
             if(error.equals("no_application")){
@@ -48,6 +48,9 @@ public class CommitteeManagerController {
                 }
             }else if(error.equals("invalid_input_data")){
                 model.addAttribute("error","Введены некорректные данные");
+                if(info != null){
+                    model.addAttribute("info","Введены некорректные данные в поле "+info);
+                }
             }else if(error.equals("vote_failed")){
                 model.addAttribute("error","Ошибка голосования по заявке");
                 if(info != null){
@@ -118,7 +121,7 @@ public class CommitteeManagerController {
                              ,@Valid @ModelAttribute ConfirmationForm form, BindingResult bindingResult
     ){
         if(bindingResult.hasErrors()){
-            return "redirect:/committee_manager/?error=invalid_input_data";
+            return "redirect:/committee_manager/?error=invalid_input_data&info="+bindingResult.getFieldError().getField();
         }
         int err;
         if((err = committeeService.Vote(principal.getName(),id,form.isAcceptance(),form.getComment())) != 0){
@@ -138,13 +141,24 @@ public class CommitteeManagerController {
             return "redirect:/committee_manager/?error=no_client&info="+id;
         }
         model.addAttribute("client",client);
-        long client_id = client.getId();
-        long payments_count = securityService.GetClientPaymentsCount(client_id);
-        long expired_payments_count = securityService.GetClientExpiredPaymentsCount(client_id);
-        model.addAttribute("payments_count", payments_count);
-        model.addAttribute("expired_payments_count", expired_payments_count);
-
         return "committee_manager_client_view";
+    }
+
+    @RequestMapping(value = "/committee_manager/client/{id}/statistics/", method = RequestMethod.GET)
+    public String ClientStatistics(Model model
+            ,@PathVariable("id")long id
+    ){
+        User client = userService.GetUserById(id);
+        if(client == null){
+            return "redirect:/security_manager/?error=no_client&info="+id;
+        }
+        model.addAttribute("client",client);
+        model.addAttribute("credits",statisticsService.GetClientCreditsStatistics(id));
+        model.addAttribute("applications",statisticsService.GetClientApplicationsStatistics(id));
+        model.addAttribute("priors",statisticsService.GetClientPriorsStatistics(id));
+        model.addAttribute("prolongations",statisticsService.GetClientProlongationsStatistics(id));
+        model.addAttribute("payments",statisticsService.GetClientPaymentsStatistics(id));
+        return "committee_manager_statistics_client";
     }
 
     @RequestMapping(value = "/committee_manager/client/{id}/credits/all/", method = RequestMethod.GET)

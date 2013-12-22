@@ -57,13 +57,10 @@ public class SecurityServiceImpl implements SecurityService{
     }
 
     private Application GetSecurityAssignedApplication(long security_id) {
-        for(Application application:applicationRepository.findAll(
+        return applicationRepository.findOne(
                 QApplication.application.securityAcceptance.eq(Acceptance.InProcess)
                         .and(QApplication.application.security.id.eq(security_id))
-        )){
-            return application;
-        }
-        return null;
+        );
     }
 
     @Override
@@ -99,13 +96,10 @@ public class SecurityServiceImpl implements SecurityService{
 
     @Override
     public Application GetSecurityAssignedApplication(String security_name) {
-        for(Application application:applicationRepository.findAll(
+        return applicationRepository.findOne(
                 QApplication.application.securityAcceptance.eq(Acceptance.InProcess)
                 .and(QApplication.application.security.username.eq(security_name))
-        )){
-            return application;
-        }
-        return null;
+        );
     }
 
     @Override
@@ -136,7 +130,6 @@ public class SecurityServiceImpl implements SecurityService{
     @Override
     //текущие кредиты с просроченными платежами
     public List<Credit> GetExpiredCredits() {
-        List<Credit> list = new ArrayList<Credit>();
         Ordering<Credit> ordering = Ordering.natural().nullsFirst().onResultOf(new Function<Credit, Date>() {
             public Date apply(Credit credit) {
                 return credit.getLastNotificationDate();
@@ -205,12 +198,9 @@ public class SecurityServiceImpl implements SecurityService{
 
     @Override
     public Credit GetCurrentClientCredit(long client_id) {
-        for(Credit credit:creditRepository.findAll(
+        return creditRepository.findOne(
                 QCredit.credit.user.id.eq(client_id).and(QCredit.credit.running.isTrue())
-        )){
-            return credit;
-        }
-        return null;
+        );
     }
 
     @Override
@@ -225,22 +215,6 @@ public class SecurityServiceImpl implements SecurityService{
             list.add(c);
         }
         return list;
-    }
-
-    @Override
-    public long GetClientPaymentsCount(long client_id) {
-        return paymentRepository.count(
-                QPayment.payment.credit.user.id.eq(client_id)
-                .and(QPayment.payment.paymentClosed.isTrue())
-        );
-    }
-
-    @Override
-    public long GetClientExpiredPaymentsCount(long client_id) {
-        return paymentRepository.count(
-                QPayment.payment.credit.user.id.eq(client_id)
-                        .and(QPayment.payment.paymentExpired.isTrue())
-        );
     }
 
     @Override

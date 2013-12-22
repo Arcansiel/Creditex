@@ -5,6 +5,7 @@ package org.kofi.creditex.web;
 import org.kofi.creditex.model.*;
 import org.kofi.creditex.service.CreditService;
 import org.kofi.creditex.service.SecurityService;
+import org.kofi.creditex.service.StatisticsService;
 import org.kofi.creditex.service.UserService;
 import org.kofi.creditex.web.model.ConfirmationForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class SecurityManagerController {
 
     @Autowired
     CreditService creditService;
+
+    @Autowired
+    StatisticsService statisticsService;
 
     private void AddInfoToModel(Model model, String error, String info){
         if(error != null){
@@ -77,6 +81,9 @@ public class SecurityManagerController {
                 }
             }else if(error.equals("invalid_input_data")){
                 model.addAttribute("error","Введены некорректные данные");
+                if(info != null){
+                    model.addAttribute("info","Введены некорректные данные в поле "+info);
+                }
             }else if(error.equals("confirmation_failed")){
                 model.addAttribute("error","Ошибка принятия решения по заявке");
                 if(info != null){
@@ -204,10 +211,6 @@ public class SecurityManagerController {
         if(credit != null){
             model.addAttribute("credit",credit);
         }
-        long payments_count = securityService.GetClientPaymentsCount(client_id);
-        long expired_payments_count = securityService.GetClientExpiredPaymentsCount(client_id);
-        model.addAttribute("payments_count", payments_count);
-        model.addAttribute("expired_payments_count", expired_payments_count);
         List<Credit> unreturned = securityService.GetClientUnreturnedCredits(client_id);
         model.addAttribute("unreturned",unreturned);
 
@@ -225,6 +228,23 @@ public class SecurityManagerController {
         model.addAttribute("client",client);
 
         return "security_manager_client_check_outer";
+    }
+
+    @RequestMapping(value = "/security_manager/client/{id}/statistics/", method = RequestMethod.GET)
+    public String ClientStatistics(Model model
+            ,@PathVariable("id")long id
+    ){
+        User client = userService.GetUserById(id);
+        if(client == null){
+            return "redirect:/security_manager/?error=no_client&info="+id;
+        }
+        model.addAttribute("client",client);
+        model.addAttribute("credits",statisticsService.GetClientCreditsStatistics(id));
+        model.addAttribute("applications",statisticsService.GetClientApplicationsStatistics(id));
+        model.addAttribute("priors",statisticsService.GetClientPriorsStatistics(id));
+        model.addAttribute("prolongations",statisticsService.GetClientProlongationsStatistics(id));
+        model.addAttribute("payments",statisticsService.GetClientPaymentsStatistics(id));
+        return "security_manager_statistics_client";
     }
 
     @RequestMapping(value = "/security_manager/client/{id}/credits/all/", method = RequestMethod.GET)
@@ -289,7 +309,7 @@ public class SecurityManagerController {
                             ,@Valid @ModelAttribute ConfirmationForm form, BindingResult bindingResult
     ){
         if(bindingResult.hasErrors()){
-            return "redirect:/security_manager/?error=invalid_input_data";
+            return "redirect:/security_manager/?error=invalid_input_data&info="+bindingResult.getFieldError().getField();
         }
         int err;
         if((err = securityService.ConfirmApplication(principal.getName(),id,form.isAcceptance(),form.getComment())) == 0){
@@ -318,7 +338,7 @@ public class SecurityManagerController {
     public String Security82(@Valid @ModelAttribute UserData form, BindingResult bindingResult
     ){
         if(bindingResult.hasErrors()){
-            return "redirect:/security_manager/client/search/?error=invalid_input_data";
+            return "redirect:/security_manager/client/search/?error=invalid_input_data&info="+bindingResult.getFieldError().getField();
         }
         User client = userService.GetUserByUserDataValues(form);
         if(client != null){
@@ -358,7 +378,7 @@ public class SecurityManagerController {
             ,@Valid @ModelAttribute Notification notification, BindingResult bindingResult
     ){
         if(bindingResult.hasErrors()){
-            return "redirect:/security_manager/?error=invalid_input_data";
+            return "redirect:/security_manager/?error=invalid_input_data&info="+bindingResult.getFieldError().getField();
         }
         int err = securityService.SendNotification(principal.getName(),id,
                 notification.getType(),notification.getMessage());
