@@ -33,6 +33,9 @@ public class DepartmentHeadController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    StatisticsService statisticsService;
+
     private void AddInfoToModel(Model model, String error, String info){
         if(error != null){
             if(error.equals("no_application")){
@@ -175,7 +178,7 @@ public class DepartmentHeadController {
     }
 
     @RequestMapping(value = "/department_head/appliance/{id}/set_head_approved/", method = RequestMethod.POST)
-    public String DepartmentHeadA(Model model, Principal principal,
+    public String DepartmentHeadA(Principal principal,
                                   @PathVariable("id")long id,
                                   @Valid @ModelAttribute ConfirmationForm form, BindingResult bindingResult
     ){
@@ -203,6 +206,17 @@ public class DepartmentHeadController {
     public String DepartmentHead32(Model model){
         model.addAttribute("products",productService.GetProductsByActive(false));
         return "department_head_product_list_deactivated";
+    }
+
+
+    @RequestMapping(value = "/department_head/statistics/products/", method = RequestMethod.GET)
+    public String DepartmentHead33(Model model){
+        long[] out = new long[3];
+        model.addAttribute("statistics",statisticsService.GetAllProductsStatistics(out));
+        model.addAttribute("countAll",out[0]);
+        model.addAttribute("countActive",out[1]);
+        model.addAttribute("countInActive",out[2]);
+        return "department_head_statistics_products";
     }
 
     @RequestMapping(value = "/department_head/product/create/", method = RequestMethod.GET)
@@ -259,7 +273,7 @@ public class DepartmentHeadController {
     }
 
     @RequestMapping(value = "/department_head/prolongation/{id}/set_head_approved/", method = RequestMethod.POST)
-    public String DepartmentHeadProlongationApprove(Model model,
+    public String DepartmentHeadProlongationApprove(
                                   @PathVariable("id")long id
                                   ,@Valid @ModelAttribute ConfirmationForm form, BindingResult bindingResult
     ){
@@ -280,6 +294,7 @@ public class DepartmentHeadController {
 
     @RequestMapping(value = "/department_head/report/", method = RequestMethod.GET)
     public String DepartmentHead11(Model model){
+        //TODO report controller implementation
         return "department_head_report";
     }
 
@@ -419,8 +434,8 @@ public class DepartmentHeadController {
     }
 
     @RequestMapping(value = "/department_head/prior/{id}/set_head_approved/", method = RequestMethod.POST)
-    public String DepartmentHeadPriorApprove(Model model,
-                                                    @PathVariable("id")long id
+    public String DepartmentHeadPriorApprove(
+            @PathVariable("id")long id
             ,@Valid @ModelAttribute ConfirmationForm form, BindingResult bindingResult
     ){
         if(bindingResult.hasErrors()){
@@ -435,5 +450,16 @@ public class DepartmentHeadController {
         }else{
             return "redirect:/department_head/?info=prior_repayment_application_rejected";
         }
+    }
+
+    @RequestMapping(value = "/department_head/statistics/", method = RequestMethod.GET)
+    public String DepartmentHeadStatistics(Model model){
+        model.addAttribute("credits",statisticsService.GetCreditsStatistics());
+        model.addAttribute("clients",statisticsService.GetClientsStatistics());
+        model.addAttribute("applications",statisticsService.GetApplicationsStatistics());
+        model.addAttribute("priors",statisticsService.GetPriorsStatistics());
+        model.addAttribute("prolongations",statisticsService.GetProlongationsStatistics());
+        model.addAttribute("payments",statisticsService.GetPaymentsStatistics());
+        return "department_head_statistics";
     }
 }
