@@ -17,6 +17,7 @@ import java.security.Principal;
 
 @Controller
 @Secured("ROLE_CLIENT")
+@RequestMapping("/client")
 public class ClientController {
     @Autowired
     private NotificationService notificationService;
@@ -25,7 +26,7 @@ public class ClientController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/client/")
+    @RequestMapping("")
     public String MainClientController(Principal principal, ModelMap model){
         User client = userService.GetUserByUsername(principal.getName());
         Credit credit = creditService.findByUsernameAndRunning(principal.getName(), true);

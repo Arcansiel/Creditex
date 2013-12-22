@@ -5,17 +5,11 @@
 
 [@creditex.root]
     [@creditex.head "Main page"]
-        [@creditex.tableProcess "creditTable" "credits"/]
-    <script type="text/javascript">
-        $(function(){
-            $("#returnLink").click(function(){
-                history.back();
-            });
-        });
-    </script>
+    [@creditex.tableProcess "creditTable" "credits"/]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.bank_client/]
         <div class="data-table">
             <p class="name">Список кредитов</p>
             <div class="holder"></div>
@@ -50,12 +44,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="content">
-            <ul class="nav-menu">
-                <li><a id ="returnLink">Вернуться назад</a>
-                </li>
-            </ul>
-        </div>
+        [@creditex.returnButton/]
     </div>
     [/@creditex.body]
 [/@creditex.root]

@@ -122,6 +122,14 @@ $("#${table}").tablecloth(
 </div>
 [/#macro]
 
+[#macro bank_client]
+<div class="title">
+    <p class="icon"><img src="[@spring.url '/img/client-bank-logo.jpg'/]" /></p>
+    <p class="name">Клиент банка</p>
+</div>
+
+[/#macro]
+
 [#macro returnButton]
 <div class="content">
     <ul class="nav-menu"><li><a onclick="history.go(-1)">Вернуться назад</a></li>

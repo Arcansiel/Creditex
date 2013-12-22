@@ -10,7 +10,7 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
-        [@creditex.account_manager/]
+        [@creditex.bank_client/]
         <div class="content">
 
             <ul class="nav-menu">
@@ -19,7 +19,7 @@
                     <ul>
                         <li><a href="[@spring.url '/client/credit/list?running=false'/]">Предыдущие кредиты клиента</a></li>
                         [#if credit??]
-                            <li><a href="[@spring.url '/client/credit/${credit.id}/view'/]">Терущий кредит клиента</a></li>
+                            <li><a href="[@spring.url '/client/credit/${credit.id}/view'/]">Текущий кредит клиента</a></li>
                         [/#if]
                     </ul>
                 </li>

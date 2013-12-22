@@ -8,15 +8,13 @@
         [@creditex.tableProcess "paymentTable" "payments"/]
     <script type="text/javascript">
         $(function(){
-            $("#foo").click(function () {
-                history.go(-1);
-            });
             [@creditex.sorting table="creditTable" theme = "default" sortable=false class = "data-table"/]
         });
     </script>
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.bank_client/]
         <div class="data-table">
             <table id="creditTable">
                 <thead>
@@ -88,12 +86,7 @@
 
             </table>
         </div>
-        <div class="content">
-            <ul class="nav-menu">
-                <li><a id="foo">Вернуться назад</a>
-                </li>
-            </ul>
-        </div>
+        [@creditex.returnButton/]
     </div>
     [/@creditex.body]
 [/@creditex.root]

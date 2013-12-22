@@ -78,8 +78,8 @@
         </div>
         <div class="content">
             <ul class="nav-menu">
-                <li><a href="[@spring.url '/account'/]" id="foo">Вернуться назад</a></li>
-                [#if application??]<li><a href="[@spring.url '/account/credit/application/${application.id}/abort'/]">Отменить заявку</a></li>[/#if]
+                <li><a onclick="history.go(-1)">Вернуться назад</a></li>
+                [#if application?? && (application.acceptance.name()="InProcess")]<li><a href="[@spring.url '/account/credit/application/${application.id}/abort'/]">Отменить заявку</a></li>[/#if]
             </ul>
         </div>
     </div>

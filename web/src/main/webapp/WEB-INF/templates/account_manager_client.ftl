@@ -24,7 +24,7 @@
                         <li><a href="[@spring.url '/account/product/list?active=true'/]">Кредитные продукты</a></li>
                         <li><a href="[@spring.url '/account/credit/list?running=false'/]">Предыдущие кредиты клиента</a></li>
                         [#if credit??]
-                            <li><a href="[@spring.url '/account/credit/${credit.id}/view/'/]">Терущий кредит клиента</a></li>
+                            <li><a href="[@spring.url '/account/credit/${credit.id}/view/'/]">Текущий кредит клиента</a></li>
                         [/#if]
 
                     </ul>

@@ -52,7 +52,7 @@
                             <td>${application.acceptance}</td>
                             <td>${whoRejected}</td>
                             <td>${whyRejected}</td>
-                            <td>[#if application.credit??]<a href="[@spring.url '/account/credit/${application.credit.id}/view/'/]">Просомотреть</a>[/#if]</td>
+                            <td><a href="[@spring.url '/account/credit/application/${application.id}/view/'/]">Просомотреть</a></td>
                         </tr>
                         [/#list]
                     [/#if]

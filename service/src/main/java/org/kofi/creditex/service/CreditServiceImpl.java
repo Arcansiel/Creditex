@@ -1,6 +1,7 @@
 package org.kofi.creditex.service;
 
 import com.google.common.base.Function;
+import com.google.common.collect.Ordering;
 import org.kofi.creditex.model.*;
 import org.kofi.creditex.repository.CreditRepository;
 import org.kofi.creditex.repository.PaymentRepository;
@@ -40,7 +41,16 @@ public class CreditServiceImpl implements CreditService{
      */
     @Override
     public Credit GetCreditById(long id) {
-        return creditRepository.findOne(id);
+        Credit credit = creditRepository.findOne(id);
+        Ordering<Payment> paymentOrdering = Ordering.natural().onResultOf(new Function<Payment, Long>() {
+            @Nullable
+            @Override
+            public Long apply(Payment payment) {
+                return payment.getNumber();
+            }
+        });
+        credit.setPayments(paymentOrdering.sortedCopy(credit.getPayments()));
+        return credit;
     }
 
     @Override

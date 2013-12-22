@@ -8,6 +8,7 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.bank_client/]
         <div class="form-action">
             <p class="name">Введите данные клиента</p>
             <form action="" method="post" class="form" id="applicationForm">

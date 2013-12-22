@@ -66,7 +66,9 @@ public class AccountCreditApplicationController {
 
     @RequestMapping("/{id}/view")
     public String ViewApplication(@PathVariable long id, ModelMap model){
-        model.put("application", applicationService.GetCreditApplicationById(id));
+        Application application = applicationService.GetCreditApplicationById(id);
+        log.warn("Application content: {}", application.toString());
+        model.put("application", application);
         return "account_manager_application_credit_view";
     }
 

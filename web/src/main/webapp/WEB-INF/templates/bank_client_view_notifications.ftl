@@ -1,22 +1,15 @@
 [#ftl]
 [#-- @ftlvariable name="notifications" type="java.util.List<org.kofi.creditex.model.Notification>" --]
-[#-- @ftlvariable name="credit" type="org.kofi.creditex.model.Credit" --]
 [#import "creditex.ftl" as creditex]
 [#import "spring.ftl" as spring]
 
 [@creditex.root]
     [@creditex.head "Main page"]
-        [@creditex.tableProcess "notificationTable" "notifications"/]
-    <script type="text/javascript">
-        $(function(){
-            $("#foo").click(function () {
-                history.go(-1);
-            });
-        });
-    </script>
+    [@creditex.tableProcess "notificationTable" "notifications"/]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.bank_client/]
         <div class="data-table">
             <p class="name">Уведомления</p>
             <div class="holder"></div>
@@ -46,12 +39,7 @@
 
             </table>
         </div>
-        <div class="content">
-            <ul class="nav-menu">
-                <li><a id="foo">Вернуться назад</a>
-                </li>
-            </ul>
-        </div>
+        [@creditex.returnButton/]
     </div>
     [/@creditex.body]
 [/@creditex.root]

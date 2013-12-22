@@ -45,6 +45,14 @@ jQuery.validator.addMethod("lettersonly", function(value, element) {
 	return this.optional(element) || /^[a-z]+$/i.test(value);
 }, "Letters only please");
 
+jQuery.validator.addMethod("capitallettersonly",function(value, element){
+    return this.optional(element) || /^[A-Z]+$/.test(value);
+}, "Capital letters only please");
+
+jQuery.validator.addMethod("passportseries",function(value, element){
+    return this.optional(element) || /^[A-Z]{2}$/.test(value);
+}, "Enter two capital latin letters please");
+
 jQuery.validator.addMethod("nowhitespace", function(value, element) {
 	return this.optional(element) || /^\S+$/i.test(value);
 }, "No white space please");

@@ -10,9 +10,6 @@
         [@creditex.includeTableCloth/]
     <script type="text/javascript">
         $(function(){
-            $("#foo").click(function(){
-                history.go(-1);
-            });
             [@creditex.sorting table="notificationTable" theme = "default" sortable=false class = "data-table"/]
         });
     </script>
@@ -52,11 +49,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="content">
-            <ul class="nav-menu">
-                <li><a id="foo">Вернуться назад</a></li>
-            </ul>
-        </div>
+        [@creditex.returnButton/]
     </div>
     [/@creditex.body]
 [/@creditex.root]
