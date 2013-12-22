@@ -4,7 +4,7 @@
 [#import "spring.ftl" as spring]
 
 [@creditex.root]
-    [@creditex.head "Main page"]
+    [@creditex.head "Заявка на пролонгацию кредита"]
     [@creditex.includeJQuery/]
     [@creditex.includeTableCloth/]
     <script type="text/javascript">
@@ -15,8 +15,9 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.account_manager/]
         <div class="data-table">
-            <p class="name">Данные по кредиту</p>
+            <p class="name">Данные о заявке на пролонгацию кредита</p>
             <table id="prolongationTable">
                 <tr>
                     <th>Параметр</th>

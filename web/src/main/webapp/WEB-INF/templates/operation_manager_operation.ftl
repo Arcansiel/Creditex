@@ -1,7 +1,7 @@
 [#ftl]
 [#import "creditex.ftl" as creditex]
 [#import "spring.ftl" as spring]
-[#import "creditex_data.ftl" as creditex_data]
+[#import "l_data.ftl" as l_data]
 [@creditex.root]
     [@creditex.head "Операционист / операция"]
         [@creditex.addValidator/]
@@ -127,7 +127,7 @@
             [/#if]
 
             <div class="form-action">
-                [#include "creditex_error_info.ftl" /]
+                [#include "l_error_info.ftl" /]
                 <form action="" method="post" class="form" id="operationForm">
                     <p class="name">Операция</p>
                     <p>
@@ -146,7 +146,7 @@
             </div>
 
             [#if (credit.product)??]
-                [@creditex_data.product_view_table credit.product /]
+                [@l_data.product_view_table credit.product /]
             [/#if]
 
         </div>

@@ -1,9 +1,9 @@
 [#ftl]
 [#import "creditex.ftl" as creditex]
-[#import "creditex_data.ftl" as creditex_data]
+[#import "l_data.ftl" as l_data]
 [@creditex.root]
     [@creditex.head "Заявка на пролонгацию"]
-        [@creditex_data.confirmation_form_validation /]
+        [@l_data.confirmation_form_validation /]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
@@ -38,18 +38,18 @@
             </table>
 
             [#if prolongation.acceptance?? && prolongation.acceptance.name() == "InProcess"]
-                [@creditex_data.confirmation_form
+                [@l_data.confirmation_form
                 "post"
                 '/department_head/prolongation/${prolongation.id?string("0")}/set_head_approved/'
                 /]
             [/#if]
 
             [#if (prolongation.credit)??]
-                [@creditex_data.credit_view_table prolongation.credit "Состояние кредита" /]
+                [@l_data.credit_view_table prolongation.credit "Состояние кредита" /]
             [/#if]
 
             [#if (prolongation.credit.product)??]
-                [@creditex_data.product_view_table prolongation.credit.product /]
+                [@l_data.product_view_table prolongation.credit.product /]
             [/#if]
 
         [/#if]

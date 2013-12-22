@@ -2,7 +2,7 @@
 [#import "creditex.ftl" as creditex]
 [#import "spring.ftl" as spring]
 [@creditex.root]
-    [@creditex.head "Main page"]
+    [@creditex.head "Заявка на пролонгацию"]
         [@creditex.includeBootstrapCss/]
         [@creditex.addValidator/]
     <script type="text/javascript">
@@ -25,6 +25,7 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.account_manager/]
         <div class="form-action">
             <p class="name">Введите данные о пролонгации кредита</p>
             <form action="" method="post" class="form" id="applicationForm">

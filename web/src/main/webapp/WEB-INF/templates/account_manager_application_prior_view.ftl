@@ -4,7 +4,7 @@
 [#import "spring.ftl" as spring]
 
 [@creditex.root]
-    [@creditex.head "Main page"]
+    [@creditex.head "Просмотр заявки на предварительное погашение"]
     [@creditex.includeJQuery/]
     [@creditex.includeTableCloth/]
     <script type="text/javascript">
@@ -15,6 +15,7 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.account_manager/]
         <div class="data-table">
             <p class="name">Данные по кредиту</p>
             <table id="priorTable">

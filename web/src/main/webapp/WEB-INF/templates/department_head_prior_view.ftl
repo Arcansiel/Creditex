@@ -1,9 +1,9 @@
 [#ftl]
 [#import "creditex.ftl" as creditex]
-[#import "creditex_data.ftl" as creditex_data]
+[#import "l_data.ftl" as l_data]
 [@creditex.root]
     [@creditex.head "Заявка на досрочное погашение кредита"]
-        [@creditex_data.confirmation_form_validation /]
+        [@l_data.confirmation_form_validation /]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
@@ -36,18 +36,18 @@
             </table>
 
             [#if prior.acceptance?? && prior.acceptance.name() == "InProcess"]
-                [@creditex_data.confirmation_form
+                [@l_data.confirmation_form
                 "post"
                 '/department_head/prior/${prior.id?string("0")}/set_head_approved/'
                 /]
             [/#if]
 
             [#if (prior.credit)??]
-                [@creditex_data.credit_view_table prior.credit "Состояние кредита" /]
+                [@l_data.credit_view_table prior.credit "Состояние кредита" /]
             [/#if]
 
             [#if (prior.credit.product)??]
-                [@creditex_data.product_view_table prior.credit.product /]
+                [@l_data.product_view_table prior.credit.product /]
             [/#if]
 
         [/#if]

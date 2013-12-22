@@ -1,10 +1,10 @@
 [#ftl]
 [#import "creditex.ftl" as creditex]
 [#import "spring.ftl" as spring]
-[#import "creditex_data.ftl" as creditex_data]
+[#import "l_data.ftl" as l_data]
 [@creditex.root]
     [@creditex.head "Кредитный комитет / голосование по заявке"]
-        [@creditex_data.confirmation_form_validation /]
+        [@l_data.confirmation_form_validation /]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
@@ -47,7 +47,7 @@
                         </tr>
                 </table>
 
-                [@creditex_data.confirmation_form
+                [@l_data.confirmation_form
                 "post"
                 '/committee_manager/appliance/vote/${application.id?string("0")}'
                 "ЗА"
@@ -56,11 +56,11 @@
 
 
                 [#if (application.product)??]
-                    [@creditex_data.product_view_table application.product /]
+                    [@l_data.product_view_table application.product /]
                 [/#if]
 
                 [#if votes??]
-                    [@creditex_data.vote_list_table votes /]
+                    [@l_data.vote_list_table votes /]
                 [/#if]
 
             [/#if]

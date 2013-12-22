@@ -1,7 +1,7 @@
 [#ftl]
 [#import "creditex.ftl" as creditex]
 [#import "spring.ftl" as spring]
-[#import "creditex_data.ftl" as creditex_data]
+[#import "l_data.ftl" as l_data]
 [@creditex.root]
     [@creditex.head "Служба безопасности / заявки на рассмотрение"]
         [@creditex.tableProcess "listtable" "list" 10 /]
@@ -14,7 +14,7 @@
             <p class="name"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
 
         [#if current??]
-            [@creditex_data.application_view_table current "Текущая заявка на кредит"/]
+            [@l_data.application_view_table current "Текущая заявка на кредит"/]
             <p class="name"><a href="[@spring.url '/security_manager/appliance/check/${current.id?string("0")}'/]">Проверка текущей заявки</a></p>
         [/#if]
 

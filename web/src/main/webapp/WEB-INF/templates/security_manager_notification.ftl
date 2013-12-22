@@ -1,7 +1,7 @@
 [#ftl]
 [#import "creditex.ftl" as creditex]
 [#import "spring.ftl" as spring]
-[#import "creditex_data.ftl" as creditex_data]
+[#import "l_data.ftl" as l_data]
 [@creditex.root]
     [@creditex.head "Уведомление"]
         [@creditex.addValidator/]
@@ -36,13 +36,13 @@
             [#if credit??]
 
                 [#if (credit.user)??]
-                    [@creditex_data.client_view_table credit.user "Клиент"/]
+                    [@l_data.client_view_table credit.user "Клиент"/]
                     <p class="name">
                         <a href="[@spring.url '/security_manager/client/check/${credit.user.id?string("0")}'/]">Проверка клиента по внутренним базам</a>
                     </p>
                 [/#if]
 
-                [@creditex_data.credit_view_table credit "Кредит" true true true /]
+                [@l_data.credit_view_table credit "Кредит" true true true /]
 
             [#if credit_notifications_count??]
                 <p class="name">Количество уведомлений по данному кредиту: ${credit_notifications_count}</p>
@@ -77,7 +77,7 @@
 
 
                 [#if (credit.product)??]
-                    [@creditex_data.product_view_table credit.product "Сведения о кредитном продукте"/]
+                    [@l_data.product_view_table credit.product "Сведения о кредитном продукте"/]
                 [/#if]
 
             [/#if]

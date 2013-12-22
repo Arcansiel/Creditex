@@ -4,7 +4,7 @@
 [#import "spring.ftl" as spring]
 
 [@creditex.root]
-    [@creditex.head "Main page"]
+    [@creditex.head "Регистрация пролонгации"]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">

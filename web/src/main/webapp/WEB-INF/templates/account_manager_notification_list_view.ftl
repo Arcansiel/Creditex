@@ -5,22 +5,16 @@
 [#import "spring.ftl" as spring]
 
 [@creditex.root]
-    [@creditex.head "Main page"]
-        [@creditex.tableProcess "paymentTable" "payments"/]
-    <script type="text/javascript">
-        $(function(){
-            $("#foo").click(function () {
-                history.go(-1);
-            });
-        });
-    </script>
+    [@creditex.head "Уведомления"]
+    [@creditex.tableProcess "notificationTable" "notifications"/]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.account_manager/]
         <div class="data-table">
-            <p class="name">Платежи</p>
+            <p class="name">Уведомления</p>
             <div class="holder"></div>
-            <table id="paymentTable">
+            <table id="notificationTable">
                 <thead>
                 <tr>
                     <th>Дата нотификации</th>
@@ -30,7 +24,7 @@
                     <th>Кредит</th>
                 </tr>
                 </thead>
-                <tbody id="payments">
+                <tbody id="notifications">
                     [#if notifications??]
                         [#list notifications as notification]
                         <tr>
@@ -46,12 +40,7 @@
 
             </table>
         </div>
-        <div class="content">
-            <ul class="nav-menu">
-                <li><a id="foo">Вернуться назад</a>
-                </li>
-            </ul>
-        </div>
+        [@creditex.returnButton/]
     </div>
     [/@creditex.body]
 [/@creditex.root]

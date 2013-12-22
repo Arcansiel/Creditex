@@ -1,6 +1,6 @@
 [#ftl]
 [#import "creditex.ftl" as creditex]
-[#import "creditex_data.ftl" as creditex_data]
+[#import "l_data.ftl" as l_data]
 [@creditex.root]
     [@creditex.head "Клиент банка (внутренняя проверка)"]
     [/@creditex.head]
@@ -13,7 +13,7 @@
             [#if client??]
                 <p class="name"><a href="[@spring.url '/security_manager/client/check/outer/${client.id?string("0")}'/]">Проверка клиента по внешним базам</a></p>
 
-            [@creditex_data.client_view_table client "Клиент банка (внутренняя проверка)"/]
+            [@l_data.client_view_table client "Клиент банка (внутренняя проверка)"/]
 
             <p class="name">Проверка по внутренним базам данных</p>
 
@@ -25,9 +25,9 @@
             [/#if]
 
             [#if credit??]
-                [@creditex_data.credit_view_table credit "Текущий кредит клиента" false /]
+                [@l_data.credit_view_table credit "Текущий кредит клиента" false /]
                 [#if (credit.product)??]
-                    [@creditex_data.product_view_table credit.product /]
+                    [@l_data.product_view_table credit.product /]
                 [/#if]
             [#else]
                 <p class="name">Текущих кредитов нет</p>

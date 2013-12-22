@@ -4,7 +4,7 @@
 [#import "spring.ftl" as spring]
 
 [@creditex.root]
-    [@creditex.head "Main page"]
+    [@creditex.head "Условия крелита"]
         [@creditex.includeBootstrapCss/]
         [@creditex.addValidator/]
     <script type="text/javascript">
@@ -31,6 +31,7 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.account_manager/]
         <div class="form-action">
             <p class="name">Введите данные клиента</p>
             <form action="" method="post" class="form" id="applicationForm">

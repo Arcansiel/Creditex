@@ -1,6 +1,6 @@
 [#ftl]
 [#import "creditex.ftl" as creditex]
-[#import "creditex_data.ftl" as creditex_data]
+[#import "l_data.ftl" as l_data]
 [@creditex.root]
     [@creditex.head "Заявки клиента на пролонгацию клиента"]
         [@creditex.tableProcess "listtable" "list" 10 /]
@@ -13,7 +13,7 @@
         <div class="data-table">
 
             [#if client??]
-                [@creditex_data.client_view_table client /]
+                [@l_data.client_view_table client /]
             [/#if]
 
 

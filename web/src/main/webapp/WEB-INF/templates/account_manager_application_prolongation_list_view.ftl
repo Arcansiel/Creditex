@@ -4,11 +4,12 @@
 [#import "spring.ftl" as spring]
 
 [@creditex.root]
-    [@creditex.head "Main page"]
+    [@creditex.head "Предыдущие заявки на пролонгацию"]
     [@creditex.tableProcess "prolongationApplicationTable" "applications"/]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.account_manager/]
         <div class="data-table">
             <p class="name">Заявки на пролонгацию кредита</p>
             <div class="holder"></div>

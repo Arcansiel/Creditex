@@ -1,6 +1,6 @@
 [#ftl]
 [#import "spring.ftl" as spring]
-[#import "creditex_data.ftl" as creditex_data]
+[#import "l_data.ftl" as l_data]
 [#assign sec=JspTaglibs["http://www.springframework.org/security/tags"]/]
 [#macro root]
 <!DOCTYPE html>
@@ -119,6 +119,14 @@ $("#${table}").tablecloth(
 <div class="title">
     <p class="icon"><img src="[@spring.url '/img/consultant-logo.jpg'/]" /></p>
     <p class="name">Специалист по работе с клиентами</p>
+</div>
+[/#macro]
+
+[#macro returnButton]
+<div class="content">
+    <ul class="nav-menu"><li><a onclick="history.go(-1)">Вернуться назад</a></li>
+        [#nested]
+    </ul>
 </div>
 [/#macro]
 

@@ -9,7 +9,7 @@
     <div class="page">
         [@creditex.security_manager /]
         <div class="content">
-            [#include "creditex_error_info.ftl" /]
+            [#include "l_error_info.ftl" /]
             <ul class="nav-menu">
 
                 <li><a href="#">Заявки</a>

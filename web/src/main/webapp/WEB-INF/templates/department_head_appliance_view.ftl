@@ -1,9 +1,9 @@
 [#ftl]
 [#import "creditex.ftl" as creditex]
-[#import "creditex_data.ftl" as creditex_data]
+[#import "l_data.ftl" as l_data]
 [@creditex.root]
     [@creditex.head "Заявка на кредит, результаты голосования"]
-        [@creditex_data.confirmation_form_validation /]
+        [@l_data.confirmation_form_validation /]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
@@ -61,18 +61,18 @@
 
                 [#if application.committeeAcceptance?? && application.committeeAcceptance.name() == "Accepted"]
                 [#-- show form only for committee accepted applications --]
-                    [@creditex_data.confirmation_form
+                    [@l_data.confirmation_form
                     "post"
                     '/department_head/appliance/${application.id?string("0")}/set_head_approved/'
                     /]
                 [/#if]
 
                 [#if (application.product)??]
-                    [@creditex_data.product_view_table application.product /]
+                    [@l_data.product_view_table application.product /]
                 [/#if]
 
                 [#if votes??]
-                    [@creditex_data.vote_list_table votes /]
+                    [@l_data.vote_list_table votes /]
                 [/#if]
 
             [/#if]

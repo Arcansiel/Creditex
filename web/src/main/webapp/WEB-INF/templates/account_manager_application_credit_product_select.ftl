@@ -4,13 +4,14 @@
 [#import "spring.ftl" as spring]
 
 [@creditex.root]
-    [@creditex.head "Main page"]
+    [@creditex.head "Выбор кредитного продукта для заявки"]
         [@creditex.tableProcess "productTable" "products"/]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.account_manager/]
         <div class="data-table">
-            <p class="name">Список кредитных продуктов</p>
+            <p class="name">Список кредитных продуктов для заявки на кредит</p>
             <div class="holder"></div>
             <table id="productTable">
                 <thead>

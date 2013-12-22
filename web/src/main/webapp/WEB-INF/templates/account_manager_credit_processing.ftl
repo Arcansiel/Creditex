@@ -5,7 +5,7 @@
 [#import "spring.ftl" as spring]
 
 [@creditex.root]
-    [@creditex.head "Main page"]
+    [@creditex.head "Создание кредита по заявке"]
     [@creditex.tableProcess "paymentTable" "payments"/]
     <script>
         $(function(){

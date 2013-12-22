@@ -4,18 +4,12 @@
 [#import "spring.ftl" as spring]
 
 [@creditex.root]
-    [@creditex.head "Main page"]
+    [@creditex.head "Продукты"]
     [@creditex.tableProcess "productTable" "products"/]
-    <script type="text/javascript">
-        $(function(){
-            $("#returnLink").click(function(){
-                history.go(-1);
-            });
-        });
-    </script>
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
+        [@creditex.account_manager/]
         <div class="data-table">
             <p class="name">Список кредитных продуктов</p>
             <div class="holder"></div>
@@ -59,12 +53,7 @@
 
             </table>
         </div>
-        <div class="content">
-            <ul class="nav-menu">
-                <li><a id="returnLink">Вернуться назад</a>
-                </li>
-            </ul>
-        </div>
+        [@creditex.returnButton/]
     </div>
     [/@creditex.body]
 [/@creditex.root]

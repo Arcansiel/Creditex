@@ -1,7 +1,7 @@
 [#ftl]
 [#import "creditex.ftl" as creditex]
 [#import "spring.ftl" as spring]
-[#import "creditex_data.ftl" as creditex_data]
+[#import "l_data.ftl" as l_data]
 [@creditex.root]
     [@creditex.head "Кредитный комитет / заявка, голосование закрыто"]
     [/@creditex.head]
@@ -49,13 +49,13 @@
                 </table>
 
                 [#if (application.product)??]
-                    [@creditex_data.product_view_table application.product /]
+                    [@l_data.product_view_table application.product /]
                 [/#if]
 
             [/#if]
 
             [#if votes??]
-                [@creditex_data.vote_list_table votes /]
+                [@l_data.vote_list_table votes /]
             [/#if]
 
         </div>
