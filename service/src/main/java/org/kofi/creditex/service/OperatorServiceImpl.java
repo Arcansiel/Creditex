@@ -29,6 +29,9 @@ public class OperatorServiceImpl implements OperatorService {
     @Autowired
     CreditexDateProvider dateProvider;
 
+    @Autowired
+    DayReportService dayReportService;
+
     //@Autowired
     //PriorRepaymentApplicationRepository priorRepository;
 
@@ -293,11 +296,13 @@ public class OperatorServiceImpl implements OperatorService {
                     }
                 //}
             }
+            dayReportService.AddIncome(amount);//TODO: check - income
         }else{
             //OperationType.Withdrawal (IV)
             if(!ExecuteWithdrawal(credit, amount)){
                 return -8;//money < amount
             }
+            dayReportService.AddOutcome(amount);//TODO: check - outcome
         }
 
         Operation operation = new Operation();
@@ -308,9 +313,12 @@ public class OperatorServiceImpl implements OperatorService {
         operation.setOperationDate(now);
         operationRepository.save(operation);
 
+        dayReportService.IncOperations();
+
         if(credit.isRunning()){
             return 1;//operation executed
         }else{
+            dayReportService.IncClosedCredit();
             return 2;//operation executed and credit closed
         }
     }

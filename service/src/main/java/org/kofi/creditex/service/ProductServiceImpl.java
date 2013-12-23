@@ -17,6 +17,9 @@ public class ProductServiceImpl implements ProductService{
     @Autowired
     ProductRepository productRepository;
 
+    @Autowired
+    DayReportService dayReportService;
+
     @Override
     public Product GetProductById(long id) {
         return productRepository.findOne(id);
@@ -67,6 +70,7 @@ public class ProductServiceImpl implements ProductService{
         }
         productForm.setName(productForm.getName().trim());
         productRepository.save(productForm);
+        dayReportService.IncProduct();
         return 0;
     }
 
