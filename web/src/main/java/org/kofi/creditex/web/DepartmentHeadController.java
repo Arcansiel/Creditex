@@ -294,13 +294,6 @@ public class DepartmentHeadController {
         }
     }
 
-
-    @RequestMapping(value = "/department_head/report/", method = RequestMethod.GET)
-    public String DepartmentHead11(Model model){
-        //TODO report controller implementation
-        return "department_head_report";
-    }
-
     @RequestMapping(value = "/department_head/credits/active/list/", method = RequestMethod.GET)
     public String DepartmentHead12(Model model){
         model.addAttribute("credits",creditService.GetCreditsByActive(true));
@@ -474,5 +467,23 @@ public class DepartmentHeadController {
         model.addAttribute("prolongations",statisticsService.GetProlongationsStatistics());
         model.addAttribute("payments",statisticsService.GetPaymentsStatistics());
         return "department_head_statistics";
+    }
+
+
+    @RequestMapping(value = "/department_head/report/", method = RequestMethod.GET)
+    public String DepartmentHeadReport(Model model
+            ,@RequestParam(value = "period", required = false)Long period
+            ,@RequestParam(value = "error", required = false)String error
+            ,@RequestParam(value = "info", required = false)String info
+    ){
+        AddInfoToModel(model,error,info);
+        //TODO report controller implementation
+        if(error == null && period != null){
+            if(period < 1){
+                return "redirect:/department_head/report/?error=invalid_input_data&info=period";
+            }
+            //TODO ...
+        }//else return empty form
+        return "department_head_report";
     }
 }
