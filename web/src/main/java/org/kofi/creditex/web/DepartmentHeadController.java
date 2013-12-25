@@ -36,6 +36,9 @@ public class DepartmentHeadController {
     @Autowired
     StatisticsService statisticsService;
 
+    @Autowired
+    DayReportService dayReportService;
+
     private void AddInfoToModel(Model model, String error, String info){
         if(error != null){
             if(error.equals("no_application")){
@@ -472,18 +475,22 @@ public class DepartmentHeadController {
 
     @RequestMapping(value = "/department_head/report/", method = RequestMethod.GET)
     public String DepartmentHeadReport(Model model
-            ,@RequestParam(value = "period", required = false)Long period
+            ,@RequestParam(value = "period", required = false)Integer period
             ,@RequestParam(value = "error", required = false)String error
             ,@RequestParam(value = "info", required = false)String info
     ){
         AddInfoToModel(model,error,info);
-        //TODO report controller implementation
         if(error == null && period != null){
             if(period < 1){
                 return "redirect:/department_head/report/?error=invalid_input_data&info=period";
             }
-            //TODO ...
-        }//else return empty form
+            //show "period" last day reports
+            model.addAttribute("period",period);
+            List<DayReport> reports = dayReportService.GetLatestReportList(period);
+            model.addAttribute("reports",reports);
+            //TODO report controller implementation
+        }
+        //else return empty form
         return "department_head_report";
     }
 }
