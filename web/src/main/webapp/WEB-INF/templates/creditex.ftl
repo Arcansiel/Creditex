@@ -41,8 +41,8 @@
 [@includeBootstrapJS/]
 [/#macro]
 
-[#macro addValidator]
-[@includeJQuery/]
+[#macro addValidator include_JQuery=true]
+[#if include_JQuery][@includeJQuery/][/#if]
 <script type="text/javascript" src="[@spring.url '/js/jquery.validate.js'/]"></script>
 <script type="text/javascript" src="[@spring.url '/js/additional-methods.js'/]"></script>
 <script type="text/javascript" src="[@spring.url '/js/messages_ru.js'/]"></script>
