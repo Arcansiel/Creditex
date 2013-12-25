@@ -31,7 +31,7 @@
             <p class="name">Отчёт за несколько дней</p>
             [#include "l_error_info.ftl" /]
             <div class="form-action">
-                <form method="get" action="[@spring.url '/department_head/report/'/]" class="form" id="reportForm">
+                <form method="get" action="[@spring.url '/department_head/report/list/'/]" class="form" id="reportForm">
                     <p>
                         <label for="period_filed">Период (последних дней)</label>
                         <input type="text" id="period_filed" name="period"

@@ -3,6 +3,7 @@ package org.kofi.creditex.web;
 import org.kofi.creditex.model.*;
 import org.kofi.creditex.service.*;
 import org.kofi.creditex.web.model.ConfirmationForm;
+import org.kofi.creditex.web.model.ReportRequestForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -473,24 +474,30 @@ public class DepartmentHeadController {
     }
 
 
-    @RequestMapping(value = "/department_head/report/", method = RequestMethod.GET)
-    public String DepartmentHeadReport(Model model
-            ,@RequestParam(value = "period", required = false)Integer period
+    @RequestMapping(value = {"/department_head/report/","/department_head/report/form/"}, method = RequestMethod.GET)
+    public String DepartmentHeadReportForm(Model model
             ,@RequestParam(value = "error", required = false)String error
             ,@RequestParam(value = "info", required = false)String info
     ){
-        AddInfoToModel(model,error,info);
-        if(error == null && period != null){
-            if(period < 1){
-                return "redirect:/department_head/report/?error=invalid_input_data&info=period";
-            }
-            //show "period" last day reports
-            model.addAttribute("period",period);
-            List<DayReport> reports = dayReportService.GetLatestReportList(period);
-            model.addAttribute("reports",reports);
-            //TODO report controller implementation
-        }
-        //else return empty form
+        AddInfoToModel(model, error, info);
+        //return empty form
         return "department_head_report";
     }
+
+    @RequestMapping(value = "/department_head/report/list/", method = RequestMethod.GET)
+    public String DepartmentHeadReportGet(Model model
+            ,@Valid @ModelAttribute ReportRequestForm reportRequest, BindingResult bindingResult
+    ){
+        if(bindingResult.hasErrors()){
+            return "redirect:/department_head/report/?error=invalid_input_data&info="+bindingResult.getFieldError().getField();
+        }
+        //show last day reports
+        model.addAttribute("period",reportRequest.getPeriod());
+        List<DayReport> reports = dayReportService.GetLatestReportList(reportRequest.getPeriod());
+        model.addAttribute("reports",reports);
+        return "department_head_report";
+    }
+
+    //TODO report controller implementation
+
 }
