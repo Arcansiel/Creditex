@@ -58,6 +58,13 @@
                     <th class="name">Заявки на пролонгацию</th>
                     <th class="name">Кредитные продукты</th>
                     <th class="name">Операции</th>
+                    [#if overall?? && overall]
+                        <th class="name">Все кредиты</th>
+                        <th class="name">Все открытые/закрытые/просроченные/невозвращённые кредиты</th>
+                        <th class="name">Все заявки на кредиты</th>
+                        <th class="name">Все заявки на досрочное погашение</th>
+                        <th class="name">Все заявки на пролонгацию</th>
+                    [/#if]
                 </tr>
                 </thead>
                 <tbody id="list">
@@ -75,6 +82,17 @@
                         <td class="name">${report.prolongationApplications}</td>
                         <td class="name">${report.products}</td>
                         <td class="name">${report.operations}</td>
+                    [#if overall?? && overall]
+                        <td class="name">${report.overallCredits}</td>
+                        <td class="name">
+                        ${report.overallRunningCredits} /
+                        ${report.overallClosedCredits} /
+                        ${report.overallExpiredCredits} /
+                        ${report.overallUnreturnedCredits}</td>
+                        <td class="name">${report.overallCreditApplications}</td>
+                        <td class="name">${report.overallPriorRepaymentApplications}</td>
+                        <td class="name">${report.overallProlongationApplications}</td>
+                    [/#if]
                     </tr>
                     [/#list][/#if]
                 </tbody>

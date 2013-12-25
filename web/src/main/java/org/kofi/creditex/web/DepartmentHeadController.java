@@ -495,6 +495,7 @@ public class DepartmentHeadController {
         model.addAttribute("period",reportRequest.getPeriod());
         List<DayReport> reports = dayReportService.GetLatestReportList(reportRequest.getPeriod());
         model.addAttribute("reports",reports);
+        model.addAttribute("overall",true);
         return "department_head_report";
     }
 
