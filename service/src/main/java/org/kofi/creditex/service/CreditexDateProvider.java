@@ -27,7 +27,6 @@ public class CreditexDateProvider implements ApplicationEventPublisherAware{
     public Date getCurrentSqlDate(){
         return new java.sql.Date(currentDate.toDate().getTime());
     }
-    @Scheduled(initialDelay = 600000, fixedDelay = 600000)
     public void IncreaseDate(){
         currentDate = currentDate.plusDays(1);
         CreditexDateProvider.log.warn(currentDate.toString("dd/MM/yyyy"));
