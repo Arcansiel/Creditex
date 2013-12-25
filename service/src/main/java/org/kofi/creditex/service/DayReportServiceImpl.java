@@ -77,11 +77,6 @@ public class DayReportServiceImpl implements DayReportService {
     }
 
     @Override
-    public void RunningCredits(long count) {
-        report.setRunningCredits(count);
-    }
-
-    @Override
     public void ExpiredCredits(long count) {
         report.setOverallExpiredCredits(report.getOverallExpiredCredits()+count);
         report.setExpiredCredits(count);

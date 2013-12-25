@@ -3,6 +3,7 @@ package org.kofi.creditex.web;
 import lombok.extern.slf4j.Slf4j;
 import org.kofi.creditex.model.User;
 import org.kofi.creditex.model.UserData;
+import org.kofi.creditex.service.DayReportService;
 import org.kofi.creditex.service.UserService;
 import org.kofi.creditex.web.model.UserRegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ import java.security.Principal;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private DayReportService dayReportService;
     @RequestMapping("/change_user_data/")
     public String ChangeUserData(ModelMap model, HttpSession session){
         User user = (User) session.getAttribute("user_to_change_data");
@@ -73,6 +76,23 @@ public class UserController {
             return "registration";
         }
         userService.RegisterUserByForm(form);
+        switch (form.getRole()){
+            case "ROLE_CLIENT":
+                dayReportService.IncClient();
+                break;
+            case "ROLE_ACCOUNT_MANAGER":
+                dayReportService.IncAccountManager();
+                break;
+            case "ROLE_OPERATION_MANAGER":
+                dayReportService.IncOperationManager();
+                break;
+            case "ROLE_SECURITY_MANAGER":
+                dayReportService.IncSecurityManager();
+                break;
+            case "ROLE_COMMITTEE_MANAGER":
+                dayReportService.IncCommitteeManager();
+                break;
+        }
 
         return "redirect:/";
     }

@@ -62,7 +62,7 @@
     <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
     </bean>
 
-    <bean id="webexpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+    <bean id="webExpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
     <context:property-placeholder location="classpath:org/kofi/creditex/configuration/application.properties"/>
 
 

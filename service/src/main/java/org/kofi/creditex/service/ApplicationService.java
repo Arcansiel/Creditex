@@ -9,9 +9,6 @@ import org.kofi.creditex.web.model.CreditApplicationRegistrationForm;
 import java.util.List;
 
 public interface ApplicationService {
-    List<Application> GetApplicationsByUsername(String username);
-    List<PriorRepaymentApplication> GetPriorRepaymentApplicationsByUsername(String username);
-    List<ProlongationApplication> GetProlongationApplicationsByUsername(String username);
     String RegisterApplicationByFormAndUsernameAndAccountManagerName(CreditApplicationRegistrationForm form, String username, String accountManagerUsername);
     boolean RegisterPriorRepaymentApplicationByFormAndUsernameAndAccountManagerName(PriorRepaymentApplication form, String username, String accountManagerUsername);
     boolean RegisterProlongationApplicationByFormAndUsernameAndAccountManagerName(ProlongationApplication form, String username, String accountManagerUsername);
@@ -21,9 +18,7 @@ public interface ApplicationService {
     void RemoveCreditApplicationWithId(long id);
     void RemoveProlongationApplicationWithId(long id);
     void RemovePriorRepaymentApplicationWithId(long id);
-    void FinalizeProlongationApplication(String username);
-    void FinalizePriorRepaymentApplication(String username);
-    long FinalizeCreditApplication(String username);
+
 
     Application GetCreditApplicationById(long id);
     long FinalizeCreditApplication(long id);

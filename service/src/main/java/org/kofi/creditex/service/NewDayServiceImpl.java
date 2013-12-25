@@ -1,7 +1,7 @@
 package org.kofi.creditex.service;
 
-import org.kofi.creditex.model.Credit;
-import org.kofi.creditex.model.Payment;
+import com.mysema.query.types.Predicate;
+import org.kofi.creditex.model.*;
 import org.kofi.creditex.repository.CreditRepository;
 import org.kofi.creditex.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +9,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 @Service
 @Transactional
 public class NewDayServiceImpl implements NewDayService {
     Date date;
+    @Autowired
+    private DayReportService dayReportService;
     @Autowired
     private PaymentRepository paymentRepository;
     @Autowired
@@ -23,10 +26,23 @@ public class NewDayServiceImpl implements NewDayService {
     @Override
     public void MarkExpired(){
         List<Payment> expiredPayments = paymentRepository.findByCredit_RunningAndPaymentClosedAndPaymentEndLessThan(true,false,date);
+        LinkedHashSet<Credit> expiredCredits = new LinkedHashSet<Credit>();
         for (Payment payment:expiredPayments){
             payment.setPaymentExpired(true);
+            expiredCredits.add(payment.getCredit());
         }
+        dayReportService.ExpiredCredits(expiredCredits.size());
         paymentRepository.save(expiredPayments);
+    }
+
+    @Override
+    public void MarkUnreturned() {
+        List<Credit> unreturned = creditRepository.findByRunningAndExpiredAndUnreturnedAndCreditEndLessThan(true, true, false, date);
+        dayReportService.UnReturnedCredits(unreturned.size());
+        for(Credit credit : unreturned){
+            credit.setUnreturned(true);
+        }
+        creditRepository.save(unreturned);
     }
 
     @Override
@@ -48,15 +64,15 @@ public class NewDayServiceImpl implements NewDayService {
             credit.setPercentFine(credit.getPercentFine()+newFine);
         }
         creditRepository.save(credits);
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public void onApplicationEvent(DateChangeEvent dateChangeEvent) {
+        dayReportService.SaveDayReport();
         date = dateChangeEvent.getDate();
         AddMainFine();
         AddPercentFine();
         MarkExpired();
-        // TODO Add required method calls
+        MarkUnreturned();
     }
 }

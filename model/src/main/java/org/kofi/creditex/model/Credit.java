@@ -126,4 +126,8 @@ public class Credit {
      * Дата последнего уведомления
      */
     private Date lastNotificationDate;
+    /**
+     * Является ли кредит невозвращённым
+     */
+    private boolean unreturned;
 }

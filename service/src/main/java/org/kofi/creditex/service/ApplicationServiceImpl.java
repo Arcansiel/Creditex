@@ -30,22 +30,8 @@ public class ApplicationServiceImpl implements ApplicationService {
     private CreditexDateProvider creditexDateProvider;
     @Autowired
     private CreditService creditService;
-
-    @Override
-    public List<Application> GetApplicationsByUsername(String username) {
-        return applicationRepository.findByClient_Username(username);
-    }
-
-
-    @Override
-    public List<PriorRepaymentApplication> GetPriorRepaymentApplicationsByUsername(String username) {
-        return priorRepaymentApplicationRepository.findByClient_Username(username);
-    }
-
-    @Override
-    public List<ProlongationApplication> GetProlongationApplicationsByUsername(String username) {
-        return prolongationApplicationRepository.findByClient_Username(username);
-    }
+    @Autowired
+    private DayReportService dayReportService;
 
     @Override
     public String RegisterApplicationByFormAndUsernameAndAccountManagerName(CreditApplicationRegistrationForm form, String username, String accountManagerUsername) {
@@ -73,6 +59,7 @@ public class ApplicationServiceImpl implements ApplicationService {
                     .setVoteAcceptance(0)
                     .setVoteRejection(0);
             applicationRepository.save(application);
+            dayReportService.IncCreditApplication();
             return null;
         }
         if (!minDur)
@@ -97,6 +84,7 @@ public class ApplicationServiceImpl implements ApplicationService {
                 .setCredit(credit)
                 .setComment(form.getComment());
         priorRepaymentApplicationRepository.save(application);
+        dayReportService.IncPriorApplication();
         return true;
     }
 
@@ -114,6 +102,7 @@ public class ApplicationServiceImpl implements ApplicationService {
                 .setDuration(form.getDuration())
                 .setComment(form.getComment());
         prolongationApplicationRepository.save(application);
+        dayReportService.IncProlongationApplication();
         return true;
     }
 
@@ -157,53 +146,6 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public void FinalizeProlongationApplication(String username) {
-        ProlongationApplication application = prolongationApplicationRepository.findByClientUsernameAndProcessed(username, false);
-        application.setProcessed(true);
-        prolongationApplicationRepository.save(application);
-        creditService.ExecuteProlongation(application.getCredit().getId(), application.getDuration());
-    }
-
-
-    @Override
-    public void FinalizePriorRepaymentApplication(String username) {
-        PriorRepaymentApplication application = priorRepaymentApplicationRepository.findByClientUsernameAndProcessed(username,false);
-        application.setProcessed(true);
-        priorRepaymentApplicationRepository.save(application);
-        creditService.PriorRepaymentClose(application.getCredit().getId());
-    }
-
-    @Override
-    public long FinalizeCreditApplication(String username) {
-        Application application = applicationRepository.findByClientUsernameAndProcessed(username, false);
-        application.setProcessed(true);
-        applicationRepository.save(application);
-        LocalDate date = creditexDateProvider.getCurrentDate();
-        Date end = creditexDateProvider.transformDate(date.plusMonths((int) application.getDuration()));
-        long[] params = new long[3];
-        List<Payment> payments = CreditCalculator.PaymentPlan(application,creditexDateProvider.getCurrentSqlDate(),params);
-        Credit credit = new Credit()
-                .setCreditApplication(application)
-                .setUser(userRepository.findByUsername(username))
-
-                .setRunning(true)
-                .setCreditStart(creditexDateProvider.getCurrentSqlDate())
-                .setCreditEnd(end)
-                .setCurrentMainDebt(application.getRequest())
-                .setCurrentMoney(application.getRequest())
-                .setDuration(application.getDuration())
-                .setOriginalMainDebt(application.getRequest())
-                .setProduct(application.getProduct())
-                .setPayments(payments)
-                .setCurrentPercentDebt(params[1]);
-        for (Payment payment : credit.getPayments()){
-            payment.setCredit(credit);
-        }
-        Credit saved = creditRepository.save(credit);
-        return saved.getId();
-    }
-
-    @Override
     public Application GetCreditApplicationById(long id) {
         return applicationRepository.findOne(id);
     }
@@ -234,6 +176,7 @@ public class ApplicationServiceImpl implements ApplicationService {
             payment.setCredit(credit);
         }
         Credit saved = creditRepository.save(credit);
+        dayReportService.IncCredit();
         return saved.getId();
     }
 

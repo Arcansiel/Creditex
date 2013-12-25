@@ -34,7 +34,6 @@ public class DayReport {
     private long income;
     private long outcome;
     private long credits;
-    private long runningCredits;
     private long expiredCredits;
     private long unreturnedCredits;
     private long creditApplications;

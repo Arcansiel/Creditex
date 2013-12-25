@@ -4,11 +4,9 @@ import org.springframework.context.ApplicationListener;
 
 public interface NewDayService extends ApplicationListener<DateChangeEvent> {
     void MarkExpired();
-
     void AddMainFine();
-
     void AddPercentFine();
-
+    void MarkUnreturned();
     @Override
     void onApplicationEvent(DateChangeEvent dateChangeEvent);
 }

@@ -18,7 +18,6 @@ public interface DayReportService {
     void IncOperationManager();
     void IncCommitteeManager();
     void IncOperations();
-    void RunningCredits(long count);
     void ExpiredCredits(long count);
     void UnReturnedCredits(long count);
     DayReport SaveDayReport();
@@ -26,5 +25,4 @@ public interface DayReportService {
     List<DayReport> GetLatestReportList(int count);
     void AddIncome(long income);
     void AddOutcome(long outcome);
-
 }
