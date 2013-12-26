@@ -36,34 +36,44 @@ public class CommitteeManagerController {
 
     private void AddInfoToModel(Model model, String error, String info){
         if(error != null){
-            if(error.equals("no_application")){
-                model.addAttribute("error","Заявка не найдена");
-                if(info != null){
-                    model.addAttribute("info","ID заявки: "+info);
-                }
-            }else if(error.equals("no_client")){
-                model.addAttribute("error","Клиент не найден в системе");
-                if(info != null){
-                    model.addAttribute("info","ID клиента: "+info);
-                }
-            }else if(error.equals("invalid_input_data")){
-                model.addAttribute("error","Введены некорректные данные");
-                if(info != null){
-                    model.addAttribute("info","Введены некорректные данные в поле "+info);
-                }
-            }else if(error.equals("vote_failed")){
-                model.addAttribute("error","Ошибка голосования по заявке");
-                if(info != null){
-                    if(info.equals("-1")){
-                        model.addAttribute("info","Сотрудник кредитного комитета отсутствует в системе");
-                    }else if(info.equals("-2")){
-                        model.addAttribute("info","Заявка не найдена");
-                    }else if(info.equals("-3")){
-                        model.addAttribute("info","Заявка не находится на стадии рассмотрения кредитным комитетом");
-                    }else if(info.equals("-4")){
-                        model.addAttribute("info","Голосование по заявке закрыто");
+            switch (error) {
+                case "no_application":
+                    model.addAttribute("error", "Заявка не найдена");
+                    if (info != null) {
+                        model.addAttribute("info", "ID заявки: " + info);
                     }
-                }
+                    break;
+                case "no_client":
+                    model.addAttribute("error", "Клиент не найден в системе");
+                    if (info != null) {
+                        model.addAttribute("info", "ID клиента: " + info);
+                    }
+                    break;
+                case "invalid_input_data":
+                    model.addAttribute("error", "Введены некорректные данные");
+                    if (info != null) {
+                        model.addAttribute("info", "Введены некорректные данные в поле " + info);
+                    }
+                    break;
+                case "vote_failed":
+                    model.addAttribute("error", "Ошибка голосования по заявке");
+                    if (info != null) {
+                        switch (info) {
+                            case "-1":
+                                model.addAttribute("info", "Сотрудник кредитного комитета отсутствует в системе");
+                                break;
+                            case "-2":
+                                model.addAttribute("info", "Заявка не найдена");
+                                break;
+                            case "-3":
+                                model.addAttribute("info", "Заявка не находится на стадии рассмотрения кредитным комитетом");
+                                break;
+                            case "-4":
+                                model.addAttribute("info", "Голосование по заявке закрыто");
+                                break;
+                        }
+                    }
+                    break;
             }
         }else if(info != null){
             if(info.equals("vote_completed")){

@@ -42,102 +42,140 @@ public class DepartmentHeadController {
 
     private void AddInfoToModel(Model model, String error, String info){
         if(error != null){
-            if(error.equals("no_application")){
-                model.addAttribute("error","Заявка на кредит не найдена");
-                if(info != null){
-                    model.addAttribute("info","ID заявки: "+info);
-                }
-            }else if(error.equals("no_prior_repayment_application")){
-                model.addAttribute("error","Заявка на досрочное погашение не найдена");
-                if(info != null){
-                    model.addAttribute("info","ID заявки: "+info);
-                }
-            }else if(error.equals("no_prolongation_application")){
-                model.addAttribute("error","Заявка на пролонгацию не найдена");
-                if(info != null){
-                    model.addAttribute("info","ID заявки: "+info);
-                }
-            }else if(error.equals("no_client")){
-                model.addAttribute("error","Клиент не найден в системе");
-                if(info != null){
-                    model.addAttribute("info","ID клиента: "+info);
-                }
-            }else if(error.equals("invalid_input_data")){
-                model.addAttribute("error","Введены некорректные данные");
-                if(info != null){
-                    model.addAttribute("info","Введены некорректные данные в поле "+info);
-                }
-            }else if(error.equals("head_acceptance_failed")){
-                model.addAttribute("error","Ошибка принятия решения по заявке на кредит");
-                if(info != null){
-                    if(info.equals("-1")){
-                        model.addAttribute("info","ГКО отсутствует в системе");
-                    }else if(info.equals("-2")){
-                        model.addAttribute("info","Заявка не найдена");
-                    }else if(info.equals("-3")){
-                        model.addAttribute("info","Заявка не находится на стадии рассмотрения ГКО");
-                    }else if(info.equals("-4")){
-                        model.addAttribute("info","Голосование по заявке ещё не завершено");
+            switch (error) {
+                case "no_application":
+                    model.addAttribute("error", "Заявка на кредит не найдена");
+                    if (info != null) {
+                        model.addAttribute("info", "ID заявки: " + info);
                     }
-                }
-            }else if(error.equals("prior_acceptance_failed")){
-                model.addAttribute("error","Ошибка принятия решения по заявке на досрочное погашение");
-                if(info != null){
-                    if(info.equals("-1")){
-                        model.addAttribute("info","Заявка на досрочное погашение не найдена");
-                    }else if(info.equals("-2")){
-                        model.addAttribute("info","Заявка на досрочное погашение не находится на стадии рассмотрения");
+                    break;
+                case "no_prior_repayment_application":
+                    model.addAttribute("error", "Заявка на досрочное погашение не найдена");
+                    if (info != null) {
+                        model.addAttribute("info", "ID заявки: " + info);
                     }
-                }
-            }else if(error.equals("prolongation_acceptance_failed")){
-                model.addAttribute("error","Ошибка принятия решения по заявке на пролонгацию");
-                if(info != null){
-                    if(info.equals("-1")){
-                        model.addAttribute("info","Заявка на пролонгацию не найдена");
-                    }else if(info.equals("-2")){
-                        model.addAttribute("info","Заявка на пролонгацию не находится на стадии рассмотрения");
+                    break;
+                case "no_prolongation_application":
+                    model.addAttribute("error", "Заявка на пролонгацию не найдена");
+                    if (info != null) {
+                        model.addAttribute("info", "ID заявки: " + info);
                     }
-                }
-            }else if(error.equals("product_creation_failed")){
-                model.addAttribute("error","Ошибка создания кредитного продукта");
-                if(info != null){
-                    if(info.equals("-1")){
-                        model.addAttribute("info","Имя кредитного продкта не должно быть пустым");
-                    }else if(info.equals("-2")){
-                        model.addAttribute("info","Неверные значени для границ суммы кредита (или меньше нуля, или минимальное больше максимального)");
-                    }else if(info.equals("-3")){
-                        model.addAttribute("info","Неверные значени для границ срока кредитования (или меньше нуля, или минимальное больше максимального)");
-                    }else if(info.equals("-4")){
-                        model.addAttribute("info","Неверное значение процентных полей кредита (меньше нуля)");
-                    }else if(info.equals("-5")){
-                        model.addAttribute("info","Кредитный продукт с таким именем уже существует");
+                    break;
+                case "no_client":
+                    model.addAttribute("error", "Клиент не найден в системе");
+                    if (info != null) {
+                        model.addAttribute("info", "ID клиента: " + info);
                     }
-                }
-            }else if(error.equals("product_state_changing_failed")){
-                model.addAttribute("error","Ошибка изменения состояния кредитного продукта");
-                if(info != null){
-                    model.addAttribute("info","Кредитный продукт не существует, ID : "+info);
-                }
+                    break;
+                case "invalid_input_data":
+                    model.addAttribute("error", "Введены некорректные данные");
+                    if (info != null) {
+                        model.addAttribute("info", "Введены некорректные данные в поле " + info);
+                    }
+                    break;
+                case "head_acceptance_failed":
+                    model.addAttribute("error", "Ошибка принятия решения по заявке на кредит");
+                    if (info != null) {
+                        switch (info) {
+                            case "-1":
+                                model.addAttribute("info", "ГКО отсутствует в системе");
+                                break;
+                            case "-2":
+                                model.addAttribute("info", "Заявка не найдена");
+                                break;
+                            case "-3":
+                                model.addAttribute("info", "Заявка не находится на стадии рассмотрения ГКО");
+                                break;
+                            case "-4":
+                                model.addAttribute("info", "Голосование по заявке ещё не завершено");
+                                break;
+                        }
+                    }
+                    break;
+                case "prior_acceptance_failed":
+                    model.addAttribute("error", "Ошибка принятия решения по заявке на досрочное погашение");
+                    if (info != null) {
+                        switch (info){
+                            case "-1":
+                                model.addAttribute("info", "Заявка на досрочное погашение не найдена");
+                                break;
+                            case "-2":
+                                model.addAttribute("info", "Заявка на досрочное погашение не находится на стадии рассмотрения");
+                                break;
+                        }
+                    }
+                    break;
+                case "prolongation_acceptance_failed":
+                    model.addAttribute("error", "Ошибка принятия решения по заявке на пролонгацию");
+                    if (info != null) {
+                        switch (info){
+                            case "-1":
+                                model.addAttribute("info", "Заявка на пролонгацию не найдена");
+                                break;
+                            case "-2":
+                                model.addAttribute("info", "Заявка на пролонгацию не находится на стадии рассмотрения");
+                                break;
+                        }
+                    }
+                    break;
+                case "product_creation_failed":
+                    model.addAttribute("error", "Ошибка создания кредитного продукта");
+                    if (info != null) {
+                        switch (info) {
+                            case "-1":
+                                model.addAttribute("info", "Имя кредитного продкта не должно быть пустым");
+                                break;
+                            case "-2":
+                                model.addAttribute("info", "Неверные значени для границ суммы кредита (или меньше нуля, или минимальное больше максимального)");
+                                break;
+                            case "-3":
+                                model.addAttribute("info", "Неверные значени для границ срока кредитования (или меньше нуля, или минимальное больше максимального)");
+                                break;
+                            case "-4":
+                                model.addAttribute("info", "Неверное значение процентных полей кредита (меньше нуля)");
+                                break;
+                            case "-5":
+                                model.addAttribute("info", "Кредитный продукт с таким именем уже существует");
+                                break;
+                        }
+                    }
+                    break;
+                case "product_state_changing_failed":
+                    model.addAttribute("error", "Ошибка изменения состояния кредитного продукта");
+                    if (info != null) {
+                        model.addAttribute("info", "Кредитный продукт не существует, ID : " + info);
+                    }
+                    break;
             }
         }else if(info != null){
-            if(info.equals("application_accepted")){
-                model.addAttribute("info","Заявка на кредит принята");
-            }else if(info.equals("application_rejected")){
-                model.addAttribute("info","Заявка на кредит отклонена");
-            }else if(info.equals("prior_repayment_application_accepted")){
-                model.addAttribute("info","Заявка на досрочное погашение принята");
-            }else if(info.equals("prior_repayment_application_rejected")){
-                model.addAttribute("info","Заявка на досрочное погашение отклонена");
-            }else if(info.equals("prolongation_application_accepted")){
-                model.addAttribute("info","Заявка на пролонгацию принята");
-            }else if(info.equals("prolongation_application_rejected")){
-                model.addAttribute("info","Заявка на пролонгацию отклонена");
-            }else if(info.equals("product_created")){
-                model.addAttribute("info","Кредитный продукт создан");
-            }else if(info.equals("product_state_active")){
-                model.addAttribute("info","Состояние кредитного продукта установлено: Активный");
-            }else if(info.equals("product_state_inactive")){
-                model.addAttribute("info","Состояние кредитного продукта установлено: Неактивный");
+            switch (info) {
+                case "application_accepted":
+                    model.addAttribute("info", "Заявка на кредит принята");
+                    break;
+                case "application_rejected":
+                    model.addAttribute("info", "Заявка на кредит отклонена");
+                    break;
+                case "prior_repayment_application_accepted":
+                    model.addAttribute("info", "Заявка на досрочное погашение принята");
+                    break;
+                case "prior_repayment_application_rejected":
+                    model.addAttribute("info", "Заявка на досрочное погашение отклонена");
+                    break;
+                case "prolongation_application_accepted":
+                    model.addAttribute("info", "Заявка на пролонгацию принята");
+                    break;
+                case "prolongation_application_rejected":
+                    model.addAttribute("info", "Заявка на пролонгацию отклонена");
+                    break;
+                case "product_created":
+                    model.addAttribute("info", "Кредитный продукт создан");
+                    break;
+                case "product_state_active":
+                    model.addAttribute("info", "Состояние кредитного продукта установлено: Активный");
+                    break;
+                case "product_state_inactive":
+                    model.addAttribute("info", "Состояние кредитного продукта установлено: Неактивный");
+                    break;
             }
         }
     }

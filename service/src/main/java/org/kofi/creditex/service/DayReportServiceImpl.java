@@ -1,5 +1,8 @@
 package org.kofi.creditex.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
 import org.kofi.creditex.model.DayReport;
 import org.kofi.creditex.repository.DayReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Service("dayReportService")
@@ -121,7 +125,9 @@ public class DayReportServiceImpl implements DayReportService {
 
     @Override
     public List<DayReport> GetLatestReportList(int count) {
-        return dayReportRepository.findAll(new PageRequest(0,count, Sort.Direction.DESC, "dayDate")).getContent();
+        int currentCount = (int) dayReportRepository.count();
+        int actualCount = count>currentCount?currentCount:count;
+        return dayReportRepository.findAll(new PageRequest(0,actualCount, Sort.Direction.DESC, "dayDate")).getContent();
     }
 
     @PostConstruct
@@ -132,5 +138,13 @@ public class DayReportServiceImpl implements DayReportService {
     @Override
     public void IncClosedCredit() {
         report.setOverallClosedCredits(report.getOverallClosedCredits()+1);
+    }
+
+    @Override
+    public String GetLatestReportListInJson(int count) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JodaModule());
+        mapper.setDateFormat(new SimpleDateFormat("dd.MM.yyyy"));
+        return mapper.writeValueAsString(GetLatestReportList(count));
     }
 }

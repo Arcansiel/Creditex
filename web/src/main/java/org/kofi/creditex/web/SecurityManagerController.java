@@ -38,88 +38,122 @@ public class SecurityManagerController {
 
     private void AddInfoToModel(Model model, String error, String info){
         if(error != null){
-            if(error.equals("application_assignment_failed")){
-                model.addAttribute("error","Получение заявки не выполнено");
-                if(info != null){
-                    if(info.equals("-1")){
-                        model.addAttribute("info","Специалист безопасности отсутствует в системе");
-                    }else if(info.equals("-2")){
-                        model.addAttribute("info","Заявка не найдена");
-                    }else if(info.equals("-3")){
-                        model.addAttribute("info","Заявка не находится на стадии рассмотрения службой безопасности");
-                    }else if(info.equals("-4")){
-                        model.addAttribute("info","Заявка находится в рассмотрении у другого специалиста безопасности");
+            switch (error) {
+                case "application_assignment_failed":
+                    model.addAttribute("error", "Получение заявки не выполнено");
+                    if (info != null) {
+                        switch (info) {
+                            case "-1":
+                                model.addAttribute("info", "Специалист безопасности отсутствует в системе");
+                                break;
+                            case "-2":
+                                model.addAttribute("info", "Заявка не найдена");
+                                break;
+                            case "-3":
+                                model.addAttribute("info", "Заявка не находится на стадии рассмотрения службой безопасности");
+                                break;
+                            case "-4":
+                                model.addAttribute("info", "Заявка находится в рассмотрении у другого специалиста безопасности");
+                                break;
+                        }
                     }
-                }
-            }else if(error.equals("no_application")){
-                model.addAttribute("error","Заявка не найдена");
-                if(info != null){
-                    model.addAttribute("info","ID заявки: "+info);
-                }
-            }else if(error.equals("application_assignment_cancel_failed")){
-                model.addAttribute("error","Ошибка при отказе от рассмотрения заявки");
-                if(info != null){
-                    if(info.equals("-1")){
-                        model.addAttribute("info","Специалист безопасности отсутствует в системе");
-                    }else if(info.equals("-2")){
-                        model.addAttribute("info","Заявка не найдена");
-                    }else if(info.equals("-3")){
-                        model.addAttribute("info","Заявка не находится на стадии рассмотрения службой безопасности");
-                    }else if(info.equals("-4")){
-                        model.addAttribute("info","Заявка находится в рассмотрении у другого специалиста безопасности");
+                    break;
+                case "no_application":
+                    model.addAttribute("error", "Заявка не найдена");
+                    if (info != null) {
+                        model.addAttribute("info", "ID заявки: " + info);
                     }
-                }
-            }else if(error.equals("no_client")){
-                model.addAttribute("error","Клиент не найден в системе");
-                if(info != null){
-                    model.addAttribute("info","ID клиента: "+info);
-                }
-            }else if(error.equals("no_credit")){
-                model.addAttribute("error","Кредит не найден");
-                if(info != null){
-                    model.addAttribute("info","ID кредита: "+info);
-                }
-            }else if(error.equals("invalid_input_data")){
-                model.addAttribute("error","Введены некорректные данные");
-                if(info != null){
-                    model.addAttribute("info","Введены некорректные данные в поле "+info);
-                }
-            }else if(error.equals("confirmation_failed")){
-                model.addAttribute("error","Ошибка принятия решения по заявке");
-                if(info != null){
-                    if(info.equals("-1")){
-                        model.addAttribute("info","Специалист безопасности отсутствует в системе");
-                    }else if(info.equals("-2")){
-                        model.addAttribute("info","Заявка не найдена");
-                    }else if(info.equals("-3")){
-                        model.addAttribute("info","Заявка не находится на стадии рассмотрения службой безопасности");
-                    }else if(info.equals("-4")){
-                        model.addAttribute("info","Заявка находится в рассмотрении у другого специалиста безопасности");
+                    break;
+                case "application_assignment_cancel_failed":
+                    model.addAttribute("error", "Ошибка при отказе от рассмотрения заявки");
+                    if (info != null) {
+                        switch (info) {
+                            case "-1":
+                                model.addAttribute("info", "Специалист безопасности отсутствует в системе");
+                                break;
+                            case "-2":
+                                model.addAttribute("info", "Заявка не найдена");
+                                break;
+                            case "-3":
+                                model.addAttribute("info", "Заявка не находится на стадии рассмотрения службой безопасности");
+                                break;
+                            case "-4":
+                                model.addAttribute("info", "Заявка находится в рассмотрении у другого специалиста безопасности");
+                                break;
+                        }
                     }
-                }
-            }else if(error.equals("notification_failed")){
-                model.addAttribute("error","Ошибка создания уведомления");
-                if(info != null){
-                    if(info.equals("-1")){
-                        model.addAttribute("info","Специалист безопасности отсутствует в системе");
-                    }else if(info.equals("-2")){
-                        model.addAttribute("info","Кредит не найден");
-                    }else if(info.equals("-3")){
-                        model.addAttribute("info","Клиент не найден");
-                    }else if(info.equals("-4")){
-                        model.addAttribute("info","Нельзя отправлять уведомления по закрытым кредитам");
+                    break;
+                case "no_client":
+                    model.addAttribute("error", "Клиент не найден в системе");
+                    if (info != null) {
+                        model.addAttribute("info", "ID клиента: " + info);
                     }
-                }
+                    break;
+                case "no_credit":
+                    model.addAttribute("error", "Кредит не найден");
+                    if (info != null) {
+                        model.addAttribute("info", "ID кредита: " + info);
+                    }
+                    break;
+                case "invalid_input_data":
+                    model.addAttribute("error", "Введены некорректные данные");
+                    if (info != null) {
+                        model.addAttribute("info", "Введены некорректные данные в поле " + info);
+                    }
+                    break;
+                case "confirmation_failed":
+                    model.addAttribute("error", "Ошибка принятия решения по заявке");
+                    if (info != null) {
+                        switch (info) {
+                            case "-1":
+                                model.addAttribute("info", "Специалист безопасности отсутствует в системе");
+                                break;
+                            case "-2":
+                                model.addAttribute("info", "Заявка не найдена");
+                                break;
+                            case "-3":
+                                model.addAttribute("info", "Заявка не находится на стадии рассмотрения службой безопасности");
+                                break;
+                            case "-4":
+                                model.addAttribute("info", "Заявка находится в рассмотрении у другого специалиста безопасности");
+                                break;
+                        }
+                    }
+                    break;
+                case "notification_failed":
+                    model.addAttribute("error", "Ошибка создания уведомления");
+                    if (info != null) {
+                        switch (info) {
+                            case "-1":
+                                model.addAttribute("info", "Специалист безопасности отсутствует в системе");
+                                break;
+                            case "-2":
+                                model.addAttribute("info", "Кредит не найден");
+                                break;
+                            case "-3":
+                                model.addAttribute("info", "Клиент не найден");
+                                break;
+                            case "-4":
+                                model.addAttribute("info", "Нельзя отправлять уведомления по закрытым кредитам");
+                                break;
+                        }
+                    }
+                    break;
             }
         }else if(info != null){
-            if(info.equals("application_assignment_canceled")){
-                model.addAttribute("info","Отказ от рассмотрения заявки выполнен");
-            }else if(info.equals("confirmation_completed")){
-                model.addAttribute("info","Решение по заявке принято");
-            }else if(info.equals("no_assigned_application")){
-                model.addAttribute("info","Заявка для рассмотрения не выбрана");
-            }else if(info.equals("notification_sent")){
-                model.addAttribute("info","Уведомление отправлено");
+            switch (info) {
+                case "application_assignment_canceled":
+                    model.addAttribute("info", "Отказ от рассмотрения заявки выполнен");
+                    break;
+                case "confirmation_completed":
+                    model.addAttribute("info", "Решение по заявке принято");
+                    break;
+                case "no_assigned_application":
+                    model.addAttribute("info", "Заявка для рассмотрения не выбрана");
+                    break;
+                case "notification_sent":
+                    model.addAttribute("info", "Уведомление отправлено");
+                    break;
             }
         }
     }

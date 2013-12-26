@@ -43,42 +43,61 @@ public class OperationManagerController {
 
     private void AddInfoToModel(Model model, String error, String info){
         if(error != null){
-            if(error.equals("invalid_input_data")){
-                model.addAttribute("error","Введены некорректные данные");
-                if(info != null){
-                    model.addAttribute("info","Введены некорректные данные в поле "+info);
-                }
-            }else if(error.equals("no_client")){
-                model.addAttribute("error","Клиент не найден в системе");
-            }else if(error.equals("credit_not_selected")){
-                model.addAttribute("error","Кредит не выбран");
-            }else if(error.equals("operation_not_executed")){
-                model.addAttribute("error","Операция не выполнена");
-                if(info != null){
-                    if(info.equals("-1")){
-                        model.addAttribute("info","Значение суммы меньше либо равно нулю");
-                    }else if(info.equals("-2")){
-                        model.addAttribute("info","Операциониста нет в системе");
-                    }else if(info.equals("-3")){
-                        model.addAttribute("info","Кредит не существует");
-                    }else if(info.equals("-4")){
-                        model.addAttribute("info","Кредит закрыт, операции не разрешены");
-                    }else if(info.equals("-5") || info.equals("-6") || info.equals("-7")){
-                        model.addAttribute("info","Введена неверная сумма платежа");
-                    }else if(info.equals("-8")){
-                        model.addAttribute("info","На счёте недостаточно денег");
+            switch (error) {
+                case "invalid_input_data":
+                    model.addAttribute("error", "Введены некорректные данные");
+                    if (info != null) {
+                        model.addAttribute("info", "Введены некорректные данные в поле " + info);
                     }
-                }
+                    break;
+                case "no_client":
+                    model.addAttribute("error", "Клиент не найден в системе");
+                    break;
+                case "credit_not_selected":
+                    model.addAttribute("error", "Кредит не выбран");
+                    break;
+                case "operation_not_executed":
+                    model.addAttribute("error", "Операция не выполнена");
+                    if (info != null) {
+                        switch (info) {
+                            case "-1":
+                                model.addAttribute("info", "Значение суммы меньше либо равно нулю");
+                                break;
+                            case "-2":
+                                model.addAttribute("info", "Операциониста нет в системе");
+                                break;
+                            case "-3":
+                                model.addAttribute("info", "Кредит не существует");
+                                break;
+                            case "-4":
+                                model.addAttribute("info", "Кредит закрыт, операции не разрешены");
+                                break;
+                            case "-5":
+                            case "-6":
+                            case "-7":
+                                model.addAttribute("info", "Введена неверная сумма платежа");
+                                break;
+                            case "-8":
+                                model.addAttribute("info", "На счёте недостаточно денег");
+                                break;
+                        }
+                    }
+                    break;
             }
         }else if(info != null){
-            if(info.equals("no_current_credit")){
-                model.addAttribute("info","У клиента нет текущего кредита");
-            }if(info.equals("no_payments_available")){
-                model.addAttribute("info","В данный момент нет доступных платежей");
-            }else if(info.equals("operation_executed")){
-                model.addAttribute("info","Операция выполнена успешно");
-            }else if(info.equals("credit_closed")){
-                model.addAttribute("info","Операция выполнена, кредит закрыт");
+            switch (info) {
+                case "no_current_credit":
+                    model.addAttribute("info", "У клиента нет текущего кредита");
+                    break;
+                case "no_payments_available":
+                    model.addAttribute("info", "В данный момент нет доступных платежей");
+                    break;
+                case "operation_executed":
+                    model.addAttribute("info", "Операция выполнена успешно");
+                    break;
+                case "credit_closed":
+                    model.addAttribute("info", "Операция выполнена, кредит закрыт");
+                    break;
             }
         }
     }

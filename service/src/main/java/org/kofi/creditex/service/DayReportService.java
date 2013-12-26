@@ -1,6 +1,7 @@
 package org.kofi.creditex.service;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.kofi.creditex.model.DayReport;
 
 import java.util.List;
@@ -25,4 +26,5 @@ public interface DayReportService {
     List<DayReport> GetLatestReportList(int count);
     void AddIncome(long income);
     void AddOutcome(long outcome);
+    String GetLatestReportListInJson(int count) throws JsonProcessingException;
 }
