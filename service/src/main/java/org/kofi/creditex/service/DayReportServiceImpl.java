@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.util.StdDateFormat;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.google.common.base.Function;
 import com.google.common.collect.Ordering;
+import lombok.extern.slf4j.Slf4j;
 import org.joda.time.LocalDate;
 import org.kofi.creditex.model.DayReport;
 import org.kofi.creditex.repository.DayReportRepository;
@@ -15,12 +16,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Nullable;
 import javax.annotation.PostConstruct;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
+@Slf4j
 @Service("dayReportService")
 @DependsOn("entityManagerFactory")
 public class DayReportServiceImpl implements DayReportService {
@@ -145,6 +144,7 @@ public class DayReportServiceImpl implements DayReportService {
 
     @PostConstruct
     private void DayReportInitialization(){
+        log.warn("Initializing DayReportService!");
         report = dayReportRepository.findAll(new PageRequest(0,1, Sort.Direction.DESC, "dayDate")).getContent().get(0);
     }
 

@@ -16,7 +16,7 @@ import java.sql.Date;
 
 @Data
 @Slf4j
-@Service
+@Service("dateProvider")
 @DependsOn("dayReportService")
 public class CreditexDateProvider implements ApplicationEventPublisherAware{
     @Autowired
