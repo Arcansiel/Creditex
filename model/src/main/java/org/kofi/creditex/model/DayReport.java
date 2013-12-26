@@ -16,7 +16,6 @@ public class DayReport {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     @Column(nullable = false)
     private LocalDate dayDate;
     private long currentBankMoney;

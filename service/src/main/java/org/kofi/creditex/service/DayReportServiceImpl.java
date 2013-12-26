@@ -139,7 +139,7 @@ public class DayReportServiceImpl implements DayReportService {
                 return dayReport.getDayDate();
             }
         });
-        return reportOrdering.sortedCopy(dayReportRepository.findAll(new PageRequest(0,actualCount, Sort.Direction.DESC, "dayDate")).getContent());
+        return reportOrdering.sortedCopy(dayReportRepository.findAll(new PageRequest(0, actualCount, Sort.Direction.DESC, "dayDate")).getContent());
     }
 
     @PostConstruct
@@ -154,12 +154,17 @@ public class DayReportServiceImpl implements DayReportService {
 
     @Override
     public String GetLatestReportListInJson(int count) throws JsonProcessingException {
-
         ObjectMapper mapper = new ObjectMapper();
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        mapper.setDateFormat(format);
         JodaModule module = new JodaModule();
         mapper.registerModule(module);
         return mapper.writeValueAsString(GetLatestReportList(count));
+    }
+
+    @Override
+    public String ConvertReportListToJson(List<DayReport> list) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        JodaModule module = new JodaModule();
+        mapper.registerModule(module);
+        return mapper.writeValueAsString(list);
     }
 }
