@@ -21,6 +21,10 @@
             );
         });
     </script>
+    [#if report??]
+        [@creditex.includeCharts/]
+        [@creditex.charts includeOverall=true containerOverall="overallContainer" includeCurrent=true includeIO=true includeBankMoney=true containerCurrent="currentContainer" includeRegistered=true containerRegistered="registeredContainer" containerIO="ioContainer" containerBankMoney="bankMoneyContainer" data="${report}"/]
+    [/#if]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
@@ -99,6 +103,14 @@
             </table>
 
         </div>
+
+        [#if report??]
+            <div id="bankMoneyContainer" style="width: 100%; height: 440px;"></div>
+            <div id="overallContainer" style="width: 100%; height: 440px;"></div>
+            <div id="ioContainer" style="width: 100%; height: 440px;"></div>
+            <div id="currentContainer" style="width: 100%; height: 440px;"></div>
+            <div id="registeredContainer" style="width: 100%; height: 440px;"></div>
+        [/#if]
     </div>
     [/@creditex.body]
 [/@creditex.root]

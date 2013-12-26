@@ -1,5 +1,6 @@
 package org.kofi.creditex.web;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.kofi.creditex.model.*;
 import org.kofi.creditex.service.*;
 import org.kofi.creditex.web.model.ConfirmationForm;
@@ -534,9 +535,14 @@ public class DepartmentHeadController {
         List<DayReport> reports = dayReportService.GetLatestReportList(reportRequest.getPeriod());
         model.addAttribute("reports",reports);
         model.addAttribute("overall",true);
+
+        try {
+            model.addAttribute("report", dayReportService.GetLatestReportListInJson(reportRequest.getPeriod()));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
         return "department_head_report";
     }
-
-    //TODO report controller implementation
 
 }
