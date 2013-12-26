@@ -4,6 +4,7 @@ import org.kofi.creditex.model.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.sql.Date;
+import java.util.Map;
 
 public interface SecurityService {
     List<Application> GetSecurityUncheckedApplications();
@@ -22,4 +23,5 @@ public interface SecurityService {
     int SendNotification(String security_name, long credit_id,
                          NotificationType notificationType, String message);
     long GetCreditNotificationsCount(long credit_id);
+    Map<String,Object> ClientOuterCheck(long client_id);
 }
