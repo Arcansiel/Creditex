@@ -29,7 +29,7 @@
 
     <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="jobDetail"/>
-        <property name="cronExpression" value="*/2 * * * * ?"/>
+        <property name="cronExpression" value="${scheduler.cron}"/>
     </bean>
 
     <bean id="quartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" depends-on="entityManagerFactory">
