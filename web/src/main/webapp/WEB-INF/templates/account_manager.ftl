@@ -55,14 +55,16 @@
             );
         });
     </script>
-    [@creditex.charts includeOverall=true containerOverall="overallContainer" includeCurrent=true containerCurrent="currentContainer" includeRegistered=true containerRegistered="registeredContainer" data="${report}"/]
+    [@creditex.charts includeOverall=true containerOverall="overallContainer" includeCurrent=true includeIO=true includeBankMoney=true containerCurrent="currentContainer" includeRegistered=true containerRegistered="registeredContainer" containerIO="ioContainer" containerBankMoney="bankMoneyContainer" data="${report}"/]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
         [@creditex.account_manager/]
+        <div id="bankMoneyContainer" style="width: 100%; height: 440px;"></div>
         <div id="overallContainer" style="width: 100%; height: 440px;"></div>
-        <div id="registeredContainer" style="width: 100%; height: 440px;"></div>
+        <div id="ioContainer" style="width: 100%; height: 440px;"></div>
         <div id="currentContainer" style="width: 100%; height: 440px;"></div>
+        <div id="registeredContainer" style="width: 100%; height: 440px;"></div>
         <div class="form-action">
             <p class="name">Введите данные клиента</p>
             <form action="" method="post" class="form" id="clientDataForm">
