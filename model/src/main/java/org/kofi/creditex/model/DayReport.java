@@ -1,5 +1,6 @@
 package org.kofi.creditex.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.Type;
@@ -15,6 +16,7 @@ public class DayReport {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     @Column(nullable = false)
     private LocalDate dayDate;
     private long currentBankMoney;
@@ -43,5 +45,9 @@ public class DayReport {
     @Transient
     public long getOverallRunningCredits(){
         return overallCredits - overallClosedCredits;
+    }
+    @Transient
+    public String getDayDateString(){
+        return dayDate.toString("dd.MM.yyyy");
     }
 }

@@ -13,47 +13,55 @@
                         rules:{
                             username: {
                                 required: true,
+                                nowhitespace:true,
                                 minlength: 8,
                                 maxlength: 46
                             },
                             password: {
                                 required: true,
+                                nowhitespace:true,
                                 minlength: 8,
                                 maxlength: 46
                             },
                             repeatPassword: {
                                 required: true,
+                                nowhitespace:true,
                                 minlength: 8,
                                 maxlength: 46,
                                 equalTo: "#password_field"
                             },
                             first: {
-                                required: true
+                                required: true,
+                                nowhitespace:true
                             },
                             last: {
-                                required: true
+                                required: true,
+                                nowhitespace:true
                             },
                             patronymic:{
-                                required: true
+                                required: true,
+                                nowhitespace:true
                             },
                             series:{
                                 required: true,
-                                minlength:2,
-                                maxlength:2
+                                passportseries:true
                             },
                             number:{
                                 required: true,
-                                min: 0
+                                min: 1,
+                                max:9999999
                             },
                             workName:{
-                                required: true
+                                required: true,
+                                nowhitespace:true
                             },
                             workPosition:{
-                                required: true
+                                required: true,
+                                nowhitespace:true
                             },
                             workIncome:{
                                 required: true,
-                                min: 0
+                                min: 1
                             }
                         }
 
