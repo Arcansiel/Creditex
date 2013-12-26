@@ -2,7 +2,11 @@ package org.kofi.creditex.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.StdDateFormat;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
+import com.google.common.base.Function;
+import com.google.common.collect.Ordering;
+import org.joda.time.LocalDate;
 import org.kofi.creditex.model.DayReport;
 import org.kofi.creditex.repository.DayReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +15,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Nullable;
 import javax.annotation.PostConstruct;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -127,7 +133,13 @@ public class DayReportServiceImpl implements DayReportService {
     public List<DayReport> GetLatestReportList(int count) {
         int currentCount = (int) dayReportRepository.count();
         int actualCount = count>currentCount?currentCount:count;
-        return dayReportRepository.findAll(new PageRequest(0,actualCount, Sort.Direction.DESC, "dayDate")).getContent();
+        Ordering<DayReport> reportOrdering = Ordering.natural().onResultOf(new Function<DayReport, LocalDate>() {
+            @Override
+            public LocalDate apply(DayReport dayReport) {
+                return dayReport.getDayDate();
+            }
+        });
+        return reportOrdering.sortedCopy(dayReportRepository.findAll(new PageRequest(0,actualCount, Sort.Direction.DESC, "dayDate")).getContent());
     }
 
     @PostConstruct
@@ -142,9 +154,12 @@ public class DayReportServiceImpl implements DayReportService {
 
     @Override
     public String GetLatestReportListInJson(int count) throws JsonProcessingException {
+
         ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JodaModule());
-        mapper.setDateFormat(new SimpleDateFormat("dd.MM.yyyy"));
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        mapper.setDateFormat(format);
+        JodaModule module = new JodaModule();
+        mapper.registerModule(module);
         return mapper.writeValueAsString(GetLatestReportList(count));
     }
 }

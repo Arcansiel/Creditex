@@ -1,4 +1,5 @@
 [#ftl]
+[#-- @ftlvariable name="report" type="java.lang.String" --]
 [#import "creditex.ftl" as creditex]
 [#import "spring.ftl" as spring]
 
@@ -6,6 +7,7 @@
     [@creditex.head "Специалист по работе с клиентами"]
     [@creditex.includeBootstrapCss/]
     [@creditex.addValidator/]
+    [@creditex.includeCharts/]
     <script type="text/javascript">
         $(function(){
             $("#clientDataForm").validate(
@@ -53,10 +55,13 @@
             );
         });
     </script>
+    [@creditex.overallChart containerId="chartContainer" reportData="${report}"/]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
         [@creditex.account_manager/]
+        <div id="chartContainer" style="width: 100%; height: 440px;"></div>
+
         <div class="form-action">
             <p class="name">Введите данные клиента</p>
             <form action="" method="post" class="form" id="clientDataForm">

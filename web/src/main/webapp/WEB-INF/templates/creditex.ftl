@@ -49,19 +49,19 @@
 [/#macro]
 
 [#macro includeCharts]
-<script src="[@spring.url '/js/knockout-3.0.js'/]"></script>
-<script src="[@spring.url '/js/dx.charts.debug.js'/]"></script>
-<script src="[@spring.url '/js/globalize.js'/]"></script>
+<script src="[@spring.url '/js/knockout-3.0.0.js'/]"></script>
+<script src="[@spring.url '/js/globalize.min.js'/]"></script>
+<script src="[@spring.url '/js/dx.chartjs.js'/]"></script>
 [/#macro]
 
 [#macro overallChart containerId reportData]
 <script type="text/javascript">
-var dataSource = ${reportData};
 $(function(){
+    var dataSource = ${reportData};
     $("#${containerId}").dxChart({
         dataSource: dataSource,
         commonSeriesSettings:{
-            argumentField: "dayDate",
+            argumentField: "dayDateString",
             type:"spline"
         },
         commonAxisSettings:{
@@ -106,7 +106,7 @@ $(function(){
         $("#${containerId}").dxChart({
             dataSource: dataSource,
             commonSeriesSettings:{
-                argumentField: "dayDate",
+                argumentField: "dayDateString",
                 type:"spline"
             },
             commonAxisSettings:{
@@ -147,7 +147,7 @@ $(function(){
         $("#${containerId}").dxChart({
             dataSource: dataSource,
             commonSeriesSettings:{
-                argumentField: "dayDate",
+                argumentField: "dayDateString",
                 type:"spline"
             },
             commonAxisSettings:{

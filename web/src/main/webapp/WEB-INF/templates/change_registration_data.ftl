@@ -14,38 +14,58 @@
                rules:{
                    changePassword:{
                        minlength:8,
-                       maxlength:46
+                       maxlength:46,
+                       nowhitespace:true
                    },
                    changeRepeatPassword:{
                        equalTo:"#password_field"
                    },
                    first:{
-                       required: true
+                       required: true,
+                       nowhitespace:true
                    },
                    last:{
-                       required:true
+                       required:true,
+                       nowhitespace:true
                    },
                    patronymic:{
-                       required:true
+                       required:true,
+                       nowhitespace:true
                    },
                    series:{
                        required:true,
-                       minlength:2,
-                       maxlength:2
+                       passportseries:true
                    },
                    number:{
                        required:true,
-                       min:0
+                       min:1,
+                       max:9999999
                    },
                    workName:{
-                       required:true
+                       required:true,
+                       nowhitespace:true
                    },
                    workPosition:{
-                       required:true
+                       required:true,
+                       nowhitespace:true
                    },
                    workIncome:{
                        required:true,
                        min:0
+                   }
+               },
+               messages:{
+                   first:{
+                       nowhitespace:"Пробелы и спецсимволы недопустимы"
+                   },
+                   last:{
+                       nowhitespace:"Пробелы и спецсимволы недопустимы"
+                   },
+                   patronymic:{
+                       nowhitespace:"Пробелы и спецсимволы недопустимы"
+                   },
+                   series:{
+                       lettersonly:"Введите буквенную комбинацию"
                    }
                }
            });

@@ -28,11 +28,18 @@ public class AccountController {
     private UserService userService;
     @Autowired
     private NotificationService notificationService;
+    @Autowired
+    private DayReportService dayReportService;
 
     @RequestMapping("")
     public String Main(@RequestParam(required = false) Boolean change,HttpSession session, ModelMap model){
         User client = (User)session.getAttribute("client");
         if (client == null || change!=null){
+            try {
+                model.put("report", dayReportService.GetLatestReportListInJson(10));
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
             return "account_manager";
         }
         Credit credit = creditService.findByUsernameAndRunning(client.getUsername(), true);
