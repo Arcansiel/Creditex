@@ -94,6 +94,71 @@ $("#${containerId}").dxChart({
 });
 [/#macro]
 
+[#macro bankMoneyChart containerId]
+$("#${containerId}").dxChart({
+    dataSource: dataSource,
+    commonSeriesSettings:{
+        argumentField: "dayDateString",
+        type:"spline"
+    },
+    commonAxisSettings:{
+        grid:{
+            visible:true
+        }
+    },
+    series:[
+        {valueField:"currentBankMoney",name:"Деньги на счету банка"}
+    ],
+    tooltip:{
+        enabled:true
+    },
+    legend:{
+        verticalAlignment: "bottom",
+        horizontalAlignment: "center"
+    },
+    title:"Деньги банка",
+    commonPaneSettings: {
+        border:{
+            visible: true,
+            bottom: false
+        }
+    }
+});
+[/#macro]
+
+[#macro ioChart containerId]
+$("#${containerId}").dxChart({
+    dataSource: dataSource,
+    commonSeriesSettings:{
+        argumentField: "dayDateString",
+        type:"spline"
+    },
+    commonAxisSettings:{
+        grid:{
+            visible:true
+        }
+    },
+    series:[
+        {valueField:"income",name:"Доход"},
+        {valueField:"outcome",name:"Расход"}
+    ],
+    tooltip:{
+        enabled:true
+    },
+    legend:{
+        verticalAlignment: "bottom",
+        horizontalAlignment: "center"
+    },
+    title:"Доход/расход",
+    commonPaneSettings: {
+        border:{
+            visible: true,
+            bottom: false
+        }
+    }
+});
+[/#macro]
+
 [#macro registeredCurrent containerId]
 $("#${containerId}").dxChart({
     dataSource: dataSource,
@@ -144,8 +209,6 @@ $("#${containerId}").dxChart({
     },
     series:[
         {valueField:"operations",name:"Совершено операций"},
-        {valueField:"income",name:"Доход"},
-        {valueField:"outcome",name:"Расход"},
         {valueField:"credits",name:"Количество зарегистрированных кредитов"},
         {valueField:"expiredCredits",name:"Количество просроченных кредитов"},
         {valueField:"unreturnedCredits",name:"Количество невозвращённых кредитов"},
@@ -171,19 +234,26 @@ $("#${containerId}").dxChart({
 });
 [/#macro]
 
-[#macro charts data, containerOverall="", containerRegistered="",containerCurrent="", includeOverall=true, includeRegistered=true,includeCurrent=true]
+[#macro charts data, containerOverall="", containerRegistered="", containerCurrent="", containerBankMoney="", containerIO="", includeOverall=true, includeRegistered=true,includeCurrent=true, includeBankMoney=true, includeIO=true]
 <script type="text/javascript">
     $(function(){
         var dataSource = ${data};
+        [#if includeBankMoney]
+            [@bankMoneyChart containerId=containerBankMoney/]
+        [/#if]
         [#if includeOverall]
             [@overallChart containerId=containerOverall/]
         [/#if]
-        [#if includeRegistered]
-            [@registeredCurrent containerId=containerRegistered/]
+        [#if includeIO]
+            [@ioChart containerId=containerIO/]
         [/#if]
         [#if includeCurrent]
             [@currentChart containerId=containerCurrent/]
         [/#if]
+        [#if includeRegistered]
+            [@registeredCurrent containerId=containerRegistered/]
+        [/#if]
+
     });
 </script>
 [/#macro]
