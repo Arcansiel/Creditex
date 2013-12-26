@@ -55,7 +55,10 @@
             );
         });
     </script>
-    [@creditex.charts includeOverall=true containerOverall="overallContainer" includeCurrent=true includeIO=true includeBankMoney=true containerCurrent="currentContainer" includeRegistered=true containerRegistered="registeredContainer" containerIO="ioContainer" containerBankMoney="bankMoneyContainer" data="${report}"/]
+    [@creditex.charts
+    includeOverall=true containerOverall="overallContainer" includeCurrent=true includeIO=true includeBankMoney=true
+    containerCurrent="currentContainer" includeRegistered=true containerRegistered="registeredContainer"
+    containerIO="ioContainer" containerBankMoney="bankMoneyContainer" data="${report}"/]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">

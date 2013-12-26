@@ -27,4 +27,5 @@ public interface DayReportService {
     void AddIncome(long income);
     void AddOutcome(long outcome);
     String GetLatestReportListInJson(int count) throws JsonProcessingException;
+    String ConvertReportListToJson(List<DayReport> list) throws JsonProcessingException;
 }
