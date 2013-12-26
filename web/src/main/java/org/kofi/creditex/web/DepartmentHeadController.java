@@ -537,7 +537,7 @@ public class DepartmentHeadController {
         model.addAttribute("overall",true);
 
         try {
-            model.addAttribute("report", dayReportService.GetLatestReportListInJson(reportRequest.getPeriod()));
+            model.addAttribute("report", dayReportService.ConvertReportListToJson(reports));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

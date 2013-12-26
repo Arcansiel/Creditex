@@ -23,7 +23,10 @@
     </script>
     [#if report??]
         [@creditex.includeCharts/]
-        [@creditex.charts includeOverall=true containerOverall="overallContainer" includeCurrent=true includeIO=true includeBankMoney=true containerCurrent="currentContainer" includeRegistered=true containerRegistered="registeredContainer" containerIO="ioContainer" containerBankMoney="bankMoneyContainer" data="${report}"/]
+        [@creditex.charts includeOverall=true containerOverall="overallContainer" includeCurrent=true includeIO=true includeBankMoney=true
+        containerCurrent="currentContainer" includeRegistered=true
+        containerRegistered="registeredContainer" containerIO="ioContainer"
+        containerBankMoney="bankMoneyContainer" data="${report}"/]
     [/#if]
     [/@creditex.head]
     [@creditex.body]
