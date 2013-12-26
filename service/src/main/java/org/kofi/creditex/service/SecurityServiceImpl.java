@@ -209,8 +209,8 @@ public class SecurityServiceImpl implements SecurityService{
         List<Credit> list = new ArrayList<Credit>();
         for(Credit c:creditRepository.findAll(
                 QCredit.credit.user.id.eq(client_id)
-                        .and(QCredit.credit.payments.any().paymentExpired.isTrue()),
-                QCredit.credit.creditStart.desc()
+                        .and(QCredit.credit.expired.isTrue())
+                ,QCredit.credit.creditStart.desc()
         )){
             list.add(c);
         }
@@ -218,6 +218,7 @@ public class SecurityServiceImpl implements SecurityService{
     }
 
     @Override
+    //текущие невозвращённые кредиты клиента
     public List<Credit> GetClientUnreturnedCredits(long client_id) {
         Date now = dateProvider.getCurrentSqlDate();
         List<Credit> list = new ArrayList<Credit>();

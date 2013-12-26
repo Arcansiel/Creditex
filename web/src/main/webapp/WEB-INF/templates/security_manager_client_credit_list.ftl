@@ -33,7 +33,8 @@
                         <th class="amount">Долг по платежам</th>
                         <th class="amount">Пеня</th>
                         <th class="name">Активный кредит</th>
-                        <th class="name">Есть просроченные платежи</th>
+                        <th class="name">Были просроченные платежи</th>
+                        <th class="name">Возвращён не вовремя</th>
                     </tr>
                     </thead>
                     <tbody id="list">
@@ -51,6 +52,7 @@
                             <td class="amount">${credit.percentFine}</td>
                             <td class="name">${credit.running?c}</td>
                             <td class="name">${credit.expired?c}</td>
+                            <td class="name">${credit.unreturned?c}</td>
                         </tr>
                     [/#list][/#if]
                     </tbody>
