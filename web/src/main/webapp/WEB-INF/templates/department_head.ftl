@@ -36,10 +36,14 @@
                         <li><a href="[@spring.url '/department_head/prior/list/'/]">Список заявок на досрочное погашение</a></li>
                     </ul>
                 </li>
+                <li><a href="#">Отчёт</a>
+                    <ul>
+                        <li><a href="[@spring.url '/department_head/report/'/]">Отчёты по дням</a></li>
+                        <li><a href="[@spring.url '/department_head/statistics/'/]">Статистика</a></li>
+                    </ul>
+                </li>
                 <li><a href="#">Архив</a>
                     <ul>
-                        <li><a href="[@spring.url '/department_head/statistics/'/]">Статистика</a></li>
-                        <li><a href="[@spring.url '/department_head/report/'/]">Отчёт</a></li>
                         <li><a href="[@spring.url '/department_head/credits/active/list/'/]">Открытые кредиты</a></li>
                         <li><a href="[@spring.url '/department_head/credits/returned/list/'/]">Погашеные кредиты</a></li>
                         <li><a href="[@spring.url '/department_head/clients/list/'/]">Клиенты банка</a></li>
