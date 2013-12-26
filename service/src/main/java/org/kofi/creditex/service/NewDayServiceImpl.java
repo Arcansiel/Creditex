@@ -32,6 +32,10 @@ public class NewDayServiceImpl implements NewDayService {
             expiredCredits.add(payment.getCredit());
         }
         dayReportService.ExpiredCredits(expiredCredits.size());
+        for(Credit credit: expiredCredits){
+            credit.setExpired(true);
+        }
+        creditRepository.save(expiredCredits);
         paymentRepository.save(expiredPayments);
     }
 
