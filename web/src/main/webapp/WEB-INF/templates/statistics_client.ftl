@@ -12,7 +12,7 @@
     <th class="name">Открытых кредитов</th>
     <th class="name">Погашеных кредитов</th>
     <th class="name">Кредитов с просроченными платежами</th>
-    <th class="name">Невозвращённых кредитов</th>
+    <th class="name">Кредитов не возвращённых вовремя</th>
     </thead>
     <tbody>
     <td class="name">[#if (credits.countAll)??]${credits.countAll}[/#if]</td>

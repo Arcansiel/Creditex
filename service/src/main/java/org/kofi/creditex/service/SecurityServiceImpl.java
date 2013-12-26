@@ -5,8 +5,11 @@ import com.google.common.collect.Ordering;
 import org.kofi.creditex.model.*;
 
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+
 import org.kofi.creditex.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -209,8 +212,8 @@ public class SecurityServiceImpl implements SecurityService{
         List<Credit> list = new ArrayList<Credit>();
         for(Credit c:creditRepository.findAll(
                 QCredit.credit.user.id.eq(client_id)
-                        .and(QCredit.credit.payments.any().paymentExpired.isTrue()),
-                QCredit.credit.creditStart.desc()
+                        .and(QCredit.credit.expired.isTrue())
+                ,QCredit.credit.creditStart.desc()
         )){
             list.add(c);
         }
@@ -218,6 +221,7 @@ public class SecurityServiceImpl implements SecurityService{
     }
 
     @Override
+    //текущие невозвращённые кредиты клиента
     public List<Credit> GetClientUnreturnedCredits(long client_id) {
         Date now = dateProvider.getCurrentSqlDate();
         List<Credit> list = new ArrayList<Credit>();
@@ -286,5 +290,25 @@ public class SecurityServiceImpl implements SecurityService{
         return notificationRepository.count(
                 QNotification.notification.credit.id.eq(credit_id)
         );
+    }
+
+    //заглушка на проверку клиента по внешним базам данных
+    public Map<String,Object> ClientOuterCheck(long client_id){
+        User client = userService.GetUserById(client_id);
+        if(client == null){
+            return null;
+        }
+        UserData data = client.getUserData();
+        Map<String,Object> result = new HashMap<String,Object>(16);
+        result.put("passport",String.format("Паспорт: %s %s, ФИО : %s %s %s",
+                data.getPassportSeries(),data.getPassportNumber()
+                ,data.getLast(),data.getFirst(),data.getPatronymic()
+        ));
+        result.put("employer",String.format("Работодатель : %s",data.getWorkName()));
+        result.put("position",String.format("Должность : %s, Доход : %s",data.getWorkPosition(),data.getWorkIncome()));
+        result.put("taxes",String.format("Проблемы с налогами отсутствуют"));
+        result.put("mia",String.format("Проблемы с законом отсутствуют"));
+        result.put("banks",String.format("Невозвращённые кредиты в др. банках: нет, Поручительство : нет"));
+        return result;
     }
 }

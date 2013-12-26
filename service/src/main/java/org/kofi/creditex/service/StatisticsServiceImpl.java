@@ -214,13 +214,12 @@ public class StatisticsServiceImpl implements StatisticsService {
         map.put("countInActive", countAll - countActive);
         map.put("countExpired", creditRepository.count(
                 QCredit.credit.user.eq(client)
-                .and(QCredit.credit.payments.any().paymentExpired.isTrue())
+                .and(QCredit.credit.expired.isTrue())
         ));
         Date now = creditexDateProvider.getCurrentSqlDate();
         map.put("countUnreturned", creditRepository.count(
                 QCredit.credit.user.eq(client)
-                .and(QCredit.credit.currentMainDebt.gt(0))
-                        .and(QCredit.credit.creditEnd.lt(now))
+                .and(QCredit.credit.unreturned.isTrue())//
         ));
         return map;
     }

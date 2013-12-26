@@ -48,7 +48,6 @@
                         <th class="amount">Процентный долг</th>
                         <th class="amount">Долг по платежам</th>
                         <th class="amount">Пеня</th>
-                        <th class="name">Активный кредит</th>
                     </tr>
                     [#list unreturned as credit]
                         <tr>
@@ -62,7 +61,6 @@
                             <td class="amount">${credit.currentPercentDebt}</td>
                             <td class="amount">${credit.mainFine}</td>
                             <td class="amount">${credit.percentFine}</td>
-                            <td class="amount">${credit.running?c}</td>
                         </tr>
                     [/#list]
                 </table>

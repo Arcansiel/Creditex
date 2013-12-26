@@ -259,8 +259,7 @@ public class SecurityManagerController {
         if(client == null){
             return "redirect:/security_manager/?error=no_client&info="+id;
         }
-        model.addAttribute("client",client);
-
+        model.addAttribute("info",securityService.ClientOuterCheck(id));
         return "security_manager_client_check_outer";
     }
 

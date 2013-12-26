@@ -52,7 +52,7 @@
                     <th class="amount">Доход</th>
                     <th class="amount">Расход</th>
                     <th class="name">Кредиты</th>
-                    <th class="name">Открытые/Просроченные/Невозвращённые кредиты</th>
+                    <th class="name">Просроченные/Невозвращённые кредиты</th>
                     <th class="name">Заявки на кредиты</th>
                     <th class="name">Заявки на досрочное погашение</th>
                     <th class="name">Заявки на пролонгацию</th>
@@ -76,7 +76,7 @@
                         <td class="amount">${report.income}</td>
                         <td class="amount">${report.outcome}</td>
                         <td class="name">${report.credits}</td>
-                        <td class="name">${report.runningCredits} / ${report.expiredCredits} / ${report.unreturnedCredits}</td>
+                        <td class="name">${report.expiredCredits} / ${report.unreturnedCredits}</td>
                         <td class="name">${report.creditApplications}</td>
                         <td class="name">${report.priorRepaymentApplications}</td>
                         <td class="name">${report.prolongationApplications}</td>
