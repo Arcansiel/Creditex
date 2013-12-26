@@ -67,7 +67,6 @@ $("#${containerId}").dxChart({
         }
     },
     series:[
-        {valueField:"currentBankMoney",name:"Деньги на счету банка"},
         {valueField:"overallCredits",name:"Общее количество кредитов"},
         {valueField:"overallRunningCredits",name:"Количество текущих кредитов"},
         {valueField:"overallClosedCredits",name:"Количество закрытых кредитов"},
