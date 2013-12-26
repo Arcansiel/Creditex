@@ -113,6 +113,7 @@ public class DayReportServiceImpl implements DayReportService {
         DayReport forward = new DayReport();
         dayReportRepository.save(report);
         forward
+                .setDayDate(report.getDayDate().plusDays(1))
                 .setCurrentBankMoney(report.getCurrentBankMoney())
                 .setOverallCreditApplications(report.getOverallCreditApplications())
                 .setOverallCredits(report.getOverallCredits())
