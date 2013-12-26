@@ -54,134 +54,136 @@
 <script src="[@spring.url '/js/dx.chartjs.js'/]"></script>
 [/#macro]
 
-[#macro overallChart containerId reportData]
-<script type="text/javascript">
-$(function(){
-    var dataSource = ${reportData};
-    $("#${containerId}").dxChart({
-        dataSource: dataSource,
-        commonSeriesSettings:{
-            argumentField: "dayDateString",
-            type:"spline"
-        },
-        commonAxisSettings:{
-            grid:{
-                visible:true
-            }
-        },
-        series:[
-            {valueField:"currentBankMoney",name:"Деньги на счету банка"},
-            {valueField:"overallCredits",name:"Общее количество кредитов"},
-            {valueField:"overallRunningCredits",name:"Количество текущих кредитов"},
-            {valueField:"overallClosedCredits",name:"Количество закрытых кредитов"},
-            {valueField:"overallExpiredCredits",name:"Количество кредитов с просроченными платежами"},
-            {valueField:"overallUnreturnedCredits",name:"Количество невозвращённых кредитов"},
-            {valueField:"overallCreditApplications",name:"Общее количество заявок на кредиты"},
-            {valueField:"overallPriorRepaymentApplications",name:"Общее количество заявок на предварительное погашение"},
-            {valueField:"overallProlongationApplications",name:"Общее количество заявок на пролонгацию"}
-        ],
-        tooltip:{
-            enabled:true
-        },
-        legend:{
-            verticalAlignment: "bottom",
-            horizontalAlignment: "center"
-        },
-        title:"Общая статистика",
-        commonPaneSettings: {
-            border:{
-                visible: true,
-                bottom: false
-            }
+[#macro overallChart containerId]
+$("#${containerId}").dxChart({
+    dataSource: dataSource,
+    commonSeriesSettings:{
+        argumentField: "dayDateString",
+        type:"spline"
+    },
+    commonAxisSettings:{
+        grid:{
+            visible:true
         }
-    });
+    },
+    series:[
+        {valueField:"currentBankMoney",name:"Деньги на счету банка"},
+        {valueField:"overallCredits",name:"Общее количество кредитов"},
+        {valueField:"overallRunningCredits",name:"Количество текущих кредитов"},
+        {valueField:"overallClosedCredits",name:"Количество закрытых кредитов"},
+        {valueField:"overallExpiredCredits",name:"Количество кредитов с просроченными платежами"},
+        {valueField:"overallUnreturnedCredits",name:"Количество невозвращённых кредитов"},
+        {valueField:"overallCreditApplications",name:"Общее количество заявок на кредиты"},
+        {valueField:"overallPriorRepaymentApplications",name:"Общее количество заявок на предварительное погашение"},
+        {valueField:"overallProlongationApplications",name:"Общее количество заявок на пролонгацию"}
+    ],
+    tooltip:{
+        enabled:true
+    },
+    legend:{
+        verticalAlignment: "bottom",
+        horizontalAlignment: "center"
+    },
+    title:"Общая статистика",
+    commonPaneSettings: {
+        border:{
+            visible: true,
+            bottom: false
+        }
+    }
 });
-</script>
 [/#macro]
 
-[#macro registeredCurrent containerId reportData]
-<script type="text/javascript">
-    var dataSource = ${reportData};
-    $(function(){
-        $("#${containerId}").dxChart({
-            dataSource: dataSource,
-            commonSeriesSettings:{
-                argumentField: "dayDateString",
-                type:"spline"
-            },
-            commonAxisSettings:{
-                grid:{
-                    visible:true
-                }
-            },
-            series:[
-                {valueField:"clients",name:"Клиенты"},
-                {valueField:"accountManagers",name:"Специалисты по работе с клиентами"},
-                {valueField:"securityManagers",name:"Специалисты по безопасности"},
-                {valueField:"operationManagers",name:"Операционисты"},
-                {valueField:"committeeManagers",name:"Члены кредитного комитета"}
-            ],
-            tooltip:{
-                enabled:true
-            },
-            legend:{
-                verticalAlignment: "bottom",
-                horizontalAlignment: "center"
-            },
-            title:"Зарегистрировано пользователей",
-            commonPaneSettings: {
-                border:{
-                    visible: true,
-                    bottom: false
-                }
-            }
-        });
-    });
-</script>
+[#macro registeredCurrent containerId]
+$("#${containerId}").dxChart({
+    dataSource: dataSource,
+    commonSeriesSettings:{
+        argumentField: "dayDateString",
+        type:"spline"
+    },
+    commonAxisSettings:{
+        grid:{
+            visible:true
+        }
+    },
+    series:[
+        {valueField:"clients",name:"Клиенты"},
+        {valueField:"accountManagers",name:"Специалисты по работе с клиентами"},
+        {valueField:"securityManagers",name:"Специалисты по безопасности"},
+        {valueField:"operationManagers",name:"Операционисты"},
+        {valueField:"committeeManagers",name:"Члены кредитного комитета"}
+    ],
+    tooltip:{
+        enabled:true
+    },
+    legend:{
+        verticalAlignment: "bottom",
+        horizontalAlignment: "center"
+    },
+    title:"Зарегистрировано пользователей",
+    commonPaneSettings: {
+        border:{
+            visible: true,
+            bottom: false
+        }
+    }
+});
 [/#macro]
 
-[#macro currentChart containerId reportData]
+[#macro currentChart containerId]
+$("#${containerId}").dxChart({
+    dataSource: dataSource,
+    commonSeriesSettings:{
+        argumentField: "dayDateString",
+        type:"spline"
+    },
+    commonAxisSettings:{
+        grid:{
+            visible:true
+        }
+    },
+    series:[
+        {valueField:"operations",name:"Совершено операций"},
+        {valueField:"income",name:"Доход"},
+        {valueField:"outcome",name:"Расход"},
+        {valueField:"credits",name:"Количество зарегистрированных кредитов"},
+        {valueField:"expiredCredits",name:"Количество просроченных кредитов"},
+        {valueField:"unreturnedCredits",name:"Количество невозвращённых кредитов"},
+        {valueField:"creditApplications",name:"Количество заявок на кредиты"},
+        {valueField:"priorRepaymentApplications",name:"Количество заявок на предварительное погашение"},
+        {valueField:"prolongationApplications",name:"Количество заявок на пролонгацию"},
+        {valueField:"products",name:"Создано кредитных продуктов"}
+    ],
+    tooltip:{
+        enabled:true
+    },
+    legend:{
+        verticalAlignment: "bottom",
+        horizontalAlignment: "center"
+    },
+    title:"Статистика по дням",
+    commonPaneSettings: {
+        border:{
+            visible: true,
+            bottom: false
+        }
+    }
+});
+[/#macro]
+
+[#macro charts data, containerOverall="", containerRegistered="",containerCurrent="", includeOverall=true, includeRegistered=true,includeCurrent=true]
 <script type="text/javascript">
-    var dataSource = ${reportData};
     $(function(){
-        $("#${containerId}").dxChart({
-            dataSource: dataSource,
-            commonSeriesSettings:{
-                argumentField: "dayDateString",
-                type:"spline"
-            },
-            commonAxisSettings:{
-                grid:{
-                    visible:true
-                }
-            },
-            series:[
-                {valueField:"operations",name:"Совершено операций"},
-                {valueField:"income",name:"Доход"},
-                {valueField:"outcome",name:"Расход"},
-                {valueField:"credits",name:"Количество зарегистрированных кредитов"},
-                {valueField:"expiredCredits",name:"Количество просроченных кредитов"},
-                {valueField:"unreturnedCredits",name:"Количество невозвращённых кредитов"},
-                {valueField:"creditApplications",name:"Количество заявок на кредиты"},
-                {valueField:"priorRepaymentApplications",name:"Количество заявок на предварительное погашение"},
-                {valueField:"prolongationApplications",name:"Количество заявок на пролонгацию"},
-                {valueField:"products",name:"Создано кредитных продуктов"}
-            ],
-            tooltip:{
-                enabled:true
-            },
-            legend:{
-                verticalAlignment: "bottom",
-                horizontalAlignment: "center"
-            },
-            title:"Статистика по дням",
-            commonPaneSettings: {
-                border:{
-                    visible: true,
-                    bottom: false
-                }
-            }
-        });
+        var dataSource = ${data};
+        [#if includeOverall]
+            [@overallChart containerId=containerOverall/]
+        [/#if]
+        [#if includeRegistered]
+            [@registeredCurrent containerId=containerRegistered/]
+        [/#if]
+        [#if includeCurrent]
+            [@currentChart containerId=containerCurrent/]
+        [/#if]
     });
 </script>
 [/#macro]
