@@ -5,6 +5,7 @@
 [@creditex.root]
     [@creditex.head "Уведомление"]
         [@creditex.addValidator/]
+    [@creditex.includeBootstrapCss/]
     <script type="text/javascript">
         $(function(){
             $("#notificationForm").validate(
@@ -49,15 +50,16 @@
             [/#if]
 
                 <div class="form-action">
-                    <a id="notification_form_anchor" />
+                    <a id="notification_form_anchor"></a>
+                    <p class="name">Уведомление клиента</p>
                     <form action="[@spring.url '/security_manager/notification/credit/${credit.id?string("0")}'/]"
                           method="post"
-                          class="form"
-                          id="notificationForm">
-                        <p class="name">Уведомление клиента</p>
-                        <p>
-                            <label>Тип уведомления</label>
-                            <select name="type">
+                          class="form-horizontal"
+                          id="notificationForm" role="form">
+                        <div class="form-group">
+                            <label for="selectIdEl" class="col-sm-4 control-label">Тип уведомления</label>
+                            <div class="col-xs-6">
+                            <select name="type" id="selectIdEl" class="form-control" >
                                 [#if type?? && type.name() == "Unreturned"]
                                     <option value="Unreturned">Невозвращённый кредит</option>
                                     <option value="Expired">Просроченный платёж</option>
@@ -66,12 +68,19 @@
                                     <option value="Unreturned">Невозвращённый кредит</option>
                                 [/#if]
                             </select>
-                        </p>
-                        <p>
-                            <label>Сообщение</label>
-                            <textarea name="message" ></textarea>
-                        </p>
-                        <p class="a-center"><button type="submit" class="button">Отправить уведомление</button></p>
+                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message" class="col-sm-4 control-label">Сообщение</label>
+                            <div class="col-xs-6">
+                                <textarea name="message" id="message" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <button type="submit" class="button">Отправить уведомление</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
 
