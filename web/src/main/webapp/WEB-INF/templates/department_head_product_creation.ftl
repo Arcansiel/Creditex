@@ -3,6 +3,7 @@
 
 [@creditex.root]
     [@creditex.head "Создание кредитного продукта"]
+        [@creditex.includeBootstrap /]
         [@creditex.addValidator/]
     <script type="text/javascript">
         $(function(){
@@ -52,7 +53,8 @@
                                 required: true
                             },
                             priorRepaymentPercent:{
-                                required: true
+                                required: true,
+                                min: 0
                             }
                         }
 
@@ -65,71 +67,82 @@
     <div class="page">
         [@creditex.department_head /]
         [@creditex.goback/]
+        <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
         <div class="form-action">
-            <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
             <p class="name">Данные нового кредитного продукта</p>
-            <form action="" method="post" class="form" id="productForm">
-                <p>
-                    <label for="product.active">Состояние кредитного продукта</label>
-                    <select id="product.active" name="active">
+            [#include "l_error_info.ftl" /]
+            <form action="" method="post" class="form-horizontal" role="form" id="productForm">
+                <div class="form-group">
+                    <label for="product.active" class="col-sm-5 control-label">Состояние кредитного продукта</label>
+                    <div class="col-xs-4">
+                    <select id="product.active" name="active" class="form-control">
                         <option value="true">Активный</option>
                         <option value="false">Неактивный</option>
                     </select>
-                </p>
-                <p>
-                    <label for="product.name">Название кредитного продукта</label>
-                    <input type="text" id="product.name" name="name" value="">
-                </p>
-                <p>
-                    <label for="product.type">Тип кредитного продукта</label>
-                    <select id="product.type" name="type">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="product.name" class="col-sm-5 control-label">Название кредитного продукта</label>
+                    <div class="col-xs-4"><input type="text" id="product.name" name="name" value="" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label for="product.type" class="col-sm-5 control-label">Тип кредитного продукта</label>
+                    <div class="col-xs-4">
+                    <select id="product.type" name="type" class="form-control">
                         <option value="Annuity">Аннуитетный платёж</option>
                         <option value="Residue">Платёж по фактическому остатку</option>
                         <option value="Percent">Единовременный платёж</option>
                     </select>
-                </p>
-                <p>
-                    <label for="product.percent">Годовой процент кредитной ставки</label>
-                    <input type="text" id="product.percent" name="percent" value="">
-                </p>
-                <p>
-                    <label for="product.minCommittee">Минимальная сумма для рассмотрения кредитным комитетом</label>
-                    <input type="text" id="product.minCommittee" name="minCommittee" value="">
-                </p>
-                <p>
-                    <label for="product.minMoney">Минимальная сумма кредита</label>
-                    <input type="text" id="product.minMoney" name="minMoney" value="">
-                </p>
-                <p>
-                    <label for="product.maxMoney">Максимальная сумма кредита</label>
-                    <input type="text" id="product.maxMoney" name="maxMoney" value="">
-                </p>
-                <p>
-                    <label for="product.minDuration">Минимальная длительность кредита</label>
-                    <input type="text" id="product.minDuration" name="minDuration" value="">
-                </p>
-                <p>
-                    <label for="product.maxDuration">Максимальная длительность кредита</label>
-                    <input type="text" id="product.maxDuration" name="maxDuration" value="">
-                </p>
-                <p>
-                    <label for="product.finePercent">Процент за день просрочки платежа</label>
-                    <input type="text" id="product.finePercent" name="debtPercent" value="">
-                </p>
-                <p>
-                    <label for="product.priorRepayment">Возможность досрочного погашения кредита</label>
-                    <select id="product.priorRepayment" name="prior">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="product.percent" class="col-sm-5 control-label">Годовой процент кредитной ставки</label>
+                    <div class="col-xs-4"><input type="text" id="product.percent" name="percent" value="" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label for="product.minCommittee" class="col-sm-5 control-label">Минимальная сумма для рассмотрения кредитным комитетом</label>
+                    <div class="col-xs-4"><input type="text" id="product.minCommittee" name="minCommittee" value="" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label for="product.minMoney" class="col-sm-5 control-label">Минимальная сумма кредита</label>
+                    <div class="col-xs-4"><input type="text" id="product.minMoney" name="minMoney" value="" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label for="product.maxMoney" class="col-sm-5 control-label">Максимальная сумма кредита</label>
+                    <div class="col-xs-4"><input type="text" id="product.maxMoney" name="maxMoney" value="" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label for="product.minDuration" class="col-sm-5 control-label">Минимальная длительность кредита</label>
+                    <div class="col-xs-4"><input type="text" id="product.minDuration" name="minDuration" value="" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label for="product.maxDuration" class="col-sm-5 control-label">Максимальная длительность кредита</label>
+                    <div class="col-xs-4"><input type="text" id="product.maxDuration" name="maxDuration" value="" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label for="product.finePercent" class="col-sm-5 control-label">Процент за день просрочки платежа</label>
+                    <div class="col-xs-4"><input type="text" id="product.finePercent" name="debtPercent" value="" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label for="product.priorRepayment" class="col-sm-5 control-label">Возможность досрочного погашения кредита</label>
+                    <div class="col-xs-4">
+                    <select id="product.priorRepayment" name="prior" class="form-control">
                         <option value="NotAvailable">Невозможно</option>
                         <option value="Available">Возможно без штрафа</option>
                         <option value="AvailableFineInterest">Возможно со штрафом на процентную ставку</option>
                         <option value="AvailableFinePercentSum">Возможно со штрафом на сумму процентов</option>
                     </select>
-                </p>
-                <p>
-                    <label for="product.priorRepaymentPercent">Штраф за досрочное погашение кредита (%)</label>
-                    <input type="text" id="product.priorRepaymentPercent" name="priorRepaymentPercent" value="">
-                </p>
-                <p><button type="submit" class="button">Создать</button></p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="product.priorRepaymentPercent" class="col-sm-5 control-label">Штраф за досрочное погашение кредита (%)</label>
+                    <div class="col-xs-4"><input type="text" id="product.priorRepaymentPercent" name="priorRepaymentPercent" value="" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-5 col-sm-10">
+                        <button type="submit" class="button">Создать</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>

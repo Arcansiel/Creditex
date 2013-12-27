@@ -38,14 +38,21 @@
             <p class="name">Отчёт за несколько дней</p>
             [#include "l_error_info.ftl" /]
             <div class="form-action">
-                <form method="get" action="[@spring.url '/department_head/report/list/'/]" class="form" id="reportForm">
-                    <p>
-                        <label for="period_filed">Период (последних дней)</label>
-                        <input type="text" id="period_filed" name="period"
+                <form class="form-horizontal" role="form"
+                      method="get" action="[@spring.url '/department_head/report/list/'/]" id="reportForm">
+                    <div class="form-group">
+                        <label for="period_filed" class="col-sm-5 control-label">Период (последних дней)</label>
+                        <div class="col-xs-4" >
+                        <input type="text" id="period_filed" name="period" class="form-control"
                                [#if period??]value="${period?string("0")}"[#else]value="1"[/#if]
                                 />
-                    </p>
-                    <p class="a-center"><button type="submit" class="button">Получить отчёт</button></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-5 col-sm-10">
+                            <button type="submit" class="button">Получить отчёт</button>
+                        </div>
+                    </div>
                 </form>
             </div>
 

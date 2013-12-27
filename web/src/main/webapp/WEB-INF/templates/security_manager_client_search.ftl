@@ -4,6 +4,7 @@
 [#import "l_data.ftl" as l_data]
 [@creditex.root]
     [@creditex.head "Служба безопасности / поиск клиента"]
+        [@creditex.includeBootstrap /]
         [@l_data.user_search_form_validation /]
     [/@creditex.head]
     [@creditex.body]

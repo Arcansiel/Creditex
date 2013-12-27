@@ -178,28 +178,33 @@ form_method
 form_action
 submit_label = "Подтвердить"
 ]
-<form method="${form_method}" action="[@spring.url form_action/]" class="form" id="searchForm">
-    <p>
-        <label for="name_field">Имя</label>
-        <input type="text" id="name_field" name="first">
-    </p>
-    <p>
-        <label for="last_field">Фамилия</label>
-        <input type="text" id="last_field" name="last">
-    </p>
-    <p>
-        <label for="patronymic_field">Отчество</label>
-        <input type="text" id="patronymic_field" name="patronymic">
-    </p>
-    <p>
-        <label for="series_field">Серия паспорта</label>
-        <input type="text" id="series_field" name="passportSeries">
-    </p>
-    <p>
-        <label for="number_filed">Номер паспорта</label>
-        <input type="text" id="number_filed" name="passportNumber">
-    </p>
-    <p class="a-center"><button type="submit" class="button">${submit_label?html}</button></p>
+<form class="form-horizontal" role="form"
+        method="${form_method}" action="[@spring.url form_action/]" id="searchForm">
+    <div class="form-group">
+        <label for="name_field" class="col-sm-5 control-label">Имя</label>
+        <div class="col-xs-4"><input type="text" id="name_field" name="first" class="form-control"></div>
+    </div>
+    <div class="form-group">
+        <label for="last_field" class="col-sm-5 control-label">Фамилия</label>
+        <div class="col-xs-4"><input type="text" id="last_field" name="last" class="form-control"></div>
+    </div>
+    <div class="form-group">
+        <label for="patronymic_field" class="col-sm-5 control-label">Отчество</label>
+        <div class="col-xs-4"><input type="text" id="patronymic_field" name="patronymic" class="form-control"></div>
+    </div>
+    <div class="form-group">
+        <label for="series_field" class="col-sm-5 control-label">Серия паспорта</label>
+        <div class="col-xs-4"><input type="text" id="series_field" name="passportSeries" class="form-control"></div>
+    </div>
+    <div class="form-group">
+        <label for="number_filed" class="col-sm-5 control-label">Номер паспорта</label>
+        <div class="col-xs-4"><input type="text" id="number_filed" name="passportNumber" class="form-control"></div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-5 col-sm-10">
+            <button type="submit" class="button">${submit_label?html}</button>
+        </div>
+    </div>
 </form>
 [/#macro]
 
