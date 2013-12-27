@@ -73,11 +73,11 @@
                         <div class="form-group">
                             <label for="message" class="col-sm-4 control-label">Сообщение</label>
                             <div class="col-xs-6">
-                                <textarea name="message" id="message" class="form-control"></textarea>
+                                <textarea name="message" id="message" class="form-control" style="height: 500px;"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <div>
+                            <div class="col-sm-offset-4 col-xs-6">
                                 <button type="submit" class="button">Отправить уведомление</button>
                             </div>
                         </div>
