@@ -253,18 +253,22 @@ form_action
 accept_label = "Утвердить"
 reject_label = "Отклонить"
 submit_label = "Принять"]
-<form method="${form_method}" action="[@spring.url form_action/]" class="form" id="confirmationForm">
+<form method="${form_method}" action="[@spring.url form_action/]" class="form-horizontal" role="form" id="confirmationForm">
     <table>
-        <td class="comment"><textarea name="comment" ></textarea></td>
+        <td class="comment">
+            <textarea name="comment" class="form-control" style="width: 400px; height: 60px"></textarea>
+        </td>
         <td class="action">
             <p>
                 <label>
                     <input type="radio" name="acceptance" value="true" />
-                    ${accept_label?html}</label>
+                    ${accept_label?html}
+                </label>
                 <br />
                 <label>
                     <input type="radio" name="acceptance" value="false" checked/>
-                    ${reject_label?html}</label>
+                    ${reject_label?html}
+                </label>
                 <br />
             </p>
         </td>

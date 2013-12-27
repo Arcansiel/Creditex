@@ -4,13 +4,14 @@
 [#import "l_data.ftl" as l_data]
 [@creditex.root]
     [@creditex.head "Кредитный комитет / голосование по заявке"]
+        [@creditex.includeBootstrap /]
         [@l_data.confirmation_form_validation /]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
         [@creditex.committee_manager /]
         [@creditex.goback /]
-        <div class="form-action">
+        <div class="data-table">
             <p class="name"><a href="[@spring.url '/committee_manager/'/]">На главную страницу</a></p>
             <p class="name"><a href="[@spring.url '/committee_manager/appliances/running/'/]">Список заявок для голосования</a></p>
             <p class="name"><a href="[@spring.url '/committee_manager/appliances/finished/'/]">Список заявок, голосование по которым завершено</a></p>
@@ -47,13 +48,14 @@
                         </tr>
                 </table>
 
+            <div class="form-action">
                 [@l_data.confirmation_form
                 "post"
                 '/committee_manager/appliance/vote/${application.id?string("0")}'
                 "ЗА"
                 "ПРОТИВ"
                 "Голосовать"/]
-
+            </div>
 
                 [#if (application.product)??]
                     [@l_data.product_view_table application.product /]
