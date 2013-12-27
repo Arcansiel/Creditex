@@ -3,6 +3,7 @@
 [#import "l_data.ftl" as l_data]
 [@creditex.root]
     [@creditex.head "Заявка на досрочное погашение кредита"]
+        [@creditex.includeBootstrap /]
         [@l_data.confirmation_form_validation /]
     [/@creditex.head]
     [@creditex.body]

@@ -4,6 +4,7 @@
 [#import "l_data.ftl" as l_data]
 [@creditex.root]
     [@creditex.head "Операционист / операция"]
+        [@creditex.includeBootstrap /]
         [@creditex.addValidator/]
     <script type="text/javascript">
         $(function(){
@@ -128,20 +129,29 @@
 
             <div class="form-action">
                 [#include "l_error_info.ftl" /]
-                <form action="" method="post" class="form" id="operationForm">
-                    <p class="name">Операция</p>
-                    <p>
-                        <label>Тип операции</label>
-                        <select name="type">
-                            <option value="Deposit">Платёж по кредиту</option>
-                            <option value="Withdrawal">Снять деньги со счёта</option>
-                        </select>
-                    </p>
-                    <p>
-                        <label for="amount_filed" class="col-sm-10">Сумма</label>
-                        <input type="text" id="amount_filed" name="amount" value="0">
-                    </p>
-                    <p class="a-center"><button type="submit" class="button">Выполнить операцию</button></p>
+                <form class="form-horizontal" role="form"
+                      action="" method="post" id="operationForm">
+                    <p class="name a-center">Операция</p>
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label">Тип операции</label>
+                        <div class="col-xs-4" >
+                            <select name="type" class="form-control">
+                                <option value="Deposit">Платёж по кредиту</option>
+                                <option value="Withdrawal">Снять деньги со счёта</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount_filed" class="col-sm-5 control-label">Сумма</label>
+                        <div class="col-xs-4" >
+                            <input type="text" class="form-control" id="amount_filed" name="amount" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-5 col-sm-10">
+                            <button type="submit" class="button">Выполнить операцию</button>
+                        </div>
+                    </div>
                 </form>
             </div>
 

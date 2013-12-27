@@ -266,7 +266,11 @@ public class DepartmentHeadController {
     }
 
     @RequestMapping(value = "/department_head/product/create/", method = RequestMethod.GET)
-    public String DepartmentHead4(){
+    public String DepartmentHead4(Model model
+            ,@RequestParam(value = "error", required = false)String error
+            ,@RequestParam(value = "info", required = false)String info
+    ){
+        AddInfoToModel(model,error,info);
         return "department_head_product_creation";
     }
 
@@ -274,13 +278,13 @@ public class DepartmentHeadController {
     public String DepartmentHead41(
                                   @Valid @ModelAttribute Product productForm, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return "redirect:/department_head/?error=invalid_input_data&info="+bindingResult.getFieldError().getField();
+            return "redirect:/department_head/product/create/?error=invalid_input_data&info="+bindingResult.getFieldError().getField();
         }
         int err;
         if((err = productService.CreateProductByForm(productForm)) == 0){
             return "redirect:/department_head/?info=product_created";
         }else{
-            return "redirect:/department_head/?error=product_creation_failed&info="+err;
+            return "redirect:/department_head/product/create/?error=product_creation_failed&info="+err;
         }
 
     }
