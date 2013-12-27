@@ -41,15 +41,15 @@
                 <form class="form-horizontal" role="form"
                       method="get" action="[@spring.url '/department_head/report/list/'/]" id="reportForm">
                     <div class="form-group">
-                        <label for="period_filed" class="col-sm-2 control-label">Период (последних дней)</label>
-                        <div class="col-sm-10" style="width: 250px">
+                        <label for="period_filed" class="col-sm-5 control-label">Период (последних дней)</label>
+                        <div class="col-xs-4" >
                         <input type="text" id="period_filed" name="period" class="form-control"
                                [#if period??]value="${period?string("0")}"[#else]value="1"[/#if]
                                 />
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
+                        <div class="col-sm-offset-5 col-sm-10">
                             <button type="submit" class="button">Получить отчёт</button>
                         </div>
                     </div>
