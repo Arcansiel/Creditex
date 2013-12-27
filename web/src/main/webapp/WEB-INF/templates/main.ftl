@@ -29,20 +29,20 @@
         <p class="name">Вход в систему</p>
         <form class="form-horizontal" role="form" id="loginForm" action="/j_spring_security_check" method="post">
             <div class="form-group">
-                <label for="inputEmail3" class="col-sm-2 control-label">Login</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputEmail3" placeholder="Login" name="j_username">
+                <label for="inputEmail3" class="col-sm-4 control-label">Имя пользователя</label>
+                <div class="col-xs-6">
+                    <input type="text" class="form-control" id="inputEmail3" placeholder="Имя пользователя" name="j_username">
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-                <div class="col-sm-10">
-                    <input type="password" class="form-control" id="inputPassword3" placeholder="Password" name="j_password">
+                <label for="inputPassword3" class="col-sm-4 control-label">Пароль</label>
+                <div class="col-xs-6">
+                    <input type="password" class="form-control" id="inputPassword3" placeholder="Пароль" name="j_password">
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="button">Sign in</button>
+                <div class="col-sm-offset-4 col-xs-6">
+                    <button type="submit" class="button">Войти</button>
                 </div>
             </div>
         </form>
