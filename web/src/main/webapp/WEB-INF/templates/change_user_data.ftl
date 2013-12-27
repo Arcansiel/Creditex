@@ -120,7 +120,7 @@
         </div>
         <div class="content">
             <ul class="nav-menu">
-                <li><a href="[@spring.url '/account/'/]">Вырнуться назад</a>
+                <li><a href="[@spring.url '/account/'/]">Вернуться назад</a>
                 </li>
             </ul>
         </div>

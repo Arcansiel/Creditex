@@ -353,6 +353,7 @@ $("#${table}").tablecloth(
     <ul class="nav-menu">
         <li><a href="javascript: history.go(-1)">Вернуться назад</a>
         </li>
+        [#nested ]
     </ul>
 </div>
 [/#macro]
