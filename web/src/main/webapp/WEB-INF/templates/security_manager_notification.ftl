@@ -48,10 +48,9 @@
             [#if credit_notifications_count??]
                 <p class="name">Количество уведомлений по данному кредиту: ${credit_notifications_count}</p>
             [/#if]
-
                 <div class="form-action">
                     <a id="notification_form_anchor"></a>
-                    <p class="name">Уведомление клиента</p>
+                    <p class="name" style="text-align: center">Уведомление клиента</p>
                     <form action="[@spring.url '/security_manager/notification/credit/${credit.id?string("0")}'/]"
                           method="post"
                           class="form-horizontal"
@@ -73,7 +72,7 @@
                         <div class="form-group">
                             <label for="message" class="col-sm-4 control-label">Сообщение</label>
                             <div class="col-xs-6">
-                                <textarea name="message" id="message" class="form-control" style="height: 500px;"></textarea>
+                                <textarea name="message" id="message" class="form-control" style="height: 60px;"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
