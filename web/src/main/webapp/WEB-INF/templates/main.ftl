@@ -29,9 +29,9 @@
         <p class="name">Вход в систему</p>
         <form class="form-horizontal" role="form" id="loginForm" action="/j_spring_security_check" method="post">
             <div class="form-group">
-                <label for="inputEmail3" class="col-sm-4 control-label">Имя пользователя</label>
+                <label for="inputUsername" class="col-sm-4 control-label">Имя пользователя</label>
                 <div class="col-xs-6">
-                    <input type="text" class="form-control" id="inputEmail3" placeholder="Имя пользователя" name="j_username">
+                    <input type="text" class="form-control" id="inputUsername" placeholder="Имя пользователя" name="j_username">
                 </div>
             </div>
             <div class="form-group">

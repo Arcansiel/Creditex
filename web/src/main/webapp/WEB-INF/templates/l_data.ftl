@@ -3,10 +3,10 @@
 [#import "creditex.ftl" as creditex]
 [#import "spring.ftl" as spring]
 
-[#macro product_view_table product caption = "Кредитный продукт" show_active = true]
+[#macro product_view_table product caption = "Кредитный продукт" show_active = true tableId="product_view_table"]
 [#if product??]
 <p class="name">${caption?html}</p>
-<table>
+<table id="${tableId}">
     <thead>
     <tr>
         <th class="name">ID продукта</th>
@@ -46,10 +46,10 @@
 [/#macro]
 
 
-[#macro credit_view_table credit caption = "Кредит" show_running = true show_product_name = true show_last_notification = false]
+[#macro credit_view_table credit caption = "Кредит" show_running = true show_product_name = true show_last_notification = false tableId="credit_view_table"]
 [#if credit??]
 <p class="name">${caption?html}</p>
-<table>
+<table id="${tableId}">
     <thead>
     <tr>
         <th class="name">ID</th>
@@ -89,10 +89,10 @@
 [/#macro]
 
 
-[#macro client_view_table client caption = "Клиент банка" show_enabled = true]
+[#macro client_view_table client caption = "Клиент банка" show_enabled = true tableId="client_view_table"]
 [#if client??]
 <p class="name">${caption?html}</p>
-<table>
+<table id="${tableId}">
     <thead>
     <tr>
         <th class="name">ID клиента</th>
