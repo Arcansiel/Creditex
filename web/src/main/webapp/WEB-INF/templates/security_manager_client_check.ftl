@@ -10,19 +10,19 @@
         [@creditex.security_manager /]
         [@creditex.goback /]
         <div class="data-table">
-            <p class="name"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
+            <p class="page-link"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
             [#if client??]
-                <p class="name"><a href="[@spring.url '/security_manager/client/check/outer/${client.id?string("0")}'/]">Проверка клиента по внешним базам</a></p>
+                <p class="page-link"><a href="[@spring.url '/security_manager/client/check/outer/${client.id?string("0")}'/]">Проверка клиента по внешним базам</a></p>
 
             [@l_data.client_view_table client "Клиент банка (внутренняя проверка)"/]
 
             <p class="name">Проверка по внутренним базам данных</p>
 
-            <p class="name"><a href="[@spring.url '/security_manager/client/${client.id?string("0")}/credits/all/'/]">Все кредиты клиента</a></p>
-            <p class="name"><a href="[@spring.url '/security_manager/client/${client.id?string("0")}/credits/expired/'/]">Просроченные кредиты клиента</a></p>
-            <p class="name"><a href="[@spring.url '/security_manager/client/${client.id?string("0")}/prolongations/'/]">Заявки на пролонгацию</a></p>
-            <p class="name"><a href="[@spring.url '/security_manager/client/${client.id?string("0")}/priors/'/]">Заявки на досрочное погашение</a></p>
-            <p class="name"><a href="[@spring.url '/security_manager/client/${client.id?string("0")}/statistics/'/]">Статистика по клиенту</a></p>
+            <p class="page-link"><a href="[@spring.url '/security_manager/client/${client.id?string("0")}/credits/all/'/]">Все кредиты клиента</a></p>
+            <p class="page-link"><a href="[@spring.url '/security_manager/client/${client.id?string("0")}/credits/expired/'/]">Просроченные кредиты клиента</a></p>
+            <p class="page-link"><a href="[@spring.url '/security_manager/client/${client.id?string("0")}/prolongations/'/]">Заявки на пролонгацию</a></p>
+            <p class="page-link"><a href="[@spring.url '/security_manager/client/${client.id?string("0")}/priors/'/]">Заявки на досрочное погашение</a></p>
+            <p class="page-link"><a href="[@spring.url '/security_manager/client/${client.id?string("0")}/statistics/'/]">Статистика по клиенту</a></p>
 
             [/#if]
 

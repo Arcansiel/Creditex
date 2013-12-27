@@ -11,11 +11,11 @@
         [@creditex.department_head /]
     [@creditex.goback /]
     <div class="data-table">
-        <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
-        <p class="name"><a href="[@spring.url '/department_head/prolongation/list/'/]">Назад к списку заявок на пролонгацию</a></p>
+        <p class="page-link"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
+        <p class="page-link"><a href="[@spring.url '/department_head/prolongation/list/'/]">Назад к списку заявок на пролонгацию</a></p>
         [#if prolongation??]
 
-            <p class="name"><a href="[@spring.url '/department_head/client/${prolongation.client.id?string("0")}'/]">Информация о клиенте</a></p>
+            <p class="page-link"><a href="[@spring.url '/department_head/client/${prolongation.client.id?string("0")}'/]">Информация о клиенте</a></p>
 
             <p class="name">Заявка на пролонгацию</p>
             <table>

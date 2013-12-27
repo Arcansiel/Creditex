@@ -11,13 +11,13 @@
         [@creditex.department_head /]
         [@creditex.goback /]
         <div class="data-table">
-            <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
-            <p class="name"><a href="[@spring.url '/department_head/appliances/committee_rejected/'/]">Список заявок, отклонённых комитетом</a></p>
-            <p class="name"><a href="[@spring.url '/department_head/appliances/committee_approved/'/]">Список заявок, одобренных комитетом</a></p>
-            <p class="name"><a href="[@spring.url '/department_head/appliances/committee_vote/'/]">Список заявок с открытым голосованием</a></p>
+            <p class="page-link"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
+            <p class="page-link"><a href="[@spring.url '/department_head/appliances/committee_rejected/'/]">Список заявок, отклонённых комитетом</a></p>
+            <p class="page-link"><a href="[@spring.url '/department_head/appliances/committee_approved/'/]">Список заявок, одобренных комитетом</a></p>
+            <p class="page-link"><a href="[@spring.url '/department_head/appliances/committee_vote/'/]">Список заявок с открытым голосованием</a></p>
             [#if application??]
 
-                <p class="name"><a href="[@spring.url '/department_head/client/${application.client.id?string("0")}'/]">Информация о клиенте</a></p>
+                <p class="page-link"><a href="[@spring.url '/department_head/client/${application.client.id?string("0")}'/]">Информация о клиенте</a></p>
 
                 [#if application.committeeAcceptance??]
                     [#if application.committeeAcceptance.name() == "Accepted"]

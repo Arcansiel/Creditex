@@ -12,15 +12,15 @@
         [@creditex.security_manager /]
         [@creditex.goback /]
          <div class="data-table">
-             <p class="name"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
-             <p class="name"><a href="[@spring.url '/security_manager/appliances/'/]">Список заявок</a></p>
+             <p class="page-link"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
+             <p class="page-link"><a href="[@spring.url '/security_manager/appliances/'/]">Список заявок</a></p>
         [#if application??]
-            <p class="name"><a href="[@spring.url '/security_manager/client/check/${application.client.id?string("0")}'/]">Проверка клиента по внутренним базам</a></p>
-            <p class="name"><a href="[@spring.url '/security_manager/client/check/outer/${application.client.id?string("0")}'/]">Проверка клиента по внешним базам</a></p>
+            <p class="page-link"><a href="[@spring.url '/security_manager/client/check/${application.client.id?string("0")}'/]">Проверка клиента по внутренним базам</a></p>
+            <p class="page-link"><a href="[@spring.url '/security_manager/client/check/outer/${application.client.id?string("0")}'/]">Проверка клиента по внешним базам</a></p>
 
             [@l_data.application_view_table application/]
 
-            <p class="name"><a href="[@spring.url '/security_manager/appliance/cancel_assignment/${application.id?string("0")}'/]">Отказаться от рассмотрения заявки</a></p>
+            <p class="page-link"><a href="[@spring.url '/security_manager/appliance/cancel_assignment/${application.id?string("0")}'/]">Отказаться от рассмотрения заявки</a></p>
 
             [@l_data.confirmation_form
             "post"

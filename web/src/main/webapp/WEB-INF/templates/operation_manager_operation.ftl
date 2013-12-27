@@ -30,9 +30,9 @@
         [@creditex.goback /]
 
         <div class="data-table">
-            <p class="name"><a href="[@spring.url '/operation_manager/'/]">Другой клиент</a></p>
-            <p class="name"><a href="[@spring.url '/operation_manager/operation/list/'/]">История операций</a></p>
-            <p class="name"><a href="[@spring.url '/operation_manager/payments/'/]">Ближайшие платежи</a></p>
+            <p class="page-link"><a href="[@spring.url '/operation_manager/'/]">Другой клиент</a></p>
+            <p class="page-link"><a href="[@spring.url '/operation_manager/operation/list/'/]">История операций</a></p>
+            <p class="page-link"><a href="[@spring.url '/operation_manager/payments/'/]">Ближайшие платежи</a></p>
 
             [#if prior??]
                 <p class="name">Досрочное погашение кредита</p>

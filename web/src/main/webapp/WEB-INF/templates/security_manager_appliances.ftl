@@ -11,11 +11,11 @@
         [@creditex.security_manager /]
         [@creditex.goback /]
         <div class="data-table">
-            <p class="name"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
+            <p class="page-link"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
 
         [#if current??]
             [@l_data.application_view_table current "Текущая заявка на кредит"/]
-            <p class="name"><a href="[@spring.url '/security_manager/appliance/check/${current.id?string("0")}'/]">Проверка текущей заявки</a></p>
+            <p class="page-link"><a href="[@spring.url '/security_manager/appliance/check/${current.id?string("0")}'/]">Проверка текущей заявки</a></p>
         [/#if]
 
         <p class="name">Заявки, нуждающиеся в проверке</p>

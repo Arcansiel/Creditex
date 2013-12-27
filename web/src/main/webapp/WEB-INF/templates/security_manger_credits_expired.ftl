@@ -11,7 +11,7 @@
         [@creditex.security_manager /]
         [@creditex.goback /]
         <div class="data-table">
-            <p class="name"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
+            <p class="page-link"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
 
             <p class="name">Кредиты с просроченными платежами</p>
             <div class="holder"></div>

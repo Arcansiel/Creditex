@@ -11,11 +11,11 @@
         [@creditex.department_head /]
     [@creditex.goback/]
     <div class="data-table">
-        <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
-        <p class="name"><a href="[@spring.url '/department_head/prior/list/'/]">Список заявок на досрочное погашение</a></p>
+        <p class="page-link"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
+        <p class="page-link"><a href="[@spring.url '/department_head/prior/list/'/]">Список заявок на досрочное погашение</a></p>
         [#if prior??]
 
-            <p class="name"><a href="[@spring.url '/department_head/client/${prior.client.id?string("0")}'/]">Информация о клиенте</a></p>
+            <p class="page-link"><a href="[@spring.url '/department_head/client/${prior.client.id?string("0")}'/]">Информация о клиенте</a></p>
 
             <p class="name">Заявка на досрочное погашение кредита</p>
             <table>

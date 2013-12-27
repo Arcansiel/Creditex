@@ -12,7 +12,7 @@
         [@creditex.security_manager /]
         [@creditex.goback /]
         <div class="form-action">
-            <p class="name"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
+            <p class="page-link"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
             [#include "l_error_info.ftl" /]
             <p class="name">Введите данные клиента</p>
             [@l_data.user_search_form "post" "" "Проверка клиента" /]

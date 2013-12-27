@@ -11,8 +11,8 @@
         [@creditex.committee_manager /]
         [@creditex.goback /]
         <div class="data-table">
-            <p class="name"><a href="[@spring.url '/committee_manager/'/]">На главную страницу</a></p>
-            <p class="name"><a href="[@spring.url '/committee_manager/appliances/finished/'/]">Список заявок, голосование по которым завершено</a></p>
+            <p class="page-link"><a href="[@spring.url '/committee_manager/'/]">На главную страницу</a></p>
+            <p class="page-link"><a href="[@spring.url '/committee_manager/appliances/finished/'/]">Список заявок, голосование по которым завершено</a></p>
             <p class="name">Заявки, нуждающиеся в голосовании</p>
             <div class="holder"></div>
             <table id="listtable">

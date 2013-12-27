@@ -10,7 +10,7 @@
         [@creditex.security_manager /]
         [@creditex.goback /]
         <div class="data-table">
-            <p class="name"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
+            <p class="page-link"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
             <p class="name">Клиенты банка</p>
             <div class="holder"></div>
             <table id="listtable">

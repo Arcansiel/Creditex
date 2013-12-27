@@ -8,7 +8,7 @@
     <div class="page">
         [@creditex.department_head /]
         [@creditex.goback/]
-        <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
+        <p class="page-link"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
         <div class="data-table">
             <p class="name">Общая статистика</p>
             [#if credits??]

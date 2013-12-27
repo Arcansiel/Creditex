@@ -10,8 +10,8 @@
         [@creditex.department_head /]
         [@creditex.goback /]
         <div class="data-table">
-            <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
-            <p><a href="[@spring.url '/department_head/credits/returned/list/'/]">Погашеные кредиты</a></p>
+            <p class="page-link"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
+            <p class="page-link"><a href="[@spring.url '/department_head/credits/returned/list/'/]">Погашеные кредиты</a></p>
             <p class="name">Открытые кредиты</p>
             <div class="holder"></div>
             <table id="listtable">

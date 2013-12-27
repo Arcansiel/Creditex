@@ -10,7 +10,7 @@
         [@creditex.department_head /]
         [@creditex.goback/]
         <div class="form-action">
-            <p class="name"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
+            <p class="page-link"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
             <p class="name">Заявки на пролонгацию, нуждающиеся в проверке</p>
             <div class="holder"></div>
             <table id="listtable">

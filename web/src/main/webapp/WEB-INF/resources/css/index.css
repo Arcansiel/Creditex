@@ -172,3 +172,29 @@ a.button{
 	color:white;
 }
 
+
+
+.page-link {}
+.page-link a{
+    font-size: 16px;
+    text-decoration: none;
+    display: block;
+    padding: 10px 0;
+    margin: 0;
+    text-transform: none;
+    padding-left: 20px;
+
+    background: white;
+    color: #808080;
+
+    -webkit-transition: all .4s;
+    -moz-transition: all .4s;
+    -o-transition: all .4s;
+    transition: all .4s;
+}
+
+.page-link a:hover{
+    text-decoration: none;
+    background:#808080;
+    color:white;
+}
