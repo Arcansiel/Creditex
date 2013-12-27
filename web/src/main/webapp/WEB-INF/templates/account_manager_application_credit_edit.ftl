@@ -34,24 +34,29 @@
         [@creditex.account_manager/]
         <div class="form-action">
             <p class="name">Введите данные клиента</p>
-            <form action="" method="post" class="form" id="applicationForm">
-                <p>
-                    <label for="requestedMoney">Деньги</label>
-                    <input type="text" id="requestedMoney" name="request">
-                </p>
-                <p>
-                    <label for="duration">Длительность</label>
-                    <input type="text" id="duration" name="duration">
-                </p>
-                [#if isError??]
-                <p>There was error in data</p>
-                [/#if]
-                <p class="a-center"><button type="submit" class="button">Обработать</button></p>
+            <form class="form-horizontal" role="form" id="applicationForm" action="" method="post">
+                <div class="form-group">
+                    <label for="inputRequest" class="col-sm-4 control-label">Деньги</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" id="inputRequest" placeholder="От ${product.minMoney} до ${product.maxMoney}" name="request">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputDuration" class="col-sm-4 control-label">Длительность</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" id="inputDuration" placeholder="От ${product.minDuration} до ${product.maxDuration}" name="duration">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-xs-6">
+                        <button type="submit" class="button">Обработать</button>
+                    </div>
+                </div>
             </form>
         </div>
         <div class="content">
             <ul class="nav-menu">
-                <li><a href="[@spring.url '/account/application'/]">Вернуться назад</a>
+                <li><a href="[@spring.url '/account/credit/application'/]">Вернуться назад</a>
                 </li>
             </ul>
         </div>

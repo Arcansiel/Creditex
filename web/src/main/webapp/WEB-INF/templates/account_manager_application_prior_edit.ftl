@@ -25,12 +25,18 @@
         [@creditex.account_manager/]
         <div class="form-action">
             <p class="name">Введите данные о предварительном погашении кредита</p>
-            <form action="" method="post" class="form" id="applicationForm">
-                <p>
-                    <label for="comment_field">Комментарий</label>
-                    <input type="text" id="comment_field" name="comment">
-                </p>
-                <p class="a-center"><button type="submit" class="button">Обработать</button></p>
+            <form class="form-horizontal" role="form" id="applicationForm" action="" method="post">
+                <div class="form-group">
+                    <label for="inputComment" class="col-sm-4 control-label">Комментарий</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" id="inputComment" placeholder="Комментарий о причине подачи заявки" name="comment">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-xs-6">
+                        <button type="submit" class="button">Обработать</button>
+                    </div>
+                </div>
             </form>
         </div>
         <div class="content">

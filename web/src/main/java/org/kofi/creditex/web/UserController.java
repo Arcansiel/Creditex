@@ -27,36 +27,37 @@ public class UserController {
     private UserService userService;
     @Autowired
     private DayReportService dayReportService;
-    @RequestMapping("/change_user_data/")
+    @RequestMapping("/change_user_data")
     public String ChangeUserData(ModelMap model, HttpSession session){
         User user = (User) session.getAttribute("user_to_change_data");
+        user = userService.GetUserById(user.getId());
         if(user==null)
             return "redirect:/";
         model.put("data", user.getUserData());
 
         return "change_user_data";
     }
-    @RequestMapping("/change_user_data/process/")
+    @RequestMapping(value="/change_user_data", method = RequestMethod.POST)
     public String ChangeUserData(HttpSession session,@Valid @ModelAttribute UserData form, BindingResult result, ModelMap model){
+        User user = (User) session.getAttribute("user_to_change_data");
+        if(user==null)
+            return "redirect:/";
         if(result.hasErrors()){
-            User user = (User) session.getAttribute("user_to_change_data");
-            if(user==null)
-                return "redirect:/";
             model.put("data", user.getUserData());
+            UserController.log.warn("Введено неверное значение: {}",result.getFieldErrors());
             model.put("hasError", "Введено неверное значение в одно из полей формы");
             return "change_user_data";
         }
-        UserController.log.warn("Form object:"+form.toString());
         userService.ChangeUserDataByForm(form);
         return "redirect:/";
     }
 
 
-    @RequestMapping("/register/")
+    @RequestMapping("/register")
     public String ViewRegisterNewUser(){
         return "registration";
     }
-    @RequestMapping(value = "/register/", method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String RegisterNewUser(ModelMap model,@Valid @ModelAttribute UserRegistrationForm form, BindingResult bindingResult) throws NoSuchAlgorithmException {
         String errorName="isError";
         String errorBinding = "Введено недопустимое значение в одно из числовых полей";

@@ -35,21 +35,21 @@ public class UserData {
      * Имя
      */
     @Size(max = 46)
-    @Pattern(regexp = "^\\w+")
+    @Pattern(regexp = "^\\w+$")
     @Column(nullable = false)
     private String first;
     /**
      * Фамилия
      */
     @Size(max = 46)
-    @Pattern(regexp = "^\\w+")
+    @Pattern(regexp = "^\\w+$")
     @Column(nullable = false)
     private String last;
     /**
      * Отчество
      */
     @Size(max = 46)
-    @Pattern(regexp = "^\\w+")
+    @Pattern(regexp = "^\\w+$")
     @Column(nullable = false)
     private String patronymic;
     /**
@@ -61,32 +61,32 @@ public class UserData {
      * Серия паспорта
      */
     @Size(max = 2, min = 2)
-    @Pattern(regexp = "[A-Z]{2}")
+    @Pattern(regexp = "^[A-Z]{2}$")
     @Column(nullable = false)
     private String passportSeries;
     /**
      * Номер паспорта
      */
-    @Min(0)
+    @Min(1)
     @Max(9999999)
     private int passportNumber;
     /**
      * Место работы
      */
     @Size(max = 46)
-    @Pattern(regexp = "^\\w+")
+    @Pattern(regexp = "^\\w+$")
     @Column(nullable = false)
     private String workName;
     /**
      * Занимаемая позиция
      */
     @Size(max = 46)
-    @Pattern(regexp = "^\\w+")
+    @Pattern(regexp = "^\\w+$")
     @Column(nullable = false)
     private String workPosition;
     /**
      * Доход
      */
-    @Min(0)
+    @Min(1)
     private long workIncome;
 }

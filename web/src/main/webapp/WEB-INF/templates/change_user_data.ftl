@@ -13,31 +13,39 @@
                     {
                         rules:{
                             first:{
-                                required:true
+                                required:true,
+                                nowhitespace:true
                             },
                             last:{
-                                required:true
+                                required:true,
+                                nowhitespace:true
                             },
                             patronymic:{
-                                required:true
+                                required:true,
+                                nowhitespace:true
                             },
                             passportSeries:{
                                 required:true,
+                                passportseries:true,
                                 minlength:2,
                                 maxlength:2
                             },
                             passportNumber:{
                                 required:true,
-                                min:1
+                                min:1,
+                                max:9999999
                             },
                             workName:{
-                                required:true
+                                required:true,
+                                nowhitespace:true
                             },
                             workPosition:{
-                                required:true
+                                required:true,
+                                nowhitespace:true
                             },
                             workIncome:{
-                                required:true
+                                required:true,
+                                nowhitespace:true
                             }
                         }
                     }
@@ -50,41 +58,61 @@
         [@creditex.account_manager/]
         <div class="form-action">
             <p class="name">Введите данные клиента</p>
-            <form action="[@spring.url '/change_user_data/process/'/]" method="post" class="form" id="changeDataForm">
+            <form class="form-horizontal" role="form" id="changeDataForm" action="" method="post">
                 <input type="hidden" name="id" value="${data.id}">
-                <p>
-                    <label for="name_field">Имя</label>
-                    <input type="text" id="name_field" name="first" value="${data.first}">
-                </p>
-                <p>
-                    <label for="last_field">Фамилия</label>
-                    <input type="text" id="last_field" name="last" value="${data.last}">
-                </p>
-                <p>
-                    <label for="patronymic_field">Отчество</label>
-                    <input type="text" id="patronymic_field" name="patronymic" value="${data.patronymic}">
-                </p>
-                <p>
-                    <label for="series_field">Серия паспорта</label>
-                    <input type="text" id="series_field" name="passportSeries" value="${data.passportSeries}">
-                </p>
-                <p>
-                    <label for="number_filed">Номер паспорта</label>
-                    <input type="text" id="number_filed" name="passportNumber" value="${data.passportNumber}">
-                </p>
-                <p>
-                    <label for="work_name_filed">Место работы</label>
-                    <input type="text" id="work_name_filed" name="workName" value="${data.workName}">
-                </p>
-                <p>
-                    <label for="position_filed">Занимаемая должность</label>
-                    <input type="text" id="position_filed" name="workPosition" value="${data.workPosition}">
-                </p>
-                <p>
-                    <label for="income_filed">Доход</label>
-                    <input type="text" id="income_filed" name="workIncome" value="${data.workIncome}">
-                </p>
-                <p class="a-center"><button type="submit" class="button">Обработать</button></p>
+                <div class="form-group">
+                    <label for="inputFirst" class="col-sm-4 control-label">Имя</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" id="inputFirst" placeholder="Имя клиента" name="first" value="${data.first}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputLast" class="col-sm-4 control-label">Фамилия</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" id="inputLast" placeholder="Фамилия клиента" name="last" value="${data.last}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPatronymic" class="col-sm-4 control-label">Отчество</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" id="inputPatronymic" placeholder="Отчество клиента" name="patronymic" value="${data.patronymic}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputSeries" class="col-sm-4 control-label">Серия паспорта</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" id="inputSeries" placeholder="Серия паспорта" name="passportSeries" value="${data.passportSeries}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputNumber" class="col-sm-4 control-label">Номер паспорта</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" id="inputNumber" placeholder="Номер паспорта" name="passportNumber" value="${data.passportNumber}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputWorkName" class="col-sm-4 control-label">Место работы</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" id="inputWorkName" placeholder="Место работы" name="workName" value="${data.workName}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputWorkPosition" class="col-sm-4 control-label">Занимаемая должность</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" id="inputWorkPosition" placeholder="Занимаемая должность" name="workPosition" value="${data.workPosition}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputWorkIncome" class="col-sm-4 control-label">Доход</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" id="inputWorkIncome" placeholder="Доход" name="workIncome" value="${data.workIncome}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-xs-6">
+                        <button type="submit" class="button">Обработать</button>
+                    </div>
+                </div>
             </form>
             [#if isError??]
                 <p>${isError}</p>

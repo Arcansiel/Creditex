@@ -5,25 +5,48 @@
 
 [@creditex.root]
     [@creditex.head "Main page"]
+    [@creditex.includeBootstrapCss/]
+    [@creditex.addValidator/]
+    <script type="text/javascript">
+        $(function(){
+            $("#applicationForm").validate({
+                rules:{
+                    request:{
+                        required:true,
+                        min:1
+                    },
+                    duration:{
+                        required:true,
+                        min:1
+                    }
+                }
+            });
+        });
+    </script>
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
         [@creditex.bank_client/]
         <div class="form-action">
             <p class="name">Введите данные клиента</p>
-            <form action="" method="post" class="form" id="applicationForm">
-                <p>
-                    <label for="requestedMoney">Деньги</label>
-                    <input type="text" id="requestedMoney" name="request">
-                </p>
-                <p>
-                    <label for="duration">Длительность</label>
-                    <input type="text" id="duration" name="duration">
-                </p>
-                [#if isError??]
-                    <p>There was error in data</p>
-                [/#if]
-                <p class="a-center"><button type="submit" class="button">Обработать</button></p>
+            <form class="form-horizontal" role="form" id="applicationForm" action="" method="post">
+                <div class="form-group">
+                    <label for="inputRequest" class="col-sm-4 control-label">Деньги</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" id="inputRequest" placeholder="Требуемая сумма денег" name="request">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputDuration" class="col-sm-4 control-label">Длительность</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" id="inputDuration" placeholder="Длительность кредита" name="duration">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-xs-6">
+                        <button type="submit" class="button">Подобрать кредитные продукты</button>
+                    </div>
+                </div>
             </form>
         </div>
         <div class="content">

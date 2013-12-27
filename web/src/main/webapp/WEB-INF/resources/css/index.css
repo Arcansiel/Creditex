@@ -19,9 +19,8 @@ strong{
 	border-top:1px solid #808080;
 	border-bottom:1px solid #808080;
 	width:1000px;
-	margin:0 auto;
-	padding:10px 0;
-	margin-bottom: 20px;
+    padding:10px 0;
+    margin: 0 auto 20px;
 }
 .inner-box{
 	width:530px;
@@ -33,30 +32,6 @@ strong{
 	text-align:center
 }
 
-ul.roles{
-	width: 516px;
-	display: table;
-	margin:0 auto;
-	
-}
-ul.roles li{
-	float:left;
-	width:160px;
-	height:150px;
-	text-align:center;
-	margin:6px;
-	background:#002A4A;
-	color:white;
-}
-ul.roles li img{
-	padding-bottom:10px;
-}
-ul.roles li a{
-	text-decoration:none;
-	color:white;
-	display: block;
-	height:150px;
-}
 div.description{
 	width:1000px;
 	margin:0 auto;
@@ -90,9 +65,6 @@ ul.about li a:hover{
 }
 .identification{
     width:500px;
-    margin: 0 auto;
-    /*background:#f5f5f5;*/
-	display:table;
 }
 .identification p.name{ padding-bottom: 10px; padding-top: 10px; padding-left: 15px; font-weight: bold; text-align: center;}
 
@@ -111,36 +83,22 @@ a.button{
 	background:#17607D
 }
 
-
 /* Action forms */
 .a-center{ text-align:center}
 
 .form-action{ background:#f5f5f5; display:table; width:980px; margin:10px auto; padding:10px}
-.form-action p.name{ text-transform:uppercase; font-weight:bold; padding:10px 0} 
-.form-action .form p{ padding:5px 0; padding-left:20px; width: 500px; margin: 0 auto;} 
-.form-action .form p label{ width: 210px; display: table; float: left;} 
-.form-action .form p input{ }
-.form-action .form p a{ }
-.form-action .form p button{ text-align:center}
-.form-action .form p.sub-name{ font-weight:bold; width:500px; display:table; margin:0 auto; border-bottom:1px solid gray; margin-bottom:5px; margin-top:10px; padding-left: 0;}
-
-.form-action table{ font-size:12px;}
-.form-action table tr th{ font-weight: bold; background: gray; padding: 5px; color: white;}
-.form-action table tr td{border-top: 1px solid gray; padding:10px 5px;}
-.form-action table tr td a{ color:#333}
-.form-action table tr .name{width: 180px;}
-.form-action table tr .start_date{width: 90px; padding-left: 10px;}
-.form-action table tr .passport{width: 100px;}
-.form-action table tr .amount{width: 150px;}
-.form-action table tr .duration{width: 100px;}
-.form-action table tr .comment{width: 140px;}
-.form-action table tr .comment textarea{width: 180px; height: 50px;}
-.form-action table tr .action{width: 90px;}
-.form-action table tr .submit-button{}
-.form-action table tr .note{ width:30px}
-.form-action table tr td.note{ text-align:center}
-.form-action table tr.green td { background:#89C35C }
-.form-action table tr.gray td { background:#ccc}
+.form-action p.name{ text-transform:uppercase; font-weight:bold; padding:10px 0}
+/*.form-action .form p{*/
+    /*padding: 5px 0 5px 20px;*/
+    /*width: 500px; margin: 0 auto;}*/
+/*.form-action .form p label{ width: 210px; display: table; float: left;} */
+/*.form-action .form p input{ }*/
+/*.form-action .form p a{ }*/
+/*.form-action .form p button{ text-align:center}*/
+/*.form-action .form p.sub-name{ font-weight:bold; width:500px; display:table;*/
+    /*border-bottom:1px solid gray;*/
+    /*margin: 10px auto 5px;*/
+    /*padding-left: 0;}*/
 
 
 /* Table */
@@ -150,19 +108,6 @@ a.button{
 .data-table table tr th{ font-weight: bold; background: gray; padding: 5px; color: white;}
 .data-table table tr td{border-top: 1px solid gray; padding:10px 5px;}
 .data-table table tr td a{ color:#333}
-.data-table table tr .name{width: 180px;}
-.data-table table tr .start_date{width: 90px; padding-left: 10px;}
-.data-table table tr .passport{width: 100px;}
-.data-table table tr .amount{width: 150px;}
-.data-table table tr .duration{width: 100px;}
-.data-table table tr .comment{width: 140px;}
-.data-table table tr .comment textarea{width: 180px; height: 50px;}
-.data-table table tr .action{width: 90px;}
-.data-table table tr .submit-button{}
-.data-table table tr .note{ width:30px}
-.data-table table tr td.note{ text-align:center}
-.data-table table tr.green td { background:#89C35C }
-.data-table table tr.gray td { background:#ccc}
 
 
 
@@ -189,9 +134,6 @@ a.button{
 	padding-top:13px;
 	padding-left:15px;
 }
-
-
-
 
 .nav-menu{
 	

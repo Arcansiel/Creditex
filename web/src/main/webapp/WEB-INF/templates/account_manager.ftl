@@ -60,28 +60,42 @@
         [@creditex.account_manager/]
         <div class="form-action">
             <p class="name">Введите данные клиента</p>
-            <form action="" method="post" class="form" id="clientDataForm">
-                <p>
-                    <label for="name_field">Имя</label>
-                    <input type="text" id="name_field" name="first">
-                </p>
-                <p>
-                    <label for="last_field">Фамилия</label>
-                    <input type="text" id="last_field" name="last">
-                </p>
-                <p>
-                    <label for="patronymic_field">Отчество</label>
-                    <input type="text" id="patronymic_field" name="patronymic">
-                </p>
-                <p>
-                    <label for="series_field">Серия паспорта</label>
-                    <input type="text" id="series_field" name="passportSeries">
-                </p>
-                <p>
-                    <label for="number_filed">Номер паспорта</label>
-                    <input type="text" id="number_filed" name="passportNumber">
-                </p>
-                <p class="a-center"><button type="submit" class="button">Обработать</button></p>
+            <form class="form-horizontal" role="form" id="clientDataForm" action="" method="post">
+                <div class="form-group">
+                    <label for="inputFirst" class="col-sm-4 control-label">Имя</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" id="inputFirst" placeholder="Имя клиента" name="first">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputLast" class="col-sm-4 control-label">Фамилия</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" id="inputLast" placeholder="Фамилия клиента" name="last">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPatronymic" class="col-sm-4 control-label">Отчество</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" id="inputPatronymic" placeholder="Отчество клиента" name="patronymic">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputSeries" class="col-sm-4 control-label">Серия паспорта</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" id="inputSeries" placeholder="Серия паспорта" name="passportSeries">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputNumber" class="col-sm-4 control-label">Номер паспорта</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" id="inputNumber" placeholder="Номер паспорта" name="passportNumber">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-xs-6">
+                        <button type="submit" class="button">Обработать</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
