@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -142,5 +143,22 @@ public class UserServiceImpl implements UserService {
         user.setEnabled(enabled);
         userRepository.save(user);
         return true;
+    }
+
+    @Override
+    @PostConstruct
+    public void Initialize(){
+        if (authoritiesRepository.count() == 0){
+            log.error("Authorities table is empty, filling with default values");
+            List<Authority> authorities = new ArrayList<>(6);
+            authorities.add(new Authority().setAuthority("ROLE_CLIENT"));
+            authorities.add(new Authority().setAuthority("ROLE_ACCOUNT_MANAGER"));
+            authorities.add(new Authority().setAuthority("ROLE_SECURITY_MANAGER"));
+            authorities.add(new Authority().setAuthority("ROLE_COMMITTEE_MANAGER"));
+            authorities.add(new Authority().setAuthority("ROLE_DEPARTMENT_HEAD"));
+            authorities.add(new Authority().setAuthority("ROLE_OPERATION_MANAGER"));
+            authoritiesRepository.save(authorities);
+        }
+
     }
 }

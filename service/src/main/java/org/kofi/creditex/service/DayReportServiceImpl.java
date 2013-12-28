@@ -11,6 +11,7 @@ import org.joda.time.LocalDate;
 import org.kofi.creditex.model.DayReport;
 import org.kofi.creditex.repository.DayReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Properties;
 
 @Slf4j
 @Service("dayReportService")
@@ -25,6 +27,11 @@ import java.util.List;
 public class DayReportServiceImpl implements DayReportService {
     @Autowired
     private DayReportRepository dayReportRepository;
+    @Value("${initialConfiguration.date}")
+    private String startDate;
+    @Value("${initialConfiguration.money}")
+    private String initialMoney;
+
     private DayReport report;
     @Override
     public void IncCredit() {
@@ -142,10 +149,20 @@ public class DayReportServiceImpl implements DayReportService {
         return reportOrdering.sortedCopy(dayReportRepository.findAll(new PageRequest(0, actualCount, Sort.Direction.DESC, "dayDate")).getContent());
     }
 
+    @Override
     @PostConstruct
-    private void DayReportInitialization(){
-        log.warn("Initializing DayReportService!");
-        report = dayReportRepository.findAll(new PageRequest(0,1, Sort.Direction.DESC, "dayDate")).getContent().get(0);
+    public void DayReportInitialization(){
+        long count = dayReportRepository.count();
+        if (count==0){
+            DayReportServiceImpl.log.warn("startDate: {}; initialMoney: {}", startDate, initialMoney);
+            DayReport initialReport = new DayReport().setDayDate(LocalDate.parse(startDate)).setCurrentBankMoney(Long.parseLong(initialMoney));
+            report = dayReportRepository.save(initialReport);
+        }
+        else {
+            List<DayReport> reports = dayReportRepository.findAll(new PageRequest(0,1, Sort.Direction.DESC, "dayDate")).getContent();
+            report = reports.get(0);
+        }
+
     }
 
     @Override

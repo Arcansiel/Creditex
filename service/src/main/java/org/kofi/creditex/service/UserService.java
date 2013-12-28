@@ -5,6 +5,7 @@ import org.kofi.creditex.model.User;
 import org.kofi.creditex.model.UserData;
 import org.kofi.creditex.web.model.UserRegistrationForm;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 public interface UserService {
@@ -20,4 +21,7 @@ public interface UserService {
     void ChangeRegistrationDataByForm(UserRegistrationForm form);
     long GetUsersCountByAuthorityAndEnabled(String authority, boolean enabled);
     boolean SetUserEnabledById(long user_id, boolean enabled);
+
+    @PostConstruct
+    void Initialize();
 }

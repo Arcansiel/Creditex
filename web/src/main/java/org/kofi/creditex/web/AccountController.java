@@ -55,7 +55,9 @@ public class AccountController {
         if(result.hasErrors()){
             return "redirect:/account";
         }
+        AccountController.log.warn("Form data: {}", form);
         User client = userService.GetUserByUserDataValues(form);
+        AccountController.log.warn("User: {}",client);
         session.setAttribute("client", client);
         return "redirect:/account";
     }
