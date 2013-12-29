@@ -171,11 +171,11 @@ $("#${containerId}").dxChart({
         }
     },
     series:[
-        {valueField:"clients",name:"Клиенты"},
-        {valueField:"accountManagers",name:"Специалисты по работе с клиентами"},
-        {valueField:"securityManagers",name:"Специалисты по безопасности"},
-        {valueField:"operationManagers",name:"Операционисты"},
-        {valueField:"committeeManagers",name:"Члены кредитного комитета"}
+        {valueField:"overallClients",name:"Клиенты"},
+        {valueField:"overallAccountManagers",name:"Специалисты по работе с клиентами"},
+        {valueField:"overallSecurityManagers",name:"Специалисты по безопасности"},
+        {valueField:"ovarallOperationManagers",name:"Операционисты"},
+        {valueField:"overallCommitteeManagers",name:"Члены кредитного комитета"}
     ],
     tooltip:{
         enabled:true

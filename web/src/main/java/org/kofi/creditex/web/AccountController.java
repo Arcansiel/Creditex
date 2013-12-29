@@ -53,6 +53,7 @@ public class AccountController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     public String MainProcess(HttpSession session, @Valid @ModelAttribute UserData form, BindingResult result, ModelMap model){
         if(result.hasErrors()){
+            AccountController.log.warn("Errors: {}",result.getFieldErrors());
             return "redirect:/account";
         }
         AccountController.log.warn("Form data: {}", form);

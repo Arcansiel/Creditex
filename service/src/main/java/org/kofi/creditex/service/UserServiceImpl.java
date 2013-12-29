@@ -38,6 +38,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User GetUserByUserDataValues(UserData data) {
+        log.warn("User data to search: {}", data);
         return userRepository.findByUserData_FirstAndUserData_LastAndUserData_PatronymicAndUserData_PassportSeriesAndUserData_PassportNumber(data.getFirst(), data.getLast(), data.getPatronymic(), data.getPassportSeries(), data.getPassportNumber());
     }
 
@@ -159,6 +160,12 @@ public class UserServiceImpl implements UserService {
             authorities.add(new Authority().setAuthority("ROLE_OPERATION_MANAGER"));
             authoritiesRepository.save(authorities);
         }
+        else if(authoritiesRepository.count() !=6){
+            log.error("Authorities table was modified. Exiting.");
+            System.exit(-1);
+        }
+
+
 
     }
 }

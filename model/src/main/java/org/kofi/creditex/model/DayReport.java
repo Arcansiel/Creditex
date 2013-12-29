@@ -31,7 +31,13 @@ public class DayReport {
     private long securityManagers;
     private long operationManagers;
     private long committeeManagers;
+    private long overallClients;
+    private long overallAccountManagers;
+    private long overallSecurityManagers;
+    private long overallOperationManagers;
+    private long overallCommitteeManagers;
     private long operations;
+    private long overallOperations;
     private long income;
     private long outcome;
     private long credits;

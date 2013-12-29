@@ -35,21 +35,21 @@ public class UserData {
      * Имя
      */
     @Size(max = 46)
-    @Pattern(regexp = "^\\w+$")
+    @Pattern(regexp = "^[a-zA-Zа-яА-Я]+$", message = "Alpha word please")
     @Column(nullable = false)
     private String first;
     /**
      * Фамилия
      */
     @Size(max = 46)
-    @Pattern(regexp = "^\\w+$")
+    @Pattern(regexp = "^[a-zA-Zа-яА-Я]+$", message = "Alpha word please")
     @Column(nullable = false)
     private String last;
     /**
      * Отчество
      */
     @Size(max = 46)
-    @Pattern(regexp = "^\\w+$")
+    @Pattern(regexp = "^[a-zA-Zа-яА-Я]+$", message = "Alpha word please")
     @Column(nullable = false)
     private String patronymic;
     /**
@@ -61,7 +61,7 @@ public class UserData {
      * Серия паспорта
      */
     @Size(max = 2, min = 2)
-    @Pattern(regexp = "^[A-Z]{2}$")
+    @Pattern(regexp = "^[A-Z]{2}$", message = "Passport combination")
     @Column(nullable = false)
     private String passportSeries;
     /**
@@ -74,19 +74,19 @@ public class UserData {
      * Место работы
      */
     @Size(max = 46)
-    @Pattern(regexp = "^\\w+$")
+    @Pattern(regexp = "^[a-zA-Zа-яА-Я ]+$", message = "Alphanumeric words please")
     @Column(nullable = false)
     private String workName;
     /**
      * Занимаемая позиция
      */
     @Size(max = 46)
-    @Pattern(regexp = "^\\w+$")
+    @Pattern(regexp = "^[a-zA-Zа-яА-Я ]+$", message = "Alphanumeric words please")
     @Column(nullable = false)
     private String workPosition;
     /**
      * Доход
      */
-    @Min(1)
+    @Min(0)
     private long workIncome;
 }

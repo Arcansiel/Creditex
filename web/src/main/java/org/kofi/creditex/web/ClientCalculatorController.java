@@ -6,7 +6,6 @@ import org.kofi.creditex.model.User;
 import org.kofi.creditex.service.CreditCalculator;
 import org.kofi.creditex.service.ProductService;
 import org.kofi.creditex.service.UserService;
-import org.kofi.creditex.web.model.CreditApplicationForm;
 import org.kofi.creditex.web.model.CreditApplicationRegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

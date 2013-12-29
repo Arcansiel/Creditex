@@ -58,19 +58,19 @@ public class Application {
      * Ссылка на требуемый кредитный продукт {@link Product}
      */
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JoinColumn(nullable = false)
     private Product product;
     /**
      * Ссылка на клиента банка {@link User}
      */
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JoinColumn(nullable = false)
     private User client;
     /**
      * Ссылка на специалиста по работе с клиентами {@link User}
      */
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JoinColumn(nullable = false)
     private User accountManager;
     /**
      * Принята ли заявка специалистом службы безопасности
@@ -87,7 +87,7 @@ public class Application {
      * Ссылка на специалиста службы безопасности {@link User}
      */
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id")
+    @JoinColumn
     private User security;
     /**
      * Количество голосов за принятие заявки кредитным комитетом
@@ -129,7 +129,7 @@ public class Application {
      * Ссылка на главу кредитного отдела {@link User}
      */
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id")
+    @JoinColumn
     private User head;
     /**
      * Ссылка на кредит, который был создан по данной заявке

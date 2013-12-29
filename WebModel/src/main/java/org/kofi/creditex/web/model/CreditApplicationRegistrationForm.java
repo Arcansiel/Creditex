@@ -10,6 +10,5 @@ public class CreditApplicationRegistrationForm {
     private long duration;
     @Min(0)
     private long request;
-    @Min(0)
     private long productId;
 }

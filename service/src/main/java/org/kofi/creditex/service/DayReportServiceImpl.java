@@ -64,31 +64,37 @@ public class DayReportServiceImpl implements DayReportService {
 
     @Override
     public void IncClient() {
+        report.setOverallClients(report.getOverallClients()+1);
         report.setClients(report.getClients()+1);
     }
 
     @Override
     public void IncAccountManager() {
+        report.setOverallAccountManagers(report.getOverallAccountManagers()+1);
         report.setAccountManagers(report.getAccountManagers()+1);
     }
 
     @Override
     public void IncSecurityManager() {
+        report.setOverallSecurityManagers(report.getOverallSecurityManagers()+1);
         report.setSecurityManagers(report.getSecurityManagers()+1);
     }
 
     @Override
     public void IncOperationManager() {
+        report.setOverallOperationManagers(report.getOverallOperationManagers()+1);
         report.setOperationManagers(report.getOperationManagers()+1);
     }
 
     @Override
     public void IncCommitteeManager() {
+        report.setOverallCommitteeManagers(report.getOverallCommitteeManagers()+1);
         report.setCommitteeManagers(report.getCommitteeManagers()+1);
     }
 
     @Override
     public void IncOperations() {
+        report.setOverallOperations(report.getOverallOperations()+1);
         report.setOperations(report.getOperations()+1);
     }
 
@@ -126,7 +132,14 @@ public class DayReportServiceImpl implements DayReportService {
                 .setOverallExpiredCredits(report.getOverallExpiredCredits())
                 .setOverallPriorRepaymentApplications(report.getOverallPriorRepaymentApplications())
                 .setOverallProlongationApplications(report.getOverallProlongationApplications())
-                .setOverallUnreturnedCredits(report.getOverallUnreturnedCredits());
+                .setOverallUnreturnedCredits(report.getOverallUnreturnedCredits())
+                .setOverallClients(report.getOverallClients())
+                .setOverallAccountManagers(report.getOverallAccountManagers())
+                .setOverallSecurityManagers(report.getOverallSecurityManagers())
+                .setOverallOperationManagers(report.getOverallOperationManagers())
+                .setOverallCommitteeManagers(report.getOverallCommitteeManagers())
+                .setOverallOperations(report.getOverallOperations())
+        ;
         report = forward;
         return report;
     }
