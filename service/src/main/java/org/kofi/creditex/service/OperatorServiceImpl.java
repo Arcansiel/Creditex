@@ -240,19 +240,6 @@ public class OperatorServiceImpl implements OperatorService {
         }
     }
 
-    private boolean ExecuteWithdrawal(Credit credit, long amount){
-        //OperationType.Withdrawal (IV)
-        long money = credit.getCurrentMoney();
-        if(money >= amount){
-            money -= amount;
-            credit.setCurrentMoney(money);
-            creditRepository.save(credit);
-            return true;
-        }else{
-            return false;//money < amount
-        }
-    }
-
     @Override
     public int ExecuteOperation(String operator_name, long credit_id, OperationType type, long amount) {
         if(amount <= 0){
@@ -322,4 +309,66 @@ public class OperatorServiceImpl implements OperatorService {
             return 2;//operation executed and credit closed
         }
     }
+
+    private boolean ExecuteWithdrawal(Credit credit, long amount){
+        //OperationType.Withdrawal
+        long money = credit.getCurrentMoney();
+        if(money >= amount){
+            money -= amount;
+            credit.setCurrentMoney(money);
+            creditRepository.save(credit);
+            return true;
+        }else{
+            return false;//money < amount
+        }
+    }
+
+    private void ExecuteDeposit(Credit credit, long amount){
+        //OperationType.Withdrawal
+        long money = credit.getCurrentMoney();
+        credit.setCurrentMoney(money + amount);
+        creditRepository.save(credit);
+    }
+
+    public int ExecuteOperation2(String operator_name, long credit_id, OperationType type, long amount) {
+        if(amount <= 0){
+            return -1;//amount <= 0
+        }
+        Date now = dateProvider.getCurrentSqlDate();
+        User operator = userService.GetOperatorByUsername(operator_name);
+        if(operator == null){
+            return -2;//no operator
+        }
+        Credit credit = creditRepository.findOne(credit_id);
+        if(credit == null){
+            return -3;//no credit
+        }
+        if(!credit.isRunning()){
+            return -4;//invalid credit state
+        }
+        if(type.equals(OperationType.Deposit)){
+            //OperationType.Deposit
+            ExecuteDeposit(credit, amount);
+        }else{
+            //OperationType.Withdrawal (IV)
+            if(!ExecuteWithdrawal(credit, amount)){
+                return -8;//money < amount
+            }
+        }
+
+        Operation operation = new Operation();
+        operation.setCredit(credit);
+        operation.setAmount(amount);
+        operation.setOperator(operator);
+        operation.setType(type);
+        operation.setOperationDate(now);
+        operationRepository.save(operation);
+
+        dayReportService.IncOperations();
+
+        return 1;
+    }
+
+
+
 }
