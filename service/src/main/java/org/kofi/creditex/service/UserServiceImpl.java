@@ -36,10 +36,56 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsername(username);
     }
 
+    private User GetUserByUsernameAndAuthority(String username, String authority) {
+        User user = userRepository.findByUsername(username);
+        if(user != null && user.getAuthority().getAuthority().equals(authority)){
+            return user;
+        }else{
+            return null;
+        }
+    }
+
+    @Override
+    public User GetSecurityByUsername(String security_username) {
+        return GetUserByUsernameAndAuthority(security_username,"ROLE_SECURITY_MANAGER");
+    }
+
+    @Override
+    public User GetOperatorByUsername(String operator_username) {
+        return GetUserByUsernameAndAuthority(operator_username,"ROLE_OPERATION_MANAGER");
+    }
+
+    @Override
+    public User GetCommitteeByUsername(String committee_username) {
+        return GetUserByUsernameAndAuthority(committee_username,"ROLE_COMMITTEE_MANAGER");
+    }
+
+    @Override
+    public User GetDepartmentHeadByUsername(String head_username) {
+        return GetUserByUsernameAndAuthority(head_username,"ROLE_DEPARTMENT_HEAD");
+    }
+
+
     @Override
     public User GetUserByUserDataValues(UserData data) {
         log.warn("User data to search: {}", data);
         return userRepository.findByUserData_FirstAndUserData_LastAndUserData_PatronymicAndUserData_PassportSeriesAndUserData_PassportNumber(data.getFirst(), data.getLast(), data.getPatronymic(), data.getPassportSeries(), data.getPassportNumber());
+    }
+
+    private User GetUserByUserDataValuesAndAuthority(UserData data, String authority){
+        log.warn("User data to search: {}", data);
+        User user =
+                userRepository.findByUserData_FirstAndUserData_LastAndUserData_PatronymicAndUserData_PassportSeriesAndUserData_PassportNumber(data.getFirst(), data.getLast(), data.getPatronymic(), data.getPassportSeries(), data.getPassportNumber());
+        if(user != null && user.getAuthority().getAuthority().equals(authority)){
+            return user;
+        }else{
+            return null;
+        }
+    }
+
+    @Override
+    public User GetClientByUserDataValues(UserData data) {
+        return GetUserByUserDataValuesAndAuthority(data,"ROLE_CLIENT");
     }
 
     @Override
@@ -108,6 +154,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public User GetUserById(long user_id) {
         return userRepository.findOne(user_id);
+    }
+
+
+    private User GetUserByIdAndAuthority(long user_id, String authority) {
+        User user = userRepository.findOne(user_id);
+        if(user != null && user.getAuthority().getAuthority().equals(authority)){
+            return user;
+        }else{
+            return null;
+        }
+    }
+
+    @Override
+    public User GetClientById(long client_id){
+        return GetUserByIdAndAuthority(client_id,"ROLE_CLIENT");
     }
 
     @Override

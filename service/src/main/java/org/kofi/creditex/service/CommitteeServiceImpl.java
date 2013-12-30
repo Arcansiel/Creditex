@@ -80,7 +80,7 @@ public class CommitteeServiceImpl implements CommitteeService {
 
     @Override
     public int Vote(String committee_name, long application_id, boolean acceptance, String comment) {
-        User u = userService.GetUserByUsername(committee_name);
+        User u = userService.GetCommitteeByUsername(committee_name);
         if(u == null){
             return -1;//no committee manager
         }

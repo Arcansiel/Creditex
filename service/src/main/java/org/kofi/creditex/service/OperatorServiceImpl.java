@@ -259,7 +259,7 @@ public class OperatorServiceImpl implements OperatorService {
             return -1;//amount <= 0
         }
         Date now = dateProvider.getCurrentSqlDate();
-        User operator = userService.GetUserByUsername(operator_name);
+        User operator = userService.GetOperatorByUsername(operator_name);
         if(operator == null){
             return -2;//no operator
         }

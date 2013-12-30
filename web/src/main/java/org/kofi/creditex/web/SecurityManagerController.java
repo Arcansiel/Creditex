@@ -234,7 +234,7 @@ public class SecurityManagerController {
     public String Security51(Model model
             ,@PathVariable("id")long id
     ){
-        User client = userService.GetUserById(id);
+        User client = userService.GetClientById(id);
         if(client == null){
             return "redirect:/security_manager/?error=no_client&info="+id;
         }
@@ -255,7 +255,7 @@ public class SecurityManagerController {
     public String Security52(Model model
             ,@PathVariable("id")long id
     ){
-        User client = userService.GetUserById(id);
+        User client = userService.GetClientById(id);
         if(client == null){
             return "redirect:/security_manager/?error=no_client&info="+id;
         }
@@ -267,7 +267,7 @@ public class SecurityManagerController {
     public String ClientStatistics(Model model
             ,@PathVariable("id")long id
     ){
-        User client = userService.GetUserById(id);
+        User client = userService.GetClientById(id);
         if(client == null){
             return "redirect:/security_manager/?error=no_client&info="+id;
         }
@@ -284,7 +284,7 @@ public class SecurityManagerController {
     public String Security53(Model model
             ,@PathVariable("id")long id
     ){
-        User client = userService.GetUserById(id);
+        User client = userService.GetClientById(id);
         if(client == null){
             return "redirect:/security_manager/?error=no_client&info="+id;
         }
@@ -298,7 +298,7 @@ public class SecurityManagerController {
     public String Security54(Model model
             ,@PathVariable("id")long id
     ){
-        User client = userService.GetUserById(id);
+        User client = userService.GetClientById(id);
         if(client == null){
             return "redirect:/security_manager/?error=no_client&info="+id;
         }
@@ -312,7 +312,7 @@ public class SecurityManagerController {
     public String Security55(Model model
             ,@PathVariable("id")long id
     ){
-        User client = userService.GetUserById(id);
+        User client = userService.GetClientById(id);
         if(client == null){
             return "redirect:/security_manager/?error=no_client&info="+id;
         }
@@ -326,7 +326,7 @@ public class SecurityManagerController {
     public String Security56(Model model
             ,@PathVariable("id")long id
     ){
-        User client = userService.GetUserById(id);
+        User client = userService.GetClientById(id);
         if(client == null){
             return "redirect:/security_manager/?error=no_client&info="+id;
         }
@@ -373,7 +373,7 @@ public class SecurityManagerController {
         if(bindingResult.hasErrors()){
             return "redirect:/security_manager/client/search/?error=invalid_input_data&info="+bindingResult.getFieldError().getField();
         }
-        User client = userService.GetUserByUserDataValues(form);
+        User client = userService.GetClientByUserDataValues(form);
         if(client != null){
             return "redirect:/security_manager/client/check/"+client.getId();
         }else{

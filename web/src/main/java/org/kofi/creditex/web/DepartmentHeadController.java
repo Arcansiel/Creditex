@@ -363,7 +363,7 @@ public class DepartmentHeadController {
     public String DepartmentHead15(Model model
                     ,@PathVariable("id")long id
     ){
-        User client = userService.GetUserById(id);
+        User client = userService.GetClientById(id);
         if(client == null){
             return "redirect:/department_head/?error=no_client&info="+id;
         }
@@ -376,7 +376,7 @@ public class DepartmentHeadController {
     public String DepartmentHead_list1(Model model
             ,@PathVariable("id")long id
     ){
-        User client = userService.GetUserById(id);
+        User client = userService.GetClientById(id);
         if(client == null){
             return "redirect:/department_head/?error=no_client&info="+id;
         }
@@ -390,7 +390,7 @@ public class DepartmentHeadController {
     public String DepartmentHead_list2(Model model
             ,@PathVariable("id")long id
     ){
-        User client = userService.GetUserById(id);
+        User client = userService.GetClientById(id);
         if(client == null){
             return "redirect:/department_head/?error=no_client&info="+id;
         }
@@ -404,7 +404,7 @@ public class DepartmentHeadController {
     public String DepartmentHead_list3(Model model
             ,@PathVariable("id")long id
     ){
-        User client = userService.GetUserById(id);
+        User client = userService.GetClientById(id);
         if(client == null){
             return "redirect:/department_head/?error=no_client&info="+id;
         }
@@ -418,7 +418,7 @@ public class DepartmentHeadController {
     public String DepartmentHead_list4(Model model
             ,@PathVariable("id")long id
     ){
-        User client = userService.GetUserById(id);
+        User client = userService.GetClientById(id);
         if(client == null){
             return "redirect:/department_head/?error=no_client&info="+id;
         }
@@ -432,7 +432,7 @@ public class DepartmentHeadController {
     public String ClientStatistics(Model model
             ,@PathVariable("id")long id
     ){
-        User client = userService.GetUserById(id);
+        User client = userService.GetClientById(id);
         if(client == null){
             return "redirect:/department_head/?error=no_client&info="+id;
         }
@@ -460,7 +460,7 @@ public class DepartmentHeadController {
         if(bindingResult.hasErrors()){
             return "redirect:/department_head/client/search/?error=invalid_input_data&info="+bindingResult.getFieldError().getField();
         }
-        User client = userService.GetUserByUserDataValues(form);
+        User client = userService.GetClientByUserDataValues(form);
         if(client != null){
             return "redirect:/department_head/client/"+client.getId();
         }else{

@@ -146,7 +146,7 @@ public class CommitteeManagerController {
     public String Committee5(Model model
             ,@PathVariable("id")long id
     ){
-        User client = userService.GetUserById(id);
+        User client = userService.GetClientById(id);
         if(client == null){
             return "redirect:/committee_manager/?error=no_client&info="+id;
         }
@@ -158,7 +158,7 @@ public class CommitteeManagerController {
     public String ClientStatistics(Model model
             ,@PathVariable("id")long id
     ){
-        User client = userService.GetUserById(id);
+        User client = userService.GetClientById(id);
         if(client == null){
             return "redirect:/security_manager/?error=no_client&info="+id;
         }
@@ -175,7 +175,7 @@ public class CommitteeManagerController {
     public String Committee53(Model model
             ,@PathVariable("id")long id
     ){
-        User client = userService.GetUserById(id);
+        User client = userService.GetClientById(id);
         if(client == null){
             return "redirect:/committee_manager/?error=no_client&info="+id;
         }
@@ -189,7 +189,7 @@ public class CommitteeManagerController {
     public String Committee54(Model model
             ,@PathVariable("id")long id
     ){
-        User client = userService.GetUserById(id);
+        User client = userService.GetClientById(id);
         if(client == null){
             return "redirect:/committee_manager/?error=no_client&info="+id;
         }
@@ -203,7 +203,7 @@ public class CommitteeManagerController {
     public String Committee55(Model model
             ,@PathVariable("id")long id
     ){
-        User client = userService.GetUserById(id);
+        User client = userService.GetClientById(id);
         if(client == null){
             return "redirect:/committee_manager/?error=no_client&info="+id;
         }
@@ -217,7 +217,7 @@ public class CommitteeManagerController {
     public String Committee56(Model model
             ,@PathVariable("id")long id
     ){
-        User client = userService.GetUserById(id);
+        User client = userService.GetClientById(id);
         if(client == null){
             return "redirect:/committee_manager/?error=no_client&info="+id;
         }

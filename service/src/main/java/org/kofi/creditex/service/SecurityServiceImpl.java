@@ -68,7 +68,7 @@ public class SecurityServiceImpl implements SecurityService{
 
     @Override
     public int AssignApplicationToSecurity(long application_id, String security_name) {
-        User security = userService.GetUserByUsername(security_name);
+        User security = userService.GetSecurityByUsername(security_name);
         if(security == null){ return -1; }//no security
         Application application = applicationRepository.findOne(application_id);
         if(application == null){
@@ -107,7 +107,7 @@ public class SecurityServiceImpl implements SecurityService{
 
     @Override
     public int CancelApplicationAssignment(long application_id, String security_name){
-        User security = userService.GetUserByUsername(security_name);
+        User security = userService.GetSecurityByUsername(security_name);
         if(security == null){ return -1; }//no security
         Application application = applicationRepository.findOne(application_id);
         if(application == null){
@@ -165,7 +165,7 @@ public class SecurityServiceImpl implements SecurityService{
         }else{
             acceptance_value = Acceptance.Rejected;
         }
-        User security = userService.GetUserByUsername(security_name);
+        User security = userService.GetSecurityByUsername(security_name);
         if(security == null){ return -1; }//no security
         Application application = applicationRepository.findOne(application_id);
         if(application == null){
@@ -263,7 +263,7 @@ public class SecurityServiceImpl implements SecurityService{
     @Override
     public int SendNotification(String security_name, long credit_id,
                                 NotificationType notificationType, String message) {
-        User security = userService.GetUserByUsername(security_name);
+        User security = userService.GetSecurityByUsername(security_name);
         if(security == null){ return -1; }//no security
         Credit credit = creditRepository.findOne(credit_id);
         if(credit == null){ return -2; }//no credit
@@ -294,7 +294,7 @@ public class SecurityServiceImpl implements SecurityService{
 
     //заглушка на проверку клиента по внешним базам данных
     public Map<String,Object> ClientOuterCheck(long client_id){
-        User client = userService.GetUserById(client_id);
+        User client = userService.GetClientById(client_id);
         if(client == null){
             return null;
         }
