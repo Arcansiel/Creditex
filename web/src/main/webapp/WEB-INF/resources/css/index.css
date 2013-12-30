@@ -175,7 +175,7 @@ a.button{
 
 
 .page-link {}
-.page-link a{
+.page-link a, .page-link .link{
     font-size: 16px;
     text-decoration: none;
     display: block;
@@ -193,7 +193,7 @@ a.button{
     transition: all .4s;
 }
 
-.page-link a:hover{
+.page-link a, .page-link .link:hover{
     text-decoration: none;
     background:#808080;
     color:white;
