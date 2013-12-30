@@ -16,7 +16,7 @@
                 <label for="count_field">Количество дней (от 1 до 365)</label>
                 <input id="count_field" type="text" name="count" value="1" style="width: 100px"/>
                 <div class="page-link">
-                    <button class="link" style="width: 309px" type="submit">Инкремент даты</button>
+                    <button style="width: 309px; height: 50px" type="submit">Инкремент даты</button>
                 </div>
             </form>
         </div>
