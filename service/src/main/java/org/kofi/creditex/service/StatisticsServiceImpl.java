@@ -129,10 +129,6 @@ public class StatisticsServiceImpl implements StatisticsService {
         Map<String,Object> map = new HashMap<String,Object>(16);
         long countAll, countEnabled;
         map.put("countAll",countAll = userRepository.count(QUser.user.authority.eq(clientAuthority)));
-        map.put("countEnabled",countEnabled = userRepository.count(
-                QUser.user.authority.eq(clientAuthority).and(QUser.user.enabled.isTrue()))
-        );
-        map.put("countDisabled", countAll - countEnabled);
         long countDebtors;
         map.put("countDebtors",
                 countDebtors = userRepository.count(

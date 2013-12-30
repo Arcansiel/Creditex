@@ -35,8 +35,6 @@
                 <table>
                     <thead>
                     <th class="name">Всего клиентов</th>
-                    <th class="name">Enabled клиентов</th>
-                    <th class="name">Disabled клиентов</th>
                     <th class="name">Клиентов-должников</th>
                     <th class="name">Клиентов без долгов</th>
                     <th class="name">Клиентов с заявками на досрочное погашение</th>
@@ -46,8 +44,6 @@
                     </thead>
                     <tbody>
                     <td class="name">[#if (clients.countAll)??]${clients.countAll}[/#if]</td>
-                    <td class="name">[#if (clients.countEnabled)??]${clients.countEnabled}[/#if]</td>
-                    <td class="name">[#if (clients.countDisabled)??]${clients.countDisabled}[/#if]</td>
                     <td class="name">[#if (clients.countDebtors)??]${clients.countDebtors}[/#if]</td>
                     <td class="name">[#if (clients.countFree)??]${clients.countFree}[/#if]</td>
                     <td class="name">[#if (clients.countPriors)??]${clients.countPriors}[/#if]</td>

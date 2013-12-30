@@ -136,7 +136,7 @@ public class CommitteeServiceImpl implements CommitteeService {
 
 
     private long GetVotesLimit(){
-        //TODO select votes limit from special table
+        //TODO
         return userService.GetUsersCountByAuthorityAndEnabled("ROLE_COMMITTEE_MANAGER",true);
     }
 

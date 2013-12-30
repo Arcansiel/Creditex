@@ -89,7 +89,7 @@
 [/#macro]
 
 
-[#macro client_view_table client caption = "Клиент банка" show_enabled = true tableId="client_view_table"]
+[#macro client_view_table client caption = "Клиент банка" show_enabled = false tableId="client_view_table"]
 [#if client??]
 <p class="name">${caption?html}</p>
 <table id="${tableId}">

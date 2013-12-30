@@ -20,7 +20,6 @@
                     <th class="name">ФИО клиента</th>
                     <th class="passport">Серия и номер паспорта</th>
                     <th class="name">username</th>
-                    <th class="name">Активен</th>
                     <th class="name">Место работы</th>
                     <th class="name">Занимаемая должность</th>
                     <th class="name">Доход</th>
@@ -34,7 +33,6 @@
                         <td class="name">${c.userData.last?html} ${c.userData.first?html} ${c.userData.patronymic?html}</td>
                         <td class="passport">${c.userData.passportSeries?html} ${c.userData.passportNumber?string("0000000")}</td>
                         <td class="name">${c.username?html}</td>
-                        <td class="name">${c.enabled?c}</td>
                         <td class="name">${c.userData.workName?html}</td>
                         <td class="name">${c.userData.workPosition?html}</td>
                         <td class="name">${c.userData.workIncome?html}</td>
