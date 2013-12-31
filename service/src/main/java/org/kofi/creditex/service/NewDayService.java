@@ -13,4 +13,6 @@ public interface NewDayService extends ApplicationListener<DateChangeEvent> {
     void PayBill();
 
     void PayFine();
+
+    void CloseCredits();
 }

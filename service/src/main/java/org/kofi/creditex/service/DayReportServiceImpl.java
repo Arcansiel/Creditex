@@ -30,9 +30,25 @@ public class DayReportServiceImpl implements DayReportService {
     @Value("${initialConfiguration.date}")
     private String startDate;
     @Value("${initialConfiguration.money}")
-    private String initialMoney;
-
+    private long initialMoney;
+    @Value("${initialConfiguration.maxextraction}")
+    private long maxExtractionMoney;
     private DayReport report;
+
+    @Override
+    public void IncBankMoney(long money){
+        report.setCurrentBankMoney(report.getCurrentBankMoney()+money);
+    }
+
+    @Override
+    public boolean DecBankMoney(long money){
+        if (report.getCurrentBankMoney()-money>maxExtractionMoney){
+            report.setCurrentBankMoney(report.getCurrentBankMoney()-money);
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public void IncCredit() {
         report.setOverallCredits(report.getOverallCredits()+1);
@@ -167,7 +183,7 @@ public class DayReportServiceImpl implements DayReportService {
     public void DayReportInitialization(){
         long count = dayReportRepository.count();
         if (count==0){
-            DayReport initialReport = new DayReport().setDayDate(LocalDate.parse(startDate)).setCurrentBankMoney(Long.parseLong(initialMoney));
+            DayReport initialReport = new DayReport().setDayDate(LocalDate.parse(startDate)).setCurrentBankMoney(initialMoney);
             report = dayReportRepository.save(initialReport);
         }
         else {

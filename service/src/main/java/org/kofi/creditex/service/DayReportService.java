@@ -32,4 +32,8 @@ public interface DayReportService {
 
     @PostConstruct
     void DayReportInitialization();
+
+    void IncBankMoney(long money);
+
+    boolean DecBankMoney(long money);
 }

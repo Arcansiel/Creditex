@@ -27,6 +27,7 @@ public class NewDayServiceImpl implements NewDayService {
     public void PayBill(){
         List<Payment> payments = paymentRepository.findReadyToPayBills(date);
         for(Payment payment: payments){
+            dayReportService.IncBankMoney(payment.getPercents());
             payment.getCredit().setCurrentMainDebt(payment.getCredit().getCurrentMainDebt() - payment.getRequiredPayment() + payment.getPercents());
             payment.getCredit().setCurrentPercentDebt(payment.getCredit().getCurrentPercentDebt() - payment.getPercents());
             payment.getCredit().setCurrentMoney(payment.getCredit().getCurrentMoney()-payment.getRequiredPayment());
@@ -40,15 +41,27 @@ public class NewDayServiceImpl implements NewDayService {
         List<Payment> expiredPayments = paymentRepository.findReadyToPayFine();
         LinkedHashSet<Credit> expiredCredits = new LinkedHashSet<>();
         for (Payment payment : expiredPayments) {
+            dayReportService.IncBankMoney(payment.getPercents());
             payment.setPaymentClosed(true);
             expiredCredits.add(payment.getCredit());
         }
         for (Credit credit: expiredCredits){
             credit.setCurrentMoney(credit.getCurrentMoney() - credit.getMainFine() - credit.getPercentFine());
+            dayReportService.IncBankMoney(credit.getPercentFine());
             credit.setMainFine(0);
             credit.setPercentFine(0);
         }
         paymentRepository.save(expiredPayments);
+    }
+
+
+    @Override
+    public void CloseCredits(){
+        List<Credit> creditsToClose = creditRepository.findCreditsToClose(date);
+        for (Credit credit : creditsToClose){
+            credit.setRunning(false);
+        }
+        creditRepository.save(creditsToClose);
     }
 
     @Override
@@ -102,6 +115,7 @@ public class NewDayServiceImpl implements NewDayService {
     public void onApplicationEvent(DateChangeEvent dateChangeEvent) {
         dayReportService.SaveDayReport();
         date = dateChangeEvent.getDate();
+        CloseCredits();
         PayFine();
         PayBill();
         AddMainFine();

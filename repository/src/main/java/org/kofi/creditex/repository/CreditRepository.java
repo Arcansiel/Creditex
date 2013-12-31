@@ -8,7 +8,7 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import java.sql.Date;
 import java.util.List;
 
-public interface CreditRepository extends JpaRepository<Credit, Long>, QueryDslPredicateExecutor<Credit> {
+public interface CreditRepository extends JpaRepository<Credit, Long>, QueryDslPredicateExecutor<Credit>, CreditRepositoryExt {
     List<Credit> findByUserUsername(String username);
     Credit findByRunningAndUserUsername(boolean running, String username);
     List<Credit> findByRunningAndMainFineGreaterThan(boolean running, long minMainFine);
