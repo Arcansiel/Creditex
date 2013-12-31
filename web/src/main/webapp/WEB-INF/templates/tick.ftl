@@ -6,7 +6,7 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
-        [@creditex.goback /]
+
         <div class="data-table">
             <p class="page-link"><a href="[@spring.url '/'/]">На главную страницу</a></p>
             [#if date??]

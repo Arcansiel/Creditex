@@ -10,9 +10,9 @@
     [@creditex.body]
     <div class="page">
         [@creditex.committee_manager /]
-        [@creditex.goback /]
+
         <div class="data-table">
-            <p class="page-link"><a href="[@spring.url '/committee_manager/'/]">На главную страницу</a></p>
+
             <p class="page-link"><a href="[@spring.url '/committee_manager/appliances/running/'/]">Список заявок для голосования</a></p>
             <p class="page-link"><a href="[@spring.url '/committee_manager/appliances/finished/'/]">Список заявок, голосование по которым завершено</a></p>
             [#if application??]

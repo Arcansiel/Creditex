@@ -9,9 +9,9 @@
     [@creditex.body]
     <div class="page">
         [@creditex.security_manager /]
-        [@creditex.goback /]
+
         <div class="data-table">
-            <p class="page-link"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
+
 
         [#if current??]
             [@l_data.application_view_table current "Текущая заявка на кредит"/]

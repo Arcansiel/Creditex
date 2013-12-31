@@ -10,9 +10,8 @@
     [@creditex.body]
     <div class="page">
         [@creditex.security_manager /]
-        [@creditex.goback /]
+
          <div class="data-table">
-             <p class="page-link"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
              <p class="page-link"><a href="[@spring.url '/security_manager/appliances/'/]">Список заявок</a></p>
         [#if application??]
             <p class="page-link"><a href="[@spring.url '/security_manager/client/check/${application.client.id?string("0")}'/]">Проверка клиента по внутренним базам</a></p>

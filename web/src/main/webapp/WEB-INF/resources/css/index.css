@@ -135,6 +135,16 @@ a.button{
 	padding-left:15px;
 }
 
+.title p.name a{
+    text-decoration: none;
+    color:white;
+}
+
+.title p.name a:hover{
+    text-decoration: none;
+    color:white;
+}
+
 .nav-menu{
 	
 }

@@ -8,8 +8,7 @@
     [@creditex.body]
     <div class="page">
         [@creditex.security_manager /]
-        [@creditex.goback/]
-        <p class="page-link"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
+
         <div class="data-table">
             [#include "statistics_client.ftl" /]
         </div>

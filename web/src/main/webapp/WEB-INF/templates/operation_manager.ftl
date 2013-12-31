@@ -10,7 +10,7 @@
     [@creditex.body]
     <div class="page">
         [@creditex.operation_manager /]
-        [@creditex.goback /]
+
         <div class="form-action">
             [#include "l_error_info.ftl" /]
             <p class="name">Введите данные клиента</p>

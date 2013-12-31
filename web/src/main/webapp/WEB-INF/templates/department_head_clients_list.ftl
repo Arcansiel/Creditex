@@ -8,9 +8,9 @@
     [@creditex.body]
     <div class="page">
         [@creditex.department_head /]
-        [@creditex.goback/]
+
         <div class="data-table">
-            <p class="page-link"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
+
             <p class="name">Клиенты банка</p>
             <div class="holder"></div>
             <table id="listtable">

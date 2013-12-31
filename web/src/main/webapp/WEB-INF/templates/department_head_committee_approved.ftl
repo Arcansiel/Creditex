@@ -8,9 +8,8 @@
     [@creditex.body]
     <div class="page">
         [@creditex.department_head /]
-        [@creditex.goback/]
         <div class="data-table">
-            <p class="page-link"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
+
             <p class="page-link"><a href="[@spring.url '/department_head/appliances/committee_rejected/'/]">Список заявок, отклонённых комитетом</a></p>
             <p class="page-link"><a href="[@spring.url '/department_head/appliances/committee_vote/'/]">Список заявок с открытым голосованием</a></p>
             <p class="name">Заявки, одобренные кредитным комитетом</p>
