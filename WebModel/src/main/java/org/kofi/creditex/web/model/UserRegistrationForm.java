@@ -18,13 +18,13 @@ public class UserRegistrationForm{
     @Pattern(regexp = "^\\w+$")
     private String repeatPassword;
     @Size(max = 46)
-    @Pattern(regexp = "^[a-zA-Zа-яА-Я]+$", message = "Alpha word please")
+    @Pattern(regexp = "^[\\wа-яА-Я]+$", message = "Alpha word please")
     private String first;
     @Size(max = 46)
-    @Pattern(regexp = "^[a-zA-Zа-яА-Я]+$", message = "Alpha word please")
+    @Pattern(regexp = "^[\\wа-яА-Я]+$", message = "Alpha word please")
     private String last;
     @Size(max = 46)
-    @Pattern(regexp = "^[a-zA-Zа-яА-Я]+$", message = "Alpha word please")
+    @Pattern(regexp = "^[\\wа-яА-Я]+$", message = "Alpha word please")
     private String patronymic;
     @Size(max = 2, min = 2)
     @Pattern(regexp = "^[A-Z]{2}$", message = "Passport combination")
@@ -33,15 +33,19 @@ public class UserRegistrationForm{
     @Max(9999999)
     private int number;
     @Size(max = 46)
-    @Pattern(regexp = "^[a-zA-Zа-яА-Я]+$", message = "Alpha word please")
+    @Pattern(regexp = "^[\\wа-яА-Я]+$", message = "Alpha word please")
     private String workName;
     @Size(max = 46)
-    @Pattern(regexp = "^[a-zA-Zа-яА-Я]+$", message = "Alpha word please")
+    @Pattern(regexp = "^[\\wа-яА-Я]+$", message = "Alpha word please")
     private String workPosition;
     @Min(0)
     private long workIncome;
     private String role;
+    @Size(min = 8, max = 46)
+    @Pattern(regexp = "^\\w+$")
     private String changePassword;
+    @Size(min = 8, max = 46)
+    @Pattern(regexp = "^\\w+$")
     private String changeRepeatPassword;
     @AssertTrue(message = "Passwords don't match")
     private boolean matchPasswords(){

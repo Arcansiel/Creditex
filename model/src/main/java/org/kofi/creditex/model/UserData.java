@@ -74,14 +74,14 @@ public class UserData {
      * Место работы
      */
     @Size(max = 46)
-    @Pattern(regexp = "^[a-zA-Zа-яА-Я ]+$", message = "Alphanumeric words please")
+    @Pattern(regexp = "^[\\wа-яА-Я ]+$", message = "Alphanumeric words please")
     @Column(nullable = false)
     private String workName;
     /**
      * Занимаемая позиция
      */
     @Size(max = 46)
-    @Pattern(regexp = "^[a-zA-Zа-яА-Я ]+$", message = "Alphanumeric words please")
+    @Pattern(regexp = "^[\\wа-яА-Я ]+$", message = "Alphanumeric words please")
     @Column(nullable = false)
     private String workPosition;
     /**

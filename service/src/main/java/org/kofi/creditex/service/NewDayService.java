@@ -9,4 +9,8 @@ public interface NewDayService extends ApplicationListener<DateChangeEvent> {
     void MarkUnreturned();
     @Override
     void onApplicationEvent(DateChangeEvent dateChangeEvent);
+
+    void PayBill();
+
+    void PayFine();
 }

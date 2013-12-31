@@ -6,7 +6,7 @@
 
 [@creditex.root]
     [@creditex.head "Список предыдущих заявок на кредит"]
-    [@creditex.tableProcess "applicationTable" "applications"/]
+        [@creditex.tableProcess "applicationTable" "applications"/]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">

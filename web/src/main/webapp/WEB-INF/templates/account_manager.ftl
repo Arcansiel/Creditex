@@ -5,8 +5,8 @@
 
 [@creditex.root]
     [@creditex.head "Специалист по работе с клиентами"]
-    [@creditex.includeBootstrapCss/]
-    [@creditex.addValidator/]
+        [@creditex.includeBootstrapCss/]
+        [@creditex.addValidator/]
     <script type="text/javascript">
         $(function(){
             $("#clientDataForm").validate(

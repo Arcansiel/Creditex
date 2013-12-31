@@ -5,8 +5,8 @@
 
 [@creditex.root]
     [@creditex.head "Просмотр заявки на кредит"]
-    [@creditex.includeJQuery/]
-    [@creditex.includeTableCloth/]
+        [@creditex.includeJQuery/]
+        [@creditex.includeTableCloth/]
     <script type="text/javascript">
         $(function(){
             [@creditex.sorting table="creditTable" theme = "default" sortable=false class = "data-table"/]

@@ -31,7 +31,7 @@ public class Product {
      * Название кредитного продукта
      */
     @Size(max = 48)
-    @Pattern(regexp = "^\\w+")
+    @Pattern(regexp = "^[\\wа-яА-Я]+")
     @Column(nullable = false, unique = true)
     private String name;
     /**

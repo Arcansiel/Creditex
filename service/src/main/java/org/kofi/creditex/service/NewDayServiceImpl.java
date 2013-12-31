@@ -1,6 +1,5 @@
 package org.kofi.creditex.service;
 
-import com.mysema.query.types.Predicate;
 import org.kofi.creditex.model.*;
 import org.kofi.creditex.repository.CreditRepository;
 import org.kofi.creditex.repository.PaymentRepository;
@@ -23,10 +22,37 @@ public class NewDayServiceImpl implements NewDayService {
     @Autowired
     private CreditRepository creditRepository;
 
+
+    @Override
+    public void PayBill(){
+        List<Payment> payments = paymentRepository.findReadyToPayBills(date);
+        for(Payment payment: payments){
+            payment.getCredit().setCurrentMainDebt(payment.getCredit().getCurrentMainDebt() - payment.getRequiredPayment() + payment.getPercents());
+            payment.getCredit().setCurrentPercentDebt(payment.getCredit().getCurrentPercentDebt() - payment.getPercents());
+            payment.setPaymentClosed(true);
+        }
+        paymentRepository.save(payments);
+    }
+
+    @Override
+    public void PayFine(){
+        List<Payment> expiredPayments = paymentRepository.findReadyToPayFine();
+        LinkedHashSet<Credit> expiredCredits = new LinkedHashSet<>();
+        for (Payment payment : expiredPayments) {
+            payment.setPaymentClosed(true);
+            expiredCredits.add(payment.getCredit());
+        }
+        for (Credit credit: expiredCredits){
+            credit.setMainFine(0);
+            credit.setPercentFine(0);
+        }
+        paymentRepository.save(expiredPayments);
+    }
+
     @Override
     public void MarkExpired(){
         List<Payment> expiredPayments = paymentRepository.findByCredit_RunningAndPaymentClosedAndPaymentEndLessThan(true,false,date);
-        LinkedHashSet<Credit> expiredCredits = new LinkedHashSet<Credit>();
+        LinkedHashSet<Credit> expiredCredits = new LinkedHashSet<>();
         for (Payment payment:expiredPayments){
             payment.setPaymentExpired(true);
             expiredCredits.add(payment.getCredit());
@@ -74,6 +100,8 @@ public class NewDayServiceImpl implements NewDayService {
     public void onApplicationEvent(DateChangeEvent dateChangeEvent) {
         dayReportService.SaveDayReport();
         date = dateChangeEvent.getDate();
+        PayFine();
+        PayBill();
         AddMainFine();
         AddPercentFine();
         MarkExpired();
