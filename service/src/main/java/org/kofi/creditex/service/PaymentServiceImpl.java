@@ -53,7 +53,8 @@ public class PaymentServiceImpl implements PaymentService {
 
         //обработка просроченных платежей
         List<Payment> payments = ExpiredPayments(credit, now);
-        long amount, mainDebt, percents, totalIncome = 0;
+        long amount, mainDebt, percents;
+        //long totalIncome = 0;
         for(Payment p:payments){
             amount = p.getRequiredPayment();
             if(credit.getCurrentMoney() >= amount){
@@ -64,7 +65,7 @@ public class PaymentServiceImpl implements PaymentService {
                 credit.setCurrentPercentDebt(credit.getCurrentPercentDebt() - percents);
                 credit.setMainFine(credit.getMainFine() - amount);
                 p.setPaymentClosed(true);
-                totalIncome += amount;
+                //totalIncome += amount;
             }else{
                 //break;//TODO - break or process next payments with next.amount < current.amount and possible next.amount <= credit.money ???
             }
@@ -77,12 +78,12 @@ public class PaymentServiceImpl implements PaymentService {
             if(credit.getCurrentMoney() >= credit.getPercentFine()){
                 //выплата всей суммы пени
                 credit.setCurrentMoney(credit.getCurrentMoney() - credit.getPercentFine());
-                totalIncome += credit.getPercentFine();
+                //totalIncome += credit.getPercentFine();
                 credit.setPercentFine(0);
             }else{
                 //выплата части суммы пени
                 credit.setPercentFine(credit.getPercentFine() - credit.getCurrentMoney());
-                totalIncome += credit.getCurrentMoney();
+                //totalIncome += credit.getCurrentMoney();
                 credit.setCurrentMoney(0);
             }
         }
@@ -101,7 +102,7 @@ public class PaymentServiceImpl implements PaymentService {
                     credit.setCurrentPercentDebt(credit.getCurrentPercentDebt() - percents);
                     current.setPaymentClosed(true);
                     payments.add(current);//to save all list of payments
-                    totalIncome += amount;
+                    //totalIncome += amount;
                 }//else - not enough money for current payment
             }//no current payment
         }//no more money
@@ -117,7 +118,7 @@ public class PaymentServiceImpl implements PaymentService {
         //сохранение в базу данных
         creditRepository.save(credit);
         paymentRepository.save(payments);
-        dayReport.AddIncome(totalIncome);//TODO check income and outcome (here and on credit start  or  in operation)
+        //dayReport.AddIncome(totalIncome);
     }
 
     @Override
