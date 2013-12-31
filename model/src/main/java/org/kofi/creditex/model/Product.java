@@ -31,7 +31,7 @@ public class Product {
      * Название кредитного продукта
      */
     @Size(max = 48)
-    @Pattern(regexp = "^[\\wа-яА-Я]+")
+    @Pattern(regexp = "^[\\wа-яА-Я ]+", message = "Только Буквы и цифры с пробелом")
     @Column(nullable = false, unique = true)
     private String name;
     /**

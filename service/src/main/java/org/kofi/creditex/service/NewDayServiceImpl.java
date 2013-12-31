@@ -29,6 +29,7 @@ public class NewDayServiceImpl implements NewDayService {
         for(Payment payment: payments){
             payment.getCredit().setCurrentMainDebt(payment.getCredit().getCurrentMainDebt() - payment.getRequiredPayment() + payment.getPercents());
             payment.getCredit().setCurrentPercentDebt(payment.getCredit().getCurrentPercentDebt() - payment.getPercents());
+            payment.getCredit().setCurrentMoney(payment.getCredit().getCurrentMoney()-payment.getRequiredPayment());
             payment.setPaymentClosed(true);
         }
         paymentRepository.save(payments);
@@ -43,6 +44,7 @@ public class NewDayServiceImpl implements NewDayService {
             expiredCredits.add(payment.getCredit());
         }
         for (Credit credit: expiredCredits){
+            credit.setCurrentMoney(credit.getCurrentMoney() - credit.getMainFine() - credit.getPercentFine());
             credit.setMainFine(0);
             credit.setPercentFine(0);
         }

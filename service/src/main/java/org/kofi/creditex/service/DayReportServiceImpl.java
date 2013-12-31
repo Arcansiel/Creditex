@@ -140,7 +140,7 @@ public class DayReportServiceImpl implements DayReportService {
                 .setOverallCommitteeManagers(report.getOverallCommitteeManagers())
                 .setOverallOperations(report.getOverallOperations())
         ;
-        report = forward;
+        report = dayReportRepository.save(forward);
         return report;
     }
 
@@ -167,7 +167,6 @@ public class DayReportServiceImpl implements DayReportService {
     public void DayReportInitialization(){
         long count = dayReportRepository.count();
         if (count==0){
-            DayReportServiceImpl.log.warn("startDate: {}; initialMoney: {}", startDate, initialMoney);
             DayReport initialReport = new DayReport().setDayDate(LocalDate.parse(startDate)).setCurrentBankMoney(Long.parseLong(initialMoney));
             report = dayReportRepository.save(initialReport);
         }
@@ -175,7 +174,6 @@ public class DayReportServiceImpl implements DayReportService {
             List<DayReport> reports = dayReportRepository.findAll(new PageRequest(0,1, Sort.Direction.DESC, "dayDate")).getContent();
             report = reports.get(0);
         }
-
     }
 
     @Override
