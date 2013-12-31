@@ -8,11 +8,10 @@
     [@creditex.body]
     <div class="page">
         [@creditex.security_manager /]
-        [@creditex.goback /]
+
         <div class="data-table">
-        <p class="page-link"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
         [#if client??]
-            <p class="page-link"><a href=[@spring.url '/security_manager/client/check/${client.id?string("0")}'/]>Проверка клиента по внутренним базам</a></p>
+            <p class="page-link"><a href="[@spring.url '/security_manager/client/check/${client.id?string("0")}'/]">Проверка клиента по внутренним базам</a></p>
 
             [@l_data.client_view_table client "Клиент банка (внешняя проверка)"/]
 

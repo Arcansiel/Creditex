@@ -27,7 +27,7 @@
     [@creditex.body]
     <div class="page">
         [@creditex.operation_manager /]
-        [@creditex.goback /]
+
 
         <div class="data-table">
             <p class="page-link"><a href="[@spring.url '/operation_manager/'/]">Другой клиент</a></p>

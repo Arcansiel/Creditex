@@ -8,9 +8,9 @@
     [@creditex.body]
     <div class="page">
         [@creditex.committee_manager /]
-        [@creditex.goback /]
+
         <div class="data-table">
-            <p class="page-link"><a href="[@spring.url '/committee_manager/'/]">На главную страницу</a></p>
+
 
             [#if client??]
                 [@l_data.client_view_table client /]

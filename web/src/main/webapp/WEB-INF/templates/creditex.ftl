@@ -351,9 +351,9 @@ $("#${table}").tablecloth(
 [#macro goback]
 <div class="content">
     <ul class="nav-menu">
-        <li><a href="javascript: history.go(-1)">Вернуться назад</a>
-        </li>
-        [#nested ]
+        <li><ul>
+        <li><a href="javascript: history.go(-1)" title="На предыдущую страницу">Вернуться назад</a></li>
+        </ul></li>
     </ul>
 </div>
 [/#macro]
@@ -363,25 +363,29 @@ $("#${table}").tablecloth(
     <p class="icon"><img src="[@spring.url '/img/oparator-logo.jpg'/]" /></p>
     <p class="name">Операционист</p>
 </div>
+    [@goback /]
 [/#macro]
 
 [#macro security_manager]
 <div class="title">
     <p class="icon"><img src="[@spring.url '/img/security-logo.jpg'/]" /></p>
-    <p class="name">Служба безопасности</p>
+    <p class="name"><a href="[@spring.url '/security_manager/'/]" title="На главную страницу" >Служба безопасности</a></p>
 </div>
+    [@goback /]
 [/#macro]
 
 [#macro committee_manager]
 <div class="title">
     <p class="icon"><img src="[@spring.url '/img/credit-committee-logo.jpg'/]" /></p>
-    <p class="name">Кредитный комитет</p>
+    <p class="name"><a href="[@spring.url '/committee_manager/'/]" title="На главную страницу" >Кредитный комитет</a></p>
 </div>
+    [@goback /]
 [/#macro]
 
 [#macro department_head]
 <div class="title">
     <p class="icon"><img src="[@spring.url '/img/boss-logo.jpg'/]" /></p>
-    <p class="name">Глава кредитного отдела</p>
+    <p class="name"><a href="[@spring.url '/department_head/'/]" title="На главную страницу" >Глава кредитного отдела</a></p>
 </div>
+    [@goback /]
 [/#macro]

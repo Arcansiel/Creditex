@@ -32,9 +32,9 @@
     [@creditex.body]
     <div class="page">
         [@creditex.security_manager /]
-        [@creditex.goback /]
 
-        <p class="page-link"><a href="[@spring.url '/security_manager/'/]">На главную страницу</a></p>
+
+
         <p class="page-link"><a href="[@spring.url '/security_manager/credits/expired/'/]">Кредиты с задержкой платежей</a></p>
         <p class="page-link"><a href="[@spring.url '/security_manager/credits/unreturned/'/]">Невозвращённые кредиты</a></p>
 

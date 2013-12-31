@@ -10,9 +10,9 @@
     [@creditex.body]
     <div class="page">
         [@creditex.department_head /]
-        [@creditex.goback /]
+
         <div class="form-action">
-            <p class="page-link"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
+
             [#include "l_error_info.ftl" /]
             <p class="name">Введите данные клиента</p>
             [@l_data.user_search_form "post" "" "Поиск клиента" /]

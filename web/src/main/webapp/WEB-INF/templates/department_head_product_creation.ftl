@@ -66,8 +66,7 @@
     [@creditex.body]
     <div class="page">
         [@creditex.department_head /]
-        [@creditex.goback/]
-        <p class="page-link"><a href="[@spring.url '/department_head/'/]">На главную страницу</a></p>
+
         <div class="form-action">
             <p class="name" style="text-align: center">Данные нового кредитного продукта</p>
             [#include "l_error_info.ftl" /]
