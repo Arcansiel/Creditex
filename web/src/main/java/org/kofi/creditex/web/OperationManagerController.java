@@ -119,7 +119,7 @@ public class OperationManagerController {
         if(bindingResult.hasErrors()){
             return "redirect:/operation_manager/?error=invalid_input_data&info="+bindingResult.getFieldError().getField();
         }
-        User client = userService.GetUserByUserDataValues(form);
+        User client = userService.GetClientByUserDataValues(form);
         if(client == null){
             return "redirect:/operation_manager/?error=no_client";
         }else{

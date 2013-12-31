@@ -8,11 +8,17 @@
     <div class="page">
         [@creditex.goback /]
         <div class="data-table">
-            <p class="name"><a href="[@spring.url '/'/]">На главную страницу</a></p>
+            <p class="page-link"><a href="[@spring.url '/'/]">На главную страницу</a></p>
             [#if date??]
-                <p class="name">Текущая дата : ${date?html}</p>
+                <p style="text-transform:uppercase; font-weight:bold; padding:10px 0" ><a href="[@spring.url '/tick/'/]">Текущая дата : ${date?html}</a></p>
             [/#if]
-            <p class="name"><a href="[@spring.url '/tick/do/'/]">Инкремент даты на один день (тик)</a></p>
+            <form method="post" action="[@spring.url '/tick/do/'/]">
+                <label for="count_field">Количество дней (от 1 до 365)</label>
+                <input id="count_field" type="text" name="count" value="1" style="width: 100px"/>
+                <div class="page-link">
+                    <button style="width: 309px; height: 50px" type="submit">Инкремент даты</button>
+                </div>
+            </form>
         </div>
     </div>
     [/@creditex.body]
