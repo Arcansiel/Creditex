@@ -34,27 +34,7 @@
             <p class="page-link"><a href="[@spring.url '/operation_manager/operation/list/'/]">История операций</a></p>
             <p class="page-link"><a href="[@spring.url '/operation_manager/payments/'/]">Ближайшие платежи</a></p>
 
-            [#if prior??]
-                <p class="name">Досрочное погашение кредита</p>
-                <table>
-                    <tr>
-                        <th class="name">ID заявки</th>
-                        <th class="start_date">Дата подачи заявки</th>
-                        <th class="name">Тип досрочного погашения</th>
-                        <th class="amount">Процент штрафа</th>
-                        <th class="amount">Сумма к оплате</th>
-                        <th class="amount">Штраф</th>
-                    </tr>
-                    <tr>
-                        <td class="name">${prior.id?string("0")}</td>
-                        <td class="start_date">${prior.applicationDate?html}</td>
-                        <td class="name">${prior.credit.product.prior?html}</td>
-                        <td class="amount">${prior.credit.product.priorRepaymentPercent?string("0.####")}</td>
-                        <td class="amount">[#if priorAmount??]${priorAmount}[/#if]</td>
-                        <td class="amount">[#if priorFine??]${priorFine}[/#if]</td>
-                    </tr>
-                </table>
-            [#elseif payment??]
+            [#if payment??]
                 <p class="name">Текущий платёж</p>
                 <table>
                     <tr>
@@ -121,12 +101,6 @@
                 </tr>
             </table>
 
-            [#if amount??]
-                <p class="name">Сумма к оплате: ${amount?string("0")}</p>
-            [#else]
-                <p class="name">В данный момент нет доступных платежей</p>
-            [/#if]
-
             <div class="form-action">
                 [#include "l_error_info.ftl" /]
                 <form class="form-horizontal" role="form"
@@ -136,7 +110,7 @@
                         <label class="col-sm-5 control-label">Тип операции</label>
                         <div class="col-xs-4" >
                             <select name="type" class="form-control">
-                                <option value="Deposit">Платёж по кредиту</option>
+                                <option value="Deposit">Положить деньги на счёт</option>
                                 <option value="Withdrawal">Снять деньги со счёта</option>
                             </select>
                         </div>
