@@ -130,4 +130,12 @@ public class Credit {
      * Является ли кредит невозвращённым
      */
     private boolean unreturned;
+    /**
+     * Количество удовлетворённых пролонгаций по данному кредиту
+     */
+    private long prolongations;
+    /**
+     * Предварительный возврат кредита
+     */
+    private boolean priorRepayment;
 }

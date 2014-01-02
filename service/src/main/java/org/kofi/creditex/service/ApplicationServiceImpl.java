@@ -197,6 +197,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     public void FinalizeProlongationApplication(long id) {
         ProlongationApplication application = prolongationApplicationRepository.findOne(id);
         application.setProcessed(true);
+        application.getCredit().setProlongations(application.getCredit().getProlongations()+1);
         prolongationApplicationRepository.save(application);
         creditService.ExecuteProlongation(application.getCredit().getId(), application.getDuration());
     }
@@ -210,6 +211,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     public void FinalizePriorRepaymentApplication(long id) {
         PriorRepaymentApplication application = priorRepaymentApplicationRepository.findOne(id);
         application.setProcessed(true);
+        application.getCredit().setPriorRepayment(true);
         priorRepaymentApplicationRepository.save(application);
         creditService.PriorRepaymentClose(application.getCredit().getId());
     }

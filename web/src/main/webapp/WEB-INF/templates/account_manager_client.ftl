@@ -41,7 +41,7 @@
                                         <li><a href="[@spring.url '/account/prior/${priorRepaymentApplication.id}/view'/]">Проверить заявку на предварительное погашение кредита</a> </li>
                                     [#break ]
                                 [/#switch]
-                            [#elseif credit.product.prior.name()!="NotAvailable" && !prolongationApplication??]
+                            [#elseif credit.product.prior.name()!="NotAvailable" && !prolongationApplication?? && !credit.priorRepayment]
                                 <li><a href="[@spring.url '/account/prior'/]">Создать заявку на предварительное погашение кредита</a></li>
                             [/#if]
                             [#if prolongationApplication??]
