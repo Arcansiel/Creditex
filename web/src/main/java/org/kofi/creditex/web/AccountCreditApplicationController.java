@@ -81,6 +81,8 @@ public class AccountCreditApplicationController {
     @RequestMapping("/{id}/process")
     public String ProcessApplication(@PathVariable long id, ModelMap model){
         Application application = applicationService.GetCreditApplicationById(id);
+        if (application.getCredit()!=null)
+            return "redirect:/account";
         long[] mock = new long[3];
         List<Payment> payments = CreditCalculator.PaymentPlan(application, dateProvider.getCurrentSqlDate(), mock);
         model.put("id", application.getId());
