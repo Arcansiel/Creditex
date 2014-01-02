@@ -106,7 +106,7 @@ public class NewDayServiceImpl implements NewDayService {
     public void AddPercentFine() {
         List<Credit> credits = creditRepository.findByRunningAndMainFineGreaterThan(true, 0);
         for (Credit credit :credits){
-            int newFine = (int)Math.round(credit.getMainFine()*(credit.getProduct().getDebtPercent()*1.0)/100);
+            long newFine = Math.round(credit.getMainFine()*(credit.getProduct().getDebtPercent()*1.0)/100);
             credit.setPercentFine(credit.getPercentFine()+newFine);
         }
         creditRepository.save(credits);
