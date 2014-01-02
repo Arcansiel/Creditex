@@ -6,9 +6,9 @@
     [/@creditex.head]
     [@creditex.body]
     <div class="page">
-
+        <p class="page-link"><a href="[@spring.url '/'/]">На главную страницу</a></p>
+        [@creditex.goback /]
         <div class="data-table">
-            <p class="page-link"><a href="[@spring.url '/'/]">На главную страницу</a></p>
             [#if date??]
                 <p style="text-transform:uppercase; font-weight:bold; padding:10px 0" ><a href="[@spring.url '/tick/'/]">Текущая дата : ${date?html}</a></p>
             [/#if]
