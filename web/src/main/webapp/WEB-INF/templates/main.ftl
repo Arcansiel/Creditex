@@ -27,7 +27,7 @@
     [@creditex.body]
     <div class="identification inner-box">
         <p class="name">Вход в систему</p>
-        <form class="form-horizontal" role="form" id="loginForm" action="/j_spring_security_check" method="post">
+        <form class="form-horizontal" role="form" id="loginForm" action="[@spring.url '/j_spring_security_check'/]" method="post">
             <div class="form-group">
                 <label for="inputUsername" class="col-sm-4 control-label">Имя пользователя</label>
                 <div class="col-xs-6">
