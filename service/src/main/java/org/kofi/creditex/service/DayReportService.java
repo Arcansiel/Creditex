@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.kofi.creditex.model.DayReport;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.List;
 
 public interface DayReportService {
@@ -36,4 +37,7 @@ public interface DayReportService {
     void IncBankMoney(long money);
 
     boolean DecBankMoney(long money);
+
+    @PreDestroy
+    void DayReportSystemExit();
 }

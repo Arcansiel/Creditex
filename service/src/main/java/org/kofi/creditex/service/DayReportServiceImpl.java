@@ -18,6 +18,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.List;
 import java.util.Properties;
 
@@ -190,6 +191,12 @@ public class DayReportServiceImpl implements DayReportService {
             List<DayReport> reports = dayReportRepository.findAll(new PageRequest(0,1, Sort.Direction.DESC, "dayDate")).getContent();
             report = reports.get(0);
         }
+    }
+
+    @Override
+    @PreDestroy
+    public void DayReportSystemExit(){
+        dayReportRepository.save(report);
     }
 
     @Override
