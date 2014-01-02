@@ -53,7 +53,7 @@
                                         <li><a href="[@spring.url '/account/prolongation/${prolongationApplication.id}/view'/]">Проверить заявку на пролонгацию кредита</a> </li>
                                     [#break]
                                 [/#switch]
-                            [#elseif !priorRepaymentApplication??]
+                            [#elseif !priorRepaymentApplication?? && !credit.priorRepayment]
                                 <li><a href="[@spring.url '/account/prolongation'/]">Создать заявку на пролонгацию кредита кредита</a></li>
                             [/#if]
                         [#else ]
