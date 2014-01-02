@@ -153,31 +153,34 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public long FinalizeCreditApplication(long id) {
         Application application = applicationRepository.findOne(id);
-        application.setProcessed(true);
-        applicationRepository.save(application);
-        LocalDate date = creditexDateProvider.getCurrentDate();
-        Date end = creditexDateProvider.transformDate(date.plusMonths((int) application.getDuration()));
-        long[] params = new long[3];
-        List<Payment> payments = CreditCalculator.PaymentPlan(application,creditexDateProvider.getCurrentSqlDate(),params);
-        Credit credit = new Credit()
-                .setCreditApplication(application)
-                .setUser(application.getClient())
-                .setRunning(true)
-                .setCreditStart(creditexDateProvider.getCurrentSqlDate())
-                .setCreditEnd(end)
-                .setCurrentMainDebt(application.getRequest())
-                .setCurrentMoney(application.getRequest())
-                .setDuration(application.getDuration())
-                .setOriginalMainDebt(application.getRequest())
-                .setProduct(application.getProduct())
-                .setPayments(payments)
-                .setCurrentPercentDebt(params[1]);
-        for (Payment payment : credit.getPayments()){
-            payment.setCredit(credit);
+        if (dayReportService.DecBankMoney(application.getRequest())){
+            application.setProcessed(true);
+            applicationRepository.save(application);
+            LocalDate date = creditexDateProvider.getCurrentDate();
+            Date end = creditexDateProvider.transformDate(date.plusMonths((int) application.getDuration()));
+            long[] params = new long[3];
+            List<Payment> payments = CreditCalculator.PaymentPlan(application,creditexDateProvider.getCurrentSqlDate(),params);
+            Credit credit = new Credit()
+                    .setCreditApplication(application)
+                    .setUser(application.getClient())
+                    .setRunning(true)
+                    .setCreditStart(creditexDateProvider.getCurrentSqlDate())
+                    .setCreditEnd(end)
+                    .setCurrentMainDebt(application.getRequest())
+                    .setCurrentMoney(application.getRequest())
+                    .setDuration(application.getDuration())
+                    .setOriginalMainDebt(application.getRequest())
+                    .setProduct(application.getProduct())
+                    .setPayments(payments)
+                    .setCurrentPercentDebt(params[1]);
+            for (Payment payment : credit.getPayments()){
+                payment.setCredit(credit);
+            }
+            Credit saved = creditRepository.save(credit);
+            dayReportService.IncCredit();
+            return saved.getId();
         }
-        Credit saved = creditRepository.save(credit);
-        dayReportService.IncCredit();
-        return saved.getId();
+        return 0;
     }
 
     @Override

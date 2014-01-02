@@ -91,6 +91,9 @@ public class AccountCreditApplicationController {
     @RequestMapping("/{id}/register")
     public String RegisterApplication(@PathVariable long id){
         long creditId = applicationService.FinalizeCreditApplication(id);
-        return "redirect:/account/credit/"+creditId+"/contract";
+        if (creditId!=0)
+            return "redirect:/account/credit/"+creditId+"/contract";
+        else
+            return "redirect:/account";
     }
 }
