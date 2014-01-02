@@ -116,11 +116,11 @@ public class NewDayServiceImpl implements NewDayService {
     public void onApplicationEvent(DateChangeEvent dateChangeEvent) {
         dayReportService.SaveDayReport();
         date = dateChangeEvent.getDate();
-        CloseCredits();
         PayFine();
         PayBill();
         AddMainFine();
         AddPercentFine();
+        CloseCredits();
         MarkExpired();
         MarkUnreturned();
     }
