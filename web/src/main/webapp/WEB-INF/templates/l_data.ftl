@@ -62,6 +62,8 @@
         <th class="amount">Процентный долг</th>
         <th class="amount">Долг по платежам</th>
         <th class="amount">Пеня</th>
+        <th class="name">Досрочное погашение</th>
+        <th class="name">Количество пролонгаций</th>
         [#if show_running]<th class="name">Активный кредит</th>[/#if]
         [#if show_last_notification]<th class="name">Последнне уведомление</th>[/#if]
     </tr>
@@ -78,6 +80,8 @@
         <td class="amount">${credit.currentPercentDebt}</td>
         <td class="amount">${credit.mainFine}</td>
         <td class="amount">${credit.percentFine}</td>
+        <td class="name">${credit.priorRepayment?c}</td>
+        <td class="name">${credit.prolongations}</td>
         [#if show_running]<td class="name">${credit.running?c}</td>[/#if]
         [#if show_last_notification]
             <td class="start_date">[#if (credit.lastNotificationDate)??]${credit.lastNotificationDate}[#else]Нет[/#if]</td>

@@ -180,17 +180,6 @@ public class OperationManagerController {
             if(payment != null){
                 model.addAttribute("payment",payment);
             }
-            boolean expired = credit.getMainFine() > 0 || credit.getPercentFine() > 0;
-            model.addAttribute("expired", expired);
-            long amount = 0;
-            if(expired){
-                amount = credit.getMainFine() + credit.getPercentFine();
-            }else if(payment != null){
-                amount = payment.getRequiredPayment();
-            }
-            if(amount > 0){
-                model.addAttribute("amount",amount);
-            }
             return "operation_manager_operation";
         }else{
             //push error : credit not selected
