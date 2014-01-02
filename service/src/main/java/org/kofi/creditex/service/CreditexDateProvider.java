@@ -39,7 +39,7 @@ public class CreditexDateProvider implements ApplicationEventPublisherAware{
 
     @PostConstruct
     private void Initialization(){
-        currentDate = dayReportService.FindLatestReport().getDayDate().plusDays(1);
+        currentDate = dayReportService.FindLatestReport().getDayDate();
     }
 
 
