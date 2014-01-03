@@ -30,6 +30,7 @@
                         <th class="amount">Сумма кредита</th>
                         <th class="amount">Основной долг</th>
                         <th class="amount">Процентный долг</th>
+                        <th class="amount">Общий долг</th>
                         <th class="amount">Долг по платежам</th>
                         <th class="amount">Пеня</th>
                         <th class="name">Активный кредит</th>
@@ -50,6 +51,7 @@
                             <td class="amount">${credit.originalMainDebt}</td>
                             <td class="amount">${credit.currentMainDebt}</td>
                             <td class="amount">${credit.currentPercentDebt}</td>
+                            <td class="amount">${credit.currentMainDebt + credit.currentPercentDebt}</td>
                             <td class="amount">${credit.mainFine}</td>
                             <td class="amount">${credit.percentFine}</td>
                             <td class="name">${credit.running?c}</td>

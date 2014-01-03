@@ -77,6 +77,7 @@
                         <th class="amount">Деньги на счёте</th>
                         <th class="amount">Основной долг</th>
                         <th class="amount">Процентный долг</th>
+                        <th class="amount">Общий долг</th>
 
                         [#if expired]
                             <th class="amount">Сумма просроченных платежей</th>
@@ -96,6 +97,7 @@
                         <td class="amount">${credit.currentMoney}</td>
                         <td class="amount">${credit.currentMainDebt}</td>
                         <td class="amount">${credit.currentPercentDebt}</td>
+                        <td class="amount">${credit.currentMainDebt + credit.currentPercentDebt}</td>
 
                         [#if expired]
                             <td class="amount">${credit.mainFine}</td>
