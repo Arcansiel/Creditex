@@ -8,7 +8,7 @@
     [@creditex.body]
     <div class="page">
         [@creditex.department_head /]
-        <div class="form-action">
+        <div class="data-table">
 
             <p class="name">Заявки на пролонгацию, нуждающиеся в проверке</p>
             <div class="holder"></div>
