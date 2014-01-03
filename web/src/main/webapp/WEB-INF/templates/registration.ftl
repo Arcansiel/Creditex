@@ -52,12 +52,10 @@
                                 max:9999999
                             },
                             workName:{
-                                required: true,
-                                nowhitespace:true
+                                required: true
                             },
                             workPosition:{
-                                required: true,
-                                nowhitespace:true
+                                required: true
                             },
                             workIncome:{
                                 required: true,

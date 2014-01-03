@@ -157,14 +157,14 @@ public class ApplicationServiceImpl implements ApplicationService {
             application.setProcessed(true);
             applicationRepository.save(application);
             LocalDate date = creditexDateProvider.getCurrentDate();
-            Date end = creditexDateProvider.transformDate(date.plusMonths((int) application.getDuration()));
+            Date end = creditexDateProvider.transformDate(date.plusMonths((int) application.getDuration()).plusDays(1));
             long[] params = new long[3];
             List<Payment> payments = CreditCalculator.PaymentPlan(application,creditexDateProvider.getCurrentSqlDate(),params);
             Credit credit = new Credit()
                     .setCreditApplication(application)
                     .setUser(application.getClient())
                     .setRunning(true)
-                    .setCreditStart(creditexDateProvider.getCurrentSqlDate())
+                    .setCreditStart(creditexDateProvider.transformDate(creditexDateProvider.getCurrentDate().plusDays(1)))
                     .setCreditEnd(end)
                     .setCurrentMainDebt(application.getRequest())
                     .setCurrentMoney(application.getRequest())
