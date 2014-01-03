@@ -7,5 +7,4 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long>, QueryDslPredicateExecutor<Product> {
-    List<Product> findByActive(boolean active);
 }

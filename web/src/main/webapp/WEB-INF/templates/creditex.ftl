@@ -304,7 +304,7 @@ $("#${table}").tablecloth(
 <body>
 <div class="inner-box">
     <div id="header">
-        <p><a href="#"><img src="[@spring.url '/img/logo.jpg'/]" /></a></p>
+        <p><a href="[@spring.url '/'/]"><img src="[@spring.url '/img/logo.jpg'/]" /></a></p>
     </div>
 </div>
 [#nested]
