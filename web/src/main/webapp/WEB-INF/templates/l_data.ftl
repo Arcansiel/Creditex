@@ -37,7 +37,7 @@
         <td class="duration">${product.maxDuration}</td>
         <td class="amount">${product.debtPercent?string("0.####")}</td>
         <td class="name">${product.prior}</td>
-        <td class="amount">${product.priorRepaymentPercent}</td>
+        <td class="amount">${product.priorRepaymentPercent?string("0.####")}</td>
         [#if show_active]<td class="name">${product.active?c}</td>[/#if]
     </tr>
     </tbody>
