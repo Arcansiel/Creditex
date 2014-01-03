@@ -54,7 +54,7 @@
                         <td class="amount">${c.currentMainDebt + c.currentPercentDebt}</td>
                         <td class="amount">${c.mainFine}</td>
                         <td class="amount">${c.percentFine}</td>
-                        <td class="name">${c.priorRepayment?c}</td>
+                        <td class="name">${c.priorRepayment?string("Да","Нет")}</td>
                         <td class="name">${c.prolongations}</td>
                         <td class="start_date">[#if (c.lastNotificationDate)??]${c.lastNotificationDate}[#else]Нет[/#if]</td>
                         <td class="name"><a href=[@spring.url '/security_manager/notification/credit/${c.id?string("0")}?type=expired#notification_form_anchor'/]>Уведомление</a></td>

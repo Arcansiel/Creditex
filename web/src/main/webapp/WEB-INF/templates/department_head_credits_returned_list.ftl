@@ -43,7 +43,7 @@
                         <td class="amount">${c.originalMainDebt}</td>
                         <td class="duration">${c.duration}</td>
                         <td class="amount">${c.currentPercentDebt}</td>
-                        <td class="name">${c.priorRepayment?c}</td>
+                        <td class="name">${c.priorRepayment?string("Да","Нет")}</td>
                         <td class="name">${c.prolongations}</td>
                         <td class="submit-button"><a href="[@spring.url '/department_head/client/${c.user.id?string("0")}'/]">Клиент</a></td>
                     </tr>

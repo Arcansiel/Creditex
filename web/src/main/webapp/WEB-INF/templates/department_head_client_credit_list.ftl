@@ -54,10 +54,10 @@
                             <td class="amount">${c.currentMainDebt + c.currentPercentDebt}</td>
                             <td class="amount">${credit.mainFine}</td>
                             <td class="amount">${credit.percentFine}</td>
-                            <td class="name">${credit.running?c}</td>
-                            <td class="name">${credit.expired?c}</td>
-                            <td class="name">${credit.unreturned?c}</td>
-                            <td class="name">${credit.priorRepayment?c}</td>
+                            <td class="name">${credit.running?string("Да","Нет")}</td>
+                            <td class="name">${credit.expired?string("Да","Нет")}</td>
+                            <td class="name">${credit.unreturned?string("Да","Нет")}</td>
+                            <td class="name">${credit.priorRepayment?string("Да","Нет")}</td>
                             <td class="name">${credit.prolongations}</td>
                         </tr>
                     [/#list][/#if]

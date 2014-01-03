@@ -38,7 +38,7 @@
         <td class="amount">${product.debtPercent?string("0.####")}</td>
         <td class="name">${product.prior}</td>
         <td class="amount">${product.priorRepaymentPercent?string("0.####")}</td>
-        [#if show_active]<td class="name">${product.active?c}</td>[/#if]
+        [#if show_active]<td class="name">${product.active?string("Да","Нет")}</td>[/#if]
     </tr>
     </tbody>
 </table>
@@ -82,9 +82,9 @@
         <td class="amount">${credit.currentMainDebt + credit.currentPercentDebt}</td>
         <td class="amount">${credit.mainFine}</td>
         <td class="amount">${credit.percentFine}</td>
-        <td class="name">${credit.priorRepayment?c}</td>
+        <td class="name">${credit.priorRepayment?string("Да","Нет")}</td>
         <td class="name">${credit.prolongations}</td>
-        [#if show_running]<td class="name">${credit.running?c}</td>[/#if]
+        [#if show_running]<td class="name">${credit.running?string("Да","Нет")}</td>[/#if]
         [#if show_last_notification]
             <td class="start_date">[#if (credit.lastNotificationDate)??]${credit.lastNotificationDate}[#else]Нет[/#if]</td>
         [/#if]
@@ -120,7 +120,7 @@
         <td class="name">${client.userData.workName?html}</td>
         <td class="name">${client.userData.workPosition?html}</td>
         <td class="name">${client.userData.workIncome?html}</td>
-        [#if show_enabled]<td class="name">${client.enabled?c}</td>[/#if]
+        [#if show_enabled]<td class="name">${client.enabled?string("Да","Нет")}</td>[/#if]
     </tr>
     </tbody>
 </table>
@@ -143,7 +143,7 @@
     [#list votes as vote]
         <tr>
             <td class="name">${vote.manager.username?html}</td>
-            <td class="name">${vote.acceptance?c}</td>
+            <td class="name">${vote.acceptance?string("Да","Нет")}</td>
             <td class="comment">${vote.comment?html}</td>
         </tr>
     [/#list]
