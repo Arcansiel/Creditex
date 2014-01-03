@@ -26,6 +26,8 @@
                     <th class="amount">Сумма кредита</th>
                     <th class="duration">Длительность кредитования</th>
                     <th class="amount">Процентный долг</th>
+                    <th class="name">Досрочное погашение</th>
+                    <th class="name">Количество пролонгаций</th>
                     <th class="submit-button">Клиент</th>
                 </tr>
                 </thead>
@@ -41,6 +43,8 @@
                         <td class="amount">${c.originalMainDebt}</td>
                         <td class="duration">${c.duration}</td>
                         <td class="amount">${c.currentPercentDebt}</td>
+                        <td class="name">${c.priorRepayment?c}</td>
+                        <td class="name">${c.prolongations}</td>
                         <td class="submit-button"><a href="[@spring.url '/department_head/client/${c.user.id?string("0")}'/]">Клиент</a></td>
                     </tr>
                 [/#list][/#if]

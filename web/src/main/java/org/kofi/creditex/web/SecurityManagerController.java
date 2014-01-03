@@ -193,7 +193,7 @@ public class SecurityManagerController {
         List<Credit> credits;
         credits = securityService.GetExpiredCredits();
         model.addAttribute("credits",credits);
-        return "security_manger_credits_expired";
+        return "security_manager_credits_expired";
     }
 
     @RequestMapping(value = "/security_manager/credits/unreturned/", method = RequestMethod.GET)

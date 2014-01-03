@@ -35,6 +35,8 @@
                         <th class="name">Активный кредит</th>
                         <th class="name">Были просроченные платежи</th>
                         <th class="name">Возвращён не вовремя</th>
+                        <th class="name">Досрочное погашение</th>
+                        <th class="name">Количество пролонгаций</th>
                     </tr>
                     </thead>
                     <tbody id="list">
@@ -53,6 +55,8 @@
                             <td class="name">${credit.running?c}</td>
                             <td class="name">${credit.expired?c}</td>
                             <td class="name">${credit.unreturned?c}</td>
+                            <td class="name">${credit.priorRepayment?c}</td>
+                            <td class="name">${credit.prolongations}</td>
                         </tr>
                     [/#list][/#if]
                     </tbody>

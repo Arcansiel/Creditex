@@ -34,7 +34,9 @@
             <p class="page-link"><a href="[@spring.url '/operation_manager/operation/list/'/]">История операций</a></p>
             <p class="page-link"><a href="[@spring.url '/operation_manager/payments/'/]">Ближайшие платежи</a></p>
 
+            [#assign current_amount=0 /]
             [#if payment??]
+                [#assign current_amount=(payment.requiredPayment) /]
                 <p class="name">Текущий платёж</p>
                 <table>
                     <tr>
@@ -60,46 +62,89 @@
                 <p class="name">Текущий платёж отсутствует</p>
             [/#if]
 
+        [#if credit??]
+            [#assign expired=(credit.mainFine > 0 || credit.percentFine > 0) /]
+            [#if expired]
+                <p class="name">Текущий кредит (имеются задолженности)</p>
+            [#else]
+                <p class="name">Текущий кредит</p>
+            [/#if]
+                <table>
+                    <tr>
+                        <th class="name">ID кредита</th>
+                        <th class="name">Кредитный продукт</th>
+                        <th class="amount">Сумма кредита</th>
+                        <th class="amount">Деньги на счёте</th>
+                        <th class="amount">Основной долг</th>
+                        <th class="amount">Процентный долг</th>
 
-        [#if expired?? && expired]
-            <p class="name">Текущий кредит (имеются задолженности)</p>
-        [#else]
-            <p class="name">Текущий кредит</p>
+                        [#if expired]
+                            <th class="amount">Сумма просроченных платежей</th>
+                            <th class="amount">Начисленные пени</th>
+                            <th class="amount">Текущая задолженность по платежам</th>
+                        [#else]
+                            <th class="name">Задолженности по платежам</th>
+                        [/#if]
+
+                        <th class="name">Досрочное погашение</th>
+                        <th class="name">Количество пролонгаций</th>
+                    </tr>
+                    <tr>
+                        <td class="name">${credit.id?html}</td>
+                        <td class="name">${credit.product.name?html}</td>
+                        <td class="amount">${credit.originalMainDebt}</td>
+                        <td class="amount">${credit.currentMoney}</td>
+                        <td class="amount">${credit.currentMainDebt}</td>
+                        <td class="amount">${credit.currentPercentDebt}</td>
+
+                        [#if expired]
+                            <td class="amount">${credit.mainFine}</td>
+                            <td class="amount">${credit.percentFine}</td>
+                            <td class="amount">${credit.mainFine + credit.percentFine}</td>
+                        [#else]
+                            <td class="name">Нет задолженностей</td>
+                        [/#if]
+
+                        <td class="name">${credit.priorRepayment?c}</td>
+                        <td class="name">${credit.prolongations}</td>
+                    </tr>
+                </table>
+
+
+            [#assign
+            expired_amount=(credit.mainFine + credit.percentFine)
+            total_amount=(expired_amount + current_amount)
+            money=(credit.currentMoney)
+            required_expired = (expired_amount - money)
+            required_current = (current_amount - money)
+            required_total = (total_amount - money)
+            /]
+
+            [#if required_expired < 0][#assign required_expired=0 /][/#if]
+            [#if required_current < 0][#assign required_current=0 /][/#if]
+            [#if required_total < 0][#assign required_total=0 /][/#if]
+
+                <p class="name">Необходимые суммы платежей :</p>
+                <table>
+                    <tr>
+                        <th class="amount">Просроченные платежи + пени</th>
+                        <th class="amount">Текущий платёж</th>
+                        <th class="amount">Общая сумма (просроченные + пени + текущий)</th>
+                        <th class="amount">Требуется внести для погашения : просроченные + пени</th>
+                        <th class="amount">Требуется внести для погашения : текущий платёж</th>
+                        <th class="amount">Требуется внести для погашения : просроченные + пени + текущий</th>
+                    </tr>
+                    <tr>
+                        <td class="amount">${expired_amount}</td>
+                        <td class="amount">${current_amount}</td>
+                        <td class="amount">${total_amount}</td>
+                        <td class="amount">${required_expired}</td>
+                        <td class="amount">${required_current}</td>
+                        <td class="amount">${required_total}</td>
+                    </tr>
+                </table>
+
         [/#if]
-            <table>
-                <tr>
-                    <th class="name">ID кредита</th>
-                    <th class="name">Кредитный продукт</th>
-                    <th class="amount">Сумма кредита</th>
-                    <th class="amount">Деньги на счёте</th>
-                    <th class="amount">Основной долг</th>
-                    <th class="amount">Процентный долг</th>
-
-                    [#if expired?? && expired]
-                        <th class="amount">Сумма просроченных платежей</th>
-                        <th class="amount">Начисленные пени</th>
-                        <th class="amount">Текущая задолженность по платежам</th>
-                    [#else]
-                        <th class="name">Задолженности по платежам</th>
-                    [/#if]
-                </tr>
-                <tr>
-                    <td class="name">${credit.id?html}</td>
-                    <td class="name">${credit.product.name?html}</td>
-                    <td class="amount">${credit.originalMainDebt}</td>
-                    <td class="amount">${credit.currentMoney}</td>
-                    <td class="amount">${credit.currentMainDebt}</td>
-                    <td class="amount">${credit.currentPercentDebt}</td>
-
-                    [#if expired?? && expired]
-                        <td class="amount">${credit.mainFine}</td>
-                        <td class="amount">${credit.percentFine}</td>
-                        <td class="amount">${credit.mainFine + credit.percentFine}</td>
-                    [#else]
-                        <td class="name">Нет задолженностей</td>
-                    [/#if]
-                </tr>
-            </table>
 
             <div class="form-action">
                 [#include "l_error_info.ftl" /]

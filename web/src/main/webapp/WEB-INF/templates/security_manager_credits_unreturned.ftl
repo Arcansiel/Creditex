@@ -30,6 +30,8 @@
                     <th class="amount">Процентный долг</th>
                     <th class="amount">Долг по платежам</th>
                     <th class="amount">Пеня</th>
+                    <th class="name">Досрочное погашение</th>
+                    <th class="name">Количество пролонгаций</th>
                     <th class="name">Последнее уведомление</th>
                     <th class="name">Уведомление</th>
                     <th class="name" colspan="2">Проверка клиента</th>
@@ -50,6 +52,8 @@
                         <td class="amount">${c.currentPercentDebt}</td>
                         <td class="amount">${c.mainFine}</td>
                         <td class="amount">${c.percentFine}</td>
+                        <td class="name">${c.priorRepayment?c}</td>
+                        <td class="name">${c.prolongations}</td>
                         <td class="start_date">[#if (c.lastNotificationDate)??]${c.lastNotificationDate}[#else]Нет[/#if]</td>
                         <td class="name"><a href=[@spring.url '/security_manager/notification/credit/${c.id?string("0")}?type=unreturned#notification_form_anchor'/]>Уведомление</a></td>
                         <td class="name"><a href=[@spring.url '/security_manager/client/check/${c.user.id?string("0")}'/]>Внутренняя</a></td>
