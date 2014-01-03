@@ -61,6 +61,7 @@ public class NewDayServiceImpl implements NewDayService {
         for (Credit credit : creditsToClose){
             credit.setRunning(false);
             dayReportService.IncBankMoney(credit.getOriginalMainDebt());
+            dayReportService.IncClosedCredit();
         }
         creditRepository.save(creditsToClose);
     }

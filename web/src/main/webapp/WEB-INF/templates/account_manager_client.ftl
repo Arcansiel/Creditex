@@ -9,7 +9,7 @@
 [#import "spring.ftl" as spring]
 
 [@creditex.root]
-    [@creditex.head "Main page"]
+    [@creditex.head "Специалист по работе с клиентами"]
 
     [/@creditex.head]
     [@creditex.body]
