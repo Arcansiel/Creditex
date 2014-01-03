@@ -26,7 +26,7 @@
                     </tr>
                     <tr>
                         <td>Годовой процент кредитной ставки</td>
-                        <td>${product.percent}</td>
+                        <td>${product.percent?string("0.####")}</td>
                     </tr>
                     <tr>
                         <td>Минимальная сумма для рассмотрения кредитным комитетом</td>
@@ -50,7 +50,7 @@
                     </tr>
                     <tr>
                         <td>Процент за день просрочки платежа</td>
-                        <td>${product.debtPercent}</td>
+                        <td>${product.debtPercent?string("0.####")}</td>
                     </tr>
                     <tr>
                         <td>Возможность предварительного возврата кредита</td>
@@ -58,7 +58,7 @@
                     </tr>
                     <tr>
                         <td>Штраф за предварительный возврат кредита</td>
-                        <td>${product.priorRepaymentPercent}</td>
+                        <td>${product.priorRepaymentPercent?string("0.####")}</td>
                     </tr>
                 [/#if]
             </table>
