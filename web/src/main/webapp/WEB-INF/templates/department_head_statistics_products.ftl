@@ -45,7 +45,7 @@
                     <tr>
                         <td class="name">${item.product.id?string("0")}</td>
                         <td class="name">${item.product.name?html}</td>
-                        <td class="name">${item.product.active?c}</td>
+                        <td class="name">${item.product.active?string("Да","Нет")}</td>
                         <td class="name">${item.countCredits}</td>
                         <td class="name">${item.countActiveCredits}</td>
                         <td class="name">${item.countClosedCredits}</td>

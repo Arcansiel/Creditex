@@ -130,7 +130,7 @@ public class OperationManagerController {
             }else{
                 Long credit_id = credit.getId();
                 setCredit(session,credit_id);
-                return "redirect:/operation_manager/payments/";
+                return "redirect:/operation_manager/operation/";
             }
         }
     }

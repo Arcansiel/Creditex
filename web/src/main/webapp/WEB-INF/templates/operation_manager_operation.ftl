@@ -55,7 +55,7 @@
                         <td class="amount">${payment.requiredPayment?html}</td>
                         <td class="amount">${(payment.requiredPayment - payment.percents)?html}</td>
                         <td class="amount">${payment.percents?html}</td>
-                        <td class="name">${payment.paymentExpired?c}</td>
+                        <td class="name">${payment.paymentExpired?string("Да","Нет")}</td>
                     </tr>
                 </table>
             [#else]
@@ -77,6 +77,7 @@
                         <th class="amount">Деньги на счёте</th>
                         <th class="amount">Основной долг</th>
                         <th class="amount">Процентный долг</th>
+                        <th class="amount">Общий долг</th>
 
                         [#if expired]
                             <th class="amount">Сумма просроченных платежей</th>
@@ -96,6 +97,7 @@
                         <td class="amount">${credit.currentMoney}</td>
                         <td class="amount">${credit.currentMainDebt}</td>
                         <td class="amount">${credit.currentPercentDebt}</td>
+                        <td class="amount">${credit.currentMainDebt + credit.currentPercentDebt}</td>
 
                         [#if expired]
                             <td class="amount">${credit.mainFine}</td>
@@ -105,7 +107,7 @@
                             <td class="name">Нет задолженностей</td>
                         [/#if]
 
-                        <td class="name">${credit.priorRepayment?c}</td>
+                        <td class="name">${credit.priorRepayment?string("Да","Нет")}</td>
                         <td class="name">${credit.prolongations}</td>
                     </tr>
                 </table>

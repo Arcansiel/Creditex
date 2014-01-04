@@ -34,15 +34,15 @@
                         <tr>
                             <td>${product.name}</td>
                             <td>${product.type}</td>
-                            <td>${product.percent}</td>
+                            <td>${product.percent?string("0.####")}</td>
                             <td>${product.minMoney}</td>
                             <td>${product.maxMoney}</td>
                             <td>${product.minDuration}</td>
                             <td>${product.maxDuration}</td>
                             <td>${product.minCommittee}</td>
-                            <td>${product.debtPercent}</td>
+                            <td>${product.debtPercent?string("0.####")}</td>
                             <td>${product.prior}</td>
-                            <td>${product.priorRepaymentPercent}</td>
+                            <td>${product.priorRepaymentPercent?string("0.####")}</td>
                         </tr>
                         [/#list]
                     [/#if]

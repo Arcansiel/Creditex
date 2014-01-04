@@ -38,7 +38,7 @@
                             <td class="amount">${payment.requiredPayment?html}</td>
                             <td class="amount">${(payment.requiredPayment - payment.percents)?html}</td>
                             <td class="amount">${payment.percents?html}</td>
-                            <td class="name">${payment.paymentExpired?c}</td>
+                            <td class="name">${payment.paymentExpired?string("Да","Нет")}</td>
                         </tr>
                     [/#list]
                 [#else]
