@@ -35,7 +35,8 @@ public class AccountPriorController {
         if(result.hasErrors()){
             return "redirect:/account/prior";
         }
-        applicationService.RegisterPriorRepaymentApplicationByFormAndUsernameAndAccountManagerName(form, client.getUsername(), principal.getName());
+        if (applicationService.RegisterPriorRepaymentApplicationByFormAndUsernameAndAccountManagerName(form, client.getUsername(), principal.getName()))
+            return "redirect:/account";
         return "redirect:/account";
     }
 
