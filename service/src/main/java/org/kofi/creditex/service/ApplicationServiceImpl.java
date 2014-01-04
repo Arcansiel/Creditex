@@ -36,6 +36,9 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public String RegisterApplicationByFormAndUsernameAndAccountManagerName(CreditApplicationRegistrationForm form, String username, String accountManagerUsername) {
         User client = userRepository.findByUsername(username);
+        if (applicationRepository.findByClientIdAndProcessed(client.getId(), false).size()>0){
+            return "Уже существует активная заявка";
+        }
         User accountManager = userRepository.findByUsername(accountManagerUsername);
         Product product = productRepository.findOne(form.getProductId());
         boolean minDur = form.getDuration()>=product.getMinDuration();
@@ -75,6 +78,9 @@ public class ApplicationServiceImpl implements ApplicationService {
     public boolean RegisterPriorRepaymentApplicationByFormAndUsernameAndAccountManagerName(PriorRepaymentApplication form, String username, String accountManagerUsername){
         Credit credit=creditRepository.findByRunningAndUserUsername(true, username);
         User client = userRepository.findByUsername(username);
+        if (priorRepaymentApplicationRepository.findByClientIdAndProcessed(client.getId(), false).size()>0){
+            return false;
+        }
         User accountManager = userRepository.findByUsername(accountManagerUsername);
         PriorRepaymentApplication application = new PriorRepaymentApplication()
                 .setClient(client)
@@ -92,6 +98,8 @@ public class ApplicationServiceImpl implements ApplicationService {
     public boolean RegisterProlongationApplicationByFormAndUsernameAndAccountManagerName(ProlongationApplication form, String username, String accountManagerUsername){
         Credit credit=creditRepository.findByRunningAndUserUsername(true, username);
         User client = userRepository.findByUsername(username);
+        if (prolongationApplicationRepository.findByClientIdAndProcessed(client.getId(), false).size()>0)
+            return false;
         User accountManager = userRepository.findByUsername(accountManagerUsername);
         ProlongationApplication application = new ProlongationApplication()
                 .setClient(client)
