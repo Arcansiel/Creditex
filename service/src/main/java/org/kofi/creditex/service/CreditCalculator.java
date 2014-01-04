@@ -114,33 +114,38 @@ public class CreditCalculator {
     /**
      * Проверка кредитного продукта на соответствие заданным параметрам
      * @param product кредитный продукт для проверки {@link Product}
-     * @param sum_required требуемая сумма кредита
-     * @param duration длительность кредитования
-     * @param max_payment максимально возможный месячный платёж
+     * @param sum_required требуемая сумма кредита (чтобы игнорировать введите 0)
+     * @param duration длительность кредитования (чтобы игнорировать введите 0)
+     * @param max_payment максимально возможный месячный платёж (чтобы игнорировать введите Long.MAX_VALUE)
      * @return true - продукт подходит, false - продукт не подходит
      */
     private static boolean ValidRequiredProduct(Product product,
                                                 long sum_required, long duration, long max_payment){
-        if(sum_required < product.getMinMoney()
-                || sum_required > product.getMaxMoney()){
-            return false;
+        if(sum_required > 0){
+            if(sum_required < product.getMinMoney()
+                    || sum_required > product.getMaxMoney()){
+                return false;
+            }
         }
 
-        if(duration < product.getMinDuration()
-                || duration > product.getMaxDuration()){
-            return false;
+        if(duration > 0){
+            if(duration < product.getMinDuration()
+                    || duration > product.getMaxDuration()){
+                return false;
+            }
         }
 
-        CreditCalcBase calc = new CreditCalcBase(
-                sum_required,
-                product.getPercent(),
-                (int)duration,
-                ToPaymentType(product.getType()),
-                new java.util.Date());
-
-        long max_p = calc.MaxPayment();
-        if(max_payment < max_p){
-            return false;
+        if(max_payment < Long.MAX_VALUE){
+            CreditCalcBase calc = new CreditCalcBase(
+                    sum_required,
+                    product.getPercent(),
+                    (int)duration,
+                    ToPaymentType(product.getType()),
+                    new java.util.Date());
+            long max_p = calc.MaxPayment();
+            if(max_payment < max_p){
+                return false;
+            }
         }
 
         return true;
@@ -150,9 +155,9 @@ public class CreditCalculator {
     /**
      * Подбор кредитных продуктов для выбора подходящих по заданным условиям
      * @param products исходный набор кредитных продуктов {@link Product}
-     * @param sum_required требуемая сумма кредита
-     * @param duration длительность кредитования
-     * @param max_payment максимально возможный месячный платёж
+     * @param sum_required требуемая сумма кредита (чтобы игнорировать введите 0)
+     * @param duration длительность кредитования (чтобы игнорировать введите 0)
+     * @param max_payment максимально возможный месячный платёж (чтобы игнорировать введите Long.MAX_VALUE)
      * @return Список подходящих по параметрам кредитных продуктов
      */
     public static List<Product> RequireProducts(Iterable<Product> products,

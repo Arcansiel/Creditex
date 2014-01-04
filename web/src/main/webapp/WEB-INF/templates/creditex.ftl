@@ -389,3 +389,17 @@ $("#${table}").tablecloth(
 </div>
     [@goback /]
 [/#macro]
+
+[#macro credit_calculator_title]
+<div class="title">
+    <p class="name"><a href="[@spring.url '/credit_calculator/'/]" >Кредитный калькулятор</a></p>
+</div>
+    <div class="content">
+        <ul class="nav-menu">
+            <li><ul>
+                <li><a href="[@spring.url '/'/]" title="На главную страницу">На главную страницу</a></li>
+            </ul></li>
+        </ul>
+    </div>
+    [@goback /]
+[/#macro]
