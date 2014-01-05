@@ -1,6 +1,7 @@
 [#ftl]
 [#-- @ftlvariable name="isError" type="java.lang.String" --]
 [#import "creditex.ftl" as creditex]
+[#import "spring.ftl" as spring]
 
 [@creditex.root]
     [@creditex.head "Main page"]
@@ -163,6 +164,12 @@
                 <p>${isError}</p>
             [/#if]
         </div>
+            <div class="content">
+                <ul class="nav-menu">
+                    <li><a href="[@spring.url '/'/]">Вернуться назад</a>
+                    </li>
+                </ul>
+            </div>
     </div>
 
     [/@creditex.body]

@@ -109,8 +109,11 @@ public class UserController {
 
     @RequestMapping(value = "/change_registration_data/", method = RequestMethod.POST)
     public String ChangeRegistrationData(@Valid @ModelAttribute UserRegistrationForm form, BindingResult result){
-        if (result.hasErrors())
+        if (result.hasErrors()){
+            log.warn("Change registration data errors: {}", result.getFieldErrors());
             return "redirect://change_registration_data?isError=true/";
+        }
+
         if (form.getChangePassword().equals(form.getChangeRepeatPassword()) && form.getChangePassword().length()>8 && form.getChangePassword().length()<46)
             form.setPassword(form.getChangePassword())
                     .setRepeatPassword(form.getRepeatPassword());
