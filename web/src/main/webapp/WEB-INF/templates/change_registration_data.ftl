@@ -147,6 +147,12 @@
                 <p>${isError}</p>
             [/#if]
         </div>
+        <div class="content">
+            <ul class="nav-menu">
+                <li><a onclick="history.go(-1)">Вернуться назад</a>
+                </li>
+            </ul>
+        </div>
     </div>
 
     [/@creditex.body]

@@ -41,11 +41,11 @@ public class UserRegistrationForm{
     @Min(0)
     private long workIncome;
     private String role;
-    @Size(min = 8, max = 46)
-    @Pattern(regexp = "^\\w+$")
+//    @Size(min = 8, max = 46)
+//    @Pattern(regexp = "^\\w+$")
     private String changePassword;
-    @Size(min = 8, max = 46)
-    @Pattern(regexp = "^\\w+$")
+//    @Size(min = 8, max = 46)
+//    @Pattern(regexp = "^\\w+$")
     private String changeRepeatPassword;
     @AssertTrue(message = "Passwords don't match")
     private boolean matchPasswords(){

@@ -12,8 +12,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpSession;
-
 @Controller
 @Slf4j
 public class MainController {
@@ -29,18 +27,22 @@ public class MainController {
         if (!authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ANONYMOUS")))
         {
             String authority = ((User) authentication.getPrincipal()).getAuthority().getAuthority();
-            if (authority.equals("ROLE_CLIENT"))
-                return "redirect:/client/";
-            if (authority.equals("ROLE_ACCOUNT_MANAGER"))
-                return "redirect:/account/";
-            if (authority.equals("ROLE_SECURITY_MANAGER"))
-                return "redirect:/security_manager/";
-            if (authority.equals("ROLE_COMMITTEE_MANAGER"))
-                return "redirect:/committee_manager/";
-            if (authority.equals("ROLE_DEPARTMENT_HEAD"))
-                return "redirect:/department_head/";
-            if (authority.equals("ROLE_OPERATION_MANAGER"))
-                return "redirect:/operation_manager/";
+            switch (authority){
+                case "ROLE_CLIENT":
+                    return "redirect:/client";
+                case "ROLE_ACCOUNT_MANAGER":
+                    return "redirect:/account";
+                case "ROLE_SECURITY_MANAGER":
+                    return "redirect:/security_manager/";
+                case "ROLE_COMMITTEE_MANAGER":
+                    return "redirect:/committee_manager/";
+                case "ROLE_DEPARTMENT_HEAD":
+                    return "redirect:/department_head/";
+                case "ROLE_OPERATION_MANAGER":
+                    return "redirect:/operation_manager/";
+                case "ROLE_ADMINISTRATOR":
+                    return "redirect:/admin";
+            }
         }
         return "main";
     }

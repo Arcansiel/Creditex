@@ -310,8 +310,6 @@ $("#${table}").tablecloth(
 [#nested]
 <div class="description">
     <ul class="about">
-        <li><a href="#">О системе</a></li>
-        <li><a href="#">Разработчики</a></li>
         [@sec.authorize access='isAnonymous()']
             <li><a href="[@spring.url '/register/'/]">Зарегистрироваться</a></li>
         [/@sec.authorize]
