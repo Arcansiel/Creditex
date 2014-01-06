@@ -4,7 +4,7 @@
 [#import "spring.ftl" as spring]
 
 [@creditex.root]
-    [@creditex.head "Список предыдущих заявок на погашение кредита"]
+    [@creditex.head "Список предыдущих заявок на досрочное погашение кредита"]
     [@creditex.tableProcess "priorApplicationsTable" "applications"/]
     [/@creditex.head]
     [@creditex.body]

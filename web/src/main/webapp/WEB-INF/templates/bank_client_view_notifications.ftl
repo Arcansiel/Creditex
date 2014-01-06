@@ -4,7 +4,7 @@
 [#import "spring.ftl" as spring]
 
 [@creditex.root]
-    [@creditex.head "Main page"]
+    [@creditex.head "Уведомления"]
     [@creditex.tableProcess "notificationTable" "notifications"/]
     [/@creditex.head]
     [@creditex.body]
@@ -16,7 +16,7 @@
             <table id="notificationTable">
                 <thead>
                 <tr>
-                    <th>Дата нотификации</th>
+                    <th>Дата уведомления</th>
                     <th>Тип сообщения</th>
                     <th>Просмотрено ли сообщение</th>
                     <th>Просмотреть сообщение</th>

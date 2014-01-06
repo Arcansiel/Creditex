@@ -15,12 +15,12 @@
         <th class="name">Тип погашения</th>
         <th class="amount">Минимальная сумма</th>
         <th class="amount">Максимальная сумма</th>
-        <th class="amount">Минимальная сумма для голосования комитета</th>
+        <th class="amount">Минимальная сумма для рассмотрения комитетом</th>
         <th class="duration">Минимальная длительность</th>
         <th class="duration">Максимальная длительность</th>
         <th class="amount">Пеня за день просрочки платежа (%)</th>
         <th class="name">Тип досрочного погашения</th>
-        <th class="amount">Штраф за досрочное погашения (%)</th>
+        <th class="amount">Штраф за досрочное погашение (%)</th>
         [#if show_active]<th class="name">Активный</th>[/#if]
     </tr>
     </thead>

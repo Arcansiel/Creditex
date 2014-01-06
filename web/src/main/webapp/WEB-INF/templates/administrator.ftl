@@ -3,7 +3,7 @@
 [#import "spring.ftl" as spring]
 
 [@creditex.root]
-    [@creditex.head "Специалист по работе с клиентами"]
+    [@creditex.head "Администратор"]
 
     [/@creditex.head]
     [@creditex.body]
@@ -11,7 +11,7 @@
         <div class="content">
             <ul class="nav-menu">
                 <li>
-                    <a>Регистрации</a>
+                    <a>Регистрация</a>
                     <ul>
                         <li><a href="[@spring.url '/admin/register'/]">Зарегистрировать сотрудника</a></li>
                     </ul>
