@@ -4,9 +4,9 @@
 [#import "spring.ftl" as spring]
 
 [@creditex.root]
-    [@creditex.head "Регистрация клиента"]
-    [@creditex.includeBootstrapCss/]
-    [@creditex.addValidator/]
+    [@creditex.head "Регистрация сотрудника"]
+        [@creditex.includeBootstrapCss/]
+        [@creditex.addValidator/]
     <script type="text/javascript">
         $(function(){
             $("#registrationForm").validate(
@@ -123,55 +123,38 @@
                             <input type="text" class="form-control" id="inputNumber" placeholder="Номер паспорта" name="number">
                         </div>
                     </div>
+                    <input type="hidden" name="workName" id="inputWorkName" value="Creditex"/>
+                    <input type="hidden" id="inputWorkPosition" name="workPosition" value=""/>
+                    <input type="hidden" id="inputWorkIncome"  name="workIncome" value="0"/>
                     <div class="form-group">
-                        <label for="inputWorkName" class="col-sm-4 control-label">Место работы</label>
+                        <label for="inputRole" class="col-sm-4 control-label">Выполняемая в системе роль</label>
                         <div class="col-xs-6">
-                            <input type="text" class="form-control" id="inputWorkName" placeholder="Место работы" name="workName">
+                            <select class="form-control" id="inputRole" name="role">
+                                <option value="ROLE_ACCOUNT_MANAGER">Специалист по работе с клиентами</option>
+                                <option value="ROLE_SECURITY_MANAGER">Служба безопасности</option>
+                                <option value="ROLE_COMMITTEE_MANAGER">Член комитета</option>
+                                <option value="ROLE_DEPARTMENT_HEAD">Глава отдела</option>
+                                <option value="ROLE_OPERATION_MANAGER">Операционист</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputWorkPosition" class="col-sm-4 control-label">Занимаемая должность</label>
-                        <div class="col-xs-6">
-                            <input type="text" class="form-control" id="inputWorkPosition" placeholder="Занимаемая должность" name="workPosition">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputWorkIncome" class="col-sm-4 control-label">Доход</label>
-                        <div class="col-xs-6">
-                            <input type="text" class="form-control" id="inputWorkIncome" placeholder="Доход" name="workIncome">
-                        </div>
-                    </div>
-                    <input type="hidden" value="ROLE_CLIENT" id="inputRole" name="role">
-                    [#--<div class="form-group">--]
-                        [#--<label for="inputRole" class="col-sm-4 control-label">Выполняемая в системе роль</label>--]
-                        [#--<div class="col-xs-6">--]
-                            [#--<select class="form-control" id="inputRole" name="role">--]
-                                [#--<option value="ROLE_CLIENT">Клиент</option>--]
-                                [#--<option value="ROLE_ACCOUNT_MANAGER">Специалист по работе с клиентами</option>--]
-                                [#--<option value="ROLE_SECURITY_MANAGER">Служба безопасности</option>--]
-                                [#--<option value="ROLE_COMMITTEE_MANAGER">Член комитета</option>--]
-                                [#--<option value="ROLE_DEPARTMENT_HEAD">Глава отдела</option>--]
-                                [#--<option value="ROLE_OPERATION_MANAGER">Операционист</option>--]
-                            [#--</select>--]
-                        [#--</div>--]
-                    [#--</div>--]
                     <div class="form-group">
                         <div class="col-sm-offset-4 col-xs-6">
                             <button type="submit" class="button">Зарегистрировать</button>
                         </div>
                     </div>
                 </form>
-            [#if isError??]
-                <p>${isError}</p>
-            [/#if]
-        </div>
+                [#if isError??]
+                    <p>${isError}</p>
+                [/#if]
+            </div>
             <div class="content">
                 <ul class="nav-menu">
-                    <li><a href="[@spring.url '/'/]">Вернуться назад</a>
+                    <li><a href="[@spring.url '/admin'/]">Вернуться назад</a>
                     </li>
                 </ul>
             </div>
-    </div>
+        </div>
 
     [/@creditex.body]
 [/@creditex.root]

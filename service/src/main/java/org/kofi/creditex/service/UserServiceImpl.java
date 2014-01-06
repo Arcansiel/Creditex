@@ -174,7 +174,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void ChangeRegistrationDataByForm(UserRegistrationForm form) {
         User user = userRepository.findByUsername(form.getUsername());
-        if (!form.getPassword().equals("")&&form.getPassword().equals(form.getRepeatPassword()))
+        if (!form.getChangePassword().equals("")&&form.getChangePassword().equals(form.getChangeRepeatPassword()))
             user.setPassword(encoder.encode(form.getPassword()));
         UserData data = user.getUserData();
         data.setFirst(form.getFirst())
@@ -219,9 +219,10 @@ public class UserServiceImpl implements UserService {
             authorities.add(new Authority().setAuthority("ROLE_COMMITTEE_MANAGER"));
             authorities.add(new Authority().setAuthority("ROLE_DEPARTMENT_HEAD"));
             authorities.add(new Authority().setAuthority("ROLE_OPERATION_MANAGER"));
+            authorities.add(new Authority().setAuthority("ROLE_ADMINISTRATOR"));
             authoritiesRepository.save(authorities);
         }
-        else if(authoritiesRepository.count() !=6){
+        else if(authoritiesRepository.count() !=7){
             log.error("Authorities table was modified. Exiting.");
             System.exit(-1);
         }
