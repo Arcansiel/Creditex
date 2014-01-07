@@ -1,1 +1,1 @@
-java -jar jetty-runner.jar ./target/web-0.1.war
+java -DUSER_HOME="d:/kofi/creditex" -jar jetty-runner.jar ./target/web-0.1.war
