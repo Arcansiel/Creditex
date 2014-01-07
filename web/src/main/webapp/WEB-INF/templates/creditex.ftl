@@ -317,6 +317,7 @@ $("#${table}").tablecloth(
             <li><a href="[@spring.url '/j_spring_security_logout'/]">Выйти</a></li>
         <li><a href="[@spring.url '/change_registration_data/'/]">Изменить регистрационные данные</a></li>
         [/@sec.authorize]
+        <li><a href="[@spring.url '/credit_calculator/'/]">Кредитный калькулятор</a></li>
 </ul>
 </div>
 </body>

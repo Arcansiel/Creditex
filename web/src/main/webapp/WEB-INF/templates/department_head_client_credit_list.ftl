@@ -51,7 +51,7 @@
                             <td class="amount">${credit.originalMainDebt}</td>
                             <td class="amount">${credit.currentMainDebt}</td>
                             <td class="amount">${credit.currentPercentDebt}</td>
-                            <td class="amount">${c.currentMainDebt + c.currentPercentDebt}</td>
+                            <td class="amount">${credit.currentMainDebt + credit.currentPercentDebt}</td>
                             <td class="amount">${credit.mainFine}</td>
                             <td class="amount">${credit.percentFine}</td>
                             <td class="name">${credit.running?string("Да","Нет")}</td>

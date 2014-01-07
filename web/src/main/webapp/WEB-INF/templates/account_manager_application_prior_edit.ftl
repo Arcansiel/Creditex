@@ -3,7 +3,7 @@
 [#import "spring.ftl" as spring]
 
 [@creditex.root]
-    [@creditex.head "Заявка на пролонгацию кредита"]
+    [@creditex.head "Заявка на досрочное погашение кредита"]
         [@creditex.includeBootstrapCss/]
         [@creditex.addValidator/]
     <script type="text/javascript">
@@ -24,7 +24,7 @@
     <div class="page">
         [@creditex.account_manager/]
         <div class="form-action">
-            <p class="name">Введите данные о предварительном погашении кредита</p>
+            <p class="name">Введите данные о досрочном погашении кредита</p>
             <form class="form-horizontal" role="form" id="applicationForm" action="" method="post">
                 <div class="form-group">
                     <label for="inputComment" class="col-sm-4 control-label">Комментарий</label>

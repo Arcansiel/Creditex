@@ -3,7 +3,7 @@
 [#import "creditex.ftl" as creditex]
 
 [@creditex.root]
-    [@creditex.head "Main page"]
+    [@creditex.head "Кредитный продукт"]
     [/@creditex.head]
     [@creditex.body]
     <div class="page">

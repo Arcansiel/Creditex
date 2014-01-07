@@ -5,7 +5,7 @@
 [#import "spring.ftl" as spring]
 
 [@creditex.root]
-    [@creditex.head "Main page"]
+    [@creditex.head "Уведомление"]
         [@creditex.includeJQuery/]
         [@creditex.includeTableCloth/]
     <script type="text/javascript">

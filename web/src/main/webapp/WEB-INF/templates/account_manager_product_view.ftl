@@ -3,7 +3,7 @@
 [#import "creditex.ftl" as creditex]
 
 [@creditex.root]
-    [@creditex.head "Продукт"]
+    [@creditex.head "Кредитный продукт"]
     [@creditex.includeJQuery/]
     [@creditex.includeTableCloth/]
     <script type="text/javascript">

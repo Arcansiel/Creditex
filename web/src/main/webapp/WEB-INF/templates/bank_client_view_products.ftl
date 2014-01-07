@@ -4,7 +4,7 @@
 [#import "spring.ftl" as spring]
 
 [@creditex.root]
-    [@creditex.head "Main page"]
+    [@creditex.head "Кредитные продукты"]
     [@creditex.tableProcess "productTable" "products"/]
     [/@creditex.head]
     [@creditex.body]

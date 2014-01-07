@@ -4,7 +4,7 @@
 [#import "spring.ftl" as spring]
 
 [@creditex.root]
-    [@creditex.head "Просмотр заявки на предварительное погашение"]
+    [@creditex.head "Просмотр заявки на досрочное погашение"]
     [@creditex.includeJQuery/]
     [@creditex.includeTableCloth/]
     <script type="text/javascript">

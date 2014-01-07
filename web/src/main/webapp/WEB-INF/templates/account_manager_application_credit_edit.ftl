@@ -4,7 +4,7 @@
 [#import "spring.ftl" as spring]
 
 [@creditex.root]
-    [@creditex.head "Условия крелита"]
+    [@creditex.head "Условия кредита"]
         [@creditex.includeBootstrapCss/]
         [@creditex.addValidator/]
     <script type="text/javascript">
@@ -33,7 +33,7 @@
     <div class="page">
         [@creditex.account_manager/]
         <div class="form-action">
-            <p class="name">Введите данные клиента</p>
+            <p class="name">Введите данные кредита</p>
             <form class="form-horizontal" role="form" id="applicationForm" action="" method="post">
                 <div class="form-group">
                     <label for="inputRequest" class="col-sm-4 control-label">Деньги</label>
