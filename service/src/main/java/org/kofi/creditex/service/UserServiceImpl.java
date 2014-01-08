@@ -10,6 +10,7 @@ import org.kofi.creditex.repository.UserDataRepository;
 import org.kofi.creditex.repository.UserRepository;
 import org.kofi.creditex.web.model.UserRegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.authentication.UserCredentials;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -221,6 +222,18 @@ public class UserServiceImpl implements UserService {
             authorities.add(new Authority().setAuthority("ROLE_OPERATION_MANAGER"));
             authorities.add(new Authority().setAuthority("ROLE_ADMINISTRATOR"));
             authoritiesRepository.save(authorities);
+            log.error("Creating default administrator (username=admin,password=admin)");
+            UserRegistrationForm form = new UserRegistrationForm()
+                    .setUsername("admin").setPassword("admin").setRole("ROLE_ADMINISTRATOR")
+                    .setFirst("Admin")
+                    .setLast("Admin")
+                    .setPatronymic("Admin")
+                    .setSeries("PP")
+                    .setNumber(9999999)
+                    .setWorkName("Creditex")
+                    .setWorkPosition("Administrator")
+                    .setWorkIncome(1);
+            RegisterUserByForm(form);
         }
         else if(authoritiesRepository.count() !=7){
             log.error("Authorities table was modified. Exiting.");
