@@ -215,9 +215,9 @@ public class CreditCalcBase {
         //last
         i = n-1;
         p = plan[i];
-        p.creditPayment = p.creditPayment + (initialCreditDebt - sumd);
-        p.percentsPayment = p.percentsPayment + (initialPercentsDebt - sump);
-        p.totalPayment = p.creditPayment + p.percentsPayment;
+        p.creditPayment = p.creditPayment + (initialCreditDebt - sumd);//main debt correction
+        p.percentsPayment = p.percentsPayment + (initialPercentsDebt - sump);//percents correction
+        p.totalPayment = p.creditPayment + p.percentsPayment;//total correction
 
         p.totalDebt = 0;
         p.creditDebt = 0;
@@ -300,6 +300,9 @@ public class CreditCalcBase {
         i = n-1;
         p = plan[i];
 
+        p.creditPayment = p.creditPayment + (amount - (creditPayment * (long)n));//main debt correction
+        p.totalPayment = p.creditPayment + p.percentsPayment;//total correction
+
         p.totalDebt = 0;
         p.creditDebt = 0;
         p.percentsDebt = 0;
@@ -376,7 +379,8 @@ public class CreditCalcBase {
         p = plan[i];
 
         p.creditPayment = initialCreditDebt;
-        p.totalPayment = p.creditPayment + p.percentsPayment + (initialPercentsDebt - sump);
+        p.percentsPayment = percentsPayment + (initialPercentsDebt - sump);//percents correction
+        p.totalPayment = p.creditPayment + p.percentsPayment;//total correction
 
         p.totalDebt = 0;
         p.creditDebt = 0;
