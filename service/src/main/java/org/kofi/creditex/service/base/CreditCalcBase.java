@@ -187,7 +187,7 @@ public class CreditCalcBase {
         PaymentInfo[] plan = new PaymentInfo[n];
         PaymentInfo p;
         int i;
-        long sum = 0;
+        long sumd = 0, sump = 0;
         for(i = 0; i < (n); i++)
         {
             p = new PaymentInfo();
@@ -195,10 +195,12 @@ public class CreditCalcBase {
 
             date_correction = SetDatesAndIncrementCalendar(p, calendar, day_of_month, date_correction);
 
-            sum += payment;
             p.totalPayment = payment;
             p.percentsPayment = Percents(currentCreditDebt);
             p.creditPayment = p.totalPayment - p.percentsPayment;
+
+            sumd += p.creditPayment;
+            sump += p.percentsPayment;
 
             p.totalDebt = (currentTotalDebt -= p.totalPayment);
             p.creditDebt = (currentCreditDebt -= p.creditPayment);
@@ -213,7 +215,9 @@ public class CreditCalcBase {
         //last
         i = n-1;
         p = plan[i];
-        p.totalPayment = p.totalPayment + (initialTotalDebt - sum);
+        p.creditPayment = p.creditPayment + (initialCreditDebt - sumd);
+        p.percentsPayment = p.percentsPayment + (initialPercentsDebt - sump);
+        p.totalPayment = p.creditPayment + p.percentsPayment;
 
         p.totalDebt = 0;
         p.creditDebt = 0;
